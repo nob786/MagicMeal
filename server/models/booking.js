@@ -13,6 +13,10 @@ const bookingSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  orderId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Orders",
+  },
   customer: {
     customerName: {
       type: String,
