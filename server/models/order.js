@@ -6,7 +6,7 @@ const orederSchema = mongoose.Schema({
       quantity: { type: Number, required: true },
     },
   ],
-  customer: {
+  customerId: {
     name: {
       type: String,
       required: true,
@@ -19,6 +19,16 @@ const orederSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Customer",
       required: true,
+    },
+  },
+  restaurant: {
+    restaurantName: {
+      type: String,
+      required: true,
+    },
+    restaurantId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Restaurant",
     },
   },
 });

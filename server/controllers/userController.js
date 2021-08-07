@@ -2,6 +2,7 @@ const { Restaurant } = require("../models/restaurant");
 const { Customer } = require("../models/customer");
 const { Account } = require("../models/account");
 const { Orders } = require("../models/order");
+const mongoose = require("mongoose");
 
 exports.getRestaurants = async (req, res) => {
   try {
@@ -22,7 +23,9 @@ exports.getRestaurants = async (req, res) => {
 
 exports.getRestaurant = async (req, res) => {
   const restaurantId = req.params.restaurantId;
-  console.log("Restaurant", restaurantId);
+  const isValid = mongoose.Types.ObjectId.isValid(restaurantId);
+  console.log("Rest ID", restaurantId);
+  console.log("Valid or not", isValid);
   if (!restaurantId)
     return res.status(404).json({
       message: "Could not find restaurant id in params",
@@ -57,6 +60,7 @@ exports.getRestaurant = async (req, res) => {
 };
 
 exports.postOrder = async (req, res) => {
+  const restaurantId = req.params.restaurantId;
   const userId = req.loggedInUserId;
   const items = req.items;
 
@@ -65,22 +69,45 @@ exports.postOrder = async (req, res) => {
       message: "No id provided to find user.",
       data: userId,
     });
+  if (!restaurantId)
+    return res.status(404).json({
+      message: "Could not get restaurnat id.",
+      data: restaurantId,
+    });
 
   try {
-    const account = await Account.findById(userId);
-    if (!account)
+    const customerAccount = await Account.findById(userId);
+    if (!customerAccount)
       return res.status(404).json({
         message: "Could not find account.",
         data: account,
       });
     const customer = await Customer.findOne({
-      account: account._id,
+      account: customerAccount._id,
     });
 
     if (!customer)
       return res.status(404).json({
         message: "No customer found with this account id.",
         data: customer,
+      });
+
+    const restaurantAccount = await Account.findById(restaurantId);
+
+    if (!restaurantAccount)
+      return res.status(404).json({
+        message: "Could not find restaurant account",
+        data: restaurantAccount,
+      });
+
+    const restaurant = await Restaurant.findOne({
+      account: restaurantAccount._id,
+    });
+
+    if (!restaurant)
+      return res.status(404).json({
+        message: "Could not find the restaurant",
+        data: restaurant,
       });
 
     let newOrder = new Orders({
@@ -90,13 +117,18 @@ exports.postOrder = async (req, res) => {
         contact: customer.contact,
         customerId: customer.id,
       },
+      restaurant: {
+        restaurantName: restaurant.restaurantName,
+        restaurantId: restaurant._id,
+      },
     });
+
     const savedOrder = await newOrder.save();
   } catch (error) {
     if (error)
       return res.status(500).json({
         message: "Could not save order to database. Server Error",
-        savedOrder: savedOrder,
+        data: savedOrder,
         error: error,
       });
   }

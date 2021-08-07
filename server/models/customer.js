@@ -19,5 +19,22 @@ const customerSchema = new mongoose.Schema({
   },
 });
 
+// Customer has order virtuals
+customerSchema.virtual("orders", {
+  ref: "Orders",
+  localField: "_id",
+  foreignField: "customer.customerId",
+});
+
+// Customer has booking virtuals
+customerSchema.virtual("bookings", {
+  ref: "Bookings",
+  localField: "_id",
+  foreignField: "customer.customerId",
+});
+
+customerSchema.set("toObject", { virtuals: true });
+customerSchema.set("toJSON", { virtuals: true });
+
 const Customer = mongoose.model("Customer", customerSchema);
 exports.Customer = Customer;

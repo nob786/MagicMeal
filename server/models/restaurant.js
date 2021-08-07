@@ -22,15 +22,34 @@ const restaurantSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+
   items: [
     { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Items" },
   ],
+
   account: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "Account",
   },
 });
+
+// Restaurant orders virutals
+restaurantSchema.virtual("orders", {
+  ref: "Orders",
+  localField: "_id",
+  foreignField: "restaurant.restauranId",
+});
+
+// Restaurant booking virtuals
+restaurantSchema.virtual("bookings", {
+  ref: "Bookings",
+  localField: "_id",
+  foreignField: "restauranId",
+});
+
+restaurantSchema.set("toObject", { virtuals: true });
+restaurantSchema.set("toJSON", { virtuals: true });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
 

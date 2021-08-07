@@ -62,8 +62,8 @@ exports.signupRestaurant = async (req, res) => {
 
   const user = await Account.findOne({ email: email });
 
-  if (!user) {
-    return res.status(404).send("User already exists.");
+  if (user) {
+    return res.status(400).send("User already exists.");
   }
 
   const salt = await bcrypt.genSalt(12);
@@ -119,7 +119,7 @@ exports.signupCustomer = async (req, res) => {
 
   const { firstName, lastName, contact, email, password, role } = req.body;
 
-  const user = await Customer.findOne({ email: email });
+  const user = await Account.findOne({ email: email });
 
   if (user) {
     return res.status(404).send("User already exists.");

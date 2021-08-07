@@ -31,7 +31,7 @@ exports.addItem = async (req, res) => {
       restaurant: restaurant._id,
     });
 
-    restaurant.items.push(newItem._id);
+    restaurant.items.push(newItem);
     let updatedRestaurant = await restaurant.save();
 
     if (!updatedRestaurant)
