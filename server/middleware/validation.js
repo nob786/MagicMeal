@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 function validateItem(item) {
   const schema = Joi.object({
-    name: Joi.string().required(),
+    itemName: Joi.string().required(),
     price: Joi.number().required(),
     category: Joi.string().required(),
     description: Joi.string().required(),

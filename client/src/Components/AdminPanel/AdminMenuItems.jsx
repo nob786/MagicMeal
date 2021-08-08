@@ -1,8 +1,8 @@
-import FormDialog from './NewMenuItem';
+import FormDialog from "./NewMenuItem";
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
-import MenuCard from './MenuCard'
+import MenuCard from "./MenuCard";
 const AdminMenuItems = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [data, setData] = useState({
@@ -60,16 +60,36 @@ const AdminMenuItems = () => {
     // let t = token.token;
     // console.log(t);
 
-     //========================AXIOS CALL TO POST DATA===============================
-    axios.post("http://localhost:3001/api/menu/addmenu", {
-        itemName: itemName,
-        price: price,
-        category: category,
-        description: description,
-      })
+    //========================AXIOS CALL TO POST DATA===============================
+    await axios
+      .post(
+        "http://localhost:3001/item/add-item",
+        {
+          itemName: itemName,
+          price: price,
+          category: category,
+          description: description,
+        },
+        {
+          headers: {
+            authorization:
+              localStorage.getItem("token") !== null
+                ? JSON.parse(localStorage.getItem("token"))
+                : null,
+          },
+        }
+      )
       .then((response) => {
+        const restaurantData = response.data.restaurantData;
+        const itemData = response.data.itemData;
+        if (!restaurantData || !itemData) {
+          console.log("Could not get data");
+          console.log("restaurant data ", restaurantData);
+          console.log("item data", itemData);
+        }
+        window.alert("Item added! ");
         //console.log(response.data);
-        const token = localStorage.getItem("token");
+        //const token = localStorage.getItem("token");
         //const newToken = console.log(JSON.parse(token["_id"]));
         //console.log(newToken);
       });
@@ -121,15 +141,10 @@ const AdminMenuItems = () => {
         price={data ? data.price : null}
         category={data ? data.category : null}
         description={data ? data.description : null}
-        />
-        <MenuCard />
+      />
+      <MenuCard />
     </div>
   );
 };
 
 export default AdminMenuItems;
-
-
-
-
-            

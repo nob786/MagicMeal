@@ -85,8 +85,6 @@ class App extends Component {
 
             {/*============================Testing Routers======================= */}
 
-            
-
             <Route path="/admin/menu-items" component={AdminMenuItems} />
 
             <Route path="/complaint-form" component={ComplaintForm} />
@@ -95,10 +93,9 @@ class App extends Component {
             <Route path="/about-us" component={AboutUs} />
             <Route path="/contact-us" component={ContactUs} />
             <Route path="/privacy-policy" component={PrivacyPolicy} />
-            
 
             <Route path="/" exact component={MainPage} />
-            
+
             <Route path="/check" component={Checkout} />
             <Route path="/*" component={NotFound} />
 

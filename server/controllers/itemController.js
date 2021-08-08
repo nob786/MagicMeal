@@ -8,7 +8,7 @@ exports.addItem = async (req, res) => {
 
   if (error) return res.status(400).send("Enter data  correctly.");
 
-  const { name, price, category, description } = req.body;
+  const { itemName, price, category, description } = req.body;
 
   let restaurant = await Restaurant.findOne({
     account: req.loggedInUserId,
@@ -24,7 +24,7 @@ exports.addItem = async (req, res) => {
       });
 
     let newItem = new Items({
-      name: name,
+      itemName: itemName,
       price: price,
       category: category,
       description: description,

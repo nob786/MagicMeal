@@ -18,14 +18,13 @@ import DraftsIcon from "@material-ui/icons/Drafts";
 import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
 import ScreenLockPortraitIcon from "@material-ui/icons/ScreenLockPortrait";
 
-
 //Material Ui for Role
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 const FoodieLogin = () => {
   const [formData, setFormData] = React.useState({
@@ -52,31 +51,38 @@ const FoodieLogin = () => {
           password: value,
           email: preVal.email,
         };
-      }else if (name === "role") {
-        return {
-          role: value,
-          email: preVal.email,
-          password: preVal.password,
-        };
       }
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const { email, password ,role} = formData;
+    const { email, password } = formData;
 
-    axios
+    await axios
       .post("http://localhost:3001/auth/login", {
         email: email,
         password: password,
-        role,
       })
       .then((response) => {
-        console.log(response.data);
-        window.alert("User Logged in");
-        localStorage.setItem("token", JSON.stringify(response.data));
-        history.push("/admin/menu-items");
+        /* console.log("Whole response", response);
+        console.log("Response data", response.data);
+        console.log("token", response.data.token);
+        console.log("role", response.data.role); */
+        //console.log(role);
+        //console.log(token);
+        const token = response.data.token;
+        const role = response.data.role;
+        if (!token) {
+          console.log("Your token is empty", token);
+        } else {
+          window.alert("User Logged in");
+          localStorage.setItem("token", JSON.stringify(token));
+          if (role === "restaurant") {
+            history.push("/menu-items");
+            // history.push("/admin/menu-items");
+          }
+        }
         //history.push("/menus");
       });
 
@@ -98,7 +104,6 @@ const FoodieLogin = () => {
   */
   };
 
-
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
@@ -109,13 +114,12 @@ const FoodieLogin = () => {
     },
   }));
 
-  
-    const classes = useStyles();
-    const [role, setRole] = React.useState('');
-  
-    const handleRole = (event) => {
-      setRole(event.target.value);
-    };
+  const classes = useStyles();
+  const [role, setRole] = React.useState("");
+
+  const handleRole = (event) => {
+    setRole(event.target.value);
+  };
 
   return (
     <div className="foodie_login_container">
@@ -161,7 +165,7 @@ const FoodieLogin = () => {
           />
         </div>
 
-      {/*  <div className="mobilecode_button1">
+        {/*  <div className="mobilecode_button1">
           <Button
             title="Send Code to Mobile Number"
             height="35px"
@@ -195,22 +199,20 @@ const FoodieLogin = () => {
           />
         </div>    */}
 
-
         <div>
-        <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Role</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={role}
-          onChange={handleRole}
-        >
-          <MenuItem value={10}>Customer</MenuItem>
-          <MenuItem value={20}>Restaurant</MenuItem>
-        </Select>
-      </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-simple-select-label">Role</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={role}
+              onChange={handleRole}
+            >
+              <MenuItem value={10}>Customer</MenuItem>
+              <MenuItem value={20}>Restaurant</MenuItem>
+            </Select>
+          </FormControl>
         </div>
-
 
         <div className="form-fields">
           <TextField
@@ -221,8 +223,7 @@ const FoodieLogin = () => {
             type="text"
             InputProps={{
               startAdornment: (
-                <InputAdornment position="start">
-                </InputAdornment>
+                <InputAdornment position="start"></InputAdornment>
               ),
             }}
             onChange={handleChange}

@@ -4,15 +4,17 @@ const { Account } = require("../models/account");
 
 const verifyToken = (req, res) => {
   //console.log("Request header", req.headers["Authorization"]);
-  const authHeader = req.headers["authorization"];
-  if (!authHeader) {
-    console.log("Could not get header", authHeader);
+  const token = req.headers["authorization"];
+  //console.log(authHeader);
+  if (!token) {
+    console.log("Could not get header", token);
     const error = new Error("Not authenticated");
     error.statusCode = 401;
     throw error;
   }
 
-  const token = authHeader.split(" ")[1];
+  //const token = authHeader.split(" ")[1];
+  //console.log("Token should split here", token);
   let decodedToken;
   try {
     decodedToken = jwt.verify(token, "myKey");

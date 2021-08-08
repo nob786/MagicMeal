@@ -6,7 +6,8 @@ const mongoose = require("mongoose");
 
 exports.getRestaurants = async (req, res) => {
   try {
-    const restaurants = await Restaurant.find().populate("account");
+    const restaurants = await Restaurant.find();
+
     if (!restaurants) return res.status(404).send("No restaurant found.");
     return res.status(200).json({
       message: "These are all the restaurants in database.",
