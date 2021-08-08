@@ -1,14 +1,12 @@
 import React from 'react';
-import './Signup.css';
-import { useState, useEffect } from "react";
-import axios from "../../axios";
-
+import './Signup.css'
 
 //=========================Importing=================
 //import './Signup.css'
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import Button from '../SpecialComp/Button/Button';
 import ReactInputVerificationCode from 'react-input-verification-code';
+import axios from 'axios'
 
 
 
@@ -25,209 +23,311 @@ import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import ScreenLockPortraitIcon from '@material-ui/icons/ScreenLockPortrait';
 
 
+
+
 const FoodieSignup = () => {
-    const [inputData, setData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        phone: ''
+
+  const [formData, setFormData] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    contact: "",
+    role: "customer",
+  });
+
+ 
+
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    console.log(event.target.name);
+    const value = event.target.value;
+    const name = event.target.name;
+
+    //setFormData({ [name]: value });
+    /*
+    setFirstName({ [event.target.name]: event.target.value });
+    setlastName({ [event.target.name]: event.target.value });
+    setEmail({ [event.target.name]: event.target.value });
+    setPassword({ [event.target.name]: event.target.value });
+    setPhone({ [event.target.name]: event.target.value });
+    */
+    setFormData((preVal) => {
+      if (name === "firstName") {
+        return {
+          firstName: value,
+          lastName: preVal.lastName,
+          email: preVal.email,
+          password: preVal.password,
+          contact: preVal.contact,
+        };
+      } else if (name === "lastName") {
+        return {
+          firstName:  preVal.value,
+          lastName: value,
+          email: preVal.email,
+          password: preVal.password,
+          contact: preVal.contact,
+        };
+      }else if (name === "email") {
+        return {
+          firstName: preVal.firstName,
+          lastName: preVal.lastName,
+          email: value,
+          password: preVal.password,
+          contact: preVal.contact,
+        };
+      } else if (name === "password") {
+        return {
+          firstName: preVal.firstName,
+          lastName: preVal.lastName,
+          email: preVal.email,
+          password: value,
+          contact: preVal.contact,
+        };
+      }else if (name === "contact") {
+        return {
+          firstName: preVal.firstName,
+          lastName: preVal.lastName,
+          email: preVal.email,
+          password: preVal.password,
+          contact: value,
+        };
+      }
+
     });
+  };
 
-    const handleChange = (e) => {
-        let name = e.target.name;
-        let val = e.target.value;
-        setData({ [name]: val });
-    }
 
-    async function fetchData(e) {
-        e.preventDefault();
-        const { data } = await axios.post("/api/end-users", inputData).then(console.log("Hi it is ok")).catch(console.log("Death"))
-        //console.log(data);
-    }
 
-    const handleSubmit = (e) => {
-        console.log(inputData);
-        fetchData();
-    }
 
-    return (
+
+
+  //=======================================Handle Submmit================================
+  const  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(formData);  
+    const {
+    firstName,
+    lastName,
+    email,
+    password,
+    contact,
+    role,} =formData;
+
+    axios.post("http://localhost:3001/auth/signup-customer",{
+    firstName: firstName,
+    lastName: lastName ,
+    email: email,
+    password: password,
+    contact: contact,
+    role: "customer",
+    })
+    .then((res)=>{
+      console.log(res.data);
+      window.alert("User Resgister Successfully");
+    }).catch((err)=>{
+      window.alert("ERROR");
+    })
+
+
+
+    /*
+    console.log(firstName);
+    console.log(lastName);
+    console.log(email);
+    console.log(password);
+    console.log(contact);
+*/
+
+//console.log(formData);
+  };
+
+
+
+    return ( 
         <div className="foodie_signup_container">
 
             <div className="image">
-                <img src="./Pictures/foodiesignup.jpg" alt="" />
+                <img src="./Pictures/foodiesignup.jpg" alt=""/>
 
             </div>
 
             <form className="foodie_signup_form" onSubmit={handleSubmit}>
 
                 <div className="title">
-                    <h1>Sign Up</h1>
+                <h1>Sign Up</h1>
                 </div>
 
 
                 <div className="form-fields">
-                    <TextField
-                        className="firstname fields"
-                        id="input-with-icon-textfield"
-                        label="First Name"
-                        type="text"
-                        InputProps={{
-                            startAdornment: (
+                            <TextField
+                                name="firstName"
+                                className= "firstname fields"
+                                id="input-with-icon-textfield"
+                                label="First Name"
+                                InputProps={{
+                                startAdornment: (
                                 <InputAdornment position="start">
-                                    <AccountCircle />
+                                    <AccountCircle/>
                                 </InputAdornment>
-                            ),
-                        }}
-                        onChange={handleChange}
-                    />
-                    <h1>{inputData.firstName}</h1>
+                                ),
+                                }}
+
+                                onChange ={handleChange}
+                             />
                 </div>
 
                 <div className="form-fields">
-                    <TextField
-                        className="lastname fields"
-                        id="input-with-icon-textfield"
-                        label="Last Name"
-                        InputProps={{
-                            startAdornment: (
+                            <TextField
+                                name="lastName"
+                                className= "lastname fields"
+                                id="input-with-icon-textfield"
+                                label="Last Name"
+                                InputProps={{
+                                startAdornment: (
                                 <InputAdornment position="start">
-                                    <AccountCircle />
+                                    <AccountCircle/>
                                 </InputAdornment>
-                            ),
-                        }}
-                        onChange={handleChange}
-                    />
+                                ),
+                                }}
+                                onChange ={handleChange}
+                             />
                 </div>
 
 
                 <div className="form-fields">
-                    <TextField
-                        className="password fields"
-                        id="input-with-icon-textfield"
-                        label="Email"
-                        type="email"
-                        InputProps={{
-                            startAdornment: (
+                            <TextField
+                                name="email"
+                                className= "password fields"
+                                id="input-with-icon-textfield"
+                                label="Email"
+                                type="email"
+                                InputProps={{
+                                startAdornment: (
                                 <InputAdornment position="start">
-                                    < EmailIcon />
+                                    < EmailIcon/>
                                 </InputAdornment>
-                            ),
-                        }}
-                        onChange={handleChange}
-                    />
+                                ),
+                                }}
 
+                                onChange ={handleChange}
+                             />
 
+                        
                 </div>
 
-
-
-
-                <div className="form-fields">
-                    <TextField
-                        className="password fields"
-                        id="input-with-icon-textfield"
-                        label="Password"
-                        type="password"
-                        autoComplete="current-password"
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <LockOpenIcon />
-                                </InputAdornment>
-                            ),
-                        }}
-                        onChange={handleChange}
-                    />
-                </div>
-
-
-                <div className="form-fields emailcode_field">
-                    <TextField
-                        className="emailcode fields"
-                        id="input-with-icon-textfield"
-                        label="Email Verification Code"
-                        autoComplete="current-password"
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <DraftsIcon />
-                                </InputAdornment>
-                            ),
-                        }}
-                        onChange={handleChange}
-                    />
-
-
-                    <div className="emailcode_button">
-                        <Button title="Send Code" height="35px" width="100px" btn_color="orange" />
-                    </div>
-
-                </div>
 
 
 
                 <div className="form-fields">
-                    <TextField
-                        className="mobilenumber fields"
-                        id="input-with-icon-textfield"
-                        label="Mobile Number"
-                        type="mobile"
-                        autoComplete="current-password"
-                        InputProps={{
-                            startAdornment: (
+                            <TextField
+                                name="password"
+                                className= "password fields"
+                                id="input-with-icon-textfield"
+                                label="Password"
+                                type="password"
+                                autoComplete="current-password"
+                                InputProps={{
+                                startAdornment: (
                                 <InputAdornment position="start">
-                                    <PhoneIphoneIcon />
+                                    <LockOpenIcon/>
                                 </InputAdornment>
-                            ),
-                        }}
-                        onChange={handleChange}
-                    />
+                                ),
+                                }}
+
+                                onChange ={handleChange}
+                             />
                 </div>
 
 
-                <div className="form-fields mobilecode_field">
-                    <TextField
-                        className="mobilecode fields"
-                        id="input-with-icon-textfield"
-                        label="Mobile Verification Code"
-                        color="primary"
-                        InputProps={{
-                            startAdornment: (
+                {/* <div className="form-fields emailcode_field">
+                            <TextField
+                                className= "emailcode fields"
+                                id="input-with-icon-textfield"
+                                label="Email Verification Code"
+                                autoComplete="current-password"
+                                InputProps={{
+                                startAdornment: (
                                 <InputAdornment position="start">
-                                    <ScreenLockPortraitIcon />
+                                    <DraftsIcon/>
                                 </InputAdornment>
-                            ),
-                        }}
-                        onChange={handleChange}
-                    />
+                                ),
+                                }}
+                             />
 
-                    <div className="mobilecode_button">
 
-                        <Button title="Send Code" height="35px" width="100px" btn_color="orange" />
-                    </div>
+                             <div className="emailcode_button">
+                             <Button  title="Send Code" height="35px" width="100px" btn_color="orange" />    
+                             </div>
+                              
+                </div>
+                            */}
 
+
+                <div className="form-fields">
+                            <TextField
+                                name="contact"
+                                className= "mobilenumber fields"
+                                id="input-with-icon-textfield"
+                                label="Mobile Number"
+                                type="mobile"
+                                autoComplete="current-password"
+                                InputProps={{
+                                startAdornment: (
+                                <InputAdornment position="start">
+                                    <PhoneIphoneIcon/>
+                                </InputAdornment>
+                                ),
+                                }}
+                                onChange ={handleChange}
+                             />
+                </div>
+                
+
+                {/*<div className="form-fields mobilecode_field">
+                            <TextField
+                                className= "mobilecode fields"
+                                id="input-with-icon-textfield"
+                                label="Mobile Verification Code"
+                                color="primary"
+                                InputProps={{
+                                startAdornment: (
+                                <InputAdornment position="start">
+                                    <ScreenLockPortraitIcon/>
+                                </InputAdornment>
+                                ),
+                                }}
+                             />
+
+                             <div className="mobilecode_button">
+                             
+                                <Button  title="Send Code" height="35px" width="100px" btn_color="orange"/> 
+                             </div>
+                            
                 </div>
 
+                            */}
 
 
-
-
+                
                 <div className="submit">
-                    <input className="foodie_signup_button" title="Signup" height="40px" width="200px" color="white" btn_color="green"
-                        font_size="20px" type="submit"
-                    />
+                {/*<Button className="foodie_signup_button" title="Signup" height="40px" width="200px" color="white" btn_color="green"
+                font_size="20px"
+                            />*/}
 
-                    <div className="already">
-                        Already registered? Please <Link style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }} to="/foodie-login">Login</Link> as a Foodie
+                            <button className="foodie_signup_button" onClick={handleSubmit}>Submit</button>
+
+                <div className="already">
+                Already registered? Please <Link style= {{textDecoration: 'none',color: 'black', fontWeight: 'bold' }} to= "/foodie-login">Login</Link> as a Foodie
                 </div>
-
+                
                 </div>
-
+                   
             </form>
         </div>
-
-    );
+        
+     );
 }
-
+ 
 export default FoodieSignup;
