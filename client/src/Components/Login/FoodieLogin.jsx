@@ -81,6 +81,8 @@ const FoodieLogin = () => {
           if (role === "restaurant") {
             history.push("/menu-items");
             // history.push("/admin/menu-items");
+          } else if (role === "customer") {
+            history.push("/");
           }
         }
         //history.push("/menus");

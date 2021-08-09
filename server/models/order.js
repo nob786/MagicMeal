@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-const orederSchema = mongoose.Schema({
+const orderSchema = mongoose.Schema({
   items: [
     {
       item: { type: Object, required: true },
       quantity: { type: Number, required: true },
     },
   ],
-  customerId: {
+  customer: {
     name: {
       type: String,
       required: true,
@@ -33,6 +33,15 @@ const orederSchema = mongoose.Schema({
   },
 });
 
-const Orders = mongoose.model("Orders", orederSchema);
+orderSchema.virtual("booking", {
+  ref: "Booking",
+  localField: "_id",
+  foreignField: "orderId",
+});
+
+orderSchema.set("toObject", { virtual: true });
+orderSchema.set("toJSON", { virtual: true });
+
+const Orders = mongoose.model("Orders", orderSchema);
 
 exports.Orders = Orders;

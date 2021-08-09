@@ -40,6 +40,7 @@ exports.login = async (req, res) => {
     return res.status(200).json({
       token: token,
       role: loadedAccount.role,
+      id: loadedAccount._id,
     });
   }
 };

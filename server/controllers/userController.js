@@ -1,7 +1,10 @@
 const { Restaurant } = require("../models/restaurant");
+const { Comments } = required("../models/comments");
 const { Customer } = require("../models/customer");
+const { Bookings } = require("../models/booking");
 const { Account } = require("../models/account");
 const { Orders } = require("../models/order");
+const { validateComment } = require("../middleware/validation");
 const mongoose = require("mongoose");
 
 exports.getRestaurants = async (req, res) => {
@@ -22,8 +25,8 @@ exports.getRestaurants = async (req, res) => {
   }
 };
 
-exports.getRestaurant = async (req, res) => {
-  const restaurantId = req.params.restaurantId;
+exports.getRestaurantMenus = async (req, res) => {
+  const restaurantId = req.params.restId;
   const isValid = mongoose.Types.ObjectId.isValid(restaurantId);
   console.log("Rest ID", restaurantId);
   console.log("Valid or not", isValid);
@@ -133,4 +136,113 @@ exports.postOrder = async (req, res) => {
         error: error,
       });
   }
+};
+
+exports.bookTable = async (req, res) => {
+  const userId = req.loggedInUserId;
+  const restaurantId = req.params.restaurantId;
+
+  if (!userId) {
+    return res.status(404).send("Did not get user id.");
+  }
+  if (!restaurantId) {
+    return res.status(404).send("Did not get restaurant id from params.");
+  }
+
+  const customerAccount = await Account.findById(userId);
+  if (!customerAccount)
+    return res.status(404).send("Customer nor found in database.");
+
+  const customer = await Customer.findOne({
+    account: customerAccount._id,
+  });
+  if (!customer) return res.status(404).send("Did not find customer object");
+
+  const restaurantAccount = await Account.findById(restaurantId);
+  if (!restaurantAccount)
+    return res.status(404).send("Restaurant account not found");
+
+  const restaurant = await Restaurant.findOne({
+    account: restaurant._id,
+  }).populate({ path: "bookings" });
+
+  if (!restaurant)
+    return res.status(404).send("Did not find restaurant object.");
+
+  if (restaurant.bookings.availableTables === 0) {
+    return res.status(404).json({
+      message: "All tables have been booked.",
+    });
+  } else {
+    let newBooking = new Bookings({});
+  }
+};
+
+exports.postComment = (req, res) => {
+  const userId = req.loggedInUserId;
+  const restaurantId = req.params.restaurantId;
+  const { error } = validateComment(req.body);
+
+  if (error)
+    return res.status(400).json({
+      message: "Error. Enter Data correctly ",
+      error: error,
+    });
+
+  const { comment } = req.body;
+
+  if (!userId) {
+    return res.status(404).send("User id not found.");
+  }
+  if (!restaurantId) {
+    return res.status(404).send("Restaurant id not found");
+  }
+
+  const customerAccount = await Account.findById(userId);
+  if (!customerAccount)
+    return res.status(404).send("Customer nor found in database.");
+
+  const customer = await Customer.findOne({
+    account: customerAccount._id,
+  });
+  if (!customer) return res.status(404).send("Did not find customer object");
+
+  const restaurantAccount = await Account.findById(restaurantId);
+  if (!restaurantAccount)
+    return res.status(404).send("Restaurant account not found");
+
+  const restaurant = await Restaurant.findOne({
+    account: restaurant._id,
+  });
+
+  if (!restaurant)
+    return res.status(404).send("Did not find restaurant object.");
+
+  let newComment = new Comment({
+    customer: {
+      name: customer.firstName + " " + customer.lastName,
+      customerId: customer._id,
+    },
+    restaurant: {
+      restaurant: restaurant.name,
+      restaurantId: restaurant._id,
+    },
+    comment: comment,
+  });
+
+  await newComment
+    .save()
+    .then((res) => {
+      return res.status(200).json({
+        message: "Comment successful",
+        data: res,
+      });
+    })
+    .catch((error) => {
+      if (error)
+        res.status(500).json({
+          message: "Could not save comment to database",
+          error: error,
+        });
+    });
 };

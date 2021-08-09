@@ -1,5 +1,14 @@
 const Joi = require("joi");
 
+function validateComment(comment) {
+  const schema = Join.object({
+    comment: Joi.string(),
+  });
+  const result = schema.validate(comment);
+  console.log(result);
+  return result;
+}
+
 function validateItem(item) {
   const schema = Joi.object({
     itemName: Joi.string().required(),
@@ -58,3 +67,4 @@ exports.validateUser = validateUser;
 exports.validateRestaurant = validateRestaurant;
 exports.validateLogin = validateLogin;
 exports.validateItem = validateItem;
+exports.validateComment = validateComment;

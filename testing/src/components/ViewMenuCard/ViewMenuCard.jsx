@@ -2,16 +2,26 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
-const ViewMenuCard = () => {
+const ViewMenuCard = ({ restId }) => {
   let [d, setD] = useState([]);
 
-  useEffect(() => {
-    axios.get("http://localhost:3001/api/menu").then((response) => {
-      //console.log(response.data);
-      setD(response.data);
-      if (!d) return (d = null);
-      console.log(d);
-    });
+  console.log("This is the id passed to ViewMenuCard", restId);
+  useEffect(async () => {
+    const { data } = await axios
+      .get(`http://localhost:3001/user/get-restaurant/${restId}`, {
+        headers: {
+          authorization:
+            localStorage.getItem("token") !== null
+              ? JSON.parse(localStorage.getItem("token"))
+              : null,
+        },
+      })
+      .then((response) => {
+        //console.log(response.data);
+        setD(response.data);
+        if (!d) return (d = null);
+        console.log(d);
+      });
   }, []);
 
   return (

@@ -33,6 +33,13 @@ customerSchema.virtual("bookings", {
   foreignField: "customer.customerId",
 });
 
+//Customer has comments
+customerSchema.virtual("comments", {
+  ref: "Comments",
+  localField: "_id",
+  foreignField: "customer.customerId",
+});
+
 customerSchema.set("toObject", { virtuals: true });
 customerSchema.set("toJSON", { virtuals: true });
 

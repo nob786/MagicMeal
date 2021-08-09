@@ -48,6 +48,13 @@ restaurantSchema.virtual("bookings", {
   foreignField: "restauranId",
 });
 
+//Restaurant has comments
+restaurantSchema.virtual("comments", {
+  ref: "Comments",
+  localField: "_id",
+  foreignField: "restaurant.restaurantId",
+});
+
 restaurantSchema.set("toObject", { virtuals: true });
 restaurantSchema.set("toJSON", { virtuals: true });
 

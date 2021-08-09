@@ -9,9 +9,9 @@ router.get("/get-restaurants", userController.getRestaurants);
 
 // Get a specific restaurant based on its id.
 router.get(
-  "/get-restaurant/:restaurantId",
+  "/get-restaurant/:restId",
   authMiddleWare.verifyCustomer,
-  userController.getRestaurant
+  userController.getRestaurantMenus
 );
 
 // Posting order API.
@@ -19,6 +19,12 @@ router.post(
   "/post-order",
   authMiddleWare.verifyCustomer,
   userController.postOrder
+);
+
+router.post(
+  "/post-comment",
+  authMiddleWare.verifyCustomer,
+  userController.postComment
 );
 
 module.exports = router;

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 const LogIn = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -33,24 +34,28 @@ const LogIn = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = formData;
-    const res = await fetch("http://localhost:3001/api/auth/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-
-    const data = res.json();
-    if (!data) {
-      window.alert("Could not login");
-    } else {
-      history.push("/customer/feed");
-    }
-
+    const res = await axios
+      .post("http://localhost:3001/auth/login", {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        const token = res.data.token;
+        const role = res.data.role;
+        const id = res.data.id;
+        if (!token) {
+          res.status(404).send("Token not found");
+        } else {
+          window.alert("Your are logged In.");
+          localStorage.setItem("token", JSON.stringify(token));
+          localStorage.setItem("id", JSON.stringify(id));
+          if (role === "customer") {
+            history.push("/customer/feed");
+          } else if (role === "restaurant") {
+            history.push("/menus");
+          }
+        }
+      });
     //console.log(formData);
     /*
       console.log(firstName);

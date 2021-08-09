@@ -8,6 +8,7 @@ const bookingSchema = mongoose.Schema({
   tableStatus: {
     type: String,
     enum: ["Booked", "Available"],
+    required: true,
   },
   availableTables: {
     type: Number,
