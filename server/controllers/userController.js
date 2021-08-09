@@ -1,5 +1,5 @@
 const { Restaurant } = require("../models/restaurant");
-const { Comments } = required("../models/comments");
+const { Comments } = require("../models/comments");
 const { Customer } = require("../models/customer");
 const { Bookings } = require("../models/booking");
 const { Account } = require("../models/account");
@@ -242,6 +242,38 @@ exports.postComment = (req, res) => {
       if (error)
         res.status(500).json({
           message: "Could not save comment to database",
+          error: error,
+        });
+    });
+};
+
+exports.deleteComment = async (req, res) => {
+  const userId = req.loggedInUserId;
+  const customerAccount = await Account.findById(userId);
+
+  if (!customerAccount)
+    return res.status(404).send("Customer Account not found.");
+
+  const customer = await Customer.findOne({ account: customer._id });
+  if (!customer)
+    return res.status(404).send("Could not find your customer object.");
+
+  await Comments.findOneAndDelete({
+    customer: {
+      customerId: customer._id,
+    },
+  })
+    .save()
+    .then((deletedComment) => {
+      return res.status(200).json({
+        message: "Comment deleted!",
+        data: deletedComment,
+      });
+    })
+    .catch((error) => {
+      if (error)
+        return res.status(500).json({
+          message: "Could not delete comment",
           error: error,
         });
     });

@@ -27,4 +27,9 @@ router.post(
   userController.postComment
 );
 
+router.delete(
+  "/delete-comment",
+  authMiddleWare.verifyCustomer,
+  userController.postComment
+);
 module.exports = router;
