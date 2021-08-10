@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
 function validateComment(comment) {
-  const schema = Join.object({
+  const schema = Joi.object({
     comment: Joi.string(),
   });
   const result = schema.validate(comment);
