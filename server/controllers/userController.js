@@ -178,7 +178,7 @@ exports.bookTable = async (req, res) => {
   }
 };
 
-exports.postComment = (req, res) => {
+exports.postComment = async (req, res) => {
   const userId = req.loggedInUserId;
   const restaurantId = req.params.restaurantId;
   const { error } = validateComment(req.body);
