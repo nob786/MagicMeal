@@ -67,6 +67,7 @@ exports.addItem = async (req, res) => {
 
 exports.deleteItem = async (req, res) => {
   const itemId = req.params.itemId;
+  console.log(req.params);
   if (!itemId)
     return res.status(400).send("There was no id recieved in the request body");
 
@@ -84,13 +85,13 @@ exports.deleteItem = async (req, res) => {
     if (!deletedItem)
       return res.status(400).send("Could not find item to delete");
 
-    let restaurant = Restaurant.findByIdAndUpdate(restaurantId, {
-      $pull: { items: { $in: [`${itemId}`] } },
-    });
-    await restaurant.save();
+    // let restaurant = Restaurant.findByIdAndUpdate(restaurantId, {
+    //   $pull: { items: { $in: [`${itemId}`] } },
+    // });
+    // await restaurant.save();
 
     return res.status(200).json({
-      message: "Restautant was updated",
+      message: "Item deleted was updated",
       data: restaurant,
     });
   } catch (error) {
@@ -173,10 +174,11 @@ exports.getItems = async (req, res) => {
 
 exports.getItem = async (req, res) => {
   const itemId = req.params.itemId;
+  console.log("Item id", itemId);
   if (!itemId) return res.status(400).send("No user id found in params");
 
   try {
-    let item = Item.findById(itemId);
+    let item = await Items.findById(itemId);
     if (!item) {
       return res.status(404).send("Item could not be found");
     } else {

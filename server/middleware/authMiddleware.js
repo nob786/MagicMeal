@@ -2,10 +2,12 @@ const jwt = require("jsonwebtoken");
 
 const { Account } = require("../models/account");
 
+// Remember when using postman for testing the token must
+//be spilted but with a frontend it should not be split
 const verifyToken = (req, res) => {
   //console.log("Request header", req.headers["Authorization"]);
   const token = req.headers["authorization"];
-  //console.log(authHeader);
+  //console.log(token);
   if (!token) {
     console.log("Could not get header", token);
     const error = new Error("Not authenticated");
@@ -13,11 +15,11 @@ const verifyToken = (req, res) => {
     throw error;
   }
 
-  //const token = authHeader.split(" ")[1];
+  const splitedToken = token.split(" ")[1];
   //console.log("Token should split here", token);
   let decodedToken;
   try {
-    decodedToken = jwt.verify(token, "myKey");
+    decodedToken = jwt.verify(splitedToken, "myKey");
     console.log("Decoded token", decodedToken);
   } catch (err) {
     err.statusCode = 500;

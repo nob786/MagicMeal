@@ -16,13 +16,13 @@ router.get(
 
 // Posting order API.
 router.post(
-  "/post-order",
+  "/post-order/:restId",
   authMiddleWare.verifyCustomer,
   userController.postOrder
 );
 
 router.post(
-  "/post-comment",
+  "/post-comment/:restId",
   authMiddleWare.verifyCustomer,
   userController.postComment
 );
@@ -30,6 +30,6 @@ router.post(
 router.delete(
   "/delete-comment",
   authMiddleWare.verifyCustomer,
-  userController.postComment
+  userController.deleteComment
 );
 module.exports = router;
