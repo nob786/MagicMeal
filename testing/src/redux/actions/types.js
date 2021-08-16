@@ -1,0 +1,2 @@
+export const SET_RESTAURANT = "SET_RESTAURANT";
+export const SET_RESTAURANTS = "SET_RESTAURANTS";
