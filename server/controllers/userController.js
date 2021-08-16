@@ -189,7 +189,7 @@ exports.bookTable = async (req, res) => {
 };
 
 exports.postComment = async (req, res) => {
-  console.log("Comment api called.");
+  //console.log("Comment api called.");
   const userId = req.loggedInUserId;
   const restaurantId = req.params.restId;
   console.log("Rest Id", req.params.restId); //req.params.restId;
