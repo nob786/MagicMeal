@@ -9,8 +9,8 @@ router.get("/get-restaurants", userController.getRestaurants);
 
 // Get a specific restaurant based on its id.
 router.get(
-  "/get-restaurant/:restId",
-  authMiddleWare.verifyCustomer,
+  "/get-restaurant-menu/:restId",
+  //authMiddleWare.verifyCustomer,
   userController.getRestaurantMenus
 );
 
