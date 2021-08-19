@@ -1,5 +1,5 @@
 /*============================================Importing React File===================================*/
-import React, { Component } from "react";
+import React, { Component , useEffect} from "react";
 
 /*==============================================Importing CSS Files===================================*/
 import "./App.css"; /*App Css File*/
@@ -36,6 +36,9 @@ import Restaurants from "./Components/OrderNow/Restaurants";
 import MenuItems from "./Components/OrderNow/MenuItems";
 import NewMenuItem from "./Components/AdminPanel/NewMenuItem";
 import Checkout from "./Components/Checkout/Checkout";
+import UserMenuItems from "./Components/UserMenuItems/UserMenuItems";
+import { Provider } from "react-redux";
+import store from "./Redux/store";
 
 class App extends Component {
   constructor(props) {
@@ -47,6 +50,14 @@ class App extends Component {
     this.callAPI();
   }
 
+  showOff(){
+    if (window.location.pathname==="./foodie-login")
+    return null;
+    else
+    return
+    <Header />;
+  }
+
   callAPI() {
     fetch("http://localhost:9000/testAPI")
       .then((res) => res.text())
@@ -56,13 +67,15 @@ class App extends Component {
   state = {
     visible: true,
   };
+  
 
   render() {
     return (
+      <Provider store={store}>
       <Router>
         <div className="App">
           <ScrollToTop />
-          <Header />
+          {window.location.pathname==="/foodie-login" || window.location.pathname==="/foodie-signup" ? null : <Header/>}
           <p>{this.state.apiResponse}</p>
 
           {/* <Header/>  Header Section <Footer/> */}
@@ -82,6 +95,7 @@ class App extends Component {
 
             <Route path="/restaurants" component={Restaurants} />
             <Route path="/menu-items" component={MenuItems} />
+            <Route path="/user-menu-items" component={UserMenuItems} />
 
             {/*============================Testing Routers======================= */}
 
@@ -96,14 +110,15 @@ class App extends Component {
 
             <Route path="/" exact component={MainPage} />
 
-            <Route path="/check" component={Checkout} />
+            <Route path="/checkout" component={Checkout} />
             <Route path="/*" component={NotFound} />
 
             {/* ============================Admin Page Routes================================== */}
           </Switch>
-          <Footer />
+          {window.location.pathname==="/foodie-login" || window.location.pathname==="/foodie-signup" ? null : <Footer />}
         </div>
       </Router>
+      </Provider>
     );
   }
 }

@@ -27,7 +27,7 @@ const Button = (props) => {
     
     return ( 
         <div>
-           <Link to={btn_link}><button onMouseOver={handleClick} className="button" style={divStyle}>{props.title}</button></Link>
+           <Link to={btn_link}><button onClick={props.OnClick} onMouseOver={handleClick} className="button" style={divStyle}>{props.title}</button></Link>
         </div>
      );
 }

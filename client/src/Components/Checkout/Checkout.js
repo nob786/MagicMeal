@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: "100%",
-      marginLeft: '200px',
+      width: "1400px",
+      marginLeft: '100px',
       marginTop: '100px',
       marginRight: '100px',
     },
@@ -100,13 +100,13 @@ export default function Checkout() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
+      {/*<AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap className="title">
             Magic Meal Checkout
           </Typography>
         </Toolbar>
-      </AppBar>
+  </AppBar>*/}
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">

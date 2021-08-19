@@ -79,9 +79,12 @@ const FoodieLogin = () => {
           window.alert("User Logged in");
           localStorage.setItem("token", JSON.stringify(token));
           if (role === "restaurant") {
+            window.alert("Restaurant Logged In");
             history.push("/menu-items");
             // history.push("/admin/menu-items");
-          } else if (role === "customer") {
+          } else if (role === "customer"){
+            window.alert("Customer Logged In");
+            window.alert(token.data);
             history.push("/");
           }
         }
@@ -199,9 +202,8 @@ const FoodieLogin = () => {
               ),
             }}
           />
-        </div>    */}
-
-        <div>
+        </div>   
+                <div>
           <FormControl className={classes.formControl}>
             <InputLabel id="demo-simple-select-label">Role</InputLabel>
             <Select
@@ -210,8 +212,8 @@ const FoodieLogin = () => {
               value={role}
               onChange={handleRole}
             >
-              <MenuItem value={10}>Customer</MenuItem>
-              <MenuItem value={20}>Restaurant</MenuItem>
+              <MenuItem value={"customer"}>Customer</MenuItem>
+              <MenuItem value={"restaurant"}>Restaurant</MenuItem>
             </Select>
           </FormControl>
         </div>
@@ -230,7 +232,10 @@ const FoodieLogin = () => {
             }}
             onChange={handleChange}
           />
-        </div>
+        </div>   
+         */}
+
+
 
         <div className="submit">
           {/*<Button className="foodie_signup_button" title="Login" height="40px" width="200px" color="black" btn_color="white"
