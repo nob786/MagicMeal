@@ -18,6 +18,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -60,6 +61,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RestaurantSignup() {
   const classes = useStyles();
+
+  const history =useHistory();
 
   //const [cities, setCity] = React.useState('M');
 
@@ -112,6 +115,7 @@ export default function RestaurantSignup() {
       .then((res) => {
         console.log(res.data);
         window.alert("Signup Successfully");
+        history.push("/foodie-login");
       })
       .catch((req) => {
         window.alert(req.message);
@@ -130,7 +134,7 @@ export default function RestaurantSignup() {
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} >
               <TextField
                 autoComplete="name"
                 name="OwnerName"
@@ -265,7 +269,7 @@ export default function RestaurantSignup() {
 
 
 
-            <Grid item xs={12}>
+            <Grid item xs={17}>
               <TextField
                 id="outlined-textarea"
                 label="Restaurant Category"
@@ -311,7 +315,7 @@ export default function RestaurantSignup() {
 
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2" to="/restaurant-login">
+              <Link href="#" variant="body2" to="/foodie-login">
                 Already have an account? Sign in
               </Link>
             </Grid>

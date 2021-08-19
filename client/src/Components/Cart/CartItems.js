@@ -4,23 +4,23 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-const CartItems = ({ title, img, description, price }) => {
+const CartItems = ({ itemName, description, price,category }) => {
   return (
     <>
       <div className="items-info">
         <div className="product-img">
-          <img src={img} alt="" />
+         {/* <img src={img} alt="" />*/}
         </div>
 
         <div className="title">
-          <h2>{title}</h2>
+          <h2>{itemName}</h2>
           <p>{description}</p>
         </div>
 
         <div className="add-minus-quantity">
-          <RemoveIcon />
+        <button><RemoveIcon /></button>
           <input type="text" placeholder="1" />
-          <AddIcon />
+          <button><AddIcon /></button>
         </div>
 
         <div className="price">

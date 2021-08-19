@@ -1,6 +1,7 @@
 /*===============================Header==================================*/
 
 .Header {
+  width: 100%;
   display: flex;
   padding-right: 5%;
   position: sticky;

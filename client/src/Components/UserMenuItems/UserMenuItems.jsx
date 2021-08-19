@@ -2,12 +2,14 @@ import { SingleBed } from "@material-ui/icons";
 import React, { useState, useEffect, Component } from "react";
 
 import TitleTag from "../SpecialComp/TitleTag";
-import SingleRestaurant from "./SingleRestaurant";
-import SingleMenu from "./SingleMenu";
+import SingleUserMenu from "./SingleUserMenu";
 import axios from "axios";
-import "./MenuItems.css";
+import "./UserMenuItems.css";
 
-const MenuItems = (ID) => {
+
+import { useDispatch, useSelector } from "react-redux";
+
+const UserMenuItems = () => {
   // const[restaurant,setRestaurant] = React.useState([
   //     { imageLoc: "./Pictures/R9.jpg", menuTitle: "Rice" , menuDesc: "Canal Bank Road Multan" ,},
   //     { imageLoc: "./Pictures/R8.jpg", menuTitle: "Macroni" , menuDesc: "Canal Bank Road Multan"},
@@ -22,36 +24,43 @@ const MenuItems = (ID) => {
 
   const [items, setItems] = React.useState([]);
 
+  
+  
+  const {clickedRestaurantId} = useSelector(
+    (state) => state.data
+  );
+  const restId= clickedRestaurantId;
+
   useEffect(async () => {
-    const { data } = await axios.get("http://localhost:3001/item/get-items", {
-      headers: {
+    const { data } = await axios.get(`http://localhost:3001/user/get-restaurant-menu/${restId}`, {
+      /*headers: {
         authorization:
           localStorage.getItem("token") !== null
             ? JSON.parse(localStorage.getItem("token"))
             : null,
-      },
+      },*/
     });
     console.log("Whole response Data", data);
     if (data) {
-      console.log("Data Fetched", data.data);
-      let finalLoadedData = data.data;
+      console.log("Data Fetched", data.data.items);
+      let finalLoadedData = data.data.items;
       setItems(finalLoadedData);
     } else {
       console.log("Could not fetch data.");
     }
   }, []);
-  console.log("This ID", ID);
+  console.log("This ID", items);
 
   return (
     <div className="Restaurants">
       <TitleTag title="Menu Items Available" />
-      <div className="restaurants_grid">
+      <div className="menus_grid">
         {items.map((item, index) => (
-          <SingleMenu key={index} menu={item} />
+          <SingleUserMenu key={index} menu={item} />
         ))}
       </div>
     </div>
   );
 };
 
-export default MenuItems;
+export default UserMenuItems;

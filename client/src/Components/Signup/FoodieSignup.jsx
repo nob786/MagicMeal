@@ -3,7 +3,7 @@ import './Signup.css'
 
 //=========================Importing=================
 //import './Signup.css'
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import Button from '../SpecialComp/Button/Button';
 import ReactInputVerificationCode from 'react-input-verification-code';
 import axios from 'axios'
@@ -26,6 +26,8 @@ import ScreenLockPortraitIcon from '@material-ui/icons/ScreenLockPortrait';
 
 
 const FoodieSignup = () => {
+
+  const history = useHistory();
 
   const [formData, setFormData] = React.useState({
     firstName: "",
@@ -126,6 +128,7 @@ const FoodieSignup = () => {
     .then((res)=>{
       console.log(res.data);
       window.alert("User Resgister Successfully");
+      history.push("/foodie-login");
     }).catch((err)=>{
       window.alert("ERROR");
     })
