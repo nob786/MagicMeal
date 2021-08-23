@@ -4,6 +4,7 @@ import {
   SIGNUP_ERROR,
   LOGIN_ERROR,
   SERVER_ERROR,
+  SET_UNATHENTICATED,
 } from "./types";
 
 import axios from "axios";
@@ -67,22 +68,25 @@ export const login = (data, history) => (dispatch) => {
       } else {
         localStorage.setItem("token", JSON.stringify(token));
         axios.defaults.headers.common["Authorization"] = token;
-
-        if (role === "restaurant") {
-          history.push("/restaurant-dashboard");
-        } else if (role === "customer") {
-          history.push("/customer-dashboard");
-        }
-
         dispatch({
           type: LOGIN_SUCCESS,
         });
+
+        if (role === "restaurant") {
+          //history.push("/restaurant-dashboard");
+          history.push("/view-menus");
+        } else if (role === "customer") {
+          history.push("/");
+          //history.push("/customer-dashboard");
+        }
       }
     })
     .catch((err) => {
       if (err) {
+        console.log(err);
         dispatch({
           type: LOGIN_ERROR,
+          payload: err,
         });
       } else {
         dispatch({

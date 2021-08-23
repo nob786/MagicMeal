@@ -3,11 +3,11 @@ import {
   LogIn,
   SignUp,
   RestaurantSignUp,
-  RestaurantLogIn,
   AddMenuForm,
   MenuCard,
   Menus,
   NavBar,
+  ViewMenuCard,
 } from "./components";
 import {
   Home,
@@ -17,43 +17,61 @@ import {
   CustomerFeedPage,
   ViewMenus,
 } from "./pages";
-import { Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 function App() {
   return (
-    <div className="App">
-      <NavBar />
-      <Route exact path="/">
-        <Home />
-      </Route>
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <div className="App">
+            <NavBar />
+            <Route exact path="/">
+              <Home />
+            </Route>
 
-      <Route path="/contact">
-        <Contact />
-      </Route>
+            <Route path="/contact">
+              <Contact />
+            </Route>
 
-      <Route path="/about">
-        <About />
-      </Route>
+            <Route path="/about">
+              <About />
+            </Route>
 
-      <Route path="/signup">
-        <SignUp />
-      </Route>
-      <Route path="/login">
-        <LogIn />
-      </Route>
+            <Route path="/signup">
+              <SignUp />
+            </Route>
 
-      <Route path="/menus">
-        <MenuPage />
-      </Route>
+            <Route path="/login">
+              <LogIn />
+            </Route>
 
-      <Route path="/customer/feed">
-        <CustomerFeedPage />
-      </Route>
+            <Route path="/menus">
+              <MenuPage />
+            </Route>
 
-      <Route path="/viewmenus">
-        <ViewMenus />
-      </Route>
-    </div>
+            <Route path="/customer/feed">
+              <CustomerFeedPage />
+            </Route>
+
+            <Route path="/restaurant-signup">
+              <RestaurantSignUp />
+            </Route>
+
+            <Route path="/view-menus">
+              <ViewMenuCard />
+            </Route>
+          </div>
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 

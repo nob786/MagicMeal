@@ -1,5 +1,19 @@
 import axios from "axios";
-import { SERVER_ERROR, FETCH_ERROR } from "./types";
+import { useEffect } from "react";
+import {
+  SERVER_ERROR,
+  FETCH_ERROR,
+  ADD_ITEM,
+  ADD_ITEM_ERROR,
+  GET_RESTAURANTS,
+  GET_MENUS,
+  DELETE_ITEM,
+  DELETE_ITEM_ERROR,
+  UPDATE_ITEM,
+  UPDATE_ITEM_ERROR,
+} from "./types";
+
+//All actions for fetching data for restaurants
 
 // Action for fetching restaurants without login
 export const getRestaurants = () => (dispatch) => {
@@ -28,14 +42,16 @@ export const getRestaurants = () => (dispatch) => {
     });
 };
 
+// Fetching All Menus
 export const getMenus = () => (dispatch) => {
   axios
     .get("http://localhost:3001/item/get-items")
     .then((res) => {
       dispatch({
-        type: SET_MENUS,
-        paylaod: res.data.items,
+        type: GET_MENUS,
+        paylaod: res.data,
       });
+      console.log("Get Menus Called");
     })
     .catch((err) => {
       if (err) {
@@ -51,6 +67,7 @@ export const getMenus = () => (dispatch) => {
     });
 };
 
+// Adding a menu
 export const addMenu = (menuData, history) => (dispatch) => {
   axios
     .post("http://localhost:3001/add-item", menuData)
@@ -81,12 +98,13 @@ export const addMenu = (menuData, history) => (dispatch) => {
     });
 };
 
+// Deleting a menu
 export const delMenu = (menuId, history) => (dispatch) => {
   axios
     .delete(`http://localhost:3001/delete-item/${menuId}`)
     .then((res) => {
       dispatch({
-        type: DEL_ITEM,
+        type: DELETE_ITEM,
         payload: menuId,
       });
       window.alert("Item deleted");
@@ -113,6 +131,7 @@ export const delMenu = (menuId, history) => (dispatch) => {
     });
 };
 
+// Updating a menu
 export const updateMenu = (menuId, history) => (dispatch) => {
   axios
     .put(`http://localhost:3001/update-item/${menuId}`)

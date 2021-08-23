@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import axios from "axios";
+import { login } from "../../redux/actions/authActions";
 const LogIn = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -9,61 +11,20 @@ const LogIn = () => {
   });
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
-    //console.log(event.target.value);
-    //console.log(event.target.name);
+    console.log(event.target.value);
+    console.log(event.target.name);
     const value = event.target.value;
     const name = event.target.name;
 
-    setFormData((preVal) => {
-      if (name === "email") {
-        return {
-          email: value,
-          password: preVal.password,
-        };
-      } else if (name === "password") {
-        return {
-          password: value,
-          email: preVal.email,
-        };
-      }
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const { email, password } = formData;
-    const res = await axios
-      .post("http://localhost:3001/auth/login", {
-        email: email,
-        password: password,
-      })
-      .then((res) => {
-        const token = res.data.token;
-        const role = res.data.role;
-        const id = res.data.id;
-        if (!token) {
-          res.status(404).send("Token not found");
-        } else {
-          window.alert("Your are logged In.");
-          localStorage.setItem("token", JSON.stringify(token));
-          localStorage.setItem("id", JSON.stringify(id));
-          if (role === "customer") {
-            history.push("/customer/feed");
-          } else if (role === "restaurant") {
-            history.push("/menus");
-          }
-        }
-      });
-    //console.log(formData);
-    /*
-      console.log(firstName);
-      console.log(lastName);
-      console.log(email);
-      console.log(password);
-      console.log(phone);
-  */
+    dispatch(login(formData, history));
   };
 
   return (

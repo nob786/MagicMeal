@@ -158,10 +158,7 @@ exports.getItems = async (req, res) => {
     if (!items) {
       return res.status(404).send("Items not found in items collections.");
     } else {
-      return res.status(200).json({
-        message: "Got all your items.",
-        data: items,
-      });
+      return res.status(200).send({ data: items });
     }
   } catch (error) {
     if (error)
