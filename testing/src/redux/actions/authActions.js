@@ -5,9 +5,11 @@ import {
   LOGIN_ERROR,
   SERVER_ERROR,
   SET_UNATHENTICATED,
+  LOGOUT_SUCCESS,
 } from "./types";
 
 import axios from "axios";
+import { useHistory } from "react-router";
 
 export const signupRestaurant = (restaurantData, history) => (dispatch) => {
   axios
@@ -67,7 +69,7 @@ export const login = (data, history) => (dispatch) => {
         window.alert("No token provided", token);
       } else {
         localStorage.setItem("token", JSON.stringify(token));
-        axios.defaults.headers.common["Authorization"] = token;
+        //axios.defaults.headers.common["Authorization"] = token;
         dispatch({
           type: LOGIN_SUCCESS,
         });
@@ -76,8 +78,8 @@ export const login = (data, history) => (dispatch) => {
           //history.push("/restaurant-dashboard");
           history.push("/view-menus");
         } else if (role === "customer") {
-          history.push("/");
-          //history.push("/customer-dashboard");
+          //history.push("/");
+          history.push("/customer-feed");
         }
       }
     })
@@ -96,11 +98,14 @@ export const login = (data, history) => (dispatch) => {
     });
 };
 
-export const logout = (history) => (dispatch) => {
+export const logout = () => (dispatch) => {
+  console.log("Log Out Action Called");
+  const history = useHistory();
   localStorage.removeItem("token");
   delete axios.defaults.headers.common["Authorization"];
   dispatch({
-    type: SET_UNATHENTICATED,
+    type: LOGOUT_SUCCESS,
+    payload: true,
   });
   if (history) history.push("/login");
 };

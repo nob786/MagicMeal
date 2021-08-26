@@ -51,7 +51,7 @@ exports.getRestaurantMenus = async (req, res) => {
     else {
       return res.status(200).json({
         message: "Restaurant and its items returned successfully!",
-        data: restaurant,
+        data: restaurant.items,
       });
     }
   } catch (error) {

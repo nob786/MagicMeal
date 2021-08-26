@@ -1,8 +1,23 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
-
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import { logout } from "../../redux/actions/authActions";
+import axios from "axios";
 const NavBar = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  // Here i am calling a logout function directly. In future i will implement Redux Logout Function
+  const logOut = () => {
+    console.log("Clicked");
+    //dispatch(logout);
+
+    localStorage.removeItem("token");
+    delete axios.defaults.headers.common["Authorization"];
+    history.push("/login");
+  };
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -48,6 +63,11 @@ const NavBar = () => {
               <NavLink className=" nav-link " to="/signup">
                 Sign Up
               </NavLink>
+            </li>
+            <li className="nav-item">
+              <button className="btn " type="button" onClick={logOut}>
+                Log Out
+              </button>
             </li>
           </ul>
         </div>

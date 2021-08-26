@@ -7,12 +7,14 @@ const { Account } = require("../models/account");
 const verifyToken = (req, res) => {
   //console.log("Request header", req.headers["Authorization"]);
   const token = req.headers["authorization"];
+  console.log(token);
+
   //console.log(token);
   if (!token) {
     console.log("Could not get header", token);
     const error = new Error("Not authenticated");
     error.statusCode = 401;
-    throw error;
+    return error;
   }
 
   //const splitedToken = token.split(" ")[1];
@@ -37,6 +39,7 @@ const verifyToken = (req, res) => {
 
 exports.verifyRestaurant = async (req, res, next) => {
   const accountId = verifyToken(req, res);
+  console.log("Account id of restaurant", accountId);
   await Account.findById(accountId)
     .then((account) => {
       if (!account) {

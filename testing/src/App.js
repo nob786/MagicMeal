@@ -8,6 +8,7 @@ import {
   Menus,
   NavBar,
   ViewMenuCard,
+  Cart,
 } from "./components";
 import {
   Home,
@@ -57,7 +58,7 @@ function App() {
               <MenuPage />
             </Route>
 
-            <Route path="/customer/feed">
+            <Route path="/customer-feed">
               <CustomerFeedPage />
             </Route>
 
@@ -67,6 +68,14 @@ function App() {
 
             <Route path="/view-menus">
               <ViewMenuCard />
+            </Route>
+
+            <Route path="/view-menu-card">
+              <MenuCard />
+            </Route>
+
+            <Route path="/cart">
+              <Cart />
             </Route>
           </div>
         </Switch>

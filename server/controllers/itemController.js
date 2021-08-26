@@ -81,25 +81,15 @@ exports.deleteItem = async (req, res) => {
         .status(404)
         .send("Could not find restaurant with this id in items schema.");
 
-    let deletedItem = await Items.findByIdAndDelete(itemId);
-    if (!deletedItem)
-      return res.status(400).send("Could not find item to delete");
-
+    await Items.findByIdAndDelete(itemId).then((response) => {
+      if (response) return res.status(200).send("Item Deleted");
+    });
     // let restaurant = Restaurant.findByIdAndUpdate(restaurantId, {
     //   $pull: { items: { $in: [`${itemId}`] } },
     // });
     // await restaurant.save();
-
-    return res.status(200).json({
-      message: "Item deleted was updated",
-      data: restaurant,
-    });
   } catch (error) {
-    if (error)
-      return res.status(400).json({
-        message: "Something went wrong while sending response back.",
-        error: error,
-      });
+    if (error) return res.status(400).send(error);
   }
 };
 

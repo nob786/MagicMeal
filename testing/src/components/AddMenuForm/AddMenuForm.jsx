@@ -1,12 +1,30 @@
 import React from "react";
-const AddMenuForm = ({
-  handleChange,
-  handleSubmit,
-  itemName,
-  price,
-  category,
-  description,
-}) => {
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addMenu } from "../../redux/actions/dataActions";
+const AddMenuForm = () => {
+  const [formData, setFormData] = useState({
+    itemName: "",
+    price: 0,
+    category: "",
+    description: "",
+  });
+
+  const dispatch = useDispatch();
+
+  const handleChange = (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
+    console.log(name);
+    console.log(value);
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(addMenu(formData));
+  };
+
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
@@ -14,35 +32,35 @@ const AddMenuForm = ({
           name="itemName"
           placeholder="Item Name"
           onChange={handleChange}
-          value={itemName}
+          value={formData.itemName}
         />
-        {itemName}
         <br></br>
         <input
           name="price"
           placeholder="Price"
           onChange={handleChange}
-          value={price}
+          value={formData.price}
         />
-        {price}
         <br></br>
         <input
           name="category"
           placeholder="Category"
           onChange={handleChange}
-          value={category}
+          value={formData.category}
         />
-        {category}
+
         <br></br>
         <input
           name="description"
           placeholder="Description"
           onChange={handleChange}
-          value={description}
+          value={formData.description}
         />
-        {description}
+
         <br></br>
-        <button type="submit"> Add Menu! </button>
+        <button type="submit" className="btn btn-primary">
+          Add Menu!
+        </button>
       </form>
     </div>
   );

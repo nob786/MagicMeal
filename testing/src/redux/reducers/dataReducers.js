@@ -1,4 +1,9 @@
-import { CLEAR_ERRORS, UPDATE_ITEM_ERROR } from "../actions/types";
+import {
+  ADD_TO_CART_ERROR,
+  CLEAR_ERRORS,
+  PUSH_RESTAURANT_ID,
+  UPDATE_ITEM_ERROR,
+} from "../actions/types";
 import {
   SERVER_ERROR,
   FETCH_ERROR,
@@ -9,15 +14,21 @@ import {
   DELETE_ITEM,
   DELETE_ITEM_ERROR,
   UPDATE_ITEM,
+  FETCH_MENU_FOR_CUSTOMER,
+  ADD_TO_CART,
 } from "../actions/types";
 
 const initialState = {
   fetchedRestaurants: [],
   fetchedMenus: [],
+  restId: [],
+  fetchedMenusForCustomer: [],
+  cart: [],
   itemAdded: false,
   itemDeleted: false,
   itemUpdated: false,
   serverError: false,
+  cartError: false,
   errors: null,
 };
 
@@ -52,6 +63,19 @@ export default function (state = initialState, action) {
         ...state,
         itemUpdated: true,
       };
+
+    case PUSH_RESTAURANT_ID:
+      return {
+        ...state,
+        restId: action.payload,
+      };
+
+    case ADD_TO_CART:
+      return {
+        ...state,
+        cart: [...state.cart, action.payload],
+      };
+
     case ADD_ITEM_ERROR:
       return {
         ...state,
@@ -66,6 +90,18 @@ export default function (state = initialState, action) {
       return {
         ...state,
         errors: action.payload,
+      };
+
+    case FETCH_MENU_FOR_CUSTOMER:
+      return {
+        ...state,
+        fetchedMenusForCustomer: action.payload,
+      };
+
+    case ADD_TO_CART_ERROR:
+      return {
+        ...state,
+        cartError: action.payload,
       };
 
     case FETCH_ERROR:

@@ -5,11 +5,13 @@ import {
   LOGIN_ERROR,
   SERVER_ERROR,
   CLEAR_ERRORS,
+  LOGOUT_SUCCESS,
 } from "../actions/types";
-
+import { appReducers } from "../store";
 const initialState = {
   signupSuccess: false,
   loginSuccess: false,
+  logoutSuccess: false,
   serverError: false,
   errors: null,
 };
@@ -38,6 +40,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         errors: action.payload,
+      };
+
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        logoutSuccess: action.payload,
       };
 
     case CLEAR_ERRORS:
