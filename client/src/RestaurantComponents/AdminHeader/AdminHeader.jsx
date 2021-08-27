@@ -2,13 +2,14 @@ import React, { Component, useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom'
 //=========================Importing Links and Icons=================
 import { Link, useHistory } from "react-router-dom";
-import "../Header/Header.css";
+import "./AdminHeader.css";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import Button from "../SpecialComp/Button/Button.jsx";
+import Button from "../../Components/SpecialComp/Button/Button.jsx";
+import PersonIcon from '@material-ui/icons/Person';
 
 //============================Main Function===================================//
 
-function Header() {
+function AdminHeader() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [show, setShow] =useState(true);
@@ -53,13 +54,10 @@ const handleLogout=()=>{
 
   window.addEventListener("resize", showButton);
   return (
-     
-    location.pathname === "/foodie-signup"|| location.pathname ==="/admin/dashboard" || location.pathname ==="/foodie-login" ? 
-    null:
-      < div className="Header">
+  < div className="Admin-Header">
       <div className="header-navbar">
-        <Link className="logo-name-link" to="/" onClick={closeMobileMenu}>
-          <h2>MagicMeal </h2>
+        <Link className="logo-name-link" to="/admin/dashboard" onClick={closeMobileMenu}>
+          <h2>MagicMeal Restaurant Panel </h2>
           <i class="fas fa-hamburger"></i>
         </Link>
 
@@ -74,84 +72,63 @@ const handleLogout=()=>{
             }
           >
             <li className="navbar-menu-items">
-              <Link className="header-link" to="/" onClick={closeMobileMenu}>
-                Home
+              <Link className="header-link" to="/admin/menu-items" onClick={closeMobileMenu}>
+                Menu
               </Link>
             </li>
 
             <li className="navbar-menu-items">
               <Link
                 className="header-link"
-                to="/restaurants"
+                to="/admin"
                 onClick={closeMobileMenu}
               >
-                Restaurants
+                Orders Approval
               </Link>
             </li>
 
             <li className="navbar-menu-items">
               <Link
                 className="header-link"
-                to="/user/orders-history"
+                to="/admin"
                 onClick={closeMobileMenu}
               >
                 Orders History
               </Link>
             </li>
-            <li className="navbar-menu-items">
-              <Link
-                className="header-link"
-                to="/mobile-app"
-                onClick={closeMobileMenu}
-              >
-                Mobile App
-              </Link>
-            </li>
 
-            <li className="navbar-menu-items">
-              <Link className="header-link"
-                to="/checkout">
-                  <ShoppingCartIcon/>
-                  </Link> 
-            </li>
+            
 
-           {show ? <li className="navbar-menu-items">
-              <Button
-                title="SignUp"
-                btn_link="/foodie-signup"
-                height="35px"
-                width="100px"
-              /> 
-              
+         
               {/*<button onClick={handleSignup}>
                 Signup
           </button>*/}
 
-            </li> : null }
+        
 
            <li className="navbar-menu-items">
-           {show ? <Button
-                title="Login"
-                btn_link="/foodie-login"
-                height="35px"
-                width="100px"
-
-              />
-
-              : <Button
+             <Button
               title="Logout"
               height="35px"
               width="100px"
               OnClick={handleLogout}
-            /> }
+            /> 
 
               {/*<button onClick={handleLogin}>
                 Login
         </button>*/}
 
             </li> 
+
+            <li className="navbar-menu-items">
+             
+            </li>
             
           </ul>
+
+          
+                  <PersonIcon className="profile-link"/>
+                  
         </div>
       </div>
     </div>
@@ -160,4 +137,4 @@ const handleLogout=()=>{
   );
 }
 
-export default Header;
+export default AdminHeader;

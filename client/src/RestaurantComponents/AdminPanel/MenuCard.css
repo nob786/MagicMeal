@@ -1,0 +1,52 @@
+
+
+
+.Single_Restaurant {
+      height: 450px;
+      width: 400px;
+      margin-top: 20px;
+      background-color: #242424;
+}
+
+.container {
+    margin: 0%;
+    padding: 0%;
+    width: 400px; 
+}
+
+.restaurant_image {
+    height: 300px;
+    width: 400px;
+}
+
+h1 {
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+h3 {
+    color: gray;
+    font-size: 15px;
+    text-align: center;
+}
+
+.rating {
+
+    text-align: center;
+}
+
+
+
+.restaurant_link:link {
+    color: black;
+    text-decoration: none;
+} 
+
+.rating_title {
+
+    color: white;
+}
+
+

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -16,7 +16,9 @@ import {CartContext} from './Cart';
 
 function ContexCart() {
 
-    const item = React.useContext(CartContext);
+    const data = React.useContext(CartContext);
+    const item = data.clickedMenuId;
+    const {checkItems}=React.useContext(CartContext);
     let total=0;
     const totalPrice=()=>{
       
@@ -24,6 +26,13 @@ function ContexCart() {
         return total=total+currItem.price;
         })
     }
+    /*useEffect(() => {
+      // Update the document title using the browser API
+      checkItems(total);
+    });*/
+ 
+      
+    
 
     const StyledBadge = withStyles((theme) => ({
         badge: {
@@ -61,17 +70,17 @@ function ContexCart() {
                 </header>*/}
   
         <section className="main-cart-section">
-          <h1>Food Cart</h1>
-          <p>
+        {item.length===0 ? <p>You have Nothing in your Cart. Kindly Add some.</p>
+        : <p>
             You Have <span className="total-items-count">{item.length}</span> items in the
             cart
-          </p>
+          </p>}
   
           <div className="cart-items">
             <div className="cart-items-container">
               <Scrollbars>
                 {item.map((currItem) => {
-                  return <CartItems key={currItem.id} {...currItem} />;
+                  return (<CartItems key={currItem.id} {...currItem} /> );
                 })}
               </Scrollbars>
             </div>

@@ -9,23 +9,22 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Grid } from "@material-ui/core";
 
+
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 const SingleMenu = ({ menu }) => {
   const [value, setValue] = React.useState(4);
   const prod =[];
   var id;
-  const addtoCart=()=>{
-    prod.push(id);
-    console.log("prod",prod);
-
-  }
   return (
     <Grid className="Single_Menu" xs={20}>
       <div className="container">
        <img className="menu_image" src="../Pictures/R7.jpg" />
       </div>
-      <div>
-        {id=menu._id}
-        <h1>Item Name: {menu.itemName}</h1>
+      <div className="menu-name">
+        
+        <h1 >Item Name: {menu.itemName}</h1>
       </div>
       <div>
         <h3>Item Description: {menu.description}</h3>
@@ -48,9 +47,15 @@ const SingleMenu = ({ menu }) => {
         </Box>
       </div>
 
-      <div className="add-to-cart-button">
-        <button onClick={addtoCart}>Add to cart</button> 
+      <div>
+        <button><DeleteIcon/></button>
       </div>
+
+      <div>
+        <button><EditIcon/></button>
+        
+      </div>
+
 
     </Grid>
   );

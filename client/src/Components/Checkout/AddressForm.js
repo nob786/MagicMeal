@@ -12,7 +12,7 @@ export default function AddressForm() {
         Shipping address
       </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
+        {/*<Grid item xs={12} sm={6}>
           <TextField
             required
             id="firstName"
@@ -31,7 +31,7 @@ export default function AddressForm() {
             fullWidth
             autoComplete="family-name"
           />
-        </Grid>
+  </Grid> */}
         <Grid item xs={12}>
           <TextField
             required
@@ -51,7 +51,7 @@ export default function AddressForm() {
             autoComplete="shipping address-line2"
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        {/*<Grid item xs={12} sm={6}>
           <TextField
             required
             id="city"
@@ -60,7 +60,7 @@ export default function AddressForm() {
             fullWidth
             autoComplete="shipping address-level2"
           />
-        </Grid>
+</Grid>*/}
         <Grid item xs={12} sm={6}>
           <TextField id="state" name="state" label="State/Province/Region" fullWidth />
         </Grid>
@@ -74,7 +74,7 @@ export default function AddressForm() {
             autoComplete="shipping postal-code"
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        {/*<Grid item xs={12} >
           <TextField
             required
             id="country"
@@ -83,13 +83,13 @@ export default function AddressForm() {
             fullWidth
             autoComplete="shipping country"
           />
-        </Grid>
-        <Grid item xs={12}>
+</Grid>*/}
+        {/*<Grid item xs={12}>
           <FormControlLabel
             control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
             label="Use this address for payment details"
           />
-        </Grid>
+</Grid>*/}
       </Grid>
     </React.Fragment>
   );

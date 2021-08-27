@@ -1,14 +1,15 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import '../Footer/Footer.css'
-
+import { useLocation } from 'react-router-dom'
 
 const Footer = () => {
-
+    const location = useLocation();
 
 
     return (
-        <div className="Footer">
+        location.pathname === "/foodie-signup"|| location.pathname === "/checkout"|| location.pathname ==="/foodie-login"   ?
+         null: <div className="Footer">
 
             <div className="Footer-b">
             <div className="footer-child">

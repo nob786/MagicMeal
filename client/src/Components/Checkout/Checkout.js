@@ -21,7 +21,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="/">
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
@@ -35,43 +35,52 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
   },
   layout: {
-    width: 'auto',
+    
+    maxWidth: '1000px',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: "1400px",
-      marginLeft: '100px',
-      marginTop: '100px',
-      marginRight: '100px',
+      width: "60%",
+      marginLeft: '20%',
+      marginTop: '0px',
+      marginRight: '20%',
     },
   },
   paper: {
+    height: '100%',
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
       marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
+      marginBottom: theme.spacing(1),
       padding: theme.spacing(3),
       fontSize: "50px",
     },
   },
   stepper: {
-    padding: theme.spacing(3, 0, 5),
+    padding: theme.spacing(0, 1, 3),
   },
   buttons: {
     display: 'flex',
     justifyContent: 'flex-end',
   },
   button: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
     marginLeft: theme.spacing(1),
   },
 }));
 
 const steps = ['Cart','Shipping address', 'Payment details', 'Review your order'];
+let showNext=true;
+/*const checkItems = (number) => {
+  if (number >=1) 
+  showNext=true;
+};*/
 
 function getStepContent(step) {
+  
+
   switch (step) {
     case 0:
       return <Cart className="address-form" />;
@@ -88,6 +97,7 @@ function getStepContent(step) {
 export default function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -96,6 +106,9 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+  
+  
+
 
   return (
     <React.Fragment>
@@ -112,9 +125,9 @@ export default function Checkout() {
           <Typography component="h1" variant="h4" align="center">
             Checkout
           </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
+          <Stepper activeStep={activeStep} className={classes.stepper} >
             {steps.map((label) => (
-              <Step key={label}>
+              <Step key={label} >
                 <StepLabel>{label}</StepLabel>
               </Step>
             ))}
@@ -139,14 +152,14 @@ export default function Checkout() {
                       Back
                     </Button>
                   )}
-                  <Button
+                  {showNext? <Button
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
                   >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>
+                  </Button>:null}
                 </div>
               </React.Fragment>
             )}

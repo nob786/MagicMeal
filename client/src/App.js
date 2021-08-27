@@ -14,6 +14,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import { useLocation } from 'react-router-dom'
 
 //=================================Importing Components================================//
 import Header from "./Components/Header/Header";
@@ -30,11 +31,9 @@ import FoodieLogin from "./Components/Login/FoodieLogin";
 import FoodieSignup from "./Components/Signup/FoodieSignup";
 import ComplaintForm from "./Components/Footer/ComplaintForm";
 import FAQ from "./Components/Footer/FAQ";
-import AdminMenuItems from "./Components/AdminPanel/AdminMenuItems";
-import AdminMainPage from "./Components/AdminPanel/AdminMainPage";
+import AdminMainPage from "./RestaurantComponents/AdminPanel/AdminMainPage";
 import Restaurants from "./Components/OrderNow/Restaurants";
-import MenuItems from "./Components/OrderNow/MenuItems";
-import NewMenuItem from "./Components/AdminPanel/NewMenuItem";
+import NewMenuItem from "./RestaurantComponents/AdminPanel/NewMenuItem";
 import Checkout from "./Components/Checkout/Checkout";
 import UserMenuItems from "./Components/UserMenuItems/UserMenuItems";
 import { Provider } from "react-redux";
@@ -45,18 +44,13 @@ class App extends Component {
     super(props);
     this.state = { apiResponse: "" };
   }
+  
 
   componentWillMount() {
     this.callAPI();
   }
 
-  showOff(){
-    if (window.location.pathname==="./foodie-login")
-    return null;
-    else
-    return
-    <Header />;
-  }
+
 
   callAPI() {
     fetch("http://localhost:9000/testAPI")
@@ -69,14 +63,13 @@ class App extends Component {
   };
   
 
-  render() {
+  render(){ 
     return (
       <Provider store={store}>
       <Router>
         <div className="App">
           <ScrollToTop />
-          {window.location.pathname==="/foodie-login" || window.location.pathname==="/foodie-signup" ? null : <Header/>}
-          <p>{this.state.apiResponse}</p>
+          {window.location.pathname==="/admin/dashboard" ? null : <Header/>}
 
           {/* <Header/>  Header Section <Footer/> */}
           {/*<AdminAppBar/> {/* Admin bar Optional */}
@@ -84,7 +77,6 @@ class App extends Component {
           <Switch>
             {/* ============================Admin Page Routes================================== */}
             <Route path="/admin/dashboard" component={AdminMainPage} />
-            <Route path="/admin/new-menu" component={NewMenuItem} />
 
             <Route path="/restaurant-login" component={RestaurantLogin} />
             <Route path="/restaurant-signup" component={RestaurantSignup} />
@@ -94,12 +86,9 @@ class App extends Component {
             {/* ============================Restaurant and Order Pages================================== */}
 
             <Route path="/restaurants" component={Restaurants} />
-            <Route path="/menu-items" component={MenuItems} />
             <Route path="/user-menu-items" component={UserMenuItems} />
 
             {/*============================Testing Routers======================= */}
-
-            <Route path="/admin/menu-items" component={AdminMenuItems} />
 
             <Route path="/complaint-form" component={ComplaintForm} />
             <Route path="/FAQs" component={FAQ} />
@@ -115,7 +104,7 @@ class App extends Component {
 
             {/* ============================Admin Page Routes================================== */}
           </Switch>
-          {window.location.pathname==="/foodie-login" || window.location.pathname==="/foodie-signup" ? null : <Footer />}
+         <Footer />
         </div>
       </Router>
       </Provider>

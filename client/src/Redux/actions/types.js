@@ -2,3 +2,6 @@ export const SET_RESTAURANT = "SET_RESTAURANT";
 export const SET_RESTAURANTS = "SET_RESTAURANTS";
 export const PUSH_RESTAURANT_ID = "PUSH_RESTAURANT_ID";
 export const PUSH_MENU_ID = "PUSH_MENU_ID";
+export const PUSH_CART_DATA = "PUSH_CART_DATA";
+export const PUSH_CART_TOTAL = "PUSH_CART_TOTAL";
+export const PUSH_INCDEC = "PUSH_INCDEC";

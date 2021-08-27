@@ -3,7 +3,7 @@
 
 .Single_Menu {
     height: 200px;
-    width: 100%;
+    width: 700px;
     margin-top: 20px;
     background-color: #242424;
     display: flex;
@@ -12,7 +12,7 @@
 .container {
   margin: 0%;
   padding: 0%;
-  width: 400px; 
+  width: 50px; 
 }
 
 .menu_image {

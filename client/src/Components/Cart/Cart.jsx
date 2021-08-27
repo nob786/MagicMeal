@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 import "./Cart.css";
 
-import { Products } from "./Products.js";
+
 import ContexCart from "./ContexCart";
 
 
@@ -26,7 +26,7 @@ const Cart = () => {
   );
 
   return (
-    <CartContext.Provider value={clickedMenuId}>
+    <CartContext.Provider value={{clickedMenuId,}}>
     <ContexCart/>
     </CartContext.Provider>
   );

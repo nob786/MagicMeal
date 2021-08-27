@@ -1,9 +1,9 @@
 /*===============================Header==================================*/
 
-.Header {
+.Admin-Header {
   width: 100%;
   display: flex;
-  padding-right: 5%;
+  padding-right: 0%;
   position: sticky;
   z-index: 2000;
   top: 0;
@@ -76,8 +76,13 @@
   }
   .header-link.active {
     background-color: white;
+  color: black;
   }
 
-  
+  .profile-link {
+    color: white;
+    float: right;
+    margin-top: 15px;
+  }
 
 

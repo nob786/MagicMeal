@@ -80,7 +80,7 @@ const FoodieLogin = () => {
           localStorage.setItem("token", JSON.stringify(token));
           if (role === "restaurant") {
             window.alert("Restaurant Logged In");
-            history.push("/menu-items");
+            history.push("/admin/dashboard");
             // history.push("/admin/menu-items");
           } else if (role === "customer"){
             window.alert("Customer Logged In");
