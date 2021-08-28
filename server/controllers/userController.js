@@ -67,8 +67,12 @@ exports.getRestaurantMenus = async (req, res) => {
 exports.postOrder = async (req, res) => {
   const restaurantId = req.params.restId;
   const userId = req.loggedInUserId;
-  console.log("User Id", userId);
   const arrayOfItems = req.body.items;
+  const grandTotal= req.body.grandTotal;
+  const customerAddress= req.body.customerAddress;
+
+  console.log("User Id", userId);
+  
   console.log("Items array", arrayOfItems);
 
   if (!userId)
@@ -118,16 +122,21 @@ exports.postOrder = async (req, res) => {
     });
 
   let newOrder = new Orders({
-    items: arrayOfItems,
+    
     customer: {
       name: customer.firstName + " " + customer.lastName,
       contact: customer.contact,
       customerId: customer.id,
+      customerAddress: customerAddress,
     },
     restaurant: {
       restaurantName: restaurant.restaurantName,
+      contact: restaurant.contact,
       restaurantId: restaurant._id,
     },
+    items: arrayOfItems,
+    grandTotal: grandTotal,
+    status: "pending",
   });
 
   await newOrder

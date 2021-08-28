@@ -15,11 +15,11 @@ const verifyToken = (req, res) => {
     throw error;
   }
 
-  const splitedToken = token.split(" ")[1];
+  //const splitedToken = token.split(" ")[1];
   //console.log("Token should split here", token);
   let decodedToken;
   try {
-    decodedToken = jwt.verify(splitedToken, "myKey");
+    decodedToken = jwt.verify(token, "myKey");
     console.log("Decoded token", decodedToken);
   } catch (err) {
     err.statusCode = 500;
