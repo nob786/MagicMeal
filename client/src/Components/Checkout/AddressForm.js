@@ -5,7 +5,34 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
+
+//==========================REDUX ===========================
+import { useDispatch, useSelector } from "react-redux";
+import {addDeliveryAddress} from "../../Redux/actions/cartAction"
+
 export default function AddressForm() {
+const [address,setAddress]=React.useState("");
+const dispatch = useDispatch();
+  const handleChange=(event)=>{
+
+    const value = event.target.value;
+    const name = event.target.name;
+    setAddress({ ...address, [name]: value });
+   
+    //console.log("val", value);
+    //console.log("name", name);
+    
+    
+    
+
+  }
+  let fullAddress= address.address1+" "+address.address2+" "+address.area+" "+address.city;
+  console.log("full Address",fullAddress);
+
+  React.useEffect(() => {
+    dispatch(addDeliveryAddress(fullAddress));
+  },[fullAddress]);
+
   return (
     <React.Fragment>
       <Typography variant="h3" gutterBottom>
@@ -37,18 +64,20 @@ export default function AddressForm() {
             required
             id="address1"
             name="address1"
-            label="Address line 1"
+            label="House number"
             fullWidth
             autoComplete="shipping address-line1"
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             id="address2"
             name="address2"
-            label="Address line 2"
+            label="Street"
             fullWidth
             autoComplete="shipping address-line2"
+            onChange={handleChange}
           />
         </Grid>
         {/*<Grid item xs={12} sm={6}>
@@ -62,16 +91,17 @@ export default function AddressForm() {
           />
 </Grid>*/}
         <Grid item xs={12} sm={6}>
-          <TextField id="state" name="state" label="State/Province/Region" fullWidth />
+          <TextField id="state" name="area" label="Area" fullWidth onChange={handleChange} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="zip"
-            name="zip"
-            label="Zip / Postal code"
+            id="city"
+            name="city"
+            label="City"
             fullWidth
-            autoComplete="shipping postal-code"
+            autoComplete="city"
+            onChange={handleChange}
           />
         </Grid>
         {/*<Grid item xs={12} >

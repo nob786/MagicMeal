@@ -11,7 +11,7 @@ import Button from "../SpecialComp/Button/Button.jsx";
 function Header() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
-  const [show, setShow] =useState(true);
+  const [show, setShow] =useState(false);
   const [topheader, setHead] =useState(true);
 
   const handleClick = () => setClick(!click);
@@ -43,6 +43,7 @@ function Header() {
    
 
 const handleLogout=()=>{
+  localStorage.removeItem("persist:root");
   localStorage.removeItem("token");
   setShow(true);
 };
@@ -121,6 +122,7 @@ const handleLogout=()=>{
                 btn_link="/foodie-signup"
                 height="35px"
                 width="100px"
+                
               /> 
               
               {/*<button onClick={handleSignup}>

@@ -6,6 +6,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 
+
+
+//========================Redux Imports=================
+import { useDispatch, useSelector } from "react-redux";
+
 const products = [
   { name: 'Chinese Rice', desc: 'A nice thing', price: '2500' },
   { name: 'Chinese Soup', desc: 'Another thing', price: '3000' },
@@ -36,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Review() {
   const classes = useStyles();
 
+  const {deliveryAddress} = useSelector(
+    (state) => state.cart
+  );
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -58,10 +67,10 @@ export default function Review() {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>
-            Shipping
+            Delivery Address
           </Typography>
           <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(', ')}</Typography>
+          <Typography gutterBottom>{deliveryAddress}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>

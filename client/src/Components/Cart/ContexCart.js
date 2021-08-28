@@ -80,7 +80,7 @@ function ContexCart() {
             <div className="cart-items-container">
               <Scrollbars>
                 {item.map((currItem) => {
-                  return (<CartItems key={currItem.id} {...currItem} /> );
+                  return (<CartItems key={currItem.id} {...currItem}/> );
                 })}
               </Scrollbars>
             </div>

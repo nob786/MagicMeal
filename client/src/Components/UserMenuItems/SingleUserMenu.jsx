@@ -12,8 +12,9 @@ import { Grid } from "@material-ui/core";
 //==========================Redux imports===================================
 import { useDispatch, useSelector } from "react-redux";
 import {pushMenuId} from "../../Redux/actions/dataActions"
+import {pushcartRestaurantId} from "../../Redux/actions/cartAction"
 
-const SingleUserMenu = ({ menu }) => {
+const SingleUserMenu = ({ menu, restId }) => {
   const [value, setValue] = React.useState(4);
   const dispatch = useDispatch();
   const prod =[];
@@ -21,13 +22,30 @@ const SingleUserMenu = ({ menu }) => {
   const {clickedMenuId} = useSelector(
     (state) => state.data
   );
-  console.log("ABCD"+clickedMenuId);
-  const addtoCart=()=>{
 
-    dispatch(pushMenuId(menu));
-    
-    
+
+  //===============Cart Resturant==================
+  const {cartRestaurantId} = useSelector(
+    (state) => state.cart
+  );
+
+  
+  //console.log("ABCD"+clickedMenuId);
+  const addtoCart=()=>{
+    if (cartRestaurantId==="")
+    {
+      dispatch(pushMenuId(menu));
+      dispatch(pushcartRestaurantId(restId));
     window.alert(menu.itemName+" Item Added to Cart");
+  }
+  else if (cartRestaurantId===restId){
+    dispatch(pushMenuId(menu));;
+    window.alert(menu.itemName+" Item Added to Cart");
+  }else if (restId !== cartRestaurantId )
+  window.alert("Different Restaurant Item.");
+    
+    
+    
   }
   return (
     <div className="Single_Menu" >

@@ -1,16 +1,18 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { persistStore } from 'redux-persist'
 import thunk from "redux-thunk";
 
 // importing reducers
-import dataReducers from "./reducers/dataReducers";
+import  reducers  from './reducers/rootReducer';
 
 const initialState = {};
 
 const middleware = [thunk];
 
-const reducers = combineReducers({
+/*const reducers = combineReducers({
   data: dataReducers,
-});
+  counter: counterReducer,
+});*/
 
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -18,6 +20,8 @@ const composeEnhancers =
     : compose;
 
 const enhancer = composeEnhancers(applyMiddleware(...middleware));
-const store = createStore(reducers, initialState, enhancer);
+export const store = createStore(reducers, initialState, enhancer);
+export const persistor = persistStore(store);
 
-export default store;
+
+export default {store, persistor};

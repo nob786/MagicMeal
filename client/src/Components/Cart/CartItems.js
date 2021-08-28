@@ -4,17 +4,30 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import DeleteIcon from "@material-ui/icons/Delete";
 
+//==========================REDUX PART============================
 import { useDispatch, useSelector  } from "react-redux";
 import {pushcartData } from "../../Redux/actions/dataActions";
+import { inc } from "../../Redux/actions/counter";
+import { dec } from "../../Redux/actions/counter";
 
-const CartItems = ({ itemName, description, price,category,_id }) => {
-  const [inc, setInc]=React.useState(1);
+import {CartContext} from './Cart';
+
+const CartItems = ({ itemName, description, price,category,_id}) => {
+  const [incr, setIncr]=React.useState(1);
+  const {deleteMenuItem} = React.useContext(CartContext);
+  const dispatch = useDispatch();
+
+    const {counter} = useSelector(
+      (state) => state.counter
+    );
+
+    
   let cartT=0;
   let total =0;
-  total= price*inc;
+  total= price*incr;
   cartT=cartT+total;
   let cartData=[];
-  let menu={
+  /*let menu={
     menu_name: itemName,
     menu_price: price,
     menu_total: total,
@@ -23,21 +36,25 @@ const CartItems = ({ itemName, description, price,category,_id }) => {
   useEffect(() => {
     cartData.push(menu);
     
-  });
+  });*/
 
-    useDispatch(pushcartData(cartData));
-  
+    //useDispatch(pushcartData(cartData));
+
+
 
 
     
   
   
   const increment = () => {
-    setInc(inc+1);
+    
+    //dispatch(inc());
+    setIncr(incr+1);
   //  useDispatch(pushIncDec(cartData));
   }
   const decrement = () => {
-    setInc(inc -1);
+    setIncr(incr -1);
+    //dispatch(dec());
   }
   
   return (
@@ -53,10 +70,10 @@ const CartItems = ({ itemName, description, price,category,_id }) => {
         </div>
 
         <div className="add-minus-quantity">
-        {inc > 1 ? <button onClick={decrement}><RemoveIcon /></button> 
+        {incr > 1 ? <button onClick={decrement}><RemoveIcon /></button> 
         : <button disabled onClick={decrement}><RemoveIcon /></button>}
-           <h4>{inc}</h4>
-        {inc <10 ? <button onClick={increment}><AddIcon /></button>
+           <h4>{incr}</h4>
+        {incr <10 ? <button onClick={increment}><AddIcon /></button>
         :<button disabled onClick={increment}><AddIcon /></button>}
         </div>
 
@@ -70,7 +87,7 @@ const CartItems = ({ itemName, description, price,category,_id }) => {
         </div>
 
         <div className="remove-item">
-        <button><DeleteIcon
+        <button onClick={()=>deleteMenuItem(_id)}><DeleteIcon
             style={{
               fontSize: "20px",
             }}

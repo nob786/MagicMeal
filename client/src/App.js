@@ -36,8 +36,6 @@ import Restaurants from "./Components/OrderNow/Restaurants";
 import NewMenuItem from "./RestaurantComponents/AdminPanel/NewMenuItem";
 import Checkout from "./Components/Checkout/Checkout";
 import UserMenuItems from "./Components/UserMenuItems/UserMenuItems";
-import { Provider } from "react-redux";
-import store from "./Redux/store";
 
 class App extends Component {
   constructor(props) {
@@ -65,7 +63,6 @@ class App extends Component {
 
   render(){ 
     return (
-      <Provider store={store}>
       <Router>
         <div className="App">
           <ScrollToTop />
@@ -107,7 +104,6 @@ class App extends Component {
          <Footer />
         </div>
       </Router>
-      </Provider>
     );
   }
 }
