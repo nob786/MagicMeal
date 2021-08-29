@@ -14,7 +14,7 @@ import ContexCart from "./ContexCart";
 
 //==========================Redux imports===================================
 import { useDispatch, useSelector } from "react-redux";
-import {pushMenuId} from "../../Redux/actions/dataActions"
+import {pushMenuId} from "../../Redux/actions/cartAction"
 
 
 
@@ -24,7 +24,7 @@ const Cart = () => {
 
 
   const {clickedMenuId} = useSelector(
-    (state) => state.data
+    (state) => state.cart
   );
 
   const deleteMenuItem=(menuId)=>{

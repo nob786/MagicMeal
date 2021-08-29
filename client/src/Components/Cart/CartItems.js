@@ -6,13 +6,11 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 //==========================REDUX PART============================
 import { useDispatch, useSelector  } from "react-redux";
-import {pushcartData } from "../../Redux/actions/dataActions";
-import { inc } from "../../Redux/actions/counter";
-import { dec } from "../../Redux/actions/counter";
+
 
 import {CartContext} from './Cart';
 
-const CartItems = ({ itemName, description, price,category,_id}) => {
+const CartItems = ({ itemName, description, price,category,_id,quantity,total}) => {
   const [incr, setIncr]=React.useState(1);
   const {deleteMenuItem} = React.useContext(CartContext);
   const dispatch = useDispatch();
@@ -20,25 +18,6 @@ const CartItems = ({ itemName, description, price,category,_id}) => {
     const {counter} = useSelector(
       (state) => state.counter
     );
-
-    
-  let cartT=0;
-  let total =0;
-  total= price*incr;
-  cartT=cartT+total;
-  let cartData=[];
-  /*let menu={
-    menu_name: itemName,
-    menu_price: price,
-    menu_total: total,
-
-  }
-  useEffect(() => {
-    cartData.push(menu);
-    
-  });*/
-
-    //useDispatch(pushcartData(cartData));
 
 
 
@@ -73,7 +52,7 @@ const CartItems = ({ itemName, description, price,category,_id}) => {
         {incr > 1 ? <button onClick={decrement}><RemoveIcon /></button> 
         : <button disabled onClick={decrement}><RemoveIcon /></button>}
            <h4>{incr}</h4>
-        {incr <10 ? <button onClick={increment}><AddIcon /></button>
+        {quantity <10 ? <button onClick={increment}><AddIcon /></button>
         :<button disabled onClick={increment}><AddIcon /></button>}
         </div>
 
@@ -83,7 +62,6 @@ const CartItems = ({ itemName, description, price,category,_id}) => {
 
         <div className="price">
           <h3>Total: {total}</h3>
-          <h3>Total: {cartT}</h3>
         </div>
 
         <div className="remove-item">

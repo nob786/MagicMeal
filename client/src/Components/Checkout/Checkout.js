@@ -17,6 +17,11 @@ import Review from './Review';
 import "./Checkout.css";
 import Cart from '../Cart/Cart';
 
+
+
+//===========================Redux Imports=========================
+import { useSelector } from "react-redux";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -71,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['Cart','Shipping address', 'Payment details', 'Review your order'];
+const steps = ['Cart','Shipping address', 'Payment details', 'Review and Place your order'];
 let showNext=true;
 /*const checkItems = (number) => {
   if (number >=1) 
@@ -106,6 +111,12 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  const placeOrder = () => {
+    window.alert("Order Placed");
+    setActiveStep(activeStep + 1);
+  };
+  
   
   
 
@@ -139,8 +150,8 @@ export default function Checkout() {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will
-                  send you an update when your order has shipped.
+                  Your order has received. Please wait for final Approval from the Restaurant. You Patience will be Appreciated.
+                  You can view approvals in Order History Section.
                 </Typography>
               </React.Fragment>
             ) : (
@@ -152,14 +163,23 @@ export default function Checkout() {
                       Back
                     </Button>
                   )}
-                  {showNext? <Button
+                
+                    {activeStep === steps.length - 1 ?   <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={placeOrder}
+                    className={classes.button}
+                  >
+                    Place Order
+                    </Button>: <Button
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>:null}
+                    Next
+                    </Button>}
+                  
                 </div>
               </React.Fragment>
             )}

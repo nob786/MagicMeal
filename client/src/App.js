@@ -36,6 +36,7 @@ import Restaurants from "./Components/OrderNow/Restaurants";
 import NewMenuItem from "./RestaurantComponents/AdminPanel/NewMenuItem";
 import Checkout from "./Components/Checkout/Checkout";
 import UserMenuItems from "./Components/UserMenuItems/UserMenuItems";
+import OrdersHistory from "./Components/UserOrders/OrdersHistory";
 
 class App extends Component {
   constructor(props) {
@@ -83,6 +84,7 @@ class App extends Component {
             {/* ============================Restaurant and Order Pages================================== */}
 
             <Route path="/restaurants" component={Restaurants} />
+            <Route path="/user/orders-history" component={OrdersHistory} />
             <Route path="/user-menu-items" component={UserMenuItems} />
 
             {/*============================Testing Routers======================= */}

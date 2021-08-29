@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 
 
 //========================Redux Imports=================
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const products = [
   { name: 'Chinese Rice', desc: 'A nice thing', price: '2500' },
@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Review() {
   const classes = useStyles();
 
+  const {clickedMenuId} = useSelector(
+    (state) => state.cart
+  );
   const {deliveryAddress} = useSelector(
     (state) => state.cart
   );
@@ -51,16 +54,16 @@ export default function Review() {
         Order summary
       </Typography>
       <List disablePadding>
-        {products.map((product) => (
-          <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText primary={product.name} secondary={product.desc} />
+        {clickedMenuId.map((product) => (
+          <ListItem className={classes.listItem} key={product.itemName}>
+            <ListItemText primary={product.itemName} secondary={product.description} />
             <Typography variant="body2">{product.price}</Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            $34.06
+            350 Rupees
           </Typography>
         </ListItem>
       </List>

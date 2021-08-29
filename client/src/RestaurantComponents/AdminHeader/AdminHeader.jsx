@@ -80,7 +80,7 @@ const handleLogout=()=>{
             <li className="navbar-menu-items">
               <Link
                 className="header-link"
-                to="/admin"
+                to="/admin/orders-pending"
                 onClick={closeMobileMenu}
               >
                 Orders Approval
@@ -90,7 +90,7 @@ const handleLogout=()=>{
             <li className="navbar-menu-items">
               <Link
                 className="header-link"
-                to="/admin"
+                to="/admin/orders-history"
                 onClick={closeMobileMenu}
               >
                 Orders History

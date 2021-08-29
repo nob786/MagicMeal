@@ -11,17 +11,31 @@ import { Grid } from "@material-ui/core";
 
 //==========================Redux imports===================================
 import { useDispatch, useSelector } from "react-redux";
-import {pushMenuId} from "../../Redux/actions/dataActions"
+import {pushMenuId} from "../../Redux/actions/cartAction"
 import {pushcartRestaurantId} from "../../Redux/actions/cartAction"
 
 const SingleUserMenu = ({ menu, restId }) => {
-  const [value, setValue] = React.useState(4);
+
   const dispatch = useDispatch();
-  const prod =[];
-  var id;
   const {clickedMenuId} = useSelector(
-    (state) => state.data
+    (state) => state.cart
   );
+
+
+  //=================
+
+ const fullCartMenu= {
+    _id: menu._id,
+    itemName: menu.itemName,
+    description: menu.description,
+    price: menu.price,
+    quantity: 1,
+    total: menu.price,
+  };
+  console.log("Full Cart Menu", fullCartMenu);
+
+ // console.log("FullCartMenu",fullCartMenu);
+
 
 
   //===============Cart Resturant==================
@@ -34,12 +48,12 @@ const SingleUserMenu = ({ menu, restId }) => {
   const addtoCart=()=>{
     if (cartRestaurantId==="")
     {
-      dispatch(pushMenuId(menu));
+      dispatch(pushMenuId(fullCartMenu));
       dispatch(pushcartRestaurantId(restId));
     window.alert(menu.itemName+" Item Added to Cart");
   }
   else if (cartRestaurantId===restId){
-    dispatch(pushMenuId(menu));;
+    dispatch(pushMenuId(fullCartMenu));;
     window.alert(menu.itemName+" Item Added to Cart");
   }else if (restId !== cartRestaurantId )
   window.alert("Different Restaurant Item.");
@@ -72,10 +86,10 @@ const SingleUserMenu = ({ menu, restId }) => {
 
       <div className="rating">
         <Box component="fieldset" mb={3} borderColor="transparent">
-          <Typography component="legend" className="rating_title">
+         {/* <Typography component="legend" className="rating_title">
             Rating
           </Typography>
-          <Rating name="read-only" value={value} readOnly />
+  <Rating name="read-only" value={value} readOnly />*/}
         </Box>
       </div>
 

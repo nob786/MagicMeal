@@ -24,6 +24,8 @@ import Checkout from "../../Components/Checkout/Checkout";
 import NotFound from "../../Components/SpecialComp/NotFound";
 import FormDialog from "./NewMenuItem";
 import MenuItems from "../../Components/OrderNow/MenuItems";
+import RestOrdersHistory from "../RestaurantOrders/RestOrdersHistory";
+import RestOrdersPending from "../RestaurantOrders/RestOrdersPending";
 
 //=================================Importing Components================================//
 
@@ -67,6 +69,10 @@ class AdminMainPage extends Component {
           <Switch>
             {/* ============================Admin Page Routes================================== */}
 
+            {/*============================Orders Routers======================= */}
+
+            <Route path="/admin/orders-history" component={RestOrdersHistory} />
+            <Route path="/admin/orders-pending" component={RestOrdersPending} />
 
             {/*============================Testing Routers======================= */}
 

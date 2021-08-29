@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 
-import IconButton from "@material-ui/core/IconButton";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+
 import { Scrollbars } from "react-custom-scrollbars-2";
 import CartItems from "./CartItems";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+//import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 import Badge from "@material-ui/core/Badge";
 import { withStyles } from "@material-ui/core/styles";

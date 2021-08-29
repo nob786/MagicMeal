@@ -5,10 +5,7 @@ const initialState = {
   restaurants: [],
   restaurant: [],
   clickedRestaurantId: "",
-  clickedMenuId: [],
-  cartData: [],
-  cartTotal: 0,
-  incdec: 1,
+  
 };
 
 
@@ -29,26 +26,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         clickedRestaurantId: action.payload,
-      };
-      case PUSH_MENU_ID:
-      return {
-        ...state,
-        clickedMenuId: [...state.clickedMenuId, action.payload],
-      };
-      case PUSH_CART_DATA:
-      return {
-        ...state,
-        cartData:  [...state.cartData, action.payload],
-      };
-      case PUSH_CART_TOTAL:
-      return {
-        ...state,
-        cartTotal:  action.payload,
-      };
-      case PUSH_INCDEC:
-      return {
-        ...state,
-        incdec:  action.payload,
       };
     default:
       return state;
