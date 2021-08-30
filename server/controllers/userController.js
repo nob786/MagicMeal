@@ -65,22 +65,22 @@ exports.getRestaurantMenus = async (req, res) => {
 };
 
 exports.postOrder = async (req, res) => {
-  const orderData=  req.params.OrderData;
-  console.log("Order Data",req.body);
-  const {restaurantData,customerData,items,grandTotal}=req.body;
+  console.log("Order Data", req.body);
+  const { restaurantData, customerData, items, grandTotal } = req.body;
   const restaurantId = req.params.restId;
   const userId = req.loggedInUserId;
   const itemsArray = items.map((i) => {
-    return { 
+    return {
       itemId: i._id,
       itemName: i.itemName,
       itemDescription: i.description,
       price: i.price,
       quantity: i.quantity,
-      total: i.total ,
-  }});
+      total: i.total,
+    };
+  });
   //console.log("User Id", userId);
-  
+
   //console.log("Items array", arrayOfItems);
 
   if (!userId)
@@ -130,7 +130,6 @@ exports.postOrder = async (req, res) => {
     });
 
   let newOrder = new Orders({
-    
     customer: {
       name: customerData.name,
       contact: customerData.contact,
