@@ -261,7 +261,10 @@ export const addToReduxCart = (item) => (dispatch) => {
   } else {
     dispatch({
       type: ADD_TO_CART,
-      payload: item,
+      payload: {
+        item: item,
+        //quantity: 1,
+      },
     });
   }
 };

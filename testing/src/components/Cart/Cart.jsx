@@ -4,7 +4,7 @@ import { useState } from "react";
 const Cart = () => {
   const [state, setState] = useState([]);
   const { cart } = useSelector((state) => state.data);
-  console.log("Cart data", cart);
+  console.log("Cart Data yolo", cart);
 
   return (
     <div className="container">
@@ -19,8 +19,7 @@ const Cart = () => {
               <br></br>
               <span>{item.category}</span>
               <br></br>
-              <input type="number" />
-
+              <p>{item.quantity}</p>
               {/* <button type="button">Add to cart</button> */}
             </div>
           </div>
