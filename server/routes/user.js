@@ -14,6 +14,13 @@ router.get(
   userController.getRestaurantMenus
 );
 
+// Fetching updated orders from order collection
+router.get(
+  "/get-updated-order/:customerId",
+  //authMiddleWare.verifyCustomer,
+  userController.getUpdatedOrder
+);
+
 // Posting order API.
 router.post(
   "/post-order/:restId",

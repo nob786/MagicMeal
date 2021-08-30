@@ -64,6 +64,36 @@ exports.getRestaurantMenus = async (req, res) => {
   }
 };
 
+exports.getUpdatedOrder = async (req, res) => {
+  const customerId = req.params.customerId;
+  console.log("restaurant id", customerId);
+  if (!customerId)
+    return res.status(404).send("No restaurant ID found in params");
+
+  const query = { "customer.customerId": customerId };
+  await Orders.find(query)
+    .then((response) => {
+      console.log("Printing response inside API function", response);
+
+      if (!response)
+        return res.status(404).send("No order found with this id.");
+      return res.status(200).json({
+        message: "Retrieved Order",
+        updatedOrder: response,
+      });
+    })
+    .catch((error) => {
+      if (error) {
+        return res.status(400).json({
+          message: "Error in catch block",
+          error: error,
+        });
+      } else {
+        return res.status(500).send("Server Error");
+      }
+    });
+};
+
 exports.postOrder = async (req, res) => {
   console.log("Order Data", req.body);
   const { restaurantData, customerData, items, grandTotal } = req.body;

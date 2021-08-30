@@ -1,6 +1,7 @@
 const { Restaurant } = require("../models/restaurant");
 const { Account } = require("../models/account");
 const { Items } = require("../models/item");
+const { Orders } = require("../models/order");
 const { validateItem } = require("../middleware/validation");
 
 exports.addItem = async (req, res) => {
@@ -181,4 +182,68 @@ exports.getItem = async (req, res) => {
         error: error,
       });
   }
+};
+
+// API for fetching pending orders
+exports.getPendingOrders = async (req, res) => {
+  const restId = req.params.restId;
+  console.log("restaurant id", restId);
+  if (!restId) return res.status(404).send("No restaurant ID found in params");
+
+  const query = { grandTotal: 600 };
+  const query1 = { "restaurant.restaurantId": restId, status: "pending" };
+  await Orders.find(query1)
+    .then((response) => {
+      console.log("Printing response inside API function", response);
+
+      if (!response)
+        return res.status(404).send("No order found with this id.");
+      return res.status(200).json({
+        message: "Found all pending orders",
+        pendingOrders: response,
+      });
+    })
+    .catch((error) => {
+      if (error) {
+        return res.status(400).json({
+          message: "Error in catch block",
+          error: error,
+        });
+      } else {
+        return res.status(500).send("Server Error");
+      }
+    });
+};
+
+// API for updating pending order status
+
+exports.updatePendingOrders = async (req, res) => {
+  const restId = req.params.restId;
+  const { orderId, status } = req.body;
+  console.log("restaurant id", restId);
+  if (!restId) return res.status(404).send("No restaurant ID found in params");
+  const query1 = {
+    "restaurant.restaurantId": restId,
+    _id: orderId,
+  };
+
+  const update = { status: status };
+  await Orders.findOneAndUpdate(query1, update)
+    .then((response) => {
+      console.log("Printing response inside API function", response);
+      return res.status(200).json({
+        messgae: "Order Updated Successfully",
+        updatedOrder: response,
+      });
+    })
+    .catch((error) => {
+      if (error)
+        return res.status(400).json({
+          message: "Catch error",
+          error: error,
+        });
+      else {
+        return res.status(500).send("Server Error");
+      }
+    });
 };

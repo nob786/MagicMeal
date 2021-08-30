@@ -30,4 +30,18 @@ router.get(
   itemController.getItem
 );
 
+// API for updating pending order status
+router.put(
+  "/update-pending-orders/:restId",
+  // authMiddleWare.verifyRestaurant,
+  itemController.updatePendingOrders
+);
+
+// API for fetching pending orders
+router.get(
+  "/get-pending-orders/:restId",
+  // authMiddleWare.verifyRestaurant,
+  itemController.getPendingOrders
+);
+
 module.exports = router;
