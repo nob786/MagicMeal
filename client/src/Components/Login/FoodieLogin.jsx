@@ -26,6 +26,11 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
+
+//==========================Redux imports===================================
+import { useDispatch } from "react-redux";
+import { addCustomerData } from "../../Redux/actions/authentication";
+
 const FoodieLogin = () => {
   const [formData, setFormData] = React.useState({
     email: "",
@@ -33,6 +38,8 @@ const FoodieLogin = () => {
   });
   const history = useHistory();
   //const history = useHistory();
+
+  const dispatch=useDispatch();
 
   const handleChange = (event) => {
     console.log(event.target.value);
@@ -73,10 +80,14 @@ const FoodieLogin = () => {
         //console.log(token);
         const token = response.data.token;
         const role = response.data.role;
+        const customer= response.data.customer;
+        console.log("Customer Logged In: ",customer);
+
         if (!token) {
           console.log("Your token is empty", token);
         } else {
           window.alert("User Logged in");
+          dispatch(addCustomerData(customer));
           localStorage.setItem("token", JSON.stringify(token));
           if (role === "restaurant") {
             window.alert("Restaurant Logged In");

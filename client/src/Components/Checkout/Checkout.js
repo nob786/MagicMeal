@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from "axios";
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -104,6 +105,47 @@ export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
   
 
+  //=================Post Order Data ================
+
+  const {custData} = useSelector(
+    (state) => state.auth
+  );
+  
+  const {deliveryAddress} = useSelector(
+    (state) => state.cart
+  );
+
+  const customerData= {
+    name: custData.firstName,
+    contact: custData.contact,
+    customerId: custData._id,
+    customerAddress: deliveryAddress,
+
+  };
+  
+  const {cartRestaurant} = useSelector(
+    (state) => state.cart
+  );
+
+  const {clickedMenuId} = useSelector(
+    (state) => state.cart
+  );
+  const {cartTotal} = useSelector(
+    (state) => state.cart
+  );
+
+let restId=cartRestaurant._id;
+
+const OrderData= {
+  customerData: customerData,
+  restaurantData: cartRestaurant,
+  items: clickedMenuId,
+  grandTotal: cartTotal,
+}
+
+console.log("orderssss",OrderData);
+
+
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -112,7 +154,23 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
-  const placeOrder = () => {
+  const placeOrder = async (event) => {
+    //Order Post //
+    event.preventDefault();
+    await axios.post(`http://localhost:3001/user/post-order/${restId}`, OrderData,{
+      headers: {
+        authorization:
+          localStorage.getItem("token") !== null
+            ? JSON.parse(localStorage.getItem("token"))
+            : null,
+      },
+    }
+    ).then((res)=>{
+      if(res)
+      console.log("Response", res);
+    }).catch((err)=>{
+      console.log("Error in FE",err);
+    })
     window.alert("Order Placed");
     setActiveStep(activeStep + 1);
   };

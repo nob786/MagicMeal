@@ -1,5 +1,6 @@
 import { ADD_DELIVERY_ADDRESS,
-  ADD_CART_RESTAURANT_ID, PUSH_MENU_ID,} from "./types";
+  ADD_CART_RESTAURANT_ID, PUSH_MENU_ID,
+  ADD_CART_RESTAURANT} from "./types";
 
 
 
@@ -31,3 +32,13 @@ export const addDeliveryAddress = (address) => (dispatch) => {
     });
   
   };
+
+  export const pushcartRestaurant = (restaurant) => (dispatch) => {
+  
+    dispatch({
+      type: ADD_CART_RESTAURANT,
+      payload: restaurant,
+    });
+  
+  };
+

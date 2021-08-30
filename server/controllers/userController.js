@@ -65,15 +65,23 @@ exports.getRestaurantMenus = async (req, res) => {
 };
 
 exports.postOrder = async (req, res) => {
+  const orderData=  req.params.OrderData;
+  console.log("Order Data",req.body);
+  const {restaurantData,customerData,items,grandTotal}=req.body;
   const restaurantId = req.params.restId;
   const userId = req.loggedInUserId;
-  const arrayOfItems = req.body.items;
-  const grandTotal= req.body.grandTotal;
-  const customerAddress= req.body.customerAddress;
-
-  console.log("User Id", userId);
+  const itemsArray = items.map((i) => {
+    return { 
+      itemId: i._id,
+      itemName: i.itemName,
+      itemDescription: i.description,
+      price: i.price,
+      quantity: i.quantity,
+      total: i.total ,
+  }});
+  //console.log("User Id", userId);
   
-  console.log("Items array", arrayOfItems);
+  //console.log("Items array", arrayOfItems);
 
   if (!userId)
     return res.status(404).json({
@@ -114,7 +122,7 @@ exports.postOrder = async (req, res) => {
     restaurantId
     // account: restaurantAccount._id,
   );
-  console.log(restaurant);
+  //console.log(restaurant);
   if (!restaurant)
     return res.status(404).json({
       message: "Could not find the restaurant",
@@ -124,17 +132,17 @@ exports.postOrder = async (req, res) => {
   let newOrder = new Orders({
     
     customer: {
-      name: customer.firstName + " " + customer.lastName,
-      contact: customer.contact,
-      customerId: customer.id,
-      customerAddress: customerAddress,
+      name: customerData.name,
+      contact: customerData.contact,
+      customerId: customerData.customerId,
+      customerAddress: customerData.customerAddress,
     },
     restaurant: {
-      restaurantName: restaurant.restaurantName,
-      contact: restaurant.contact,
-      restaurantId: restaurant._id,
+      restaurantName: restaurantData.restaurantName,
+      contact: restaurantData.contact,
+      restaurantId: restaurantData._id,
     },
-    items: arrayOfItems,
+    items: itemsArray,
     grandTotal: grandTotal,
     status: "pending",
   });

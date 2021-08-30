@@ -1,4 +1,4 @@
-import { AUTH_REST,AUTH_CUST } from "../actions/types";
+import { AUTH_REST,AUTH_CUST,ADD_CUSTOMER_DATA } from "../actions/types";
     
     const initialState = {
       authRest: false,
@@ -24,6 +24,11 @@ import { AUTH_REST,AUTH_CUST } from "../actions/types";
               ...state,
               counter: state.counter+1,
             }; 
+            case ADD_CUSTOMER_DATA:
+            return {
+              ...state,
+              custData: action.payload,
+            };
           default:
             return state;
         }

@@ -12,7 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 const UserMenuItems = () => {
 
   const [items, setItems] = React.useState([]);
-  const [restaurantId, setRestaurantId] = React.useState([]);
+  const [restaurantId, setRestaurantId] = React.useState();
+  const [restaurantName, setRestaurantName] = React.useState();
+  const [contact, setContact] = React.useState();
 
   
   
@@ -38,6 +40,8 @@ const UserMenuItems = () => {
       //let restaurantId=data.data._id;
       setItems(finalLoadedData);
       setRestaurantId(data.data._id);
+      setRestaurantName(data.data.restaurantName);
+      setContact(data.data.contact);
     } else {
       console.log("Could not fetch data.");
     }
@@ -49,7 +53,7 @@ const UserMenuItems = () => {
       <TitleTag title="Menu Items Available" />
       <div className="menus_grid">
         {items.map((item, index) => (
-          <SingleUserMenu key={index} menu={item} restId={restaurantId}/>
+          <SingleUserMenu key={index} menu={item} restId={restaurantId} restName={restaurantName} cont={contact} />
         ))}
       </div>
     </div>

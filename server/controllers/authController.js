@@ -12,7 +12,47 @@ const {
   validateLogin,
 } = require("../middleware/validation");
 
+
+
+
 exports.login = async (req, res) => {
+  const { error } = validateLogin(req.body);
+
+  if (error) return res.status(400).send("Enter data in correct form.");
+
+  const { email, password } = req.body;
+
+  let loadedAccount = await Account.findOne({
+    email: email,
+  });
+
+  if (!loadedAccount) return res.status(404).send("Account not found");
+
+  let hashedPassword = await bcrypt.compare(password, loadedAccount.password);
+
+  if (!hashedPassword) return res.status(404).send("Invalid Email or password");
+
+  const token = jwt.sign({ accountId: loadedAccount._id.toString() }, "myKey");
+
+  const loadedCustomer = await Customer.findOne({
+    account: loadedAccount._id,
+  });
+
+  if (!token)
+    return res.status(400).json({
+      message: "Token is empty",
+      data: token,
+    });
+  else {
+    return res.status(200).json({
+      token: token,
+      role: loadedAccount.role,
+      id: loadedAccount._id,
+      customer: loadedCustomer,
+    });
+  }
+};
+/*exports.login = async (req, res) => {
   const { error } = validateLogin(req.body);
 
   if (error) return res.status(400).send("Enter data in correct form.");
@@ -43,7 +83,7 @@ exports.login = async (req, res) => {
       id: loadedAccount._id,
     });
   }
-};
+};*/
 
 exports.signupRestaurant = async (req, res) => {
   const { error } = validateRestaurant(req.body);

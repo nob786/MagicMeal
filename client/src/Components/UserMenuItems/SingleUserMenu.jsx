@@ -13,8 +13,9 @@ import { Grid } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import {pushMenuId} from "../../Redux/actions/cartAction"
 import {pushcartRestaurantId} from "../../Redux/actions/cartAction"
+import {pushcartRestaurant} from "../../Redux/actions/cartAction"
 
-const SingleUserMenu = ({ menu, restId }) => {
+const SingleUserMenu = ({ menu, restId , restName, cont}) => {
 
   const dispatch = useDispatch();
   const {clickedMenuId} = useSelector(
@@ -32,9 +33,16 @@ const SingleUserMenu = ({ menu, restId }) => {
     quantity: 1,
     total: menu.price,
   };
-  console.log("Full Cart Menu", fullCartMenu);
+ // console.log("Full Cart Menu", fullCartMenu);
 
  // console.log("FullCartMenu",fullCartMenu);
+
+ const restaurantData= {
+   restaurantName: restName,
+   contact: cont,
+   restaurantId: restId,
+
+ }
 
 
 
@@ -50,6 +58,7 @@ const SingleUserMenu = ({ menu, restId }) => {
     {
       dispatch(pushMenuId(fullCartMenu));
       dispatch(pushcartRestaurantId(restId));
+      dispatch(pushcartRestaurant(restaurantData));
     window.alert(menu.itemName+" Item Added to Cart");
   }
   else if (cartRestaurantId===restId){

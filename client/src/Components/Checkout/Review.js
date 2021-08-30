@@ -44,6 +44,10 @@ export default function Review() {
   const {clickedMenuId} = useSelector(
     (state) => state.cart
   );
+  const {custData} = useSelector(
+    (state) => state.auth
+  );
+
   const {deliveryAddress} = useSelector(
     (state) => state.cart
   );
@@ -72,7 +76,7 @@ export default function Review() {
           <Typography variant="h6" gutterBottom className={classes.title}>
             Delivery Address
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
+          <Typography gutterBottom>{custData.firstName}</Typography>
           <Typography gutterBottom>{deliveryAddress}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>

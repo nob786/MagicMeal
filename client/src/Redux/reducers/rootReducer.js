@@ -7,6 +7,7 @@ import storage from 'redux-persist/lib/storage';
 import dataReducers from './dataReducers';
 import counterReducer from './counterReducer';
 import cartReducer from './cartReducer';
+import authReducer from './authReducer';
 
 
 
@@ -14,13 +15,14 @@ import cartReducer from './cartReducer';
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['data','cart']
+    whitelist: ['data','cart','auth']
 }
 
 const reducers = combineReducers({
     data: dataReducers,
     counter: counterReducer,
     cart: cartReducer,
+    auth: authReducer,
   });
 
 

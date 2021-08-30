@@ -31,6 +31,7 @@ const orderSchema = mongoose.Schema({
     restaurantId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Restaurant",
+      required: true,
     },
   },
   /*date: {
@@ -54,12 +55,15 @@ const orderSchema = mongoose.Schema({
   },*/
   items: [
      {
+      itemId: { type: String, required: true },   
       itemName: { type: String, required: true },
+      itemDescription: { type: String, required: true },
       price: {type: Number, required: true},
       quantity: { type: Number, required: true },
       total: {type: Number, required: true},
     },
   ],
+
   grandTotal: {type: Number, required: true},
   status: {
     type: String,
