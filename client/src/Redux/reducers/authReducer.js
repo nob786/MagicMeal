@@ -1,4 +1,4 @@
-import { AUTH_REST,AUTH_CUST,ADD_CUSTOMER_DATA } from "../actions/types";
+import { AUTH_REST,AUTH_CUST,ADD_CUSTOMER_DATA,ADD_RESTAURANT_DATA } from "../actions/types";
     
     const initialState = {
       authRest: false,
@@ -28,6 +28,11 @@ import { AUTH_REST,AUTH_CUST,ADD_CUSTOMER_DATA } from "../actions/types";
             return {
               ...state,
               custData: action.payload,
+            };
+            case ADD_RESTAURANT_DATA:
+            return {
+              ...state,
+              restData: action.payload,
             };
           default:
             return state;

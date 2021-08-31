@@ -51,7 +51,7 @@ exports.getRestaurantMenus = async (req, res) => {
     else {
       return res.status(200).json({
         message: "Restaurant and its items returned successfully!",
-        data: restaurant.items,
+        data: restaurant,
       });
     }
   } catch (error) {
@@ -169,7 +169,7 @@ exports.postOrder = async (req, res) => {
     restaurant: {
       restaurantName: restaurantData.restaurantName,
       contact: restaurantData.contact,
-      restaurantId: restaurantData._id,
+      restaurantId: restaurantData.restaurantId,
     },
     items: itemsArray,
     grandTotal: grandTotal,
@@ -193,47 +193,6 @@ exports.postOrder = async (req, res) => {
         });
     });
 };
-
-exports.bookTable = async (req, res) => {
-  const userId = req.loggedInUserId;
-  const restaurantId = req.params.restaurantId;
-
-  if (!userId) {
-    return res.status(404).send("Did not get user id.");
-  }
-  if (!restaurantId) {
-    return res.status(404).send("Did not get restaurant id from params.");
-  }
-
-  const customerAccount = await Account.findById(userId);
-  if (!customerAccount)
-    return res.status(404).send("Customer nor found in database.");
-
-  const customer = await Customer.findOne({
-    account: customerAccount._id,
-  });
-  if (!customer) return res.status(404).send("Did not find customer object");
-
-  const restaurantAccount = await Account.findById(restaurantId);
-  if (!restaurantAccount)
-    return res.status(404).send("Restaurant account not found");
-
-  const restaurant = await Restaurant.findOne({
-    account: restaurant._id,
-  }).populate({ path: "bookings" });
-
-  if (!restaurant)
-    return res.status(404).send("Did not find restaurant object.");
-
-  if (restaurant.bookings.availableTables === 0) {
-    return res.status(404).json({
-      message: "All tables have been booked.",
-    });
-  } else {
-    let newBooking = new Bookings({});
-  }
-};
-
 exports.postComment = async (req, res) => {
   //console.log("Comment api called.");
   const userId = req.loggedInUserId;

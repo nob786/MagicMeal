@@ -218,12 +218,12 @@ exports.getPendingOrders = async (req, res) => {
 // API for updating pending order status
 
 exports.updatePendingOrders = async (req, res) => {
-  const restId = req.params.restId;
+  //const restId = req.params.restId;
   const { orderId, status } = req.body;
   console.log("restaurant id", restId);
   if (!restId) return res.status(404).send("No restaurant ID found in params");
   const query1 = {
-    "restaurant.restaurantId": restId,
+    //"restaurant.restaurantId": restId,
     _id: orderId,
   };
 

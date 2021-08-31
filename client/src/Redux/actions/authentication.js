@@ -1,5 +1,6 @@
 import { AUTH_REST,AUTH_CUST,
-  ADD_CUSTOMER_DATA } from "./types";
+  ADD_CUSTOMER_DATA,
+  ADD_RESTAURANT_DATA } from "./types";
 
 
 export const authRest = (token) => (dispatch) => {
@@ -25,6 +26,16 @@ export const authRest = (token) => (dispatch) => {
     dispatch({
       type: ADD_CUSTOMER_DATA,
       payload: customer,
+    });
+  
+  };
+
+
+  export const addRestaurantData = (restaurant) => (dispatch) => {
+  
+    dispatch({
+      type: ADD_RESTAURANT_DATA,
+      payload: restaurant,
     });
   
   };

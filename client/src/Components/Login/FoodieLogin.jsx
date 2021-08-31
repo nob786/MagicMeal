@@ -30,6 +30,7 @@ import Select from "@material-ui/core/Select";
 //==========================Redux imports===================================
 import { useDispatch } from "react-redux";
 import { addCustomerData } from "../../Redux/actions/authentication";
+import { addRestaurantData } from "../../Redux/actions/authentication";
 
 const FoodieLogin = () => {
   const [formData, setFormData] = React.useState({
@@ -81,20 +82,23 @@ const FoodieLogin = () => {
         const token = response.data.token;
         const role = response.data.role;
         const customer= response.data.customer;
-        console.log("Customer Logged In: ",customer);
+        const restaurant= response.data.restaurant;
+        console.log("Restaurant Logged In: ",restaurant);
 
         if (!token) {
           console.log("Your token is empty", token);
         } else {
           window.alert("User Logged in");
-          dispatch(addCustomerData(customer));
+          
           localStorage.setItem("token", JSON.stringify(token));
           if (role === "restaurant") {
             window.alert("Restaurant Logged In");
+            dispatch(addRestaurantData(restaurant));
             history.push("/admin/dashboard");
             // history.push("/admin/menu-items");
           } else if (role === "customer"){
             window.alert("Customer Logged In");
+            dispatch(addCustomerData(customer));
             window.alert(token.data);
             history.push("/");
           }
