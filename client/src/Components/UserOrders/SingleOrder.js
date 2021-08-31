@@ -4,7 +4,7 @@ import "./SingleOrder.css";
 
 //==========================Redux imports===================================
 
-const SingleOrder = ({ order }) => {
+const SingleOrder = ({ orders }) => {
   
 
 
@@ -18,19 +18,14 @@ const SingleOrder = ({ order }) => {
         <img className="restaurant_image" src={"../Pictures/R7.jpg"} />
       </div>
       <div>
-        <FavoriteBorderIcon
-          style={{ fontSize: 40, color: "red", float: "left" }}
-        />
+        <h1>Order Id: {orders._id}</h1>
       </div>
       <div>
-        <h1>Order Id</h1>
-      </div>
-      <div>
-        <h3>Restaurant Name</h3>
+        <h3>Restaurant Name: {orders.restaurant.restaurantName}</h3>
       </div>
 
       <div className="order-status">
-        Order Status
+      <h3>Order Status: {orders.status==="pending"? "PENDING APPROVAL": null}</h3>
       </div>
 
       <div className="order-received">

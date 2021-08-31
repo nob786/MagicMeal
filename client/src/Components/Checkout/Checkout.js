@@ -126,6 +126,9 @@ export default function Checkout() {
   const {cartRestaurant} = useSelector(
     (state) => state.cart
   );
+  const {cartRestaurantId} = useSelector(
+    (state) => state.cart
+  );
 
   const {clickedMenuId} = useSelector(
     (state) => state.cart
@@ -134,7 +137,9 @@ export default function Checkout() {
     (state) => state.cart
   );
 
-let restId=cartRestaurant._id;
+let restId=cartRestaurantId;
+
+console.log("REST ORDER ID",restId);
 
 const OrderData= {
   customerData: customerData,
@@ -143,7 +148,7 @@ const OrderData= {
   grandTotal: cartTotal,
 }
 
-console.log("orderssss",OrderData);
+console.log("PLACED ORDER DATA",OrderData);
 
 
   const handleNext = () => {
@@ -166,13 +171,18 @@ console.log("orderssss",OrderData);
       },
     }
     ).then((res)=>{
-      if(res)
-      console.log("Response", res);
+      if(res){
+      window.alert("Order Placed");
+      setActiveStep(activeStep + 1);
+      console.log("Response of Order Placed", res);
+      }
+      else 
+      console.log("Response Not Avalable");
+      
     }).catch((err)=>{
       console.log("Error in FE",err);
     })
-    window.alert("Order Placed");
-    setActiveStep(activeStep + 1);
+    
   };
   
   

@@ -38,18 +38,33 @@ exports.login = async (req, res) => {
     account: loadedAccount._id,
   });
 
+  const loadedRestaurant = await Restaurant.findOne({
+    account: loadedAccount._id,
+  });
+
+
   if (!token)
     return res.status(400).json({
       message: "Token is empty",
       data: token,
     });
   else {
+    if (loadedAccount.role==="restaurant"){
     return res.status(200).json({
+      token: token,
+      role: loadedAccount.role,
+      id: loadedAccount._id,
+      restaurant: loadedRestaurant,
+    });
+  }
+    else if(loadedAccount.role==="customer")
+    {return res.status(200).json({
       token: token,
       role: loadedAccount.role,
       id: loadedAccount._id,
       customer: loadedCustomer,
     });
+  }
   }
 };
 /*exports.login = async (req, res) => {
