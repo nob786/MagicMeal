@@ -52,7 +52,7 @@ const OrdersHistory = () => {
 
 
     return (  
-        <div className="orders-history">
+        <div className="orders">
             <TitleTag title="Pending Orders" />
             {orders.map((order, index) => (
           <SingleOrder key={index} orders={order}  />

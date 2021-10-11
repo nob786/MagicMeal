@@ -1,0 +1,25 @@
+.orders-history {
+    color: black;
+    width: 1000px;
+    font-size: 16px;
+    border: black 1px solid;
+    margin: auto;
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+.orders-history h2 {
+    font-size: 16px;
+}
+
+.orders-history button {
+    background-color: white;
+    
+}
+
+link {
+    color: black;
+    text-decoration: none;
+    
+}
