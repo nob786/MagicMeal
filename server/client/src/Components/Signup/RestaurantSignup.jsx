@@ -130,7 +130,7 @@ export default function RestaurantSignup() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5" style={{ color: "black" }}>
-          Partner Form
+          Partener Form
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>

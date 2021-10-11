@@ -1,14 +1,11 @@
-import axios from "axios";
 import React, { Component } from "react";
 
 import "./SingleRestOrder.css";
 
 //==========================Redux imports===================================
 
-import { useDispatch, useSelector } from "react-redux";
-import { LaptopWindows } from "@material-ui/icons";
-
 const SingleRestOrder = ({ orders }) => {
+<<<<<<< HEAD:server/client/src/RestaurantComponents/RestaurantOrders/SingleRestOrder.js
   const { restData } = useSelector((state) => state.auth);
 
   const approveOrder = async () => {
@@ -39,6 +36,16 @@ const SingleRestOrder = ({ orders }) => {
         //console.log(newToken);
       });
   };
+=======
+  
+
+
+
+const approveOrder=()=>{
+  window.alert('Approve Request Sent');
+}
+
+>>>>>>> parent of 22f70fb (Accepted orders):client/src/RestaurantComponents/RestaurantOrders/SingleRestOrder.js
 
   return (
     <div className="Single_Restaurant">

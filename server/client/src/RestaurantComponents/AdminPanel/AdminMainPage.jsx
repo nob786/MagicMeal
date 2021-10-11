@@ -39,7 +39,7 @@ class AdminMainPage extends Component {
 
   
 
-  /*componentWillMount() {
+  componentWillMount() {
     this.callAPI();
   }
 
@@ -49,7 +49,7 @@ class AdminMainPage extends Component {
     fetch("http://localhost:9000/testAPI")
       .then((res) => res.text())
       .then((res) => this.setState({ apiResponse: res }));
-  }*/
+  }
 
   state = {
     visible: true,
