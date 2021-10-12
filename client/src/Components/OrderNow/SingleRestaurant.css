@@ -1,14 +1,13 @@
 
-
-
 .Single_Restaurant {
       height: 450px;
       width: 400px;
       margin-top: 20px;
       background-color: #242424;
+      margin-left: 0%;
 }
 
-.container {
+.restaurant-image-container {
     margin: 0%;
     padding: 0%;
     width: 400px; 
@@ -50,3 +49,34 @@ h3 {
 }
 
 
+
+/*========================Media Queries ==========================*/
+@media screen and (max-width: 480px) {
+    .Single_Restaurant {
+        width: 100%;
+        height: 200px;
+        margin-top: 20px;
+        background-color: #242424;
+  }
+  .restaurant-image-container {
+    margin: 0%;
+    padding: 0%;
+}
+
+.restaurant_image {
+    height: 125px;
+    width: 100%;
+}
+.restaurant-title {
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+h3 {
+    color: gray;
+    font-size: 12px;
+    text-align: center;
+}
+  }

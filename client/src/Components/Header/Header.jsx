@@ -6,6 +6,10 @@ import "../Header/Header.css";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Button from "../SpecialComp/Button/Button.jsx";
 
+//==========================Redux imports===================================
+import { useDispatch,useSelector } from "react-redux";
+import {addAuthCust} from "../../Redux/actions/authentication.js"
+
 //============================Main Function===================================//
 
 function Header() {
@@ -20,6 +24,20 @@ function Header() {
   const history = useHistory();
   const location = useLocation();
 
+
+//==================Redux =========================
+const dispatch=useDispatch();
+
+  const {authCust} = useSelector(
+    (state) => state.auth
+  );
+  const {custData} = useSelector(
+    (state) => state.auth
+  );
+
+  
+
+
   {/*const handleLogin = () =>{
     history.push("/foodie-login")
   }
@@ -29,7 +47,7 @@ function Header() {
   } */}
 
   const showButton = () => {
-    if (window.innerWidth <= 960) {
+    if (window.innerWidth <= 480) {
       setButton(false);
     } else {
       setButton(true);
@@ -45,6 +63,8 @@ function Header() {
 const handleLogout=()=>{
   localStorage.removeItem("persist:root");
   localStorage.removeItem("token");
+  dispatch(addAuthCust(false));
+  history.push("/");
   setShow(true);
 };
  
@@ -61,19 +81,30 @@ const handleLogout=()=>{
       <div className="header-navbar">
         <Link className="logo-name-link" to="/" onClick={closeMobileMenu}>
           <h2>MagicMeal </h2>
-          <i class="fas fa-hamburger"></i>
+          {/*<i class="fas fa-hamburger"></i>*/}
         </Link>
 
         {/*} <div className="navbar-menuicon" >
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} onClick={handleClick}/>
     </div>*/}
 
+
+    {//================== Mobile Version Hidden Navbar==========================
+
+    button===true 
+    ?
         <div className="navbar-menu">
           <ul
             className={
               click ? "navbar-menu-items active" : "nav-menu-items inactive"
             }
           >
+            { authCust===true ? <li className="navbar-menu-items">
+                (Welcome, {custData.firstName+" "+custData.lastName})
+            </li>
+            : null
+}
+
             <li className="navbar-menu-items">
               <Link className="header-link" to="/" onClick={closeMobileMenu}>
                 Home
@@ -90,7 +121,7 @@ const handleLogout=()=>{
               </Link>
             </li>
 
-            <li className="navbar-menu-items">
+           { authCust===true ? <li className="navbar-menu-items">
               <Link
                 className="header-link"
                 to="/user/orders-history"
@@ -99,6 +130,9 @@ const handleLogout=()=>{
                 Orders History
               </Link>
             </li>
+            :
+            null
+}
             <li className="navbar-menu-items">
               <Link
                 className="header-link"
@@ -109,14 +143,17 @@ const handleLogout=()=>{
               </Link>
             </li>
 
-            <li className="navbar-menu-items">
+            {authCust===true ? <li className="navbar-menu-items">
               <Link className="header-link"
                 to="/checkout">
                   <ShoppingCartIcon/>
                   </Link> 
             </li>
+            :
+            null
+}
 
-           {show ? <li className="navbar-menu-items">
+           {authCust===false ? <li className="navbar-menu-items">
               <Button
                 title="SignUp"
                 btn_link="/foodie-signup"
@@ -132,7 +169,7 @@ const handleLogout=()=>{
             </li> : null }
 
            <li className="navbar-menu-items">
-           {show ? <Button
+           {authCust===false ? <Button
                 title="Login"
                 btn_link="/foodie-login"
                 height="35px"
@@ -155,6 +192,8 @@ const handleLogout=()=>{
             
           </ul>
         </div>
+        : null
+      }
       </div>
     </div>
     

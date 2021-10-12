@@ -50,29 +50,25 @@ const approveOrder= async ()=>{
 
 
   return (
-    <div className="Single_Restaurant">
-    <div className="container">
-      <img className="restaurant_image" src={"../Pictures/R7.jpg"} />
-    </div>
-    <div>
+    <div className="Single-Restaurant">
       <h1>Order Id: {orders._id}</h1>
-    </div>
-    <div>
-      <h3>Restaurant Name: {orders.restaurant.restaurantName}</h3>
-    </div>
+  
+    
+      <h2>Restaurant Name: {orders.restaurant.restaurantName}</h2>
+    
 
-    <div className="order-status">
-    <h3>Order Status: {orders.status==="pending"? "PENDING APPROVAL": null}</h3>
-    </div>
+    
+    <h2>Order Status: {orders.status==="pending"? "PENDING APPROVAL": null}</h2>
+    
 
-    <div className="order-received">
+    
       {
       orders.status==="pending" ? <button onClick={approveOrder}>
         Approve Order
       </button>
       : null
       }
-    </div>
+  
 
   </div>
   );

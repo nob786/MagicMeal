@@ -3,7 +3,7 @@ import { AUTH_REST,AUTH_CUST,
   ADD_RESTAURANT_DATA } from "./types";
 
 
-export const authRest = (token) => (dispatch) => {
+export const addAuthRest = (token) => (dispatch) => {
     
     dispatch({
       type: AUTH_REST,
@@ -12,7 +12,7 @@ export const authRest = (token) => (dispatch) => {
   
   };
 
-  export const authCust = (token) => (dispatch) => {
+  export const addAuthCust = (token) => (dispatch) => {
   
     dispatch({
       type: AUTH_CUST,

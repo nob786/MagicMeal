@@ -31,6 +31,8 @@ import Select from "@material-ui/core/Select";
 import { useDispatch } from "react-redux";
 import { addCustomerData } from "../../Redux/actions/authentication";
 import { addRestaurantData } from "../../Redux/actions/authentication";
+import {addAuthCust} from "../../Redux/actions/authentication.js"
+import {addAuthRest} from "../../Redux/actions/authentication.js"
 
 const FoodieLogin = () => {
   const [formData, setFormData] = React.useState({
@@ -93,11 +95,13 @@ const FoodieLogin = () => {
           localStorage.setItem("token", JSON.stringify(token));
           if (role === "restaurant") {
             window.alert("Restaurant Logged In");
+            dispatch(addAuthRest(true));
             dispatch(addRestaurantData(restaurant));
             history.push("/admin/dashboard");
             // history.push("/admin/menu-items");
           } else if (role === "customer"){
             window.alert("Customer Logged In");
+            dispatch(addAuthCust(true));
             dispatch(addCustomerData(customer));
             window.alert(token.data);
             history.push("/");

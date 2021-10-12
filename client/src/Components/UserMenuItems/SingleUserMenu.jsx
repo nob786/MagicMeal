@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import "./SingleUserMenu.css";
 
-import { Link } from "react-router-dom";
+import { Link , useHistory} from "react-router-dom";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
@@ -51,9 +51,15 @@ const SingleUserMenu = ({ menu, restId , restName, cont}) => {
     (state) => state.cart
   );
 
-  
+
+  //==================Redux Cust Auth=============
+  const history = useHistory();
+  const {authCust} = useSelector(
+    (state) => state.auth
+  );
   //console.log("ABCD"+clickedMenuId);
   const addtoCart=()=>{
+    if (authCust===true) {
     if (cartRestaurantId==="")
     {
       dispatch(pushMenuId(fullCartMenu));
@@ -66,6 +72,11 @@ const SingleUserMenu = ({ menu, restId , restName, cont}) => {
     window.alert(menu.itemName+" Item Added to Cart");
   }else if (restId !== cartRestaurantId )
   window.alert("Different Restaurant Item.");
+}
+else {
+  history.push("/foodie-login");
+}
+
     
     
     

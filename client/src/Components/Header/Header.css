@@ -81,3 +81,31 @@
   
 
 
+  @media (max-width: 480px) {
+    .Header {
+      
+      height: 75px;
+      }
+      .header-navbar {
+      }
+    .navbar-menu ul{
+      
+      float: none;
+      width: 100%;
+    }
+    .navbar-menu ul{
+      list-style-type: none;
+      display: inline;
+      float: none;
+    }
+
+    .logo-name-link {
+    padding: 10px;
+    margin-left: 40%;
+    color: white;
+  }
+
+  }
+  
+
+

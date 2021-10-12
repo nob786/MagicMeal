@@ -50,7 +50,7 @@ const UserMenuItems = () => {
 
   return (
     <div className="Restaurants">
-      <TitleTag title="Menu Items Available" />
+      <TitleTag title="Menu Items Availablesss" />
       <div className="menus_grid">
         {items.map((item, index) => (
           <SingleUserMenu key={index} menu={item} restId={restaurantId} restName={restaurantName} cont={contact} />

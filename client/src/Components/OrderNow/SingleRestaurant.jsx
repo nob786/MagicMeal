@@ -29,16 +29,16 @@ const SingleRestaurant = ({ restaurant }) => {
   }
   return (
     <div className="Single_Restaurant">
-      <div className="container">
+      <div className="restaurant-image-container">
         <img className="restaurant_image" src={"../Pictures/R7.jpg"} />
       </div>
-      <div>
+     {/*} <div>
         <FavoriteBorderIcon
           style={{ fontSize: 40, color: "red", float: "left" }}
         />
-      </div>
+  </div>*/}
       <div>
-        <Link onClick={onRestaurantClick}><h1>{restaurant.restaurantName}</h1></Link>
+        <Link onClick={onRestaurantClick}><h1 className="restaurant-title">{restaurant.restaurantName}</h1></Link>
       </div>
       <div>
         <h3>{restaurant.address}</h3>

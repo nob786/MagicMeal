@@ -1,5 +1,5 @@
 .Restaurants {
-    margin: 100px;
+    margin: 5%;
 }
 
 .restaurants_grid {
@@ -10,4 +10,8 @@
 
 
 
-
+@media (max-width: 480px) {
+    .Restaurants {
+        margin: 5%;
+    }
+}

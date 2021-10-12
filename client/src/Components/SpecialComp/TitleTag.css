@@ -32,24 +32,24 @@
   }*/
   .TitleTag span {
     font-size: 60px;
-    width: 100px;
+    width: 100%;
     z-index: 2;
   }
   
   .TitleTag button {
-    margin: 5%;
+    margin-bottom: 5%;
     color: black;
     height: 70px;
     background-color: white ;
-    width: 90%;
+    width: 100%;
     font-size: 25px;
     font-weight: bold;
     border-color: #242424;
   }
-  @media (max-width: 640px) {
+  @media (max-width: 480px) {
     .TitleTag button {
-      height: 40px;
-      width: 100px;
+      height: 50px;
+      width: 300px;
       font-size: 10px;
     }
   }

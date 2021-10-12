@@ -16,13 +16,13 @@ import { AUTH_REST,AUTH_CUST,ADD_CUSTOMER_DATA,ADD_RESTAURANT_DATA } from "../ac
           case AUTH_REST:
             return {
               ...state,
-              counter: state.counter+1,
+              authRest: action.payload,
             };
       
           case AUTH_CUST:
             return {
               ...state,
-              counter: state.counter+1,
+              authCust: action.payload,
             }; 
             case ADD_CUSTOMER_DATA:
             return {
