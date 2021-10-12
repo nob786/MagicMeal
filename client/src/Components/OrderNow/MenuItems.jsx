@@ -8,7 +8,6 @@ import axios from "axios";
 import "./MenuItems.css";
 import NewMenuItem from "../../RestaurantComponents/AdminPanel/NewMenuItem";
 
-
 const MenuItems = (ID) => {
   // const[restaurant,setRestaurant] = React.useState([
   //     { imageLoc: "./Pictures/R9.jpg", menuTitle: "Rice" , menuDesc: "Canal Bank Road Multan" ,},
@@ -25,7 +24,7 @@ const MenuItems = (ID) => {
   const [items, setItems] = React.useState([]);
 
   useEffect(async () => {
-    const { data } = await axios.get("http://localhost:3001/item/get-items", {
+    const { data } = await axios.get("/item/get-items", {
       headers: {
         authorization:
           localStorage.getItem("token") !== null

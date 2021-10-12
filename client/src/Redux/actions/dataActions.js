@@ -1,9 +1,9 @@
-import { SET_RESTAURANT, SET_RESTAURANTS, PUSH_RESTAURANT_ID,} from "./types";
+import { SET_RESTAURANT, SET_RESTAURANTS, PUSH_RESTAURANT_ID } from "./types";
 import axios from "axios";
 
 export const getRestaurants = () => (dispatch) => {
   axios
-    .get("http://localhost:3001/user/get-restaurants")
+    .get("/user/get-restaurants")
     .then((res) => {
       dispatch({
         type: SET_RESTAURANTS,
@@ -21,7 +21,7 @@ export const getRestaurants = () => (dispatch) => {
 
 export const getRestaurant = (restId) => (dispatch) => {
   axios
-    .get(`http://localhost:3001/user/get-restaurant-menu/${restId}`)
+    .get(`/user/get-restaurant-menu/${restId}`)
     .then((res) => {
       dispatch({
         type: SET_RESTAURANT,
@@ -38,17 +38,8 @@ export const getRestaurant = (restId) => (dispatch) => {
 };
 
 export const pushRestaurantId = (restaurantId) => (dispatch) => {
-  
-      dispatch({
-        type: PUSH_RESTAURANT_ID,
-        payload: restaurantId,
-      });
-    
+  dispatch({
+    type: PUSH_RESTAURANT_ID,
+    payload: restaurantId,
+  });
 };
-
-
-
-
-
-
-

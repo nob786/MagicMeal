@@ -63,7 +63,7 @@ const AdminMenuItems = () => {
     //========================AXIOS CALL TO POST DATA===============================
     await axios
       .post(
-        "http://localhost:3001/item/add-item",
+        "/item/add-item",
         {
           itemName: itemName,
           price: price,

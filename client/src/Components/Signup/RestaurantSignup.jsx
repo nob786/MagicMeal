@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 export default function RestaurantSignup() {
   const classes = useStyles();
 
-  const history =useHistory();
+  const history = useHistory();
 
   //const [cities, setCity] = React.useState('M');
 
@@ -74,7 +74,7 @@ export default function RestaurantSignup() {
     restaurantLocation: "",
     contact: "",
     category: "",
-    role: "restaurant"
+    role: "restaurant",
   });
 
   const handleChange = (event) => {
@@ -96,13 +96,13 @@ export default function RestaurantSignup() {
       password,
       restaurantName,
       restaurantLocation,
-      contact, 
+      contact,
       category,
       role,
     } = restAdmin;
 
     axios
-      .post("http://localhost:3001/auth/signup-restaurant", {
+      .post("/auth/signup-restaurant", {
         ownerName: OwnerName,
         email: email,
         password: password,
@@ -130,11 +130,11 @@ export default function RestaurantSignup() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5" style={{ color: "black" }}>
-          Partner Form
+          Partener Form
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} >
+            <Grid item xs={12}>
               <TextField
                 autoComplete="name"
                 name="OwnerName"
@@ -184,7 +184,7 @@ export default function RestaurantSignup() {
                     </Select>
               </FormControl>
             </Grid> */}
-                        <Grid item xs={12}>
+            <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
@@ -265,10 +265,6 @@ export default function RestaurantSignup() {
               />
             </Grid>
 
-
-
-
-
             <Grid item xs={17}>
               <TextField
                 id="outlined-textarea"
@@ -283,15 +279,15 @@ export default function RestaurantSignup() {
             </Grid>
 
             <Grid item xs={12}>
-            <TextField
-          id="standard-read-only-input"
-          label="Role"
-          defaultValue="Restaurant"
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-        </Grid>
+              <TextField
+                id="standard-read-only-input"
+                label="Role"
+                defaultValue="Restaurant"
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+            </Grid>
 
             {/*<Grid item xs={12}>
               <FormControlLabel
