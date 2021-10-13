@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 exports.getRestaurants = async (req, res) => {
   try {
     const restaurants = await Restaurant.find();
-    console.log("Inside getRestaurants");
+    console.log("Inside Get Restaurants");
 
     if (!restaurants) return res.status(404).send("No restaurant found.");
     return res.status(200).json({
