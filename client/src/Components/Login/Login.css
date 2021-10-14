@@ -1,9 +1,3 @@
-/*====================================================================Restaurant Login========================================================*/
-.restaurant_login_form {
-    text-align: center;
-
-}
-
 
 
 
@@ -22,26 +16,24 @@
 .foodie_login_container {
     max-width: 500px;
     margin: auto;
-    margin-top: 25px;
+    margin-top: 5%;
+    margin-bottom: 1%;
 }
 
 .form-fields {
-    padding-top: 10px;
+    padding-top: 2px;
 }
 
 
-.image {
-    width: 500px;
-    height: 700px;
-}
+
 
 
 .foodie_login_form {
     color: white;
     text-align: center;
-    background-color: lightskyblue;
+    background-color: orange;
     width: 500px;
-    height: 700px;
+    height: 500px;
 }
 
 .title {
@@ -58,7 +50,7 @@
 
 
 .fields {
-    width: 400px;
+    width: 400x;
 }
 
 .mobilecode {
@@ -85,3 +77,46 @@
 .already {
     margin-top: 10px;
 }
+
+
+
+
+
+
+
+
+.login-submit-button{
+    height: 35px;
+    width: 100px;
+    margin-bottom: 10%;
+    transition-duration: 0.4s;
+    background-color: orange;
+    color: white;
+    border: black 1px solid;
+  }
+  
+  .login-submit-button:hover {
+    background-color: white; /* Green */
+    color: black;
+    border: white 1px solid;
+  }
+  
+
+
+
+
+
+  /*========================Media Querries ===================================*/
+  @media (max-width: 480px) {
+    .foodie_login_form {
+        color: white;
+        background-color: orange;
+        width: 400px;
+        height: 380px;
+        margin: auto;
+        padding: 5%;
+    }
+    .email,.fields{
+        width: 100px;
+    }
+  }

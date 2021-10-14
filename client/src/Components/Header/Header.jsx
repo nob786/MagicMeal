@@ -53,7 +53,14 @@ const dispatch=useDispatch();
       setButton(true);
     }
   };
-  
+  /*useEffect(() => {
+    // Update the document title using the browser API
+    if (window.innerWidth <= 480) {
+      setButton(false);
+    } else {
+      setButton(true);
+    }
+  });*/
 
 
     
@@ -91,7 +98,7 @@ const handleLogout=()=>{
 
     {//================== Mobile Version Hidden Navbar==========================
 
-    button===true 
+    window.innerWidth>480 || window.innerHeight >480 
     ?
         <div className="navbar-menu">
           <ul
@@ -154,14 +161,30 @@ const handleLogout=()=>{
 }
 
            {authCust===false ? <li className="navbar-menu-items">
-              <Button
+           {/*<Button
                 title="SignUp"
                 btn_link="/foodie-signup"
                 height="35px"
                 width="100px"
                 
-              /> 
-              
+           />
+           <Button
+                title="Login"
+                btn_link="/foodie-login"
+                height="35px"
+                width="100px"
+
+              />
+           */}
+
+
+              <Link className="signup-button-link" to="/foodie-signup">
+              <button className="signup-button">
+                Signup
+              </button>
+              </Link>
+
+
               {/*<button onClick={handleSignup}>
                 Signup
           </button>*/}
@@ -169,20 +192,21 @@ const handleLogout=()=>{
             </li> : null }
 
            <li className="navbar-menu-items">
-           {authCust===false ? <Button
-                title="Login"
-                btn_link="/foodie-login"
-                height="35px"
-                width="100px"
+           {authCust===false ? 
 
-              />
+            <Link className="login-button-link" to="/foodie-login">
+              <button className="login-button">
+                Login
+              </button>
+           </Link>
 
-              : <Button
-              title="Logout"
-              height="35px"
-              width="100px"
-              OnClick={handleLogout}
-            /> }
+              : 
+                <Link className="logout-button-link">
+                  <button className="logout-button" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </Link>
+                 }
 
               {/*<button onClick={handleLogin}>
                 Login

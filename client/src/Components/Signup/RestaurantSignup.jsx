@@ -123,14 +123,14 @@ export default function RestaurantSignup() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" className="restaurant-signup-container">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5" style={{ color: "black" }}>
-          Partner Form
+        <Typography component="h1" variant="h5" style={{ color: "black", marginBottom: "10%" }} >
+          Restaurant Partnership Form
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -265,11 +265,23 @@ export default function RestaurantSignup() {
               />
             </Grid>
 
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="category"
+                label="Restaurant Category"
+                name="category"
+                value={restAdmin.category}
+                onChange={handleChange}
+              />
+            </Grid>
 
 
 
 
-            <Grid item xs={17}>
+           {/* <Grid item xs={12}>
               <TextField
                 id="outlined-textarea"
                 label="Restaurant Category"
@@ -281,18 +293,9 @@ export default function RestaurantSignup() {
                 onChange={handleChange}
               />
             </Grid>
+        */}
 
-            <Grid item xs={12}>
-            <TextField
-          id="standard-read-only-input"
-          label="Role"
-          defaultValue="Restaurant"
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-        </Grid>
-
+            
             {/*<Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
@@ -300,8 +303,12 @@ export default function RestaurantSignup() {
               />
         </Grid>*/}
           </Grid>
-
-          <button onClick={handleSubmit}>Submit</button>
+          <div className="restaurant-signup-submit-button-div">
+                  <button className="restaurant-signup-submit-button" onClick={handleSubmit}>
+                    Submit
+                  </button>
+          </div>
+         
 
           {/*<Button
             type="submit"

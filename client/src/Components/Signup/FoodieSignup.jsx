@@ -314,12 +314,14 @@ const FoodieSignup = () => {
 
 
                 
-                <div className="submit">
+                <div className="foodie-submit">
                 {/*<Button className="foodie_signup_button" title="Signup" height="40px" width="200px" color="white" btn_color="green"
                 font_size="20px"
                             />*/}
 
-                            <button className="foodie_signup_button" onClick={handleSubmit}>Submit</button>
+                  <button className="foodie-signup-submit-button" onClick={handleSubmit}>
+                    Submit
+                  </button>
 
                 <div className="already">
                 Already registered? Please <Link style= {{textDecoration: 'none',color: 'black', fontWeight: 'bold' }} to= "/foodie-login">Login</Link> as a Foodie

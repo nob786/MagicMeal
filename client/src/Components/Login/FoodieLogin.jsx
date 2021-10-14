@@ -85,7 +85,7 @@ const FoodieLogin = () => {
         const role = response.data.role;
         const customer= response.data.customer;
         const restaurant= response.data.restaurant;
-        console.log("Restaurant Logged In: ",restaurant);
+        //console.log("Restaurant Logged In: ",restaurant);
 
         if (!token) {
           console.log("Your token is empty", token);
@@ -103,7 +103,7 @@ const FoodieLogin = () => {
             window.alert("Customer Logged In");
             dispatch(addAuthCust(true));
             dispatch(addCustomerData(customer));
-            window.alert(token.data);
+            //window.alert(token.data);
             history.push("/");
           }
         }
@@ -157,7 +157,7 @@ const FoodieLogin = () => {
             name="email"
             className="email fields"
             id="input-with-icon-textfield"
-            label="Email or Phone"
+            label="Email"
             type="email"
             InputProps={{
               startAdornment: (
@@ -261,7 +261,9 @@ const FoodieLogin = () => {
             font_size="20px"
             />*/}
 
-          <button onClick={handleSubmit}>Submit</button>
+                  <button className="login-submit-button" onClick={handleSubmit}>
+                    Submit
+                  </button>
 
           <div className="already">
             Not Registered yet?{" "}

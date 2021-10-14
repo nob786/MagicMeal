@@ -19,7 +19,6 @@ import { useLocation } from 'react-router-dom'
 //=================================Importing Components================================//
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
-import RestaurantLogin from "./Components/Login/RestaurantLogin";
 import NotFound from "./Components/SpecialComp/NotFound";
 import PrivacyPolicy from "./Components/Footer/PrivacyPolicy";
 import ContactUs from "./Components/Footer/ContactUs";
@@ -76,7 +75,6 @@ class App extends Component {
             {/* ============================Admin Page Routes================================== */}
             <Route path="/admin/dashboard" component={AdminMainPage} />
 
-            <Route path="/restaurant-login" component={RestaurantLogin} />
             <Route path="/restaurant-signup" component={RestaurantSignup} />
             <Route path="/foodie-login" component={FoodieLogin} />
             <Route path="/foodie-signup" component={FoodieSignup} />

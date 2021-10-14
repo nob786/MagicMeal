@@ -5,8 +5,32 @@
     text-align: center;
 }
 
+.restaurant-signup-container {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
 
 
+.restaurant-signup-submit-button{
+    margin-top: 10%;
+    margin-bottom: 10%;
+    height: 35px;
+    width: 100px;
+    transition-duration: 0.4s;
+    color: black;
+    border: #242424 1px solid;
+  }
+  
+  .restaurant-signup-submit-button:hover {
+    background-color: #242424; /* Green */
+    color: white;
+    border: black 1px solid;
+  }
+
+
+  .restaurant-signup-submit-button-div {
+    text-align: center;
+}
 
 
 
@@ -102,3 +126,21 @@
 .already {
     margin-top: 10px;
 }
+
+
+
+.foodie-signup-submit-button{
+    margin-top: 10%;
+    height: 35px;
+    width: 100px;
+    transition-duration: 0.4s;
+    background-color: orange;
+    color: white;
+    border: black 1px solid;
+  }
+  
+  .foodie-signup-submit-button:hover {
+    background-color: white; /* Green */
+    color: black;
+    border: black 1px solid;
+  }

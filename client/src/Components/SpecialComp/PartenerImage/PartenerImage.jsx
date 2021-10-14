@@ -20,7 +20,11 @@ const PartenerImage = () => {
                         It's simple: we list your menu online, help you process orders, pick them up, and deliver them to hungry foodies - in a heartbeat!
                         Interested? Let's start our partnership today!</p>
                         <div className="partener-button">
-                        <Button btn_link="/restaurant-signup" title="Become our Business Partener" height="70px" width="500px"/>
+                            <Link to="/restaurant-signup">
+                                <button className="partner-button">
+                                    Become our Business Partener
+                                </button>
+                            </Link>
                         </div>
                         
 

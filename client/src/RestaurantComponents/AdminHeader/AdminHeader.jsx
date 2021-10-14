@@ -44,6 +44,7 @@ function AdminHeader() {
    
 
 const handleLogout=()=>{
+  localStorage.removeItem("persist:root");
   localStorage.removeItem("token");
   setShow(true);
 };

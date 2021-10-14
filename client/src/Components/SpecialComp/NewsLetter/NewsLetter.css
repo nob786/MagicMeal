@@ -22,11 +22,51 @@
 
 
 .newsletter-field {
-    height: 60px;
-    width: 600px;
+    height: 50px;
+    width: 500px;
     margin-top: 20px;
 }
 
 .subscribe_button {
     margin-top: 20px;
+}
+
+
+.newsletter-submit-button {
+    height: 50px;
+    width: 11rem;
+    transition-duration: 0.4s;
+    background-color: #242424;
+    color: white;
+    border: white 1px solid;
+  }
+  
+  .newsletter-submit-button:hover {
+    background-color: white; /* Green */
+    color: black;
+  }
+    
+
+
+
+
+
+
+
+/*===========================Media Queries ================================*/
+@media (max-width: 480px) {
+    .newsletter-field {
+        height: 25px;
+        width: 200px;
+        margin-top: 20px;
+    }
+    .newsletter-cont {
+        height: 50px;
+    }
+    .newsletter-submit-button {
+        height: 25px;
+        width: 11rem;
+        
+      }
+      
 }

@@ -27,6 +27,49 @@
     color: white;
 }
 .partener-button {
-    margin-top: 70px;
+    margin-top: 2rem;
 
+}
+
+
+.partner-button {
+    height: 3rem;
+    width: 18rem;
+    transition-duration: 0.4s;
+    background-color: #242424;
+    color: white;
+    border: white 1px solid;
+  }
+  
+  .partner-button:hover {
+    background-color: white; /* Green */
+    color: black;
+  }
+    
+
+
+
+
+/*===========================Media Queries ================================*/
+@media (max-width: 480px) {
+    .partner-button {
+        height: 3.5rem;
+        width: 18rem;
+        
+      }
+      .partener-text p{
+          font-size: 1rem;
+      }
+      .partener-text h1 {
+          font-size: 1.5rem;
+          margin-bottom: 1.5rem;
+      }
+
+      .partener-container img {
+        width: auto;
+      max-width: 100%;
+      height: 30rem;
+      max-height: 700px;
+    }
+    
 }
