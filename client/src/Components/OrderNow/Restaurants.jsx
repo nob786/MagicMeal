@@ -1,7 +1,6 @@
 import { SingleBed } from "@material-ui/icons";
 import React, { useEffect, useState, Component } from "react";
-import axios from "axios";
-
+import axios from "../../axios";
 import TitleTag from "../SpecialComp/TitleTag";
 import SingleRestaurant from "./SingleRestaurant";
 import "./Restaurants.css";
@@ -11,9 +10,7 @@ const Restaurants = () => {
   let data;
 
   useEffect(async () => {
-    const { data } = await axios.get(
-      "http://localhost:3001/user/get-restaurants"
-    );
+    const { data } = await axios.get("/user/get-restaurants");
     if (data) {
       console.log("Data was  fetched", data.data);
       let finalDataToLaod = data.data;
