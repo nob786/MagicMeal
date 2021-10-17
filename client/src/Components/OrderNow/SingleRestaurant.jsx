@@ -3,11 +3,9 @@ import React, { Component } from "react";
 import "./SingleRestaurant.css";
 
 import { Link, useHistory } from "react-router-dom";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import Rating from "@material-ui/lab/Rating";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import MenuItems from "./MenuItems";
+
 
 
 //==========================Redux imports===================================

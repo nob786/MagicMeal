@@ -1,22 +1,22 @@
 import React, { Component, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom'
 //=========================Importing Links and Icons=================
 import { Link, useHistory } from "react-router-dom";
 import "../Header/Header.css";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Button from "../SpecialComp/Button/Button.jsx";
 
 //==========================Redux imports===================================
-import { useDispatch, useSelector } from "react-redux";
-import { addAuthCust } from "../../Redux/actions/authentication.js";
+import { useDispatch,useSelector } from "react-redux";
+import {addAuthCust} from "../../Redux/actions/authentication.js"
 
 //============================Main Function===================================//
 
 function Header() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
-  const [show, setShow] = useState(false);
-  const [topheader, setHead] = useState(true);
+  const [show, setShow] =useState(false);
+  const [topheader, setHead] =useState(true);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
@@ -24,21 +24,27 @@ function Header() {
   const history = useHistory();
   const location = useLocation();
 
-  //==================Redux =========================
-  const dispatch = useDispatch();
 
-  const { authCust } = useSelector((state) => state.auth);
-  const { custData } = useSelector((state) => state.auth);
+//==================Redux =========================
+const dispatch=useDispatch();
 
-  {
-    /*const handleLogin = () =>{
+  const {authCust} = useSelector(
+    (state) => state.auth
+  );
+  const {custData} = useSelector(
+    (state) => state.auth
+  );
+
+  
+
+
+  {/*const handleLogin = () =>{
     history.push("/foodie-login")
   }
 
   const handleSignup = () =>{
     history.push("/foodie-signup")
-  } */
-  }
+  } */}
 
   const showButton = () => {
     if (window.innerWidth <= 480) {
@@ -56,23 +62,29 @@ function Header() {
     }
   });*/
 
-  const handleLogout = () => {
-    localStorage.removeItem("persist:root");
-    localStorage.removeItem("token");
-    dispatch(addAuthCust(false));
-    history.push("/");
-    setShow(true);
-  };
 
+    
+    
+   
+
+const handleLogout=()=>{
+  localStorage.removeItem("persist:root");
+  localStorage.removeItem("token");
+  dispatch(addAuthCust(false));
+  history.push("/");
+  setShow(true);
+};
+ 
   useEffect(() => {
     showButton();
   }, []);
 
   window.addEventListener("resize", showButton);
-  return location.pathname === "/foodie-signup" ||
-    location.pathname === "/admin/dashboard" ||
-    location.pathname === "/foodie-login" ? null : (
-    <div className="Header">
+  return (
+     
+    location.pathname === "/foodie-signup"|| location.pathname ==="/admin/dashboard" || location.pathname ==="/foodie-login" ? 
+    null:
+      < div className="Header">
       <div className="header-navbar">
         <Link className="logo-name-link" to="/" onClick={closeMobileMenu}>
           <h2>Eatsabyte </h2>
@@ -83,10 +95,7 @@ function Header() {
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} onClick={handleClick}/>
     </div>*/}
 
-        {
-          //================== Mobile Version Hidden Navbar==========================
 
-<<<<<<< HEAD
     {//================== Mobile Version Hidden Navbar==========================
 
     window.innerWidth>480 || window.innerHeight >480 
@@ -118,7 +127,7 @@ function Header() {
                 to="/restaurants"
                 onClick={closeMobileMenu}
               >
-                Restaurants
+                Chefs
               </Link>
             </li>
 
@@ -127,73 +136,35 @@ function Header() {
                 className="header-link"
                 to="/user/orders-history"
                 onClick={closeMobileMenu}
-=======
-          window.innerWidth > 480 || window.innerHeight > 480 ? (
-            <div className="navbar-menu">
-              <ul
-                className={
-                  click ? "navbar-menu-items active" : "nav-menu-items inactive"
-                }
->>>>>>> eed2668c0bfde25b89d9477dea34167500ea94ba
               >
-                {authCust === true ? (
-                  <li className="navbar-menu-items">
-                    (Welcome, {custData.firstName + " " + custData.lastName})
-                  </li>
-                ) : null}
+                Orders History
+              </Link>
+            </li>
+            :
+            null
+}
+            <li className="navbar-menu-items">
+              <Link
+                className="header-link"
+                to="/mobile-app"
+                onClick={closeMobileMenu}
+              >
+                Mobile App
+              </Link>
+            </li>
 
-                <li className="navbar-menu-items">
-                  <Link
-                    className="header-link"
-                    to="/"
-                    onClick={closeMobileMenu}
-                  >
-                    Home
-                  </Link>
-                </li>
+            {authCust===true ? <li className="navbar-menu-items">
+              <Link className="header-link"
+                to="/checkout">
+                  <ShoppingCartIcon/>
+                  </Link> 
+            </li>
+            :
+            null
+}
 
-                <li className="navbar-menu-items">
-                  <Link
-                    className="header-link"
-                    to="/restaurants"
-                    onClick={closeMobileMenu}
-                  >
-                    Chefs
-                  </Link>
-                </li>
-
-                {authCust === true ? (
-                  <li className="navbar-menu-items">
-                    <Link
-                      className="header-link"
-                      to="/user/orders-history"
-                      onClick={closeMobileMenu}
-                    >
-                      Orders History
-                    </Link>
-                  </li>
-                ) : null}
-                <li className="navbar-menu-items">
-                  <Link
-                    className="header-link"
-                    to="/mobile-app"
-                    onClick={closeMobileMenu}
-                  >
-                    Mobile App
-                  </Link>
-                </li>
-
-                {authCust === true ? (
-                  <li className="navbar-menu-items">
-                    <Link className="header-link" to="/checkout">
-                      <ShoppingCartIcon />
-                    </Link>
-                  </li>
-                ) : null}
-
-                {authCust === false ? (
-                  <li className="navbar-menu-items">
-                    {/*<Button
+           {authCust===false ? <li className="navbar-menu-items">
+           {/*<Button
                 title="SignUp"
                 btn_link="/foodie-signup"
                 height="35px"
@@ -209,39 +180,51 @@ function Header() {
               />
            */}
 
-                    <Link className="signup-button-link" to="/foodie-signup">
-                      <button className="signup-button">Signup</button>
-                    </Link>
 
-                    {/*<button onClick={handleSignup}>
+              <Link className="signup-button-link" to="/foodie-signup">
+              <button className="signup-button">
+                Signup
+              </button>
+              </Link>
+
+
+              {/*<button onClick={handleSignup}>
                 Signup
           </button>*/}
-                  </li>
-                ) : null}
 
-                <li className="navbar-menu-items">
-                  {authCust === false ? (
-                    <Link className="login-button-link" to="/foodie-login">
-                      <button className="login-button">Login</button>
-                    </Link>
-                  ) : (
-                    <Link className="logout-button-link">
-                      <button className="logout-button" onClick={handleLogout}>
-                        Logout
-                      </button>
-                    </Link>
-                  )}
+            </li> : null }
 
-                  {/*<button onClick={handleLogin}>
+           <li className="navbar-menu-items">
+           {authCust===false ? 
+
+            <Link className="login-button-link" to="/foodie-login">
+              <button className="login-button">
+                Login
+              </button>
+           </Link>
+
+              : 
+                <Link className="logout-button-link">
+                  <button className="logout-button" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </Link>
+                 }
+
+              {/*<button onClick={handleLogin}>
                 Login
         </button>*/}
-                </li>
-              </ul>
-            </div>
-          ) : null
-        }
+
+            </li> 
+            
+          </ul>
+        </div>
+        : null
+      }
       </div>
     </div>
+    
+    
   );
 }
 

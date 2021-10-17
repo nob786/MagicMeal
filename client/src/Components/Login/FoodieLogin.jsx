@@ -26,12 +26,13 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
+
 //==========================Redux imports===================================
 import { useDispatch } from "react-redux";
 import { addCustomerData } from "../../Redux/actions/authentication";
 import { addRestaurantData } from "../../Redux/actions/authentication";
-import { addAuthCust } from "../../Redux/actions/authentication.js";
-import { addAuthRest } from "../../Redux/actions/authentication.js";
+import {addAuthCust} from "../../Redux/actions/authentication.js"
+import {addAuthRest} from "../../Redux/actions/authentication.js"
 
 const FoodieLogin = () => {
   const [formData, setFormData] = React.useState({
@@ -41,7 +42,7 @@ const FoodieLogin = () => {
   const history = useHistory();
   //const history = useHistory();
 
-  const dispatch = useDispatch();
+  const dispatch=useDispatch();
 
   const handleChange = (event) => {
     console.log(event.target.value);
@@ -82,15 +83,15 @@ const FoodieLogin = () => {
         //console.log(token);
         const token = response.data.token;
         const role = response.data.role;
-        const customer = response.data.customer;
-        const restaurant = response.data.restaurant;
+        const customer= response.data.customer;
+        const restaurant= response.data.restaurant;
         //console.log("Restaurant Logged In: ",restaurant);
 
         if (!token) {
           console.log("Your token is empty", token);
         } else {
           window.alert("User Logged in");
-
+          
           localStorage.setItem("token", JSON.stringify(token));
           if (role === "restaurant") {
             window.alert("Restaurant Logged In");
@@ -98,7 +99,7 @@ const FoodieLogin = () => {
             dispatch(addRestaurantData(restaurant));
             history.push("/admin/dashboard");
             // history.push("/admin/menu-items");
-          } else if (role === "customer") {
+          } else if (role === "customer"){
             window.alert("Customer Logged In");
             dispatch(addAuthCust(true));
             dispatch(addCustomerData(customer));
@@ -253,14 +254,16 @@ const FoodieLogin = () => {
         </div>   
          */}
 
+
+
         <div className="submit">
           {/*<Button className="foodie_signup_button" title="Login" height="40px" width="200px" color="black" btn_color="white"
             font_size="20px"
             />*/}
 
-          <button className="login-submit-button" onClick={handleSubmit}>
-            Submit
-          </button>
+                  <button className="login-submit-button" onClick={handleSubmit}>
+                    Submit
+                  </button>
 
           <div className="already">
             Not Registered yet?{" "}
