@@ -14,4 +14,9 @@
     .Restaurants {
         margin: 0%;
     }
+    .restaurants_grid {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
 }

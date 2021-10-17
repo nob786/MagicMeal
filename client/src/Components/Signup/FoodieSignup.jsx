@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import './Signup.css'
 
 //=========================Importing=================
@@ -26,6 +27,24 @@ import ScreenLockPortraitIcon from '@material-ui/icons/ScreenLockPortrait';
 const FoodieSignup = () => {
 
   const history = useHistory();
+  const [signupPic, setSignupPic] = React.useState(false);
+
+   // Similar to componentDidMount and componentDidUpdate:
+
+   const showSignupPic = () => {
+    if (window.innerWidth <= 480) {
+      setSignupPic(false);
+    } else {
+      setSignupPic(true);
+    }
+  };
+
+
+  useEffect(() => {
+    showSignupPic();
+  }, []);
+
+
 
   const [formData, setFormData] = React.useState({
     firstName: "",
@@ -149,6 +168,7 @@ const FoodieSignup = () => {
     return ( 
         <div className="foodie_signup_container">
 
+           
             <div className="image">
                 <img src="./Pictures/foodiesignup.jpg" alt=""/>
 

@@ -128,17 +128,9 @@ const FoodieLogin = () => {
   */
   };
 
-  const useStyles = makeStyles((theme) => ({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-  }));
+  
 
-  const classes = useStyles();
+ 
   const [role, setRole] = React.useState("");
 
   const handleRole = (event) => {
@@ -155,7 +147,7 @@ const FoodieLogin = () => {
         <div className="form-fields">
           <TextField
             name="email"
-            className="email fields"
+            className="email"
             id="input-with-icon-textfield"
             label="Email"
             type="email"
@@ -173,7 +165,7 @@ const FoodieLogin = () => {
         <div className="form-fields">
           <TextField
             name="password"
-            className="password fields"
+            className="password"
             id="input-with-icon-textfield"
             label="Password"
             type="password"

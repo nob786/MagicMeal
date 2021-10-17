@@ -59,7 +59,7 @@ h1 {
 @media screen and (max-width: 480px) {
     .Single_Restaurant {
         margin: auto;
-        width: 250px;
+        width: 200px;
         height: 200px;
         background-color: white;
   }
@@ -75,7 +75,7 @@ h1 {
     font-size: 16px;
     color: black;
     font-weight: bold;
-    text-align: center;
+
 }
 
 h3 {

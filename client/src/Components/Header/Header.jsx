@@ -14,7 +14,7 @@ import {addAuthCust} from "../../Redux/actions/authentication.js"
 
 function Header() {
   const [click, setClick] = useState(false);
-  const [button, setButton] = useState(true);
+  const [sButton, setButton] = useState(true);
   const [show, setShow] =useState(false);
   const [topheader, setHead] =useState(true);
 
@@ -48,7 +48,7 @@ const dispatch=useDispatch();
 
   const showButton = () => {
     if (window.innerWidth <= 480) {
-      setButton(false);
+      setButton(true);
     } else {
       setButton(true);
     }
@@ -98,7 +98,7 @@ const handleLogout=()=>{
 
     {//================== Mobile Version Hidden Navbar==========================
 
-    window.innerWidth>480 || window.innerHeight >480 
+    sButton===true
     ?
         <div className="navbar-menu">
           <ul
