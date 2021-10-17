@@ -141,7 +141,7 @@ const FoodieLogin = () => {
     <div className="foodie_login_container">
       <form className="foodie_login_form">
         <div className="title">
-          <h1>Login</h1>
+          <h1>Login Form</h1>
         </div>
 
         <div className="form-fields">
@@ -257,7 +257,7 @@ const FoodieLogin = () => {
                     Submit
                   </button>
 
-          <div className="already">
+          <div className="already-login">
             Not Registered yet?{" "}
             <Link
               style={{
