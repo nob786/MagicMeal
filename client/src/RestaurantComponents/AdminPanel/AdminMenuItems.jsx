@@ -1,7 +1,7 @@
 import NewMenuItem from "./NewMenuItem";
 import React from "react";
 import { useState } from "react";
-import axios from "axios";
+import axios from "../../axios";
 import MenuItems from "../../Components/OrderNow/MenuItems";
 const AdminMenuItems = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -63,7 +63,7 @@ const AdminMenuItems = () => {
     //========================AXIOS CALL TO POST DATA===============================
     await axios
       .post(
-        "http://localhost:3001/item/add-item",
+        "/item/add-item",
         {
           itemName: itemName,
           price: price,
@@ -80,16 +80,15 @@ const AdminMenuItems = () => {
         }
       )
       .then((response) => {
-        console.log("Res",response);
+        console.log("Res", response);
         const restaurantData = response.data.data.restaurantData;
         const itemData = response.data.data.itemData;
         if (!restaurantData || !itemData) {
           console.log("Could not get data");
-          console.log("ResData",restaurantData);
-          console.log("item data",itemData);
-          window.alert('invalid Data');
-        } else
-        window.alert("Item added! ");
+          console.log("ResData", restaurantData);
+          console.log("item data", itemData);
+          window.alert("invalid Data");
+        } else window.alert("Item added! ");
         //console.log(response.data);
         //const token = localStorage.getItem("token");
         //const newToken = console.log(JSON.parse(token["_id"]));

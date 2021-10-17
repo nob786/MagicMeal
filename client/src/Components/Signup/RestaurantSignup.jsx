@@ -12,7 +12,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import axios from "axios";
+import axios from "../../axios";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 export default function RestaurantSignup() {
   const classes = useStyles();
 
-  const history =useHistory();
+  const history = useHistory();
 
   //const [cities, setCity] = React.useState('M');
 
@@ -74,7 +74,7 @@ export default function RestaurantSignup() {
     restaurantLocation: "",
     contact: "",
     category: "",
-    role: "restaurant"
+    role: "restaurant",
   });
 
   const handleChange = (event) => {
@@ -96,13 +96,13 @@ export default function RestaurantSignup() {
       password,
       restaurantName,
       restaurantLocation,
-      contact, 
+      contact,
       category,
       role,
     } = restAdmin;
 
     axios
-      .post("http://localhost:3001/auth/signup-restaurant", {
+      .post("/auth/signup-restaurant", {
         ownerName: OwnerName,
         email: email,
         password: password,
@@ -123,18 +123,26 @@ export default function RestaurantSignup() {
   };
 
   return (
-    <Container component="main" maxWidth="xs" className="restaurant-signup-container">
+    <Container
+      component="main"
+      maxWidth="xs"
+      className="restaurant-signup-container"
+    >
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5" style={{ color: "black", marginBottom: "10%" }} >
+        <Typography
+          component="h1"
+          variant="h5"
+          style={{ color: "black", marginBottom: "10%" }}
+        >
           Restaurant Partnership Form
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} >
+            <Grid item xs={12}>
               <TextField
                 autoComplete="name"
                 name="OwnerName"
@@ -184,7 +192,7 @@ export default function RestaurantSignup() {
                     </Select>
               </FormControl>
             </Grid> */}
-                        <Grid item xs={12}>
+            <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
@@ -278,10 +286,7 @@ export default function RestaurantSignup() {
               />
             </Grid>
 
-
-
-
-           {/* <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <TextField
                 id="outlined-textarea"
                 label="Restaurant Category"
@@ -295,7 +300,6 @@ export default function RestaurantSignup() {
             </Grid>
         */}
 
-            
             {/*<Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
@@ -304,11 +308,13 @@ export default function RestaurantSignup() {
         </Grid>*/}
           </Grid>
           <div className="restaurant-signup-submit-button-div">
-                  <button className="restaurant-signup-submit-button" onClick={handleSubmit}>
-                    Submit
-                  </button>
+            <button
+              className="restaurant-signup-submit-button"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
           </div>
-         
 
           {/*<Button
             type="submit"

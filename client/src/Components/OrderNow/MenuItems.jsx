@@ -4,10 +4,9 @@ import React, { useState, useEffect, Component } from "react";
 import TitleTag from "../SpecialComp/TitleTag";
 import SingleRestaurant from "./SingleRestaurant";
 import SingleMenu from "./SingleMenu";
-import axios from "axios";
+import axios from "../../axios";
 import "./MenuItems.css";
 import NewMenuItem from "../../RestaurantComponents/AdminPanel/NewMenuItem";
-
 
 const MenuItems = (ID) => {
   // const[restaurant,setRestaurant] = React.useState([
@@ -25,7 +24,7 @@ const MenuItems = (ID) => {
   const [items, setItems] = React.useState([]);
 
   useEffect(async () => {
-    const { data } = await axios.get("http://localhost:3001/item/get-items", {
+    const { data } = await axios.get("/item/get-items", {
       headers: {
         authorization:
           localStorage.getItem("token") !== null
