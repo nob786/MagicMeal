@@ -3,14 +3,18 @@
       height: 450px;
       width: 400px;
       margin-top: 20px;
-      background-color: #242424;
-      margin-left: 0%;
+      background-color: white;
+      border-bottom: #242424 1px solid;
+      border-right: #242424 1px solid;
+      border-left: #242424 1px solid;
 }
 
 .restaurant-image-container {
-    margin: 0%;
-    padding: 0%;
     width: 400px; 
+}
+
+.restaurant-title {
+    color: black;
 }
 
 .restaurant_image {
@@ -20,19 +24,18 @@
 
 h1 {
     font-size: 30px;
-    color: white;
+    color: black;
     font-weight: bold;
     text-align: center;
 }
 
-h3 {
-    color: gray;
+.restaurant-address {
+    color: black;
     font-size: 15px;
     text-align: center;
 }
 
 .rating {
-
     text-align: center;
 }
 
@@ -43,9 +46,11 @@ h3 {
     text-decoration: none;
 } 
 
+
 .rating_title {
 
-    color: white;
+    color: black;
+    font-size: 100px;
 }
 
 
@@ -53,23 +58,22 @@ h3 {
 /*========================Media Queries ==========================*/
 @media screen and (max-width: 480px) {
     .Single_Restaurant {
-        width: 100%;
+        margin: auto;
+        width: 250px;
         height: 200px;
-        margin-top: 20px;
-        background-color: #242424;
+        background-color: white;
   }
   .restaurant-image-container {
-    margin: 0%;
-    padding: 0%;
+      width: 100%;
 }
 
 .restaurant_image {
-    height: 125px;
+    height: 15rem;
     width: 100%;
 }
 .restaurant-title {
     font-size: 16px;
-    color: white;
+    color: black;
     font-weight: bold;
     text-align: center;
 }

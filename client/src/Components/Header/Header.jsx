@@ -106,9 +106,12 @@ const handleLogout=()=>{
               click ? "navbar-menu-items active" : "nav-menu-items inactive"
             }
           >
-            { authCust===true ? <li className="navbar-menu-items">
+            { authCust===true ? 
+            
+            <li className="navbar-menu-items">
                 (Welcome, {custData.firstName+" "+custData.lastName})
             </li>
+            
             : null
 }
 

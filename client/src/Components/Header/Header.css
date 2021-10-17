@@ -9,6 +9,7 @@
   top: 0;
   background-color: #242424;
   height: 75px;
+  align-items: center;
   }
 
 .header-navbar {
@@ -68,14 +69,18 @@
     color: white;
   }
   .header-link:hover {
-    opacity: 50%;
+    color: white;
   }
   .header-link:link {
     color: white;
     text-decoration: none;
   }
-  .header-link.active {
+  .header-link:active {
     background-color: white;
+  }
+  .header-link:visited {
+    background-color: white;
+    color: white;
   }
 
   .signup-button,.login-button,.logout-button {
@@ -101,18 +106,31 @@
       
       height: 100px;
       }
-      
+
+
+      .logo-name-link{
+        border-bottom: white 1px solid;
+      }
+
+
+      .navbar-menu{
+        text-align: center;
+      }
+
+
     .navbar-menu ul{
-      border-top: white 1px solid;
-      
       text-align: center;
       width: 100%;
     }
+
+
     .navbar-menu ul{
       list-style-type: none;
       display: inline;
       float: none;
     }
+
+
 
     .logo-name-link {
     padding: 10px;

@@ -40,15 +40,12 @@ const SingleRestaurant = ({ restaurant }) => {
       <div>
         <Link onClick={onRestaurantClick}><h1 className="restaurant-title">{restaurant.restaurantName}</h1></Link>
       </div>
-      <div>
-        <h3>{restaurant.address}</h3>
+      <div className="restaurant-address">
+        {restaurant.address}
       </div>
 
       <div className="rating">
-        <Box component="fieldset" mb={3} borderColor="transparent">
-          <Typography component="legend" className="rating_title">
-            Rating
-          </Typography>
+        <Box component="fieldset" mb={3} borderColor="transparent">         
           <Rating name="read-only" value={value} readOnly />
         </Box>
       </div>

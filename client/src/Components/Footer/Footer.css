@@ -3,10 +3,9 @@
 .Footer {
   background-color: #242424;
     border-top: 1px solid #242424;
-    bottom: 100%;
-    padding-left: 5%;
-    padding-right: 5%;
+    
     padding-bottom: 20px;
+    margin-top: 5%;
   }
   .Footer-b{
     border-bottom: 1px white solid;
@@ -74,7 +73,7 @@ a:visited {
  
 .fa-instagram {
   color: lightgray;
-  margin-left: 10px;
+  padding-left: 10px;
 }
 
 .fa-cc-mastercard {

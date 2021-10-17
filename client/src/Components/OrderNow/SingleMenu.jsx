@@ -24,7 +24,7 @@ const SingleMenu = ({ menu }) => {
       </div>
       <div className="menu-name">
         
-        <h1 >Item Name: {menu.itemName}ansajsn</h1>
+        <h1 >Item Name: {menu.itemName}</h1>
       </div>
       <div>
         <h3>Item Description: {menu.description}</h3>
