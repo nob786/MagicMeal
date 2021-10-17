@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import "../Header/Header.css";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Button from "../SpecialComp/Button/Button.jsx";
+import Badge from '@mui/material/Badge';
 
 //==========================Redux imports===================================
 import { useDispatch,useSelector } from "react-redux";
@@ -28,12 +29,18 @@ function Header() {
 //==================Redux =========================
 const dispatch=useDispatch();
 
+
+
   const {authCust} = useSelector(
     (state) => state.auth
   );
   const {custData} = useSelector(
     (state) => state.auth
   );
+  const {itemsLength} = useSelector(
+    (state) => state.cart
+  );
+
 
   
 
@@ -112,14 +119,14 @@ const handleLogout=()=>{
                 (Welcome, {custData.firstName+" "+custData.lastName})
             </li>
             
-            : null
-}
-
-            <li className="navbar-menu-items">
+            :  <li className="navbar-menu-items">
               <Link className="header-link" to="/" onClick={closeMobileMenu}>
                 Home
               </Link>
             </li>
+}
+
+            
 
             <li className="navbar-menu-items">
               <Link
@@ -141,8 +148,6 @@ const handleLogout=()=>{
               </Link>
             </li>
             :
-            null
-}
             <li className="navbar-menu-items">
               <Link
                 className="header-link"
@@ -152,13 +157,22 @@ const handleLogout=()=>{
                 Mobile App
               </Link>
             </li>
+}
+            
 
-            {authCust===true ? <li className="navbar-menu-items">
-              <Link className="header-link"
-                to="/checkout">
-                  <ShoppingCartIcon/>
-                  </Link> 
-            </li>
+            {authCust===true ? 
+                <li className="navbar-menu-items">
+                   <Badge badgeContent={itemsLength} color="primary" style={{fontSize: "20px"}}>
+                       <Link className="header-link"
+                          to="/checkout">
+                          <ShoppingCartIcon/>
+                        </Link> 
+
+                    </Badge>
+              </li>
+    
+
+                   
             :
             null
 }

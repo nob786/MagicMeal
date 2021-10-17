@@ -27,7 +27,7 @@ import ScreenLockPortraitIcon from '@material-ui/icons/ScreenLockPortrait';
 const FoodieSignup = () => {
 
   const history = useHistory();
-  const [signupPic, setSignupPic] = React.useState(false);
+  const [signupPic, setSignupPic] = React.useState(true);
 
    // Similar to componentDidMount and componentDidUpdate:
 
@@ -43,7 +43,7 @@ const FoodieSignup = () => {
   useEffect(() => {
     showSignupPic();
   }, []);
-
+  window.addEventListener("resize", showSignupPic);
 
 
   const [formData, setFormData] = React.useState({
@@ -169,10 +169,14 @@ const FoodieSignup = () => {
         <div className="foodie_signup_container">
 
            
+           {signupPic===true ? 
             <div className="image">
                 <img src="./Pictures/foodiesignup.jpg" alt=""/>
 
             </div>
+
+            : null
+    }
 
             <form className="foodie_signup_form" onSubmit={handleSubmit}>
 
@@ -184,7 +188,7 @@ const FoodieSignup = () => {
                 <div className="form-fields">
                             <TextField
                                 name="firstName"
-                                className= "firstname fields"
+                                className= "foodie-signup-fields"
                                 id="input-with-icon-textfield"
                                 label="First Name"
                                 InputProps={{
@@ -202,7 +206,7 @@ const FoodieSignup = () => {
                 <div className="form-fields">
                             <TextField
                                 name="lastName"
-                                className= "lastname fields"
+                                className= "foodie-signup-fields"
                                 id="input-with-icon-textfield"
                                 label="Last Name"
                                 InputProps={{
@@ -220,7 +224,7 @@ const FoodieSignup = () => {
                 <div className="form-fields">
                             <TextField
                                 name="email"
-                                className= "password fields"
+                                className= "foodie-signup-fields"
                                 id="input-with-icon-textfield"
                                 label="Email"
                                 type="email"
@@ -244,7 +248,7 @@ const FoodieSignup = () => {
                 <div className="form-fields">
                             <TextField
                                 name="password"
-                                className= "password fields"
+                                className= "foodie-signup-fields"
                                 id="input-with-icon-textfield"
                                 label="Password"
                                 type="password"
@@ -289,7 +293,7 @@ const FoodieSignup = () => {
                 <div className="form-fields">
                             <TextField
                                 name="contact"
-                                className= "mobilenumber fields"
+                                className= "foodie-signup-fields"
                                 id="input-with-icon-textfield"
                                 label="Mobile Number"
                                 type="mobile"

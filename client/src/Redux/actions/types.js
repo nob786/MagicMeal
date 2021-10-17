@@ -14,6 +14,8 @@ export const PUSH_MENU_ID = "PUSH_MENU_ID";
 export const ADD_DELIVERY_ADDRESS = "ADD_DELIVERY_ADDRESS";
 export const ADD_CART_RESTAURANT_ID = "ADD_CART_RESTAURANT_ID";
 export const ADD_CART_RESTAURANT = "ADD_CART_RESTAURANT";
+export const PUSH_ITEMS_LENGTH = "PUSH_ITEMS_LENGTH";
+
 
 //=======================Authentication Action==================
 export const AUTH_CUST = "AUTH_CUST";

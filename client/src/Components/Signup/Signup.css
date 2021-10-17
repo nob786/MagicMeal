@@ -144,3 +144,32 @@
     color: black;
     border: black 1px solid;
   }
+
+
+  .foodie-signup-fields{
+    width: 400px;
+}
+
+
+  /*========================Media Querries ===================================*/
+  @media (max-width: 480px) {
+    .foodie_signup_form {
+        color: white;
+        background-color: orange;
+        width: 480px;
+        height: 480px;
+        margin: 5%;
+        padding: 5%;
+    }
+    .foodie-signup-fields{
+        width: 200px;
+    }
+    .title h1{
+        font-size: 16px;
+        font-weight: unset;
+    }
+    .form-fields {
+        width: 100%;;
+    }
+    
+  }

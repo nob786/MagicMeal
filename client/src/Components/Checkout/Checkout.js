@@ -66,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
   },
   stepper: {
     padding: theme.spacing(0, 1, 3),
+    color: "red",
   },
   buttons: {
     display: 'flex',

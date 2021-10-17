@@ -13,12 +13,20 @@ import "./Cart.css";
 import {CartContext} from './Cart';
 
 
+
+//============================React Redux ====================================
+import { useDispatch} from "react-redux";
+import {pushItemsLength} from "../../Redux/actions/cartAction"
+
+
 function ContexCart() {
 
     const data = React.useContext(CartContext);
     const item = data.clickedMenuId;
     const {checkItems}=React.useContext(CartContext);
     let total=0;
+    const dispatch = useDispatch();
+
     const totalPrice=()=>{
       
       item.map((currItem) => {
@@ -47,6 +55,17 @@ function ContexCart() {
         console.log("jsdjsdhj");
       
       };
+
+
+      const cartItems = () => {
+        dispatch(pushItemsLength(item.length));
+        
+      };
+
+      useEffect(() => {
+        cartItems();
+      }, []);
+    
     return (
         <>
        {/*} <header>

@@ -11,16 +11,26 @@ import { Grid } from "@material-ui/core";
 
 //==========================Redux imports===================================
 import { useDispatch, useSelector } from "react-redux";
-import {pushMenuId} from "../../Redux/actions/cartAction"
+import {pushItemsLength, pushMenuId} from "../../Redux/actions/cartAction"
 import {pushcartRestaurantId} from "../../Redux/actions/cartAction"
 import {pushcartRestaurant} from "../../Redux/actions/cartAction"
+
+
+
+
 
 const SingleUserMenu = ({ menu, restId , restName, cont}) => {
 
   const dispatch = useDispatch();
+
+
   const {clickedMenuId} = useSelector(
     (state) => state.cart
   );
+
+  
+
+  
 
 
   //=================
@@ -51,6 +61,7 @@ const SingleUserMenu = ({ menu, restId , restName, cont}) => {
     (state) => state.cart
   );
 
+ 
 
   //==================Redux Cust Auth=============
   const history = useHistory();
@@ -59,17 +70,20 @@ const SingleUserMenu = ({ menu, restId , restName, cont}) => {
   );
   //console.log("ABCD"+clickedMenuId);
   const addtoCart=()=>{
+    dispatch(pushItemsLength(clickedMenuId.length));
     if (authCust===true) {
     if (cartRestaurantId==="")
     {
       dispatch(pushMenuId(fullCartMenu));
       dispatch(pushcartRestaurantId(restId));
-      dispatch(pushcartRestaurant(restaurantData));
+      dispatch(pushcartRestaurant(restaurantData));      
     window.alert(menu.itemName+" Item Added to Cart");
+    dispatch(pushItemsLength(clickedMenuId.length));
   }
   else if (cartRestaurantId===restId){
     dispatch(pushMenuId(fullCartMenu));;
     window.alert(menu.itemName+" Item Added to Cart");
+   dispatch(pushItemsLength(clickedMenuId.length));
   }else if (restId !== cartRestaurantId )
   window.alert("Different Restaurant Item.");
 }

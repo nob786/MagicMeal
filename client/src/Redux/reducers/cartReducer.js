@@ -1,7 +1,8 @@
 import { ADD_DELIVERY_ADDRESS ,
   ADD_CART_RESTAURANT_ID,
   PUSH_MENU_ID,
-  ADD_CART_RESTAURANT,} from "../actions/types";
+  ADD_CART_RESTAURANT,
+  PUSH_ITEMS_LENGTH} from "../actions/types";
     
     const initialState = {
       clickedMenuId: [],
@@ -9,6 +10,7 @@ import { ADD_DELIVERY_ADDRESS ,
       deliveryAddress: "",
       cartRestaurantId: "",
       cartRestaurant: {},
+      itemsLength: 0,
 
     };
 
@@ -34,6 +36,11 @@ import { ADD_DELIVERY_ADDRESS ,
             return {
               ...state,
               cartRestaurant: action.payload,
+            };
+            case PUSH_ITEMS_LENGTH:
+            return {
+              ...state,
+              itemsLength: action.payload,
             };
           default:
             return state;
