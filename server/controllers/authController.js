@@ -28,7 +28,7 @@ exports.login = async (req, res) => {
 
   const { email, password } = req.body;
 
-  let loadedAccount = await Account.findOne({
+  const loadedAccount = await Account.findOne({
     email: email,
   });
 
@@ -48,12 +48,20 @@ exports.login = async (req, res) => {
     account: loadedAccount._id,
   });
 
-  if (!token)
+  if (!token) {
     return res.status(400).json({
       message: "Token is empty",
       data: token,
     });
-  else {
+  }
+
+  if (loadedAccount.isVerified !== true) {
+    console.log("Account is not verified");
+    return res.status(401).json({
+      message: "Verify email",
+    });
+  } else {
+    console.log("In else statement checking role of user.");
     if (loadedAccount.role === "restaurant") {
       return res.status(200).json({
         token: token,
