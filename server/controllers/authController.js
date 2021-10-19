@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const { Customer } = require("../models/customer");
 const { Account } = require("../models/account");
@@ -12,8 +13,13 @@ const {
   validateLogin,
 } = require("../middleware/validation");
 
-
-
+const transporter = nodemailer.createTransport({
+  service: "Gmail",
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
+  },
+});
 
 exports.login = async (req, res) => {
   const { error } = validateLogin(req.body);
@@ -42,63 +48,29 @@ exports.login = async (req, res) => {
     account: loadedAccount._id,
   });
 
-
   if (!token)
     return res.status(400).json({
       message: "Token is empty",
       data: token,
     });
   else {
-    if (loadedAccount.role==="restaurant"){
-    return res.status(200).json({
-      token: token,
-      role: loadedAccount.role,
-      id: loadedAccount._id,
-      restaurant: loadedRestaurant,
-    });
-  }
-    else if(loadedAccount.role==="customer")
-    {return res.status(200).json({
-      token: token,
-      role: loadedAccount.role,
-      id: loadedAccount._id,
-      customer: loadedCustomer,
-    });
-  }
+    if (loadedAccount.role === "restaurant") {
+      return res.status(200).json({
+        token: token,
+        role: loadedAccount.role,
+        id: loadedAccount._id,
+        restaurant: loadedRestaurant,
+      });
+    } else if (loadedAccount.role === "customer") {
+      return res.status(200).json({
+        token: token,
+        role: loadedAccount.role,
+        id: loadedAccount._id,
+        customer: loadedCustomer,
+      });
+    }
   }
 };
-/*exports.login = async (req, res) => {
-  const { error } = validateLogin(req.body);
-
-  if (error) return res.status(400).send("Enter data in correct form.");
-
-  const { email, password } = req.body;
-
-  let loadedAccount = await Account.findOne({
-    email: email,
-  });
-
-  if (!loadedAccount) return res.status(404).send("Account not found");
-
-  let hashedPassword = await bcrypt.compare(password, loadedAccount.password);
-
-  if (!hashedPassword) return res.status(404).send("Invalid Email or password");
-
-  const token = jwt.sign({ accountId: loadedAccount._id.toString() }, "myKey");
-
-  if (!token)
-    return res.status(400).json({
-      message: "Token is empty",
-      data: token,
-    });
-  else {
-    return res.status(200).json({
-      token: token,
-      role: loadedAccount.role,
-      id: loadedAccount._id,
-    });
-  }
-};*/
 
 exports.signupRestaurant = async (req, res) => {
   const { error } = validateRestaurant(req.body);
@@ -126,6 +98,14 @@ exports.signupRestaurant = async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   const verificationToken = crypto.randomBytes(32).toString("hex");
+  const mailOptions = {
+    to: email,
+    from: "Eatsabyte",
+    subject: "Verify your account",
+    html: `<p>Please verify your email by clicking on the link below - Eatsabyte</p>
+    <p>Click this <a href="https://eatsabyte.herokuapp.com/auth/verify/${verificationToken}">link</a> to verify your account.</p>
+    `,
+  };
 
   let newAccount = new Account({
     email: email,
@@ -155,8 +135,22 @@ exports.signupRestaurant = async (req, res) => {
   await newRestaurant
     .save()
     .then((savedRestaurant) => {
+      console.log("Gmail Username", process.env.GMAIL_USER);
+      console.log("Gmail Pass", process.env.GMAIL_PASS);
+      transporter.sendMail(mailOptions, function (err, info) {
+        if (err) {
+          console.log("Could not send email");
+          res.json({
+            message: "Could not send mail",
+            err,
+          });
+        } else {
+          console.log("Email send successfully");
+          res.json(info);
+        }
+      });
       res.status(200).json({
-        message: "Saved Restaurant",
+        message: "Saved Restaurant and email sent for verification",
         data: savedRestaurant,
       });
     })
@@ -185,6 +179,14 @@ exports.signupCustomer = async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   const verificationToken = crypto.randomBytes(32).toString("hex");
+  const mailOptions = {
+    to: email,
+    from: "Eatsabyte",
+    subject: "Verify your account",
+    html: `<p>Please verify your email by clicking on the link below - Eatsabyte</p>
+    <p>Click this <a href="https://eatsabyte.herokuapp.com/auth/verify/${verificationToken}">link</a> to verify your account.</p>
+    `,
+  };
 
   let newAccount = new Account({
     email: email,
@@ -212,6 +214,20 @@ exports.signupCustomer = async (req, res) => {
   await newCustomer
     .save()
     .then((savedCustomer) => {
+      console.log("Gmail Username", process.env.GMAIL_USER);
+      console.log("Gmail Pass", process.env.GMAIL_PASS);
+      transporter.sendMail(mailOptions, function (err, info) {
+        if (err) {
+          console.log("Could not send email");
+          res.json({
+            message: "Could not send mail",
+            err,
+          });
+        } else {
+          console.log("Email send successfully");
+          res.json(info);
+        }
+      });
       res.status(200).json({
         message: "Saved Customer",
         data: savedCustomer,
@@ -223,5 +239,32 @@ exports.signupCustomer = async (req, res) => {
         message: "Could not save customer.",
         error: err,
       });
+    });
+};
+
+exports.verifyAccount = (req, res, next) => {
+  const token = req.params.verificationToken;
+  console.log("This is the verification token", token);
+  Account.findOne({
+    accountVerifyToken: token,
+  })
+    .then((account) => {
+      if (!account) {
+        const error = new Error(
+          "Token in the url is tempered, don't try to fool me!"
+        );
+        error.statusCode = 403;
+        throw error;
+      }
+      account.isVerified = true;
+      account.accountVerifyToken = undefined;
+      return account.save();
+    })
+    .then((account) => {
+      res.json({ message: "Account verified successfully." });
+    })
+    .catch((err) => {
+      if (!err.statusCode) err.statusCode = 500;
+      next(err);
     });
 };

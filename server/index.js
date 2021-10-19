@@ -7,15 +7,18 @@ const app = express();
 const auth = require("./routes/auth");
 const item = require("./routes/item");
 const user = require("./routes/user");
+// Process env variables
+PORT = process.env.PORT;
+//const dbUrl = process.env.DB_URL || "mongodb://localhost/vidly";
 
 mongoose
   .connect(
-    "mongodb+srv://Noor:pakistan123@cluster0.mj1ib.mongodb.net/MagicMeal?retryWrites=true&w=majority",
+    `mongodb+srv://${process.env.DB_USER_NAME}:${process.env.DB_USER_PASS}@cluster0.mj1ib.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
     { useNewUrlParser: true },
     { useUnifiedTopology: true }
   )
-  .then(() => console.log("Connected to mongo"))
-  .catch((e) => console.log("Catched Error", e));
+  .then(() => console.log("Monogo is running"))
+  .catch((error) => console.log("Error while connecting to atlas", error));
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
