@@ -7,9 +7,6 @@ const app = express();
 const auth = require("./routes/auth");
 const item = require("./routes/item");
 const user = require("./routes/user");
-// Process env variables
-PORT = process.env.PORT;
-//const dbUrl = process.env.DB_URL || "mongodb://localhost/vidly";
 
 mongoose
   .connect(
