@@ -66,7 +66,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <ScrollToTop />
-          {window.location.pathname==="/admin/dashboard" ? null : <Header/>}
+          <Header/>
 
           {/* <Header/>  Header Section <Footer/> */}
           {/*<AdminAppBar/> {/* Admin bar Optional */}

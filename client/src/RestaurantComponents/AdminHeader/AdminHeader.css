@@ -65,18 +65,17 @@
 
 
   .header-link{
-    color: white;
+    
   }
   .header-link:hover {
-    opacity: 50%;
+  
   }
   .header-link:link {
-    color: white;
+
     text-decoration: none;
   }
   .header-link.active {
-    background-color: white;
-  color: black;
+  font-weight: bold;
   }
 
   .profile-link {

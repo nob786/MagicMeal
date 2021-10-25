@@ -138,6 +138,11 @@ header {
   place-items: center;
 }
 
+.main-cart-section p {
+  font-weight: bold;
+  font-size: 16px;
+}
+
 .cart-items hr {
   margin: 1rem auto;
   overflow-y: scroll;
@@ -260,7 +265,7 @@ header {
 
 .cart-total h3 {
   font-style: 200;
-  font-size: 1.5rem;
+  font-size: 16px;
   line-height: 3rem;
   text-transform: capitalize;
   color: #606166;
@@ -270,7 +275,7 @@ header {
 .cart-total h3 span {
   font-style: normal;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 16px;
   line-height: 3.2rem;
   text-transform: capitalize;
   color: #000000;
@@ -320,7 +325,7 @@ header {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .continue-shopping h3 {
     margin-left: 0;
   }

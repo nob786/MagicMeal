@@ -15,11 +15,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import EmailIcon from '@material-ui/icons/Email';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
-import ScreenLockPortraitIcon from '@material-ui/icons/ScreenLockPortrait';
 
 
 
@@ -32,9 +29,9 @@ const FoodieSignup = () => {
    // Similar to componentDidMount and componentDidUpdate:
 
    const showSignupPic = () => {
-    if (window.innerWidth <= 480) {
+    if (window.innerWidth <= 480 ) {
       setSignupPic(false);
-    } else {
+    } else if (window.innerWidth > 480) {
       setSignupPic(true);
     }
   };
@@ -43,6 +40,7 @@ const FoodieSignup = () => {
   useEffect(() => {
     showSignupPic();
   }, []);
+  
   window.addEventListener("resize", showSignupPic);
 
 
@@ -82,7 +80,7 @@ const FoodieSignup = () => {
         };
       } else if (name === "lastName") {
         return {
-          firstName:  preVal.value,
+          firstName:  preVal.firstName,
           lastName: value,
           email: preVal.email,
           password: preVal.password,
@@ -170,12 +168,8 @@ const FoodieSignup = () => {
 
            
            {signupPic===true ? 
-            <div className="image">
-                <img src="./Pictures/foodiesignup.jpg" alt=""/>
-
-            </div>
-
-            : null
+            <img className="image" src="./Pictures/foodiesignup.jpg" alt=""/>
+            : "sd"
     }
 
             <form className="foodie_signup_form" onSubmit={handleSubmit}>

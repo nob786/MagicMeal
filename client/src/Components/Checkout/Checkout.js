@@ -2,8 +2,6 @@ import React from 'react';
 import axios from "../../axios";
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -28,7 +26,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="/">
-        Your Website
+        Eatsabyte.com.pk
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -66,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
   },
   stepper: {
     padding: theme.spacing(0, 1, 3),
-    color: "red",
   },
   buttons: {
     display: 'flex',
