@@ -147,14 +147,10 @@ exports.signupRestaurant = async (req, res) => {
       console.log("Gmail Pass", process.env.GMAIL_PASS);
       transporter.sendMail(mailOptions, function (err, info) {
         if (err) {
-          console.log("Could not send email");
-          res.json({
-            message: "Could not send mail",
-            err,
-          });
+          console.log("Could not send email", err);
         } else {
           console.log("Email send successfully");
-          res.json(info);
+          // res.json(info);
         }
       });
       res.status(200).json({
@@ -207,9 +203,24 @@ exports.signupCustomer = async (req, res) => {
     .save()
     .then((savedAccount) => {
       console.log("Account has been registered", savedAccount);
+      // res.status(200).json({
+      //   messgae: "Account registered",
+      //   savedAccount: savedAccount,
+      // });
     })
     .catch((err) => {
-      console.log("Account not saved", err);
+      if (err) {
+        console.log("Account not saved, inside catch block");
+        return res.status(400).json({
+          message: "Account not saved inside catch block",
+          error: err,
+        });
+      } else {
+        console.log("Server Error");
+        return res.status(500).json({
+          message: "Server Error",
+        });
+      }
     });
 
   let newCustomer = new Customer({
@@ -227,26 +238,36 @@ exports.signupCustomer = async (req, res) => {
       transporter.sendMail(mailOptions, function (err, info) {
         if (err) {
           console.log("Could not send email");
-          res.json({
+          return res.json({
             message: "Could not send mail",
             err,
           });
         } else {
-          console.log("Email send successfully");
-          res.json(info);
+          console.log("Email sent successfully");
+          // return res.status(200).json({
+          //   message: "Email sent for verification",
+          //   info: info,
+          // });
         }
       });
-      res.status(200).json({
+      return res.status(200).json({
         message: "Saved Customer",
         data: savedCustomer,
       });
     })
     .catch((err) => {
       console.log("Customer could not be saved.", err);
-      return res.status(500).json({
-        message: "Could not save customer.",
-        error: err,
-      });
+      if (err) {
+        return res.status(400).json({
+          message: "Could not save customer.",
+          error: err,
+        });
+      } else {
+        console.log("Server Error");
+        return res.status(500).json({
+          message: "Server Error",
+        });
+      }
     });
 };
 
