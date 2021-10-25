@@ -4,7 +4,7 @@
 .single_user_menu {
     height: 130px;
     width: 400px;
-    border-top: #242424 1px solid;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-top: 20px;
     background-color: white;
 }
@@ -30,6 +30,7 @@
 }
 
 .user-menu-description{
+  padding-left: 5%;
   font-size: 14px;
   font-weight: bold;
   height: 70px;
@@ -37,12 +38,14 @@
 }
 
 .user-menu-name{
+  padding-left: 5%;
   height: 30px;
   font-size: 16px;
   font-weight: bold;
 }
 
 .user-menu-price{
+  padding-left: 5%;
   font-size: 14px;
   font-weight: bold;
 }
@@ -73,23 +76,21 @@
 } 
 
 
-.user-cart-button-container {
-  
-}
+
 
 .user-add-to-cart-button{
   font-size: 16px;
   height: 35px;
   width: 100%;
   transition-duration: 0.4s;
-  background-color: #242424;
+  background-color: #242424; opacity: 0.9;
   color: white;
-  border: white 1px solid;
+  border: #242424 1px solid;
 }
 .user-add-to-cart-button:hover{
   background-color: white; /* Green */
-    color: black;
-    border: black 1px solid;
+    color: #242424;
+    border: #242424 1px solid;
 }
 
 
@@ -172,9 +173,7 @@
   } 
   
   
-  .user-cart-button-container {
-    
-  }
+  
   
   .user-add-to-cart-button{
     font-size: 16px;

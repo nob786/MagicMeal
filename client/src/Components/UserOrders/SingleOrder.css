@@ -1,20 +1,21 @@
-.orders-history {
+.user-order-history {
     color: black;
-    width: 1000px;
-    font-size: 16px;
-    border: black 1px solid;
-    margin: auto;
-    margin-top: 20px;
-    text-align: center;
+    font-size: 11px;
+    margin: 2%;
 }
 
 
-.orders-history h2 {
-    font-size: 16px;
+.user-order-id h2{
+    font-size: 14px;
 }
 
-.orders-history button {
-    background-color: white;
+.user-order-restaurant-name h2 {
+    font-size: 14px
+    
+}
+
+.user-order-status h2 {
+    font-size: 14px
     
 }
 
@@ -23,3 +24,16 @@ link {
     text-decoration: none;
     
 }
+
+.user-order-status-confirm{
+    height: 35px;
+    transition-duration: 0.4s;
+    background-color: #242424;
+    color: white;
+    border: #242424 1px solid;
+}
+.user-order-status-confirm:hover{
+    background-color: white; /* Green */
+    color: #242424;
+}
+

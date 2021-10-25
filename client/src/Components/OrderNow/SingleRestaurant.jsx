@@ -31,6 +31,7 @@ const SingleRestaurant = ({ restaurant }) => {
     history.push("/user-menu-items");
   }
   return (
+    <Link onClick={onRestaurantClick} style={{textDecoration: "none"}}>
     <div className="Single_Restaurant">
       <div className="restaurant-image-container">
         <img className="restaurant_image" src={"../Pictures/R7.jpg"} />
@@ -41,7 +42,7 @@ const SingleRestaurant = ({ restaurant }) => {
         />
   </div>*/}
       <div>
-        <Link onClick={onRestaurantClick}><h1 className="restaurant-title">{restaurant.restaurantName}</h1></Link>
+        <h1 className="restaurant-title">{restaurant.restaurantName}</h1>
       </div>
       <div className="restaurant-address">
         {restaurant.address}
@@ -53,6 +54,8 @@ const SingleRestaurant = ({ restaurant }) => {
         </Box>
       </div>
     </div>
+    </Link>
+    
   );
 };
 

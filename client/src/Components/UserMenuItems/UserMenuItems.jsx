@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 //======================================MAterial UI Imports =======================
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
 const UserMenuItems = () => {
 
@@ -74,7 +76,15 @@ const UserMenuItems = () => {
         <br />
       </div>
 
-      <TitleTag title="Menu Items Availables" />
+      <TitleTag title="Menu Items We Have" />
+      {clickedRestaurantData.items.length === 0 ? 
+      <span className="restaurant-item-check">
+        <Alert severity="info">
+        <AlertTitle> <h2> Currently This Restaurant has not added any Item. Please come back later or Contact the Restaurant for any Querry.</h2></AlertTitle>
+      </Alert>
+       
+      </span> :
+      null}
       <div className="user-menus-grid">
         {items.map((item, index) => (
           <SingleUserMenu key={index} menu={item} restId={restaurantId} restName={restaurantName} cont={contact} />

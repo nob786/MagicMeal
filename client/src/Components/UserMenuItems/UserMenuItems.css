@@ -38,6 +38,11 @@
 }
 
 
+.restaurant-item-check{
+    font-size: 22px;
+    text-align: center;
+}
+
 
 @media (max-width: 480px) {
     .Menus {
