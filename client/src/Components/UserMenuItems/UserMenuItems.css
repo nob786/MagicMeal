@@ -1,8 +1,80 @@
+.Menus {
+    margin: 1%;
 
+}
 
-.menus_grid {
+.user-menus-grid {
     display: grid;
-    grid-gap: 50px;
-    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    grid-gap: 20px;
+    justify-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+
+
+.menu-restaurant-profile{
+    background-color: #242424; opacity: 0.8;
+    color: white;
+    border-radius:  50px 0px;
+    height: 300px;
+    border: black 1px solid;
+    text-align: center;
+
+}
+
+.user-menu-restaurant-name{
+    font-family: cursive;
+    font-size: 50px;
+    font-weight: bold;
+}
+.user-menu-restaurant-address{
+    font-size: 25px;
+}
+.user-menu-restaurant-contact{
+    font-size: 25px;
+}
+.user-menu-restaurant-category{
+    font-size: 25px;
+}
+
+
+
+@media (max-width: 480px) {
+    .Menus {
+        margin: 0%;
+    }
+    .user-menus-grid {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    .menu-restaurant-profile{
+        margin: 1%;
+    
+    }
+
+    .menu-restaurant-profile{
+        background-color: #242424; opacity: 0.8;
+        color: white;
+        border-radius:  50px 0px;
+        height: 200px;
+        border: black 1px solid;
+        text-align: center;
+    
+    }
+    
+    .user-menu-restaurant-name{
+        font-size: 30px;
+        font-weight: bold;
+    }
+    .user-menu-restaurant-address{
+        font-size: 15px;
+    }
+    .user-menu-restaurant-contact{
+        font-size: 15px;
+    }
+    .user-menu-restaurant-category{
+        font-size: 15px;
+    }
 }
 

@@ -11,6 +11,10 @@ import Box from "@material-ui/core/Box";
 //==========================Redux imports===================================
 import { useDispatch, useSelector } from "react-redux";
 import {pushRestaurantId} from "../../Redux/actions/dataActions"
+import {pushClickedRestaurantData} from "../../Redux/actions/dataActions"
+
+
+
 
 const SingleRestaurant = ({ restaurant }) => {
   const [value, setValue] = React.useState(4);
@@ -22,6 +26,7 @@ const SingleRestaurant = ({ restaurant }) => {
 
   const onRestaurantClick=()=>{
     dispatch(pushRestaurantId(restaurant._id));
+    dispatch(pushClickedRestaurantData(restaurant));
     /*window.alert(restaurant._id);*/
     history.push("/user-menu-items");
   }

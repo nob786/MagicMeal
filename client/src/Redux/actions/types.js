@@ -1,7 +1,7 @@
 export const SET_RESTAURANT = "SET_RESTAURANT";
 export const SET_RESTAURANTS = "SET_RESTAURANTS";
 export const PUSH_RESTAURANT_ID = "PUSH_RESTAURANT_ID";
-
+export const PUSH_CLICKED_RESTAURANT_DATA = "PUSH_CLICKED_RESTAURANT_DATA";
 
 
 //=======================Counter Action==================

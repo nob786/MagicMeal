@@ -3,10 +3,16 @@
       height: 450px;
       width: 400px;
       margin-top: 20px;
+      transition: transform .3s;
       background-color: white;
       border-bottom: #242424 1px solid;
       border-right: #242424 1px solid;
       border-left: #242424 1px solid;
+      box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.Single_Restaurant:hover {
+        transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+
 }
 
 .restaurant-image-container {
@@ -56,10 +62,10 @@ h1 {
 
 
 /*========================Media Queries ==========================*/
-@media screen and (max-width: 480px) {
+@media (max-width: 480px) {
     .Single_Restaurant {
         margin: auto;
-        width: 200px;
+        width: 250px;
         height: 200px;
         background-color: white;
   }

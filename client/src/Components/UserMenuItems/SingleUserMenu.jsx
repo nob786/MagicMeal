@@ -23,11 +23,12 @@ const SingleUserMenu = ({ menu, restId , restName, cont}) => {
 
   const dispatch = useDispatch();
 
-
+//====================================Redux Selectors=========================
   const {clickedMenuId} = useSelector(
     (state) => state.cart
   );
 
+  
   
 
   
@@ -96,40 +97,41 @@ else {
     
   }
   return (
-    <div className="Single_Menu" >
-      <div className="container">
-       <img className="menu_image" src="../Pictures/R7.jpg" />
+    <div className="single_user_menu_box" >
+
+
+      <div className="single_user_menu" >
+
+      <div className="user-menu-container">
+         <img className="user-menu-image" src="../Pictures/R7.jpg" />
       </div>
-      <div className="menu-details">
-      <div className="menu-name">
-        <h1>Item Name: {menu.itemName}</h1>
-      </div>
-      <div>
-        <h3>Item Description: {menu.description}</h3>
+      
+      <div className="user-menu-details">
+        <div className="user-menu-name">
+          {menu.itemName}
+        </div>
+      
+        <div className="user-menu-description">
+        Description: <span style={{fontWeight: "normal"}}>{menu.description}</span> 
+        </div>
+
+        <div className="user-menu-price">
+            Price: {menu.price}
+        </div>
+      
       </div>
 
-      <div>
-        <h3>Price: {menu.price}</h3>
       </div>
 
-      <div>
-        <h3>Category: {menu.category}</h3>
-      </div>
+      
 
-      </div>
+      
+        <button className="user-add-to-cart-button" onClick={addtoCart}>Add to cart</button> 
+      
 
-      <div className="rating">
-        <Box component="fieldset" mb={3} borderColor="transparent">
-         {/* <Typography component="legend" className="rating_title">
-            Rating
-          </Typography>
-  <Rating name="read-only" value={value} readOnly />*/}
-        </Box>
-      </div>
+      
 
-      <div className="add-to-cart-button">
-        <button onClick={addtoCart}>Add to cart</button> 
-      </div>
+      
 
     </div>
   );

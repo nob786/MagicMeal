@@ -1,10 +1,12 @@
 .Restaurants {
-    margin: 5%;
+    margin: 1%;
 }
 
 .restaurants_grid {
     display: grid;
-    grid-gap: 20px;
+    justify-items: center;
+    grid-gap: auto;
+    row-gap: 40px;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
 

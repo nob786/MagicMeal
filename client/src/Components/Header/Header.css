@@ -53,11 +53,13 @@
     padding: 10px;
     float: left;
     color: white;
+    
   }
 
   .logo-name-link h2 {
     color: white;
     float: left;
+    font-size: 40px;
   }
 
   .logo-name-link:link {
@@ -136,9 +138,12 @@
 
 
     .logo-name-link {
-    margin-left: 5%;
     color: white;
     
+  }
+
+  .logo-name-link h2 {
+    font-size: 22px;
   }
   .signup-button,.login-button{
     height: 3rem;

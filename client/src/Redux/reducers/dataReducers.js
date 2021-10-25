@@ -1,11 +1,10 @@
-import { SET_RESTAURANT, SET_RESTAURANTS, PUSH_RESTAURANT_ID, PUSH_MENU_ID , PUSH_CART_DATA, PUSH_CART_TOTAL,
-PUSH_INCDEC} from "../actions/types";
+import { SET_RESTAURANT, SET_RESTAURANTS, PUSH_RESTAURANT_ID,PUSH_CLICKED_RESTAURANT_DATA} from "../actions/types";
 
 const initialState = {
   restaurants: [],
   restaurant: [],
   clickedRestaurantId: "",
-  
+  clickedRestaurantData: {},
 };
 
 
@@ -26,6 +25,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         clickedRestaurantId: action.payload,
+      };
+      case PUSH_CLICKED_RESTAURANT_DATA:
+      return {
+        ...state,
+        clickedRestaurantData: action.payload,
       };
     default:
       return state;

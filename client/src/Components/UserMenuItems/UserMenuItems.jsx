@@ -6,8 +6,15 @@ import SingleUserMenu from "./SingleUserMenu";
 import axios from "../../axios";
 import "./UserMenuItems.css";
 
-
+//=====================================Redux Imports=================================
 import { useDispatch, useSelector } from "react-redux";
+
+
+
+
+//======================================MAterial UI Imports =======================
+import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const UserMenuItems = () => {
 
@@ -21,6 +28,10 @@ const UserMenuItems = () => {
   const {clickedRestaurantId} = useSelector(
     (state) => state.data
   );
+  const {clickedRestaurantData} = useSelector(
+    (state) => state.data
+  );
+
   const restId= clickedRestaurantId;
 
   useEffect(async () => {
@@ -49,9 +60,22 @@ const UserMenuItems = () => {
   console.log("This ID", items);
 
   return (
-    <div className="Restaurants">
-      <TitleTag title="Menu Items Availablesss" />
-      <div className="menus_grid">
+    <div className="Menus">
+      <div className="menu-restaurant-profile">
+        <span className="user-menu-restaurant-name">{clickedRestaurantData.restaurantName} </span>
+        <br />
+        <br />
+        <br />
+        <span className="user-menu-restaurant-address"><LocationOnIcon/>  {clickedRestaurantData.address} </span>
+        <br />
+        <span className="user-menu-restaurant-contact"><PhoneInTalkIcon/>  {clickedRestaurantData.contact} </span>
+        <br />
+        <span className="user-menu-restaurant-category">Restaurant Type: {clickedRestaurantData.category} </span>
+        <br />
+      </div>
+
+      <TitleTag title="Menu Items Availables" />
+      <div className="user-menus-grid">
         {items.map((item, index) => (
           <SingleUserMenu key={index} menu={item} restId={restaurantId} restName={restaurantName} cont={contact} />
         ))}
