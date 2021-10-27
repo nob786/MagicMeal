@@ -1,21 +1,24 @@
 .user-order-history {
     color: black;
     font-size: 11px;
-    margin: 2%;
 }
 
 
 .user-order-id h2{
     font-size: 14px;
+    font-weight: bold;
 }
 
 .user-order-restaurant-name h2 {
-    font-size: 14px
+    font-size: 14px;
+    font-weight: bold;
+
     
 }
 
 .user-order-status h2 {
-    font-size: 14px
+    font-size: 14px;
+    font-weight: bold;
     
 }
 
@@ -26,14 +29,41 @@ link {
 }
 
 .user-order-status-confirm{
-    height: 35px;
+    font-size: 16px;
+    height: 40px;
     transition-duration: 0.4s;
-    background-color: #242424;
+    background-color: #242424; opacity: 0.8;
     color: white;
     border: #242424 1px solid;
 }
 .user-order-status-confirm:hover{
-    background-color: white; /* Green */
-    color: #242424;
+    background-color: #242424; opacity: 0.5; /* Green */
+    color: white;
 }
 
+
+
+.order-history-item-name{
+    font-size: 14px;
+    font-weight: bold;
+    margin: 2%;
+}
+.order-history-item-price{
+    font-size: 14px;
+    margin: 2%;
+}
+.order-history-item-quantity{
+    font-size: 14px;
+    margin: 2%;
+}
+.order-history-item-total{
+    font-size: 14px;
+    margin: 2%;
+}
+.order-history-item-grand-total{
+    font-size: 14px;
+    margin: 2%;
+}
+.order-history-details{
+  
+}

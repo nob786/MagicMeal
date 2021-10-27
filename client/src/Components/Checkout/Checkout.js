@@ -230,21 +230,35 @@ console.log("PLACED ORDER DATA",OrderData);
                     </Button>
                   )}
                 
-                    {activeStep === steps.length - 1 ?   <Button
+                    { (activeStep === steps.length - 1)  ?   <Button
                     variant="contained"
                     color="primary"
                     onClick={placeOrder}
                     className={classes.button}
                   >
                     Place Order
-                    </Button>: <Button
+                    </Button> : 
+                   clickedMenuId.length > 0 ?
+                    <Button
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
                   >
                     Next
-                    </Button>}
+                    </Button> :
+
+                    
+                    <Button
+                    disabled
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    className={classes.button}
+                  >
+                    Next
+                    </Button>
+                    }
                   
                 </div>
               </React.Fragment>

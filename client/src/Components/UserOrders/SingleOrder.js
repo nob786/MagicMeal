@@ -47,14 +47,14 @@ const SingleOrder = ({ orders }) => {
 
 
   return (
-      <Accordion className="user-order-history">
+      <Accordion className="user-order-history" style={{margin: "5%"}}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
 
-          <Box sx={{ width: '100%' }} >
+          <Box sx={{width: "100%", margin: "2%"}} >
             <Stepper 
             style={{marginTop: "1%", marginBottom: "2%"}}
             activeStep={orders.status==="pending" ? 1 : orders.status==="accepted" ? 2 : orders.status==="outfordelivery" ? 3 : null }>
@@ -74,10 +74,26 @@ const SingleOrder = ({ orders }) => {
     <span className="user-order-status"><h2>Order Status: {orders.status}</h2></span>
     </Box>
 </AccordionSummary>
-        <AccordionDetails>
-
-            {orders.status==="accepted" ?<button className="user-order-status-confirm">Confirm Received</button>: null}
-
+        <AccordionDetails >
+          
+          {orders.items.map((item, index) => (
+          <div className="order-history-details">
+             <span className="order-history-item-name">Item Name: {item.itemName}</span>
+             <br/>
+             <span className="order-history-item-price">Price: {item.price}</span>
+             <br/>
+             <span className="order-history-item-quantity">Quantity: {item.quantity}</span> 
+             <br/>
+             <span className="order-history-item-total">Total: {item.total}</span>
+             <br/>
+             <br/>
+          </div>
+            ))}
+            <span className="order-history-item-grand-total">Grand Total: {orders.grandTotal}</span>
+            {orders.status==="accepted" ?<button className="user-order-status-confirm" style={{ width: "100%"}}>Confirm Received</button>: null}
+            <br/>
+             <br/>
+             <br/>
         </AccordionDetails>
       </Accordion>
       

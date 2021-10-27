@@ -3,6 +3,10 @@ import Button from '../Button/Button';
 import '../NewsLetter/NewsLetter.css'
 
 
+const subscribeNewsletter =()=>{
+    window.alert("You Have successfully subscribed to our newsletter service");
+}
+
 const NewsLetter = () => {
     return ( 
         <section class="newsletter">
@@ -16,7 +20,7 @@ const NewsLetter = () => {
 
 
                     <div className="subscribe_button"> 
-                        <button className="newsletter-submit-button">
+                        <button className="newsletter-submit-button" onClick={subscribeNewsletter}>
                             Subscribe
                         </button>
                     </div>
