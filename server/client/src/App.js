@@ -32,10 +32,10 @@ import ComplaintForm from "./Components/Footer/ComplaintForm";
 import FAQ from "./Components/Footer/FAQ";
 import AdminMainPage from "./RestaurantComponents/AdminPanel/AdminMainPage";
 import Restaurants from "./Components/OrderNow/Restaurants";
-import NewMenuItem from "./RestaurantComponents/AdminPanel/NewMenuItem";
 import Checkout from "./Components/Checkout/Checkout";
 import UserMenuItems from "./Components/UserMenuItems/UserMenuItems";
 import OrdersHistory from "./Components/UserOrders/OrdersHistory";
+import MobileHeader from "./Components/MobileHeader/MobileHeader";
 
 class App extends Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class App extends Component {
   }
   
 
-  componentWillMount() {
+  /*componentWillMount() {
     this.callAPI();
   }
 
@@ -58,15 +58,22 @@ class App extends Component {
 
   state = {
     visible: true,
-  };
+  };*/
   
 
-  render(){ 
+  
+
+  render(
+    
+  ){ 
     return (
       <Router>
         <div className="App">
           <ScrollToTop />
-          <Header/>
+          {window.innerWidth > 700 ? <Header/>
+          :
+          <MobileHeader/>
+  }
 
           {/* <Header/>  Header Section <Footer/> */}
           {/*<AdminAppBar/> {/* Admin bar Optional */}

@@ -169,7 +169,7 @@ const FoodieSignup = () => {
            
            {signupPic===true ? 
             <img className="image" src="./Pictures/foodiesignup.jpg" alt=""/>
-            : "sd"
+            : null
     }
 
             <form className="foodie_signup_form" onSubmit={handleSubmit}>

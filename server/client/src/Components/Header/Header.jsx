@@ -224,7 +224,7 @@ const handleLogout=()=>{
 
             
 
-            { (window.innerWidth >480) ?
+            
             <li className="navbar-menu-items">
               <Link
                 className="header-link"
@@ -234,10 +234,10 @@ const handleLogout=()=>{
                 Chefs
               </Link>
             </li>
-            : null
-}
+            
 
-           { (authCust===true && window.innerWidth >480) ? 
+
+           { (authCust===true) ? 
            
            <li className="navbar-menu-items">
               <Link
