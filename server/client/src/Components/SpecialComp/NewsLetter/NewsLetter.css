@@ -1,14 +1,14 @@
 .newsletter {
     background-color: #242424;
     height: 400px;
-    margin-top: 100px;
+    margin-top: 1px;
     text-align: center;
     border-bottom: white 1px solid;
     font-size: 11px;
 }
 
 .newsletter-cont {
-    margin-top: 100px;
+    margin-top: 1px;
     text-align: center;
 }
 

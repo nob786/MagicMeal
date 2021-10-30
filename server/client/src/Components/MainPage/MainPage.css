@@ -2,3 +2,14 @@
     background-color: white ;
 }
 
+.main-page-image-gallery{
+    margin-top: 1px;
+
+}
+
+@media (max-width: 550px) {
+    .main-page-image-gallery{
+        height: 100%;
+    
+    }
+}
