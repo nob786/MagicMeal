@@ -5,13 +5,24 @@ import axios from "../../axios";
   //===========================Redux Imports=========================
   import { useSelector } from "react-redux";
 
-
+  //============================Material Ui Imports================
+  import Tabs from '@mui/material/Tabs';
+  import Tab from '@mui/material/Tab';
 
   import SingleOrder from "./SingleOrder";
 
 
 const OrdersHistory = () => {
   const [orders, setOrders]= React.useState([]);
+
+  const [value, setValue] = React.useState(0);
+
+  const [t1, setT1] = React.useState(true);
+  const [t2, setT2] = React.useState(false);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   //const[customerId,setCustomerId]= React.useState();
 
 
@@ -37,7 +48,7 @@ const OrdersHistory = () => {
       const updatedOrders= res.data.updatedOrder;
       //console.log("orderss",updatedOrders);
       setOrders(updatedOrders);
-      window.alert("Orders Imported");
+      //window.alert("Orders Imported");
     }).catch((err)=>{
       console.log("Error in FE",err);
     })
@@ -47,22 +58,46 @@ const OrdersHistory = () => {
 
   //console.log("ORDERS",orders);
 
- 
+ const handleClickT1=()=>{
+   setT2(false);
+   setT1(true);
+ }
+ const handleClickT2=()=>{
+  setT1(false);
+  setT2(true);
+}
 
 
 
     return (  
         <div className="orders">
-            <TitleTag title="Pending Orders" />
-            {orders.map((order, index) => (
+
+        <Tabs value={value} onChange={handleChange} centered>
+                <Tab onClick={handleClickT1} label="Pending Orders" />
+                <Tab onClick={handleClickT2} label="Completed Orders" />
+        </Tabs>
+       {t1===true ? orders.map((order, index) => (
           <SingleOrder key={index} orders={order}  />
-            ))}
-      {/*<div className="restaurants_grid">
+            ))
+          : t2===true ? 
+          <div>
+          Completed Orders
+          </div>
+          : null
+}
+
+            
+            
+      {/*
+      <TitleTag title="Pending Orders" />
+      <div className="restaurants_grid">
         {d.map((item, key) => (
           <SingleRestaurant key={key} restaurant={item} />
         ))}
-        </div>*/}
+        </div>
         <TitleTag title="Completed/Cancelled Orders" />
+        */}
+        
 
         </div>
     );
