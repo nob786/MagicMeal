@@ -19,13 +19,13 @@ Lunch/Prayer Break: 1:00 pm to 2:00pm
 
 Friday Lunch/Prayer Break: 1:00 to 3:00 pm
 
-Call / WhatsApp at: +92 305 2222627
+Call / WhatsApp at: +92 301 4980779
 
  
 
 EMAIL US
 
-Email: cs@warda.com.pk
+Email: eatsabyte.com.pk
 
 Our Customer Service Team will review and respond to your query as quickly as possible.
            </p>
