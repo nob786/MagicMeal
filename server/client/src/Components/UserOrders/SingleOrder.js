@@ -48,13 +48,13 @@ const SingleOrder = ({ orders }) => {
 
   return (
       <Accordion className="user-order-history" style={{margin: "5%"}}>
-        <AccordionSummary
+        <AccordionSummary 
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
 
-          <Box sx={{width: "100%", margin: "2%"}} >
+          <Box sx={{width: "100%", margin: "1%"}} >
             <Stepper 
             style={{marginTop: "1%", marginBottom: "2%"}}
             activeStep={orders.status==="pending" ? 1 : orders.status==="accepted" ? 2 : orders.status==="outfordelivery" ? 3 : null }>
@@ -63,7 +63,7 @@ const SingleOrder = ({ orders }) => {
                
 
           return (
-            <Step key={label}> 
+            <Step key={label} > 
               <StepLabel {...labelProps}>{label}</StepLabel>
             </Step>
           );

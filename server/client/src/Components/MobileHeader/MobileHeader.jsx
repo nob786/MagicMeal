@@ -5,14 +5,23 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-
+//=========================Material Ui Imports=================
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
+import HomeIcon from '@mui/icons-material/Home';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import HistoryIcon from '@mui/icons-material/History';
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 //=========================Importing Links and Icons=================
 import { Link, useHistory } from "react-router-dom";
 
@@ -80,18 +89,40 @@ export default function MobileHeader() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List style={{backgroundColor: "#242424"}}>
-        
+
+
+      {(authCust===true) ? 
+      
+          <List style={{}}>
+      
+          <Link to="/user/my-account" style={{color: "black", textDecoration: "none"}}>
+          <ListItem button >
+          <AccountCircleIcon style={{color: "black", marginTop: "5%"}}/>
+          <ListItemText primary={"My Account"} style={{color: "black", marginTop: "5%", marginLeft: "5%"}} />
+          </ListItem>
+          </Link>
+          <Divider style={{backgroundColor: "black"}} />
+         </List>
+         
+         : 
+         null
+         }
+
+      
+      <List style={{}}>
+      
         <Link to="/" style={{color: "black", textDecoration: "none"}}>
           <ListItem button >
-            <ListItemText primary={"Home"}  style={{color: "white", marginTop: "5%"}} />
+          <HomeIcon style={{color: "black", marginTop: "5%"}}/>
+            <ListItemText primary={"Home"}  style={{color: "black", marginTop: "5%", marginLeft : "5%"}} />
           </ListItem>
           </Link>
 
 
           <Link to="/restaurants" style={{color: "black", textDecoration: "none"}}>
           <ListItem button >
-            <ListItemText primary={"Chefs"} style={{color: "white", marginTop: "5%"}} />
+            <RestaurantIcon style={{color: "black", marginTop: "5%"}}/>
+            <ListItemText primary={"Chefs"} style={{color: "black", marginTop: "5%", marginLeft : "5%"}} />
           </ListItem>
           </Link>
 
@@ -99,7 +130,8 @@ export default function MobileHeader() {
           {
           (authCust===true) ? <Link to="/user/orders-history" style={{color: "black", textDecoration: "none"}}>
           <ListItem button >
-            <ListItemText primary={"Orders History"} style={{color: "white", marginTop: "5%"}} />
+           <HistoryIcon style={{color: "black", marginTop: "5%"}}/>
+            <ListItemText primary={"Orders History"} style={{color: "black", marginTop: "5%", marginLeft : "5%"}} />
           </ListItem>
           </Link>
           : 
@@ -110,7 +142,8 @@ export default function MobileHeader() {
           {
           (authCust===false) ? <Link to="/mobile-app" style={{color: "black", textDecoration: "none"}}>
           <ListItem button >
-            <ListItemText primary={"Mobile App"} style={{color: "white", marginTop: "5%"}} />
+           <PhoneIphoneIcon style={{color: "black", marginTop: "5%"}}/>
+            <ListItemText primary={"Mobile App"} style={{color: "black", marginTop: "5%", marginLeft : "5%"}} />
           </ListItem>
           </Link>
           :
@@ -119,7 +152,8 @@ export default function MobileHeader() {
 
          { (authCust=== true) ? <Link to="/checkout" style={{color: "black", textDecoration: "none"}}>
           <ListItem button >
-            <ListItemText primary={"Cart"} style={{color: "white", marginTop: "5%"}} />
+           <ShoppingCartIcon style={{color: "black", marginTop: "5%"}}/>
+            <ListItemText primary={"Cart"} style={{color: "black", marginTop: "5%", marginLeft : "5%"}} />
           </ListItem>
           </Link>
           :
@@ -128,15 +162,16 @@ export default function MobileHeader() {
 
      </List>
 
-      <Divider />
+      <Divider style={{backgroundColor: "black"}} />
 
-      <List style={{backgroundColor: "#242424"}}>
+      <List style={{}}>
 
         
         {
             (authCust===false) ? <Link to="/foodie-login" style={{color: "black", textDecoration: "none"}}>
          <ListItem button >
-            <ListItemText primary={"Login"} style={{color: "white", marginTop: "5%"}} />
+         <LoginIcon  style={{color: "black", marginTop: "5%"}}/>
+            <ListItemText primary={"Login"} style={{color: "black", marginTop: "5%", marginLeft : "5%"}} />
           </ListItem>
           </Link>
           : 
@@ -146,7 +181,8 @@ export default function MobileHeader() {
           {
               (authCust===false) ? <Link to="/foodie-signup" style={{color: "black", textDecoration: "none"}}>
           <ListItem button >
-            <ListItemText primary={"Signup"} style={{color: "white", marginTop: "5%"}} />
+          <AddCircleIcon  style={{color: "black", marginTop: "5%"}}/>
+            <ListItemText primary={"Signup"} style={{color: "black", marginTop: "5%", marginLeft : "5%"}} />
           </ListItem>
           </Link>:
           null
@@ -154,13 +190,35 @@ export default function MobileHeader() {
 
           {(authCust===true) ? <Link onClick={handleLogout} style={{color: "black", textDecoration: "none"}}>
           <ListItem button >
-            <ListItemText primary={"Logout"} style={{color: "white", marginTop: "5%"}} />
+           
+          <LogoutIcon  style={{color: "black", marginTop: "5%"}}/>
+          <ListItemText primary={"Logout"} style={{color: "black", marginTop: "5%", marginLeft: "5%", marginLeft : "5%"}} />
           </ListItem>
           </Link>
           :
           null}
        
       </List>
+
+      <Divider />
+
+
+      <List style={{}}>
+      {
+          (authCust===true) ? <Link to="/user/settings" style={{color: "black", textDecoration: "none"}}>
+          <ListItem button >
+          <SettingsIcon style={{color: "black", marginTop: "5%"}}/>
+          <ListItemText primary={"Settings"} style={{color: "black", marginTop: "5%",marginLeft: "5%", marginLeft : "5%"}} />
+          </ListItem>
+          </Link>
+          : 
+          null
+          }
+         </List>
+
+      
+
+
     </Box>
   );
 
