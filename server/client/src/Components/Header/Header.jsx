@@ -25,6 +25,10 @@ import IconButton from '@mui/material/IconButton';
 
 
 
+//=================React  Notification==================
+import {toast} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure();
 
 
 
@@ -114,6 +118,8 @@ const handleLogout=()=>{
   localStorage.removeItem("persist:root");
   localStorage.removeItem("token");
   dispatch(addAuthCust(false));
+  toast.success(`Successfully Logged-out`, {position: toast.POSITION.TOP_CENTER ,
+  autoClose: 2000});
   history.push("/");
   setShow(true);
 };

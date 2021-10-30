@@ -22,6 +22,8 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import HistoryIcon from '@mui/icons-material/History';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 //=========================Importing Links and Icons=================
 import { Link, useHistory } from "react-router-dom";
 
@@ -30,6 +32,10 @@ import { useDispatch,useSelector } from "react-redux";
 import {addAuthCust} from "../../Redux/actions/authentication.js"
 
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 
 export default function MobileHeader() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -37,6 +43,8 @@ export default function MobileHeader() {
   const [state, setState] = React.useState({
     left: false,
   });
+
+  const [openLogoutSuccess, setLogoutSuccess] = React.useState(false);
 
 
   const handleMenu = (event) => {
@@ -67,7 +75,20 @@ export default function MobileHeader() {
     localStorage.removeItem("persist:root");
     localStorage.removeItem("token");
     dispatch(addAuthCust(false));
-    history.push("/");
+    setTimeout(() => {  history.push("/"); }, 2000);
+    setLogoutSuccess(true);
+  };
+
+
+  
+  //Snackbar States
+  
+  const handleCloseSnack = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+  
+    setLogoutSuccess(false);
   };
 
 
@@ -188,15 +209,20 @@ export default function MobileHeader() {
           null
           }
 
-          {(authCust===true) ? <Link onClick={handleLogout} style={{color: "black", textDecoration: "none"}}>
-          <ListItem button >
-           
+          {
+          (authCust===true) ? 
+          
+          <Link onClick={handleLogout} style={{color: "black", textDecoration: "none"}}>
+         
+          <ListItem button > 
           <LogoutIcon  style={{color: "black", marginTop: "5%"}}/>
           <ListItemText primary={"Logout"} style={{color: "black", marginTop: "5%", marginLeft: "5%", marginLeft : "5%"}} />
           </ListItem>
           </Link>
+          
           :
-          null}
+          null
+          }
        
       </List>
 
@@ -295,6 +321,14 @@ export default function MobileHeader() {
           )*/}
         </Toolbar>
       </AppBar>
+
+      {/*/Snack Bar */}
+                      <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center'}}
+                       open={openLogoutSuccess} autoHideDuration={6000} onClose={handleCloseSnack}>
+                          <Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
+                            Successfully logged-out.
+                          </Alert>
+                      </Snackbar>
     </Box>
   );
 }

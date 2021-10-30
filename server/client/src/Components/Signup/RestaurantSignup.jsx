@@ -20,6 +20,13 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { useHistory } from "react-router-dom";
 
+
+//=================React  Notification
+import {toast} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure();
+
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -114,7 +121,9 @@ export default function RestaurantSignup() {
       })
       .then((res) => {
         console.log(res.data);
-        window.alert("Signup Successfully");
+        //window.alert("Signup Successfully");
+        toast.success(`Successfully Signed-up Partner Account`, {position: toast.POSITION.TOP_CENTER ,
+        autoClose: 2000});
         history.push("/foodie-login");
       })
       .catch((req) => {

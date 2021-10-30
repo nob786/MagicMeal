@@ -18,7 +18,12 @@ import EmailIcon from '@material-ui/icons/Email';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 
+//=================React  Notification
+import {toast} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
 
+
+toast.configure();
 
 
 const FoodieSignup = () => {
@@ -142,7 +147,9 @@ const FoodieSignup = () => {
     })
     .then((res)=>{
       console.log(res.data);
-      window.alert("User Resgister Successfully");
+      //window.alert("User Resgister Successfully");
+      toast.success(`Successfully Signed-up as a Customer`, {position: toast.POSITION.TOP_CENTER ,
+      autoClose: 2000});
       history.push("/foodie-login");
     }).catch((err)=>{
       window.alert("ERROR");

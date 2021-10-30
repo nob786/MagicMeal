@@ -1,6 +1,9 @@
 import React from "react";
 import "./Login.css";
 
+//=================React  Notification
+import {toast} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
 //=========================Importing=================
 import { Link, useHistory } from "react-router-dom";
 import Button from "../SpecialComp/Button/Button";
@@ -25,7 +28,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { SnackbarProvider, useSnackbar } from 'notistack';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
 
 
 //==========================Redux imports===================================
@@ -35,11 +40,28 @@ import { addRestaurantData } from "../../Redux/actions/authentication";
 import {addAuthCust} from "../../Redux/actions/authentication.js"
 import {addAuthRest} from "../../Redux/actions/authentication.js"
 
+toast.configure();
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 const FoodieLogin = () => {
+
+
   const [formData, setFormData] = React.useState({
     email: "",
     password: "",
   });
+//Snackbar States
+  const [openLoginSuccess, setLoginSuccess] = React.useState(false);
+
+  //Login Name
+  const [loginName, setLoginName] = React.useState("");
+ 
+
+
+
   const history = useHistory();
   //const history = useHistory();
 
@@ -94,18 +116,34 @@ const FoodieLogin = () => {
           //window.alert("User Logged in");
           localStorage.setItem("token", JSON.stringify(token));
           if (role === "restaurant") {
+            setRole("Restaurant");
             window.alert("Restaurant Logged In");
             dispatch(addAuthRest(true));
             dispatch(addRestaurantData(restaurant));
-            history.push("/admin/dashboard");
-            // history.push("/admin/menu-items");
+            //history.push("/admin/dashboard");
+
+            //setLoginName(restaurant.ownerName);
+            //setTimeout(() => {  history.push("/admin/dashboard"); }, 3000);
+            //setLoginSuccess(true); 
+
+            toast.success(`welcome ${restaurant.ownerName}! You Have successfully Logged in to ${role} Account`, {position: toast.POSITION.TOP_CENTER});
+            history.push("/admin/menu-items");
           } else if (role === "customer"){
-            window.alert("Customer Logged In");
+            setRole("Customer");
+            //window.alert("Customer Logged In");
             dispatch(addAuthCust(true));
             dispatch(addCustomerData(customer));
             //window.alert(token.data);
-            //handleClickVariant();
+            
+
+            //setLoginName(customer.firstName);
+            //setTimeout(() => {  history.push("/"); }, 2000);
+            //setLoginSuccess(true); 
+            
             history.push("/");
+            toast.success(`Welcome ${customer.firstName} ${customer.lastName}! You Have successfully Logged in to Customer Account`, {position: toast.POSITION.TOP_CENTER ,
+            autoClose: 2000});
+            
           }
         }
         //history.push("/menus");
@@ -140,12 +178,16 @@ const FoodieLogin = () => {
 
 
 //==========================================Success Notifications ===============================
-    const enqueueSnackbar  = useSnackbar();
 
-  const handleClickVariant = (variant) => () => {
-    // variant could be success, error, warning, info, or default
-    enqueueSnackbar('This is a success message!', { variant });
-  };
+
+
+const handleCloseSnack = (event, reason) => {
+  if (reason === 'clickaway') {
+    return;
+  }
+
+  setLoginSuccess(false);
+};
 
 
 
@@ -268,6 +310,14 @@ const FoodieLogin = () => {
                   <button className="login-submit-button" onClick={handleSubmit}>
                     Submit
                   </button>
+                      <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center'}}
+                       open={openLoginSuccess} autoHideDuration={6000} onClose={handleCloseSnack}>
+                          <Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
+                           Welcome {loginName}! 
+                           <br />
+                            You have Successfully logged In to {role} Account.
+                          </Alert>
+                      </Snackbar>
 
           <div className="already-login">
             Not Registered yet?{" "}
