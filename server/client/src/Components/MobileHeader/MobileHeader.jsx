@@ -239,6 +239,8 @@ export default function MobileHeader() {
           >
                 <MenuIcon />
           </IconButton>
+            <Link style={{textDecoration: "none", fontSize: "28px"}} to="/">Eatsabyte</Link> 
+          
           <Drawer
             anchor={anchor}
             open={state[anchor]}
@@ -251,9 +253,7 @@ export default function MobileHeader() {
 
           
           
-          <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
-            <Link style={{textDecoration: "none", fontSize: "29px"}} to="/">Eatsabyte</Link> 
-          </Typography>
+         
           {/*(
             <div>
               <IconButton
