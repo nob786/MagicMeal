@@ -49,6 +49,7 @@
     flex-direction: row;
     max-width: 1000px;
     margin: auto;
+    margin-top: 2%;
 }
 
 .form-fields {
@@ -75,7 +76,10 @@
     height: 700px;
 }
 
-.title {
+.foodie-signup-form-title {
+
+    font-family: cursive;
+    font-size: 99px;
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -89,7 +93,7 @@
 
 
 .fields {
-    width: 400px;
+    width: 80%;
 }
 
 .mobilecode {
@@ -152,24 +156,25 @@
 
 
   /*========================Media Querries ===================================*/
-  @media (max-width: 480px) {
+  @media (max-width: 999px) {
     .foodie_signup_form {
         color: white;
         background-color: orange;
-        width: 480px;
-        height: 480px;
-        margin: 5%;
+        width: 95%;
+        margin: auto;
+        margin-top: 5%;
+        height: auto;
         padding: 5%;
     }
     .foodie-signup-fields{
-        width: 200px;
+        width: 95%;
     }
     .title h1{
         font-size: 16px;
         font-weight: unset;
     }
     .form-fields {
-        width: 100%;;
+        width: 95%;;
     }
     
   }

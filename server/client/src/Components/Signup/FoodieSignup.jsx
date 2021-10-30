@@ -167,14 +167,14 @@ const FoodieSignup = () => {
         <div className="foodie_signup_container">
 
            
-           {window.innerWidth > 480 ? 
+           {window.innerWidth > 999 ? 
             <img className="image" src="./Pictures/foodiesignup.jpg" alt=""/>
             : null
     }
 
             <form className="foodie_signup_form" onSubmit={handleSubmit}>
 
-                <div className="title">
+                <div className="foodie-signup-form-title">
                 <h1>Sign Up</h1>
                 </div>
 

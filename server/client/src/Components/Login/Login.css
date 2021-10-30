@@ -36,12 +36,13 @@
     height: 500px;
 }
 
-.title{
-    padding-top: 50px;
+.login-form-title{
+    font-family: cursive;
+    padding-top: 10%;
     padding-bottom: 20px;
 }
 
-.title h1{
+.login-form-title h1{
     font-size: 26px;
     font-weight: unset;
 }
@@ -122,13 +123,13 @@
     .foodie_login_form {
         color: white;
         background-color: orange;
-        width: auto;
-        height: 380px;
-        margin: 5%;
+        width: 95%;
+        margin: auto;
+        height: 400px;
         padding: 5%;
     }
     .email,.password{
-        width: 200px;
+        width: 95%;
     }
     .title h1{
         font-size: 16px;

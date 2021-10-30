@@ -152,7 +152,7 @@ const FoodieLogin = () => {
   return (
     <div className="foodie_login_container">
       <form className="foodie_login_form">
-        <div className="title">
+        <div className="login-form-title">
           <h1>Login Form</h1>
         </div>
 
