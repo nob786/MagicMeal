@@ -62,8 +62,8 @@ h1 {
 @media (max-width: 480px) {
     .Single_Restaurant {
         margin: auto;
-        width: 250px;
-        height: 200px;
+        width: 90%;
+        height: 100%;
         background-color: white;
   }
   .restaurant-image-container {

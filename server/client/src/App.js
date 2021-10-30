@@ -70,7 +70,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <ScrollToTop />
-          {window.innerWidth > 700 ? <Header/>
+          {window.innerWidth > 970 ? <Header/>
           :
           <MobileHeader/>
   }

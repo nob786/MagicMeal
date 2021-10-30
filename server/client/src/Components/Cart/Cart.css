@@ -319,11 +319,6 @@ header {
 
 /* responsive media queries  */
 
-@media (max-width: 968px) {
-  html {
-    font-size: 50%;
-  }
-}
 
 @media (max-width: 480px) {
   .continue-shopping h3 {

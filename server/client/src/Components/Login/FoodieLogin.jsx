@@ -25,6 +25,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { SnackbarProvider, useSnackbar } from 'notistack';
 
 
 //==========================Redux imports===================================
@@ -90,8 +91,7 @@ const FoodieLogin = () => {
         if (!token) {
           console.log("Your token is empty", token);
         } else {
-          window.alert("User Logged in");
-          
+          //window.alert("User Logged in");
           localStorage.setItem("token", JSON.stringify(token));
           if (role === "restaurant") {
             window.alert("Restaurant Logged In");
@@ -104,6 +104,7 @@ const FoodieLogin = () => {
             dispatch(addAuthCust(true));
             dispatch(addCustomerData(customer));
             //window.alert(token.data);
+            //handleClickVariant();
             history.push("/");
           }
         }
@@ -136,6 +137,17 @@ const FoodieLogin = () => {
   const handleRole = (event) => {
     setRole(event.target.value);
   };
+
+
+//==========================================Success Notifications ===============================
+    const enqueueSnackbar  = useSnackbar();
+
+  const handleClickVariant = (variant) => () => {
+    // variant could be success, error, warning, info, or default
+    enqueueSnackbar('This is a success message!', { variant });
+  };
+
+
 
   return (
     <div className="foodie_login_container">
@@ -278,3 +290,6 @@ const FoodieLogin = () => {
 };
 
 export default FoodieLogin;
+
+
+

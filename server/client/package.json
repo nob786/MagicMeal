@@ -9,12 +9,14 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@mui/icons-material": "^5.0.4",
-    "@mui/material": "^5.0.4",
+    "@mui/material": "^5.0.6",
+    "@mui/styled-engine-sc": "^5.0.4",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "notistack": "^2.0.2",
     "react": "^17.0.1",
     "react-code-input": "^3.10.1",
     "react-custom-scrollbars-2": "^4.4.0",
@@ -26,6 +28,7 @@
     "redux": "^4.1.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
+    "styled-components": "^5.3.3",
     "web-vitals": "^1.1.0"
   },
   "scripts": {

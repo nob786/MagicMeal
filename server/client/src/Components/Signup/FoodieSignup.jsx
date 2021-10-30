@@ -167,7 +167,7 @@ const FoodieSignup = () => {
         <div className="foodie_signup_container">
 
            
-           {signupPic===true ? 
+           {window.innerWidth > 480 ? 
             <img className="image" src="./Pictures/foodiesignup.jpg" alt=""/>
             : null
     }

@@ -31,7 +31,7 @@ const SingleRestaurant = ({ restaurant }) => {
     history.push("/user-menu-items");
   }
   return (
-    <Link onClick={onRestaurantClick} style={{textDecoration: "none"}}>
+    <div onClick={onRestaurantClick} style={{textDecoration: "none"}}>
     <div className="Single_Restaurant">
       <div className="restaurant-image-container">
         <img className="restaurant_image" src={"../Pictures/R7.jpg"} />
@@ -54,7 +54,7 @@ const SingleRestaurant = ({ restaurant }) => {
         </Box>
       </div>
     </div>
-    </Link>
+    </div>
     
   );
 };
