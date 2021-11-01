@@ -227,7 +227,7 @@ const handleLogout=()=>{
             </li>
             
             :  <li className="navbar-menu-items">
-              <Link className="header-link" to="/" onClick={closeMobileMenu}>
+              <Link className="header-link" to="/">
                 Home
               </Link>
             </li>

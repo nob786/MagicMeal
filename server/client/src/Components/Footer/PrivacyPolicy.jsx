@@ -8,14 +8,14 @@ const PrivacyPolicy = () => {
         <div className="privacy-policy">
             <TitleTag title="PRIVACY POLICY"/>
             <p>
-            This policy explains how we, Q-FOOD, a brand of http://www.q-food.com, use your personal information which you provide to us when using our service, including but not limited to our website and mobile applications (apps).
-
-What information we collect about you?
-
-We collect personal information from you when you order goods or services from us or use our website. We also collect information when you complete any customer survey. Website usage information may also be collected using cookies.
+            This policy explains how we, Eatsabyte, a brand of http://www.eatsabyte.com, use your personal information which you provide to us when using our service, including but not limited to our website and mobile application.
+<br />
+<span style={{fontWeight: "bold"}}>What information we collect about you?</span> 
+<br />
+ We collect personal information from you when you order goods or services from us or use our website. We also collect information when you complete any customer survey. Website usage information may also be collected using cookies.
 
 <br/><br/>
-<h4 style={{fontWeight: 'bold', textAlign: 'center', fontSize: '16px'}}>Cookies and Google Analytics</h4>
+<h4 style={{fontWeight: 'bold', textAlign: 'center', fontSize: '18px'}}>Cookies and Google Analytics</h4>
 
 Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site.
 
@@ -23,17 +23,17 @@ This website uses Google Analytics, a web analytics service provided by Google, 
 
 Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit www.allaboutcookies.org.
 
-<h4 style={{fontWeight: 'bold', textAlign: 'center', fontSize: '16px'}}>How will we use the information we collect from you?</h4>
+<h4 style={{fontWeight: 'bold', textAlign: 'center', fontSize: '18px'}}>How will we use the information we collect from you?</h4>
 
 Information that we collect from you is used to process your order and to manage your account. We may also use your information to email you about other products or services that we think may be of interest to you.
 <br/>
 In processing your order we may send your information to credit reference and fraud prevention agencies.
 <br/>
-From time to time we may send your information to third parties which we consider may have goods or services which are of interest to you. If you do not wish to be contacted by third parties please email us at info@foodpanda.pk
+From time to time we may send your information to third parties which we consider may have goods or services which are of interest to you. If you do not wish to be contacted by third parties please email us at info@eatsabyte.pk
 <br/>
 Access to your information
 
-You have a right to request a copy of the information we hold on you at any time. Please email us if you would like to receive a copy of this information – info@q-food.pk. There will be a small charge for processing this request.
+You have a right to request a copy of the information we hold on you at any time. Please email us if you would like to receive a copy of this information – info@eatsabyte.com.pk. There will be a small charge for processing this request.
 
 Other Websites
 

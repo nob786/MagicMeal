@@ -182,7 +182,7 @@ const FoodieSignup = () => {
             <form className="foodie_signup_form" onSubmit={handleSubmit}>
 
                 <div className="foodie-signup-form-title">
-                <h1>Sign Up</h1>
+                <h1>Sign Up as Foodie</h1>
                 </div>
 
 

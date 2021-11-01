@@ -33,7 +33,7 @@ const Restaurants = () => {
   console.log("This is data of your state", d);
   return (
     <div className="Restaurants">
-      <TitleTag title="Restaurants Near-By" />
+      <TitleTag title="Independent Chefs on our Panel" />
       <div className="restaurants_grid">
         {d.map((item, key) => (
           <SingleRestaurant key={key} restaurant={item} />

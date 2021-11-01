@@ -72,7 +72,7 @@ const UserMenuItems = () => {
         <br />
         <span className="user-menu-restaurant-contact"><PhoneInTalkIcon/>  {clickedRestaurantData.contact} </span>
         <br />
-        <span className="user-menu-restaurant-category">Restaurant Type: {clickedRestaurantData.category} </span>
+        <span className="user-menu-restaurant-category">Type: {clickedRestaurantData.category} </span>
         <br />
       </div>
 

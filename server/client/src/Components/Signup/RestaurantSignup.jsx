@@ -31,8 +31,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://magicmeal.com/">
-        Your Website
+      <Link color="inherit" href="https://eatsabyte.com/">
+        Eatsabyte.com
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -131,6 +131,12 @@ export default function RestaurantSignup() {
       });
   };
 
+
+
+   const handleAlreadyRestSignup =()=>{
+     history.push("/foodie-login");
+  }
+
   return (
     <Container component="main" maxWidth="xs" className="restaurant-signup-container">
       <CssBaseline />
@@ -139,7 +145,7 @@ export default function RestaurantSignup() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5" style={{ color: "black", marginBottom: "10%" }} >
-          Restaurant Partnership Form
+          Chefs Partnership Form
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -199,7 +205,7 @@ export default function RestaurantSignup() {
                 required
                 fullWidth
                 id="restaurant_name"
-                label="Restaurant Name"
+                label="Service Name"
                 name="restaurantName"
                 value={restAdmin.restaurantName}
                 onChange={handleChange}
@@ -212,7 +218,7 @@ export default function RestaurantSignup() {
                 required
                 fullWidth
                 id="location"
-                label="Restaurant Location"
+                label="Service Location"
                 name="restaurantLocation"
                 value={restAdmin.restaurantLocation}
                 onChange={handleChange}
@@ -280,7 +286,7 @@ export default function RestaurantSignup() {
                 required
                 fullWidth
                 id="category"
-                label="Restaurant Category"
+                label="Food Category"
                 name="category"
                 value={restAdmin.category}
                 onChange={handleChange}
@@ -328,12 +334,14 @@ export default function RestaurantSignup() {
           >
             Apply for Partener Program
           </Button>*/}
+          
 
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2" to="/foodie-login">
+              <Link variant="body2" to="/foodie-login" onClick={handleAlreadyRestSignup}>
                 Already have an account? Sign in
               </Link>
+              
             </Grid>
           </Grid>
         </form>
