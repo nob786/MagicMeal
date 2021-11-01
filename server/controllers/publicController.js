@@ -36,22 +36,22 @@ exports.subscribeForNewsletter = async (req, res) => {
   console.log("This is my user", process.env.GMAIL_USER);
   console.log("This is my user", process.env.GMAIL_PASS);
   const { email } = req.body;
-  const receivedEmail = email;
+  // const receivedEmail = email
   console.log("Printing request body", req.body);
 
-  if (!receivedEmail) {
+  if (!email) {
     console.log("There is no email in body");
   } else {
-    console.log("This is email from client", receivedEmail);
+    console.log("This is email from client", email);
   }
 
   const accountsEmail = await Account.findOne({
-    email: receivedEmail,
+    email: email,
   });
 
   if (!accountsEmail) {
     const newsLetter = new Newsletters({
-      email: receivedEmail,
+      email: email,
     });
 
     await newsLetter
@@ -69,7 +69,7 @@ exports.subscribeForNewsletter = async (req, res) => {
           );
         }
         const mailOptions = {
-          to: receivedEmail,
+          to: email,
           from: "Eatsabyte",
           subject: "Newsletter Subscription",
           html: `<p>Dear user we appreciate your interest in our newsletter. We will keep you updated  - Eatsabyte</p>
@@ -106,7 +106,7 @@ exports.subscribeForNewsletter = async (req, res) => {
     console.log("You are already registerd and will get updated newsletters");
     return res.status(200).json({
       message: "Your email is already registered for our newsletter",
-      data: receivedEmail,
+      data: email,
     });
   }
 };
