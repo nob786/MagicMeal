@@ -93,6 +93,11 @@ const dispatch=useDispatch();
     history.push("/foodie-signup")
   } */}
 
+
+     const handeMyAccount=()=>{
+       history.push("/user/my-account")
+     }
+
   const showButton = () => {
     if (window.innerWidth <= 480) {
       setButton(true);
@@ -202,7 +207,7 @@ const handleLogout=()=>{
         {custData.firstName+" "+custData.lastName}
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem onClick={handeMyAccount}>
           <Avatar /> My Account 
         </MenuItem>
         <Divider />

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import "./Cart.css";
 
 
-import ContexCart from "./ContexCart";
+import ContexCart from "./ContexCart.jsx";
 
 
 
