@@ -8,6 +8,7 @@ import CartItems from "./CartItems";
 import Badge from "@material-ui/core/Badge";
 import { withStyles } from "@material-ui/core/styles";
 import Checkout from "../Checkout/Checkout";
+import TextField from '@material-ui/core/TextField';
 import "./Cart.css";
 
 import {CartContext} from './Cart.jsx';
@@ -17,10 +18,13 @@ import {CartContext} from './Cart.jsx';
 //============================React Redux ====================================
 import { useDispatch} from "react-redux";
 import {pushItemsLength} from "../../Redux/actions/cartAction"
+import {pushCartTotal} from "../../Redux/actions/cartAction"
+import { toast } from 'react-toastify';
 
 
 function ContexCart() {
 
+  // Sates and Variables
     const data = React.useContext(CartContext);
     const item = data.clickedMenuId;
     const {checkItems}=React.useContext(CartContext);
@@ -32,6 +36,11 @@ function ContexCart() {
       item.map((currItem) => {
         return total=total+currItem.price;
         })
+    }
+
+
+     const handleCartTotal=()=>{
+      return dispatch(pushCartTotal(total));
     }
     /*useEffect(() => {
       // Update the document title using the browser API

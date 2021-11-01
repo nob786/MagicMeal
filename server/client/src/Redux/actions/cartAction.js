@@ -1,7 +1,8 @@
 import { ADD_DELIVERY_ADDRESS,
   ADD_CART_RESTAURANT_ID, PUSH_MENU_ID,
   ADD_CART_RESTAURANT,
-  PUSH_ITEMS_LENGTH} from "./types";
+  PUSH_ITEMS_LENGTH,
+  PUSH_CART_TOTAL} from "./types";
 
 
 
@@ -52,4 +53,15 @@ export const addDeliveryAddress = (address) => (dispatch) => {
     });
   
   };
+
+  export const pushCartTotal = (number) => (dispatch) => {
+  
+
+    dispatch({
+      type: PUSH_CART_TOTAL,
+      payload: number,
+    });
+  
+  };
+
 

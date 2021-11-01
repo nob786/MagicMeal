@@ -1,6 +1,22 @@
 .complaint-form p{
   text-align: center;
-  margin-bottom: 20%;
-  margin-right: 10%;
-  margin-left: 10%;
+
+}
+
+
+.complaint-form-button-div{
+  text-align: center;
+  margin-bottom: 50%;
+  margin-top: 15%;
+}
+
+.complaint-form-button{
+  height: 50px;
+  background-color: #242424; opacity: 0.9;
+  color: white;
+}
+.complaint-form-button:hover{
+  height: 50px;
+  background-color: white;
+  color: black;
 }

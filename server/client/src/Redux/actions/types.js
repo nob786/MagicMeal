@@ -15,6 +15,7 @@ export const ADD_DELIVERY_ADDRESS = "ADD_DELIVERY_ADDRESS";
 export const ADD_CART_RESTAURANT_ID = "ADD_CART_RESTAURANT_ID";
 export const ADD_CART_RESTAURANT = "ADD_CART_RESTAURANT";
 export const PUSH_ITEMS_LENGTH = "PUSH_ITEMS_LENGTH";
+export const PUSH_CART_TOTAL = "PUSH_CART_TOTAL";
 
 
 //=======================Authentication Action==================
@@ -22,3 +23,4 @@ export const AUTH_CUST = "AUTH_CUST";
 export const AUTH_REST = "AUTH_REST";
 export const ADD_CUSTOMER_DATA = "ADD_CUSTOMER_DATA";
 export const ADD_RESTAURANT_DATA = "ADD_RESTAURANT_DATA";
+

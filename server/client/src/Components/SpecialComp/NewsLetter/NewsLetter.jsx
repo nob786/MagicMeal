@@ -17,7 +17,7 @@ const NewsLetter = () => {
     const subscribeNewsletter =()=>{
 
 
-        axios.post("/public/subscribe-to-newsletter", email)
+        axios.post("/public/subscribe-to-newsletter", {email})
         .then((res) => {
           toast.success(`Successfully Subscribed to Our NewsLetter Service`, {position: toast.POSITION.TOP_CENTER ,
           autoClose: 2000});

@@ -9,7 +9,7 @@ const AboutUs = () => {
             <TitleTag title="ABOUT US"/>
 
             <p>
-                Eatsabye is new trending food ordering platform. Eastsabyte is a project of three students of COMSATS University Lahore, Pakistan. Our aim is to provide hassle free Take-away and Dine-in services to our customers. Now feel free to dine-in without the hassle of calling the waiter and waiting to get ur turn.
+                Eatsabye is new trending food ordering platform. Eastsabyte is a project of three students of COMSATS University Lahore, Pakistan. <br /> Our aim is to provide hassle free Take-away, Table Booking and Dine-in orders' services to our customers. <br /> Now feel free to dine-in without the hassle of calling the waiter and waiting to get ur turn.
 
  
             </p>

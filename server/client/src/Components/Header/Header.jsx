@@ -200,12 +200,13 @@ const handleLogout=()=>{
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>
+        {/*<MenuItem>
         <ListItemIcon>
-            {/*<Settings fontSize="small" />*/}
+            {<Settings fontSize="small" />}
           </ListItemIcon>
         {custData.firstName+" "+custData.lastName}
         </MenuItem>
+        */}
         <Divider />
         <MenuItem onClick={handeMyAccount}>
           <Avatar /> My Account 
@@ -262,9 +263,9 @@ const handleLogout=()=>{
             <li className="navbar-menu-items">
               <Link
                 className="header-link"
-                to="/mobile-app"
+                to="/restaurant-signup"
               >
-                Mobile App
+                Chef Signup
               </Link>
             </li>
 }

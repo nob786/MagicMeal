@@ -2,16 +2,16 @@ import { ADD_DELIVERY_ADDRESS ,
   ADD_CART_RESTAURANT_ID,
   PUSH_MENU_ID,
   ADD_CART_RESTAURANT,
-  PUSH_ITEMS_LENGTH} from "../actions/types";
+  PUSH_ITEMS_LENGTH,
+  PUSH_CART_TOTAL} from "../actions/types";
     
     const initialState = {
       clickedMenuId: [],
-      cartTotal: 600,
       deliveryAddress: "",
       cartRestaurantId: "",
       cartRestaurant: {},
       itemsLength: 0,
-
+      cartTotal: 0,
     };
 
 
@@ -41,6 +41,11 @@ import { ADD_DELIVERY_ADDRESS ,
             return {
               ...state,
               itemsLength: action.payload,
+            };
+            case PUSH_CART_TOTAL:
+            return {
+              ...state,
+              cartTotal: action.payload,
             };
           default:
             return state;
