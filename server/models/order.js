@@ -16,7 +16,6 @@ const orderSchema = mongoose.Schema({
     },
     customerAddress: {
       type: String,
-      required: true,
     },
   },
   restaurant: {
@@ -54,23 +53,22 @@ const orderSchema = mongoose.Schema({
     required: true,
   },*/
   items: [
-     {
-      itemId: { type: String, required: true },   
+    {
+      itemId: { type: String, required: true },
       itemName: { type: String, required: true },
       itemDescription: { type: String, required: true },
-      price: {type: Number, required: true},
+      price: { type: Number, required: true },
       quantity: { type: Number, required: true },
-      total: {type: Number, required: true},
+      total: { type: Number, required: true },
     },
   ],
 
-  grandTotal: {type: Number, required: true},
+  grandTotal: { type: Number, required: true },
   status: {
     type: String,
-    enum: ["pending", "rejected","cancelled","accepted","received"],
+    enum: ["pending", "rejected", "cancelled", "accepted", "received"],
     required: true,
   },
-
 });
 
 orderSchema.virtual("booking", {
