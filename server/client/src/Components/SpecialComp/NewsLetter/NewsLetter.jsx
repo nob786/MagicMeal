@@ -16,10 +16,21 @@ const NewsLetter = () => {
     axios
       .post("/public/subscribe-to-newsletter", { email })
       .then((res) => {
-        toast.success(`Successfully Subscribed to Our NewsLetter Service`, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-        });
+        const success = res.data.success;
+        if (success === true) {
+          toast.success(`Successfully Subscribed to Our NewsLetter Service`, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
+        } else {
+          toast.success(
+            `You have already subscribed for our newletter. Stay tuned for updates.`,
+            {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 2000,
+            }
+          );
+        }
       })
       .catch((req) => {
         window.alert(req.message);
@@ -48,51 +59,6 @@ const NewsLetter = () => {
           />
         </div>
 
-<<<<<<< HEAD
-        axios.post("/public/subscribe-to-newsletter", {email})
-        .then((res) => {
-          toast.success(`Successfully Subscribed to Our NewsLetter Service`, {position: toast.POSITION.TOP_CENTER ,
-          autoClose: 2000});
-        })
-        .catch((req) => {
-          window.alert(req.message);
-        });
-    }
-
-
-    const handleChangeEmail=(event)=>{
-
-        console.log(event.target.value);
-         setEmail(  event.target.value );
-       console.log(email);
-    };
-   
-
-    return ( 
-        <section class="newsletter">
-            <div class="newsletter-cont">
-		            <h2 className="newsletter-title">Subscribe to our Newsletter</h2>
-                    
-                    <div className="newsletter_cont">
-                        <input value={email} onChange={handleChangeEmail} className="newsletter-field" type="email" autoComplete="email" placeholder="Enter your email"/>
-                        
-                    </div>
-
-
-                    <div className="subscribe_button"> 
-                        <button className="newsletter-submit-button" onClick={subscribeNewsletter} >
-                            Subscribe
-                        </button>
-                    </div>
-                    
-
-            </div>
-        </section>
-     );
-}
- 
-export default NewsLetter;
-=======
         <div className="subscribe_button">
           <button
             className="newsletter-submit-button"
@@ -107,4 +73,3 @@ export default NewsLetter;
 };
 
 export default NewsLetter;
->>>>>>> 7348830df2d3ca2dbcefe5011aa42ac62c6f913d
