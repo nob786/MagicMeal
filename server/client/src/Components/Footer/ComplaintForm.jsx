@@ -93,12 +93,15 @@ const ComplaintForm = () => {
 
             <Grid item xs={12}>
               <TextField
+               
                 variant="outlined"
                 multiline
+                rows= {8}
+                maxRows= {8}
                 required
                 fullWidth
                 id="category"
-                label="Complain Details"
+                label="Complaint Details"
                 name="category"
 
               />

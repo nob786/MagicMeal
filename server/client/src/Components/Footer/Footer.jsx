@@ -40,7 +40,7 @@ const Footer = () => {
             <div className="footer-child follow-us">
                     <h1>Follow Us</h1>
                     <li>
-                        <a className="follow-icon-link" href="https://www.facebook.com/Eatsabyte-108799371597294/?ref=page_internal" target="_blank"> <i class="fab fa-facebook fa-2x"></i></a>
+                        <a className="follow-icon-link" style={{marginRight:"2%"}} href="https://www.facebook.com/Eatsabyte-108799371597294/?ref=page_internal" target="_blank"> <i class="fab fa-facebook fa-2x"></i></a>
                         <a className="follow-icon-link" href="https://www.linkedin.com/company/eatsabyte/" target="_blank"> <i class="fab fa-linkedin fa-2x"></i> </a>
                     </li>
             </div>
