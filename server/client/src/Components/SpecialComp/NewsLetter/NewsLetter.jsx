@@ -10,33 +10,6 @@ import 'react-toastify/dist/ReactToastify.css'
 toast.configure();
 
 
-<<<<<<< HEAD
-=======
-  const subscribeNewsletter = () => {
-    axios
-      .post("/public/subscribe-to-newsletter", { email })
-      .then((res) => {
-        const success = res.data.success;
-        if (success === true) {
-          toast.success(`Successfully Subscribed to Our NewsLetter Service`, {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 2000,
-          });
-        } else {
-          toast.success(
-            `You have already subscribed for our newletter. Stay tuned for updates.`,
-            {
-              position: toast.POSITION.TOP_CENTER,
-              autoClose: 2000,
-            }
-          );
-        }
-      })
-      .catch((req) => {
-        window.alert(req.message);
-      });
-  };
->>>>>>> aaf81a1785b6f0c03ee74a3978312725e02a85dc
 
 const NewsLetter = () => {
     const [email, setEmail]= React.useState();
@@ -44,7 +17,6 @@ const NewsLetter = () => {
     const subscribeNewsletter =()=>{
 
 
-<<<<<<< HEAD
         axios.post("/public/subscribe-to-newsletter", {email})
         .then((res) => {
           toast.success(`Successfully Subscribed to Our NewsLetter Service`, {position: toast.POSITION.TOP_CENTER ,
@@ -88,19 +60,3 @@ const NewsLetter = () => {
 }
  
 export default NewsLetter;
-=======
-        <div className="subscribe_button">
-          <button
-            className="newsletter-submit-button"
-            onClick={subscribeNewsletter}
-          >
-            Subscribe
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default NewsLetter;
->>>>>>> aaf81a1785b6f0c03ee74a3978312725e02a85dc

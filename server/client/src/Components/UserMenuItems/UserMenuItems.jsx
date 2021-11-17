@@ -9,32 +9,22 @@ import "./UserMenuItems.css";
 //=====================================Redux Imports=================================
 import { useDispatch, useSelector } from "react-redux";
 
-
-
-
 //======================================MAterial UI Imports =======================
-import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
+import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 
 const UserMenuItems = () => {
-
   const [items, setItems] = React.useState([]);
   const [restaurantId, setRestaurantId] = React.useState();
   const [restaurantName, setRestaurantName] = React.useState();
   const [contact, setContact] = React.useState();
 
-  
-  
-  const {clickedRestaurantId} = useSelector(
-    (state) => state.data
-  );
-  const {clickedRestaurantData} = useSelector(
-    (state) => state.data
-  );
+  const { clickedRestaurantId } = useSelector((state) => state.data);
+  const { clickedRestaurantData } = useSelector((state) => state.data);
 
-  const restId= clickedRestaurantId;
+  const restId = clickedRestaurantId;
 
   useEffect(async () => {
     const { data } = await axios.get(`/user/get-restaurant-menu/${restId}`, {
@@ -48,7 +38,7 @@ const UserMenuItems = () => {
     console.log("Whole response Data", data);
     if (data) {
       //console.log("Data Fetched", data.data.items);
-      console.log("Restaurant",data.data);
+      console.log("Restaurant", data.data);
       let finalLoadedData = data.data.items;
       //let restaurantId=data.data._id;
       setItems(finalLoadedData);
@@ -64,30 +54,51 @@ const UserMenuItems = () => {
   return (
     <div className="Menus">
       <div className="menu-restaurant-profile">
-        <span className="user-menu-restaurant-name">{clickedRestaurantData.restaurantName} </span>
+        <span className="user-menu-restaurant-name">
+          {clickedRestaurantData.restaurantName}{" "}
+        </span>
         <br />
         <br />
         <br />
-        <span className="user-menu-restaurant-address"><LocationOnIcon/>  {clickedRestaurantData.address} </span>
+        <span className="user-menu-restaurant-address">
+          <LocationOnIcon /> {clickedRestaurantData.address}{" "}
+        </span>
         <br />
-        <span className="user-menu-restaurant-contact"><PhoneInTalkIcon/>  {clickedRestaurantData.contact} </span>
+        <span className="user-menu-restaurant-contact">
+          <PhoneInTalkIcon /> {clickedRestaurantData.contact}{" "}
+        </span>
         <br />
-        <span className="user-menu-restaurant-category">Type: {clickedRestaurantData.category} </span>
+        <span className="user-menu-restaurant-category">
+          Type: {clickedRestaurantData.category}{" "}
+        </span>
         <br />
       </div>
 
       <TitleTag title="Menu Items We Have" />
-      {clickedRestaurantData.items.length === 0 ? 
-      <span className="restaurant-item-check">
-        <Alert severity="info">
-        <AlertTitle> <h2> Currently This Restaurant has not added any Item. Please come back later or Contact the Restaurant for any Querry.</h2></AlertTitle>
-      </Alert>
-       
-      </span> :
-      null}
+      {clickedRestaurantData.items.length === 0 ? (
+        <span className="restaurant-item-check">
+          <Alert severity="info">
+            <AlertTitle>
+              {" "}
+              <h2>
+                {" "}
+                Currently This Restaurant has not added any Item. Please come
+                back later or Contact the Restaurant for any Querry.
+              </h2>
+            </AlertTitle>
+          </Alert>
+        </span>
+      ) : null}
       <div className="user-menus-grid">
         {items.map((item, index) => (
-          <SingleUserMenu key={index} menu={item} restId={restaurantId} restName={restaurantName} cont={contact} />
+          <SingleUserMenu
+            key={index}
+            menu={item}
+            restId={restaurantId}
+            restName={restaurantName}
+            cont={contact}
+            quantity={1}
+          />
         ))}
       </div>
     </div>

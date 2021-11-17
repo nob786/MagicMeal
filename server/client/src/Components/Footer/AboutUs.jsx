@@ -1,20 +1,22 @@
-import React from 'react';
-import TitleTag from "../SpecialComp/TitleTag"
-import '../Footer/AboutUs.css'
-
+import React from "react";
+import TitleTag from "../SpecialComp/TitleTag";
+import "../Footer/AboutUs.css";
 
 const AboutUs = () => {
-    return (  
-        <div className="about-us">
-            <TitleTag title="ABOUT US"/>
+  return (
+    <div className="about-us">
+      <TitleTag title="ABOUT US" />
 
-            <p>
-                Eatsabye is new trending food ordering platform. Eastsabyte is a project of three students of COMSATS University Lahore, Pakistan. <br /> Our aim is to provide hassle free Take-away, Table Booking and Dine-in orders' services to our customers. <br /> Now feel free to dine-in without the hassle of calling the waiter and waiting to get ur turn.
+      <p>
+        Eatsabye is new trending food ordering platform. Eastsabyte is a Startup
+        by three students of COMSATS University Lahore, Pakistan. <br />{" "}
+        Eatsabyte aim is to provide hassle free Take-away, Table Booking and
+        Dine-in orders' services to our customers. <br /> Now feel free to
+        dine-in without the hassle of calling the waiter and waiting to get ur
+        turn.
+      </p>
+    </div>
+  );
+};
 
- 
-            </p>
-        </div>
-    );
-}
- 
 export default AboutUs;

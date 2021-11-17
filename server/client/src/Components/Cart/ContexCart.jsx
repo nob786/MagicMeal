@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-
+import React, { useEffect } from "react";
 
 import { Scrollbars } from "react-custom-scrollbars-2";
 import CartItems from "./CartItems";
@@ -8,76 +7,60 @@ import CartItems from "./CartItems";
 import Badge from "@material-ui/core/Badge";
 import { withStyles } from "@material-ui/core/styles";
 import Checkout from "../Checkout/Checkout";
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
 import "./Cart.css";
 
-import {CartContext} from './Cart.jsx';
-
-
+import { CartContext } from "./Cart.jsx";
 
 //============================React Redux ====================================
-import { useDispatch} from "react-redux";
-import {pushItemsLength} from "../../Redux/actions/cartAction"
-import {pushCartTotal} from "../../Redux/actions/cartAction"
-import { toast } from 'react-toastify';
-
+import { useDispatch, useSelector } from "react-redux";
+import { pushItemsLength } from "../../Redux/actions/cartAction";
+import { pushCartTotal } from "../../Redux/actions/cartAction";
+import { toast } from "react-toastify";
 
 function ContexCart() {
-
   // Sates and Variables
-    const data = React.useContext(CartContext);
-    const item = data.clickedMenuId;
-    const {checkItems}=React.useContext(CartContext);
-    let total=0;
-    const dispatch = useDispatch();
+  const data = React.useContext(CartContext);
+  const item = data.clickedMenuId;
+  const { checkItems } = React.useContext(CartContext);
+  let total = 0;
+  const dispatch = useDispatch();
+  const { cartTotal } = useSelector((state) => state.cart);
 
-    const totalPrice=()=>{
-      
-      item.map((currItem) => {
-        return total=total+currItem.price;
-        })
-    }
+  useEffect(() => {
+    dispatch(pushCartTotal());
+  }, []);
 
-
-     const handleCartTotal=()=>{
-      return dispatch(pushCartTotal(total));
-    }
-    /*useEffect(() => {
+  /*useEffect(() => {
       // Update the document title using the browser API
       checkItems(total);
     });*/
- 
-      
-    
 
-    const StyledBadge = withStyles((theme) => ({
-        badge: {
-          right: -3,
-          top: 13,
-          border: `2px solid ${theme.palette.background.paper}`,
-          padding: "0 2px",
-        },
-      }))(Badge);
+  const StyledBadge = withStyles((theme) => ({
+    badge: {
+      right: -3,
+      top: 13,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: "0 2px",
+    },
+  }))(Badge);
 
-      const handleClick = () => {
-        <Checkout />
-        console.log("jsdjsdhj");
-      
-      };
+  const handleClick = () => {
+    <Checkout />;
+    console.log("jsdjsdhj");
+  };
 
+  const cartItems = () => {
+    dispatch(pushItemsLength(item.length));
+  };
 
-      const cartItems = () => {
-        dispatch(pushItemsLength(item.length));
-        
-      };
+  useEffect(() => {
+    cartItems();
+  }, []);
 
-      useEffect(() => {
-        cartItems();
-      }, []);
-    
-    return (
-        <>
-       {/*} <header>
+  return (
+    <>
+      {/*} <header>
           <div className="continue-shopping">
             <ArrowBackIcon className="arrow-icon" />
             <h3>Continue Shopping</h3>
@@ -95,34 +78,37 @@ function ContexCart() {
             </IconButton>
           </div>
                 </header>*/}
-  
-        <section className="main-cart-section">
-        {item.length===0 ? <p>You have Nothing in your Cart. Kindly Add some.</p>
-        : <p>
-            Items in Cart: <span className="total-items-count">{item.length}</span>
-          </p>}
-  
-          <div className="cart-items">
-            <div className="cart-items-container">
-              <Scrollbars>
-                {item.map((currItem) => {
-                  return (<CartItems key={currItem.id} {...currItem}/> );
-                })}
-              </Scrollbars>
-            </div>
+
+      <section className="main-cart-section">
+        {item.length === 0 ? (
+          <p>You have Nothing in your Cart. Kindly Add some.</p>
+        ) : (
+          <p>
+            Items in Cart:{" "}
+            <span className="total-items-count">{item.length}</span>
+          </p>
+        )}
+
+        <div className="cart-items">
+          <div className="cart-items-container">
+            <Scrollbars>
+              {item.map((currItem) => {
+                return <CartItems key={currItem.id} {...currItem} />;
+              })}
+            </Scrollbars>
           </div>
-  
-          <div className="cart-total">
-            <h3>
-              {totalPrice()}
-              Cart Total: <span>{total} </span>
-            </h3>
-            {/*<button onClick={handleClick}>Checkout</button>*/}
-          </div>
-        </section>
-        
-      </>
-    )
+        </div>
+
+        <div className="cart-total">
+          <h3>
+            {/*totalPrice()*/}
+            Cart Total: <span>{cartTotal} </span>
+          </h3>
+          {/*<button onClick={handleClick}>Checkout</button>*/}
+        </div>
+      </section>
+    </>
+  );
 }
 
 export default ContexCart;

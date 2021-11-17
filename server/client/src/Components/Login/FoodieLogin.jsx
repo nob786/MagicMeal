@@ -2,8 +2,8 @@ import React from "react";
 import "./Login.css";
 
 //=================React  Notification
-import {toast} from "react-toastify"
-import 'react-toastify/dist/ReactToastify.css'
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 //=========================Importing=================
 import { Link, useHistory } from "react-router-dom";
 import Button from "../SpecialComp/Button/Button";
@@ -28,17 +28,15 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-
-
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 //==========================Redux imports===================================
 import { useDispatch } from "react-redux";
 import { addCustomerData } from "../../Redux/actions/authentication";
 import { addRestaurantData } from "../../Redux/actions/authentication";
-import {addAuthCust} from "../../Redux/actions/authentication.js"
-import {addAuthRest} from "../../Redux/actions/authentication.js"
+import { addAuthCust } from "../../Redux/actions/authentication.js";
+import { addAuthRest } from "../../Redux/actions/authentication.js";
 
 toast.configure();
 
@@ -47,25 +45,20 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const FoodieLogin = () => {
-
-
   const [formData, setFormData] = React.useState({
     email: "",
     password: "",
   });
-//Snackbar States
+  //Snackbar States
   const [openLoginSuccess, setLoginSuccess] = React.useState(false);
 
   //Login Name
   const [loginName, setLoginName] = React.useState("");
- 
-
-
 
   const history = useHistory();
   //const history = useHistory();
 
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     console.log(event.target.value);
@@ -106,8 +99,8 @@ const FoodieLogin = () => {
         //console.log(token);
         const token = response.data.token;
         const role = response.data.role;
-        const customer= response.data.customer;
-        const restaurant= response.data.restaurant;
+        const customer = response.data.customer;
+        const restaurant = response.data.restaurant;
         //console.log("Restaurant Logged In: ",restaurant);
 
         if (!token) {
@@ -117,33 +110,36 @@ const FoodieLogin = () => {
           localStorage.setItem("token", JSON.stringify(token));
           if (role === "restaurant") {
             setRole("Restaurant");
-            window.alert("Restaurant Logged In");
+            //window.alert("Restaurant Logged In");
             dispatch(addAuthRest(true));
             dispatch(addRestaurantData(restaurant));
             //history.push("/admin/dashboard");
 
             //setLoginName(restaurant.ownerName);
             //setTimeout(() => {  history.push("/admin/dashboard"); }, 3000);
-            //setLoginSuccess(true); 
+            //setLoginSuccess(true);
 
-            toast.success(`welcome ${restaurant.ownerName}! You Have successfully Logged in to ${role} Account`, {position: toast.POSITION.TOP_CENTER});
-            history.push("/admin/menu-items");
-          } else if (role === "customer"){
+            toast.success(
+              `Welcome ${restaurant.ownerName}! You Have successfully Logged in to ${role} Account`,
+              { position: toast.POSITION.TOP_CENTER }
+            );
+            history.push("/admin/dashboard");
+          } else if (role === "customer") {
             setRole("Customer");
             //window.alert("Customer Logged In");
             dispatch(addAuthCust(true));
             dispatch(addCustomerData(customer));
             //window.alert(token.data);
-            
 
             //setLoginName(customer.firstName);
             //setTimeout(() => {  history.push("/"); }, 2000);
-            //setLoginSuccess(true); 
-            
+            //setLoginSuccess(true);
+
             history.push("/");
-            toast.success(`Welcome ${customer.firstName} ${customer.lastName}! You Have successfully Logged in to Customer Account`, {position: toast.POSITION.TOP_CENTER ,
-            autoClose: 2000});
-            
+            toast.success(
+              `Welcome ${customer.firstName} ${customer.lastName}! You Have successfully Logged in to Customer Account`,
+              { position: toast.POSITION.TOP_CENTER, autoClose: 2000 }
+            );
           }
         }
         //history.push("/menus");
@@ -167,29 +163,21 @@ const FoodieLogin = () => {
   */
   };
 
-  
-
- 
   const [role, setRole] = React.useState("");
 
   const handleRole = (event) => {
     setRole(event.target.value);
   };
 
+  //==========================================Success Notifications ===============================
 
-//==========================================Success Notifications ===============================
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
 
-
-
-const handleCloseSnack = (event, reason) => {
-  if (reason === 'clickaway') {
-    return;
-  }
-
-  setLoginSuccess(false);
-};
-
-
+    setLoginSuccess(false);
+  };
 
   return (
     <div className="foodie_login_container">
@@ -300,24 +288,30 @@ const handleCloseSnack = (event, reason) => {
         </div>   
          */}
 
-
-
         <div className="submit">
           {/*<Button className="foodie_signup_button" title="Login" height="40px" width="200px" color="black" btn_color="white"
             font_size="20px"
             />*/}
 
-                  <button className="login-submit-button" onClick={handleSubmit}>
-                    Submit
-                  </button>
-                      <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center'}}
-                       open={openLoginSuccess} autoHideDuration={6000} onClose={handleCloseSnack}>
-                          <Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
-                           Welcome {loginName}! 
-                           <br />
-                            You have Successfully logged In to {role} Account.
-                          </Alert>
-                      </Snackbar>
+          <button className="login-submit-button" onClick={handleSubmit}>
+            Submit
+          </button>
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={openLoginSuccess}
+            autoHideDuration={6000}
+            onClose={handleCloseSnack}
+          >
+            <Alert
+              onClose={handleCloseSnack}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              Welcome {loginName}!
+              <br />
+              You have Successfully logged In to {role} Account.
+            </Alert>
+          </Snackbar>
 
           <div className="already-login">
             Not Registered yet?{" "}
@@ -340,6 +334,3 @@ const handleCloseSnack = (event, reason) => {
 };
 
 export default FoodieLogin;
-
-
-

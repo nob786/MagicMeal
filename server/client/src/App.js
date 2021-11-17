@@ -1,5 +1,5 @@
 /*============================================Importing React File===================================*/
-import React, { Component , useEffect} from "react";
+import React, { Component, useEffect } from "react";
 
 /*==============================================Importing CSS Files===================================*/
 import "./App.css"; /*App Css File*/
@@ -14,7 +14,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
 
 //=================================Importing Components================================//
 import Header from "./Components/Header/Header";
@@ -43,7 +43,6 @@ class App extends Component {
     super(props);
     this.state = { apiResponse: "" };
   }
-  
 
   /*componentWillMount() {
     this.callAPI();
@@ -60,21 +59,22 @@ class App extends Component {
   state = {
     visible: true,
   };*/
-  
 
-  
-
-  render(
-    
-  ){ 
+  render() {
     return (
       <Router>
         <div className="App">
           <ScrollToTop />
-          {window.innerWidth > 970 ? <Header/>
-          :
-          <MobileHeader/>
-  }
+          {window.innerWidth > 970 &&
+          window.location.pathname.indexOf("/admin/") != 0 ? (
+            <Header />
+          ) : window.innerWidth <= 970 &&
+            window.location.pathname.indexOf("/admin/") != 0 ? (
+            <MobileHeader />
+          ) : window.innerWidth > 970 &&
+            window.location.pathname.indexOf("/admin/") == 0 ? (
+            <AdminMainPage />
+          ) : null}
 
           {/* <Header/>  Header Section <Footer/> */}
           {/*<AdminAppBar/> {/* Admin bar Optional */}
@@ -110,7 +110,7 @@ class App extends Component {
 
             {/* ============================Admin Page Routes================================== */}
           </Switch>
-         <Footer />
+          <Footer />
         </div>
       </Router>
     );

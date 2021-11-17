@@ -78,17 +78,6 @@ class AdminMainPage extends Component {
 
             <Route path="/admin/menu-items" component={AdminMenuItems} />
 
-            <Route path="/complaint-form" component={ComplaintForm} />
-            <Route path="/FAQs" component={FAQ} />
-
-            <Route path="/about-us" component={AboutUs} />
-            <Route path="/contact-us" component={ContactUs} />
-            <Route path="/privacy-policy" component={PrivacyPolicy} />
-
-            <Route path="/" exact component={MainPage} />
-
-            <Route path="/checkout" component={Checkout} />
-            <Route path="/*" component={NotFound} />
 
             {/* ============================Admin Page Routes================================== */}
           </Switch>
