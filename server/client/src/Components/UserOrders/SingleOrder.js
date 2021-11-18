@@ -46,7 +46,7 @@ const SingleOrder = ({ orders }) => {
                 ? 1
                 : orders.status === "accepted"
                 ? 2
-                : orders.status === "outfordelivery"
+                : orders.status === "ready"
                 ? 3
                 : null
             }

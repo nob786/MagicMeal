@@ -31,7 +31,7 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
     description: menu.description,
     price: menu.price,
     quantity: quantity,
-    total: menu.price + quantity,
+    total: menu.price * quantity,
   };
   // console.log("Full Cart Menu", fullCartMenu);
 

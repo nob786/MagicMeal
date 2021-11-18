@@ -2,13 +2,7 @@ const { Restaurant } = require("../models/restaurant");
 const { Account } = require("../models/account");
 const { Items } = require("../models/item");
 const { Orders } = require("../models/order");
-
 const { validateItem } = require("../middleware/validation");
-
-exports.testImage = async (req, res) => {
-  console.log("test image called", req.file);
-  return res.status(201).send("Test imaged called");
-};
 
 exports.addItem = async (req, res) => {
   const { error } = validateItem(req.body);
@@ -16,8 +10,6 @@ exports.addItem = async (req, res) => {
   if (error) return res.status(400).send("Enter data  correctly.");
 
   const { itemName, price, category, description } = req.body;
-  // const productImage = req.file.path;
-  // console.log("Product Image path", productImage);
 
   let restaurant = await Restaurant.findOne({
     account: req.loggedInUserId,
@@ -38,10 +30,7 @@ exports.addItem = async (req, res) => {
       category: category,
       description: description,
       restaurant: restaurant._id,
-      itemImage: productImage,
     });
-
-    console.log("New item made", newItem);
 
     restaurant.items.push(newItem);
     let updatedRestaurant = await restaurant.save();
@@ -231,8 +220,8 @@ exports.getPendingOrders = async (req, res) => {
 exports.updatePendingOrders = async (req, res) => {
   //const restId = req.params.restId;
   const { orderId, status } = req.body;
-  console.log("restaurant id", restId);
-  if (!restId) return res.status(404).send("No restaurant ID found in params");
+  //console.log("restaurant id", restId);
+  //if (!restId) return res.status(404).send("No restaurant ID found in params");
   const query1 = {
     //"restaurant.restaurantId": restId,
     _id: orderId,

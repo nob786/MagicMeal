@@ -66,7 +66,7 @@ const orderSchema = mongoose.Schema({
   grandTotal: { type: Number, required: true },
   status: {
     type: String,
-    enum: ["pending", "rejected", "cancelled", "accepted", "received"],
+    enum: ["pending", "cancelled", "accepted", "ready", "delivered"],
     required: true,
   },
 });

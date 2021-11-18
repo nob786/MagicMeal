@@ -8,12 +8,8 @@ require("dotenv").config();
 const transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
-    type: "OAuth2",
     user: process.env.GMAIL_USER,
     pass: process.env.GMAIL_PASS,
-    clientId: process.env.OAUTH_CLIENTID,
-    clientSecret: process.env.OAUTH_CLIENT_SECRET,
-    refreshToken: process.env.OAUTH_REFRESH_TOKEN,
   },
 });
 
@@ -39,9 +35,10 @@ exports.subscribeForNewsletter = async (req, res) => {
   console.log("Subscribe Api called");
   console.log("This is my user", process.env.GMAIL_USER);
   console.log("This is my user", process.env.GMAIL_PASS);
-  const { email } = req.body;
+  let email  = req.body;
+  console.log("email"+email);
+  // const receivedEmail = email
   console.log("Printing request body", req.body);
-  console.log("This is email extracted from req.body", email);
 
   if (!email) {
     console.log("There is no email in body");
@@ -49,12 +46,11 @@ exports.subscribeForNewsletter = async (req, res) => {
     console.log("This is email from client", email);
   }
 
-  const subscribedMails = await Newsletters.findOne({ email: email });
-  // const accountsEmail = await Account.findOne({
-  //   email: email,
-  // });
+  const accountsEmail = await Account.findOne({
+    email: email,
+  });
 
-  if (!subscribedMails) {
+  if (!accountsEmail) {
     const newsLetter = new Newsletters({
       email: email,
     });
@@ -62,13 +58,17 @@ exports.subscribeForNewsletter = async (req, res) => {
     await newsLetter
       .save()
       .then((savedNewsletterEmail) => {
-        if (savedNewsletterEmail) {
-          console.log("Email has been saved");
+        if (!savedNewsletterEmail) {
+          console.log("This is the email we saved", savedNewsletterEmail);
+          // return res.status(400).json({
+          //   messgae: "Could not save email",
+          // });
         } else {
-          console.log("Email has not been saved");
+          console.log(
+            "Email saved to newsletter collection",
+            savedNewsletterEmail
+          );
         }
-
-        // Composing newsletter email
         const mailOptions = {
           to: email,
           from: "Eatsabyte",
@@ -76,9 +76,6 @@ exports.subscribeForNewsletter = async (req, res) => {
           html: `<p>Dear user we appreciate your interest in our newsletter. We will keep you updated  - Eatsabyte</p>
         `,
         };
-
-        // Sending email
-
         transporter.sendMail(mailOptions, function (err, info) {
           if (err) {
             console.log("Could not send email", err);
@@ -87,9 +84,8 @@ exports.subscribeForNewsletter = async (req, res) => {
             // res.json(info);
           }
         });
-
         return res.status(200).json({
-          messgae: "Email sent successfully",
+          messgae: "Email send successfully",
           email: mailOptions,
         });
       })

@@ -18,6 +18,7 @@ function validateItem(item) {
   });
 
   const result = schema.validate(item);
+  console.log("VAlidated Add Item");
   console.log(result);
   return result;
 }
