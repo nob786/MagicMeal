@@ -13,13 +13,49 @@ const {
   validateLogin,
 } = require("../middleware/validation");
 
-const transporter = nodemailer.createTransport({
-  service: "Gmail",
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_PASS,
-  },
-});
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
+
+const createTransporter = async () => {
+  const oauth2Client = new OAuth2(
+    process.env.CLIENT_ID,
+    process.env.CLIENT_SECRET,
+    "https://developers.google.com/oauthplayground"
+  );
+
+  oauth2Client.setCredentials({
+    refresh_token: process.env.REFRESH_TOKEN,
+  });
+
+  const accessToken = await new Promise((resolve, reject) => {
+    oauth2Client.getAccessToken((err, token) => {
+      if (err) {
+        reject();
+      }
+      resolve(token);
+    });
+  });
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      type: "OAuth2",
+      user: process.env.EMAIL,
+      accessToken,
+
+      clientId: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      refreshToken: process.env.REFRESH_TOKEN,
+    },
+  });
+
+  return transporter;
+};
+
+const sendEmail = async (mailOptions) => {
+  let emailTransporter = await createTransporter();
+  await emailTransporter.sendMail(mailOptions);
+};
 
 exports.login = async (req, res) => {
   const { error } = validateLogin(req.body);
@@ -106,14 +142,6 @@ exports.signupRestaurant = async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   const verificationToken = crypto.randomBytes(32).toString("hex");
-  const mailOptions = {
-    to: email,
-    from: "Eatsabyte",
-    subject: "Verify your account",
-    html: `<p>Please verify your email by clicking on the link below - Eatsabyte</p>
-    <p>Click this <a href="https://eatsabyte.herokuapp.com/auth/verify/${verificationToken}">link</a> to verify your account.</p>
-    `,
-  };
 
   let newAccount = new Account({
     email: email,
@@ -140,19 +168,20 @@ exports.signupRestaurant = async (req, res) => {
     account: newAccount._id,
   });
 
+  const mailOptions = {
+    to: email,
+    from: "Eatsabyte",
+    subject: "Verify your account",
+    html: `<p>Please verify your email by clicking on the link below - Eatsabyte</p>
+    <p>Click this <a href="https://eatsabyte.herokuapp.com/auth/verify/${verificationToken}">link</a> to verify your account.</p>
+    `,
+  };
   await newRestaurant
     .save()
     .then((savedRestaurant) => {
       console.log("Gmail Username", process.env.GMAIL_USER);
       console.log("Gmail Pass", process.env.GMAIL_PASS);
-      transporter.sendMail(mailOptions, function (err, info) {
-        if (err) {
-          console.log("Could not send email", err);
-        } else {
-          console.log("Email send successfully");
-          // res.json(info);
-        }
-      });
+      sendEmail(mailOptions);
       res.status(200).json({
         message: "Saved Restaurant and email sent for verification",
         data: savedRestaurant,
@@ -183,14 +212,6 @@ exports.signupCustomer = async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   const verificationToken = crypto.randomBytes(32).toString("hex");
-  const mailOptions = {
-    to: email,
-    from: "Eatsabyte",
-    subject: "Verify your account",
-    html: `<p>Please verify your email by clicking on the link below - Eatsabyte</p>
-    <p>Click this <a href="https://eatsabyte.herokuapp.com/auth/verify/${verificationToken}">link</a> to verify your account.</p>
-    `,
-  };
 
   let newAccount = new Account({
     email: email,
@@ -230,26 +251,36 @@ exports.signupCustomer = async (req, res) => {
     account: newAccount._id,
   });
 
+  const mailOptions = {
+    to: email,
+    from: "Eatsabyte",
+    subject: "Verify your account",
+    html: `<p>Please verify your email by clicking on the link below - Eatsabyte</p>
+    <p>Click this <a href="https://eatsabyte.herokuapp.com/auth/verify/${verificationToken}">link</a> to verify your account.</p>
+    `,
+  };
+
   await newCustomer
     .save()
     .then((savedCustomer) => {
       console.log("Gmail Username", process.env.GMAIL_USER);
       console.log("Gmail Pass", process.env.GMAIL_PASS);
-      transporter.sendMail(mailOptions, function (err, info) {
-        if (err) {
-          console.log("Could not send email");
-          return res.json({
-            message: "Could not send mail",
-            err,
-          });
-        } else {
-          console.log("Email sent successfully");
-          // return res.status(200).json({
-          //   message: "Email sent for verification",
-          //   info: info,
-          // });
-        }
-      });
+      sendEmail(mailOptions);
+      // transporter.sendMail(mailOptions, function (err, info) {
+      //   if (err) {
+      //     console.log("Could not send email");
+      //     return res.json({
+      //       message: "Could not send mail",
+      //       err,
+      //     });
+      //   } else {
+      //     console.log("Email sent successfully");
+      //     // return res.status(200).json({
+      //     //   message: "Email sent for verification",
+      //     //   info: info,
+      //     // });
+      //   }
+      // });
       return res.status(200).json({
         message: "Saved Customer",
         data: savedCustomer,

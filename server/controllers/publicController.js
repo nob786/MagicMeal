@@ -4,14 +4,50 @@ const { Newsletters } = require("../models/newsletter");
 const { Account } = require("../models/account");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
+const mailgun = require("mailgun-js");
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
 
-const transporter = nodemailer.createTransport({
-  service: "Gmail",
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_PASS,
-  },
-});
+const createTransporter = async () => {
+  const oauth2Client = new OAuth2(
+    process.env.CLIENT_ID,
+    process.env.CLIENT_SECRET,
+    "https://developers.google.com/oauthplayground"
+  );
+
+  oauth2Client.setCredentials({
+    refresh_token: process.env.REFRESH_TOKEN,
+  });
+
+  const accessToken = await new Promise((resolve, reject) => {
+    oauth2Client.getAccessToken((err, token) => {
+      if (err) {
+        reject();
+      }
+      resolve(token);
+    });
+  });
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      type: "OAuth2",
+      user: process.env.EMAIL,
+      accessToken,
+
+      clientId: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      refreshToken: process.env.REFRESH_TOKEN,
+    },
+  });
+
+  return transporter;
+};
+
+const sendEmail = async (mailOptions) => {
+  let emailTransporter = await createTransporter();
+  await emailTransporter.sendMail(mailOptions);
+};
 
 exports.getComments = async (req, res) => {
   try {
@@ -35,8 +71,8 @@ exports.subscribeForNewsletter = async (req, res) => {
   console.log("Subscribe Api called");
   console.log("This is my user", process.env.GMAIL_USER);
   console.log("This is my user", process.env.GMAIL_PASS);
-  let email  = req.body;
-  console.log("email"+email);
+  let { email } = req.body;
+  console.log("email" + email);
   // const receivedEmail = email
   console.log("Printing request body", req.body);
 
@@ -71,22 +107,24 @@ exports.subscribeForNewsletter = async (req, res) => {
         }
         const mailOptions = {
           to: email,
-          from: "Eatsabyte",
+          from: "Eatsabyte@gmail.com",
           subject: "Newsletter Subscription",
           html: `<p>Dear user we appreciate your interest in our newsletter. We will keep you updated  - Eatsabyte</p>
-        `,
+          `,
         };
-        transporter.sendMail(mailOptions, function (err, info) {
-          if (err) {
-            console.log("Could not send email", err);
-          } else {
-            console.log("Email send successfully");
-            // res.json(info);
-          }
-        });
+        sendEmail(mailOptions);
+        // transporter.sendMail(mailOptions, function (err, info) {
+        //   if (err) {
+        //     console.log("Could not send email", err);
+        //   } else {
+        //     console.log("Email send successfully");
+        //     // res.json(info);
+        //   }
+        // });
+
         return res.status(200).json({
           messgae: "Email send successfully",
-          email: mailOptions,
+          // email: mailOptions,
         });
       })
       .catch((error) => {
