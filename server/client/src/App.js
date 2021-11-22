@@ -8,6 +8,7 @@ import "./App.css"; /*App Css File*/
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 //=============================================Importing Browser Router======================
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -37,18 +38,13 @@ import UserMenuItems from "./Components/UserMenuItems/UserMenuItems";
 import OrdersHistory from "./Components/UserOrders/OrdersHistory";
 import MobileHeader from "./Components/MobileHeader/MobileHeader";
 import UserProfile from "./Components/UserProfile/UserProfile";
+import { CustomerProtectedRoutes } from "./ProtectedRoutes/CustomerProtectedRoutes";
+import { RestaurantProtectedRoutes } from "./ProtectedRoutes/RestaurantProtectedRoutes";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { apiResponse: "" };
-  }
-
+function App() {
   /*componentWillMount() {
     this.callAPI();
   }
-
-
 
   callAPI() {
     fetch("http://localhost:3000/testAPI")
@@ -60,61 +56,71 @@ class App extends Component {
     visible: true,
   };*/
 
-  render() {
-    return (
-      <Router>
-        <div className="App">
-          <ScrollToTop />
-          {window.innerWidth > 970 &&
+  return (
+    <Router>
+      <div className="App">
+        <ScrollToTop />
+        {window.innerWidth > 970 &&
+        window.location.pathname.indexOf("/admin/") != 0 ? (
+          <Header />
+        ) : window.innerWidth <= 970 &&
           window.location.pathname.indexOf("/admin/") != 0 ? (
-            <Header />
-          ) : window.innerWidth <= 970 &&
-            window.location.pathname.indexOf("/admin/") != 0 ? (
-            <MobileHeader />
-          ) : window.innerWidth > 970 &&
-            window.location.pathname.indexOf("/admin/") == 0 ? (
-            <AdminMainPage />
-          ) : null}
+          <MobileHeader />
+        ) : window.innerWidth > 970 &&
+          window.location.pathname.indexOf("/admin/") == 0 ? (
+          <AdminMainPage />
+        ) : null}
+        {/* <Header/>  Header Section <Footer/> */}
+        {/*<AdminAppBar/> {/* Admin bar Optional */}
 
-          {/* <Header/>  Header Section <Footer/> */}
-          {/*<AdminAppBar/> {/* Admin bar Optional */}
+        <Switch>
+          {/* ============================Admin Page Routes================================== */}
+          <RestaurantProtectedRoutes
+            path="/admin/dashboard"
+            component={AdminMainPage}
+          />
 
-          <Switch>
-            {/* ============================Admin Page Routes================================== */}
-            <Route path="/admin/dashboard" component={AdminMainPage} />
+          {/* ============================Globel Routes================================== */}
+          <Route path="/restaurant-signup" component={RestaurantSignup} />
+          <Route path="/foodie-login" component={FoodieLogin} />
+          <Route path="/foodie-signup" component={FoodieSignup} />
 
-            <Route path="/restaurant-signup" component={RestaurantSignup} />
-            <Route path="/foodie-login" component={FoodieLogin} />
-            <Route path="/foodie-signup" component={FoodieSignup} />
+          {/* ============================Restaurant and Order Pages================================== */}
 
-            {/* ============================Restaurant and Order Pages================================== */}
+          <Route path="/restaurants" component={Restaurants} />
 
-            <Route path="/restaurants" component={Restaurants} />
-            <Route path="/user/my-account" component={UserProfile} />
-            <Route path="/user/orders-history" component={OrdersHistory} />
-            <Route path="/user-menu-items" component={UserMenuItems} />
+          {/* ============================User Restricted Routes================================== */}
+          <CustomerProtectedRoutes
+            path="/user/my-account"
+            component={UserProfile}
+          />
+          <CustomerProtectedRoutes
+            path="/user/orders-history"
+            component={OrdersHistory}
+          />
+          {/* ============================User Not Restricted Routes================================== */}
+          <Route path="/user-menu-items" component={UserMenuItems} />
 
-            {/*============================Testing Routers======================= */}
+          {/*============================Testing Routers======================= */}
 
-            <Route path="/complaint-form" component={ComplaintForm} />
-            <Route path="/FAQs" component={FAQ} />
+          <Route path="/complaint-form" component={ComplaintForm} />
+          <Route path="/FAQs" component={FAQ} />
 
-            <Route path="/about-us" component={AboutUs} />
-            <Route path="/contact-us" component={ContactUs} />
-            <Route path="/privacy-policy" component={PrivacyPolicy} />
+          <Route path="/about-us" component={AboutUs} />
+          <Route path="/contact-us" component={ContactUs} />
+          <Route path="/privacy-policy" component={PrivacyPolicy} />
 
-            <Route path="/" exact component={MainPage} />
+          <Route path="/" exact component={MainPage} />
 
-            <Route path="/checkout" component={Checkout} />
-            <Route path="/*" component={NotFound} />
+          {/* ============================User Restriced Routes================================== */}
+          <CustomerProtectedRoutes path="/checkout" component={Checkout} />
 
-            {/* ============================Admin Page Routes================================== */}
-          </Switch>
-          <Footer />
-        </div>
-      </Router>
-    );
-  }
+          <Route path="/*" component={NotFound} />
+        </Switch>
+        <Footer />
+      </div>
+    </Router>
+  );
 }
 
 export default App;

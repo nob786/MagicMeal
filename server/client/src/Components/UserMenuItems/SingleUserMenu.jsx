@@ -82,11 +82,10 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
           <div className="user-menu-name">{menu.itemName}</div>
 
           <div className="user-menu-description">
-            Description:{" "}
             <span style={{ fontWeight: "normal" }}>{menu.description}</span>
           </div>
 
-          <div className="user-menu-price">Price: {menu.price}</div>
+          <div className="user-menu-price">{menu.price} Rs.</div>
         </div>
       </div>
 
