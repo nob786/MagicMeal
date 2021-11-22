@@ -113,17 +113,20 @@ const FoodieLogin = () => {
             //window.alert("Restaurant Logged In");
             dispatch(addAuthRest(true));
             dispatch(addRestaurantData(restaurant));
-            //history.push("/admin/dashboard");
+            //history.push("/admin/menu-items");
 
             //setLoginName(restaurant.ownerName);
             //setTimeout(() => {  history.push("/admin/dashboard"); }, 3000);
             //setLoginSuccess(true);
+            setTimeout(() => {
+              window.location.replace("/admin/menu-items");
+            }, 1500);
 
             toast.success(
               `Welcome ${restaurant.ownerName}! You Have successfully Logged in to ${role} Account`,
               { position: toast.POSITION.TOP_CENTER }
             );
-            history.push("/admin/dashboard");
+            //history.push("/admin/dashboard");
           } else if (role === "customer") {
             setRole("Customer");
             //window.alert("Customer Logged In");

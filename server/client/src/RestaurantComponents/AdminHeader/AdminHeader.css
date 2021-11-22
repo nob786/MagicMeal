@@ -1,87 +1,95 @@
 /*===============================Header==================================*/
 
-.Admin-Header {
+.Restaurant-Header {
   width: 100%;
   display: flex;
-  padding-right: 0%;
+  padding-right: 5%;
   position: sticky;
   z-index: 2000;
   top: 0;
   background-color: #242424;
-  height: 75px;
-  }
+  height: 80px;
+  align-items: center;
+}
 
-.header-navbar {
+.restaurant-header-navbar {
   width: 100%;
 }
 
-.navbar-menu {
-  padding: 10px;
+.restaurant-navbar-menu {
   display: flex;
   float: right;
 }
 
-.navbar-menu ul{
+.restaurant-navbar-menu ul {
+  margin: auto;
   list-style-type: none;
   display: inline;
   display: flex;
   float: right;
 }
 
-.navbar-menu ul li{
+.restaurant-navbar-menu ul li {
+  font-size: 18px;
   padding: 10px;
   color: white;
 }
 
+.restaurant-logo-name-link {
+  margin-left: 5%;
+  float: left;
+  color: white;
+}
 
+.restaurant-logo-name-link h2 {
+  font-size: 40px;
+  color: white;
+  float: left;
+}
 
-  .fa-hamburger {
-    color: white;
-    font-size: 35px;
-  }
+.restaurant-logo-name-link:link {
+  text-decoration: none;
+  color: white;
+}
 
-  .fa-times,.fa-bars {
-    color: white;
-  } 
-
-
-
-  .logo-name-link {padding: 10px;
-    float: left;
-    color: white;
-  }
-
-  .logo-name-link h2 {
-    color: white;
-    float: left;
-  }
-
-  .logo-name-link:link {
-    text-decoration: none;
-    color: white;
-  }
-
-
-
-
-  .header-link{
-    
-  }
-  .header-link:hover {
-  
-  }
-  .header-link:link {
-
-    text-decoration: none;
-  }
-  .header-link.active {
+.restaurant-header-link:hover {
+  text-decoration: none;
+  color: #3f51b5;
+}
+.restaurant-header-link.active {
   font-weight: bold;
+}
+
+.restaurant-profile-link {
+  color: white;
+  float: right;
+  margin-top: 15px;
+}
+
+@media (max-width: 480px) {
+  .Restaurant-Header {
+    height: 100px;
+  }
+  .restaurant-navbar-menu {
+    text-align: center;
   }
 
-  .profile-link {
+  .restaurant-navbar-menu ul {
+    text-align: center;
+    width: 100%;
+  }
+
+  .restaurant-navbar-menu ul {
+    list-style-type: none;
+    display: inline;
+    float: none;
+  }
+
+  .restaurant-logo-name-link {
     color: white;
-    float: right;
-    margin-top: 15px;
   }
 
-
+  .restaurant-logo-name-link h2 {
+    font-size: 22px;
+  }
+}

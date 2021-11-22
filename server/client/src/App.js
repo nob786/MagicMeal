@@ -40,6 +40,10 @@ import MobileHeader from "./Components/MobileHeader/MobileHeader";
 import UserProfile from "./Components/UserProfile/UserProfile";
 import { CustomerProtectedRoutes } from "./ProtectedRoutes/CustomerProtectedRoutes";
 import { RestaurantProtectedRoutes } from "./ProtectedRoutes/RestaurantProtectedRoutes";
+import AdminMenuItems from "./RestaurantComponents/AdminPanel/AdminMenuItems";
+import RestOrdersPending from "./RestaurantComponents/RestaurantOrders/RestOrdersPending";
+import RestOrdersHistory from "./RestaurantComponents/RestaurantOrders/RestOrdersHistory";
+import AdminHeader from "./RestaurantComponents/AdminHeader/AdminHeader";
 
 function App() {
   /*componentWillMount() {
@@ -55,6 +59,7 @@ function App() {
   state = {
     visible: true,
   };*/
+  useEffect(() => {}, []);
 
   return (
     <Router>
@@ -68,16 +73,36 @@ function App() {
           <MobileHeader />
         ) : window.innerWidth > 970 &&
           window.location.pathname.indexOf("/admin/") == 0 ? (
-          <AdminMainPage />
+          <AdminHeader />
         ) : null}
         {/* <Header/>  Header Section <Footer/> */}
         {/*<AdminAppBar/> {/* Admin bar Optional */}
 
         <Switch>
-          {/* ============================Admin Page Routes================================== */}
+          {/* ============================Admin Page Routes================================== 
           <RestaurantProtectedRoutes
             path="/admin/dashboard"
             component={AdminMainPage}
+          />*/}
+          {/*============================Admin Orders Routers======================= */}
+
+          <RestaurantProtectedRoutes
+            exact
+            path="/admin/orders-history"
+            component={RestOrdersHistory}
+          />
+          <RestaurantProtectedRoutes
+            exact
+            path="/admin/orders-pending"
+            component={RestOrdersPending}
+          />
+
+          {/*============================ Admin Testing Routers======================= */}
+
+          <RestaurantProtectedRoutes
+            exact
+            path="/admin/menu-items"
+            component={AdminMenuItems}
           />
 
           {/* ============================Globel Routes================================== */}

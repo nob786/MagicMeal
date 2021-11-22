@@ -9,55 +9,42 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Grid } from "@material-ui/core";
 
-
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const SingleMenu = ({ menu }) => {
   const [value, setValue] = React.useState(4);
-  const prod =[];
+  const prod = [];
   var id;
   return (
-    <Grid className="Single_Menu" xs={20}>
-      <div className="container">
-       <img className="menu_image" src="../Pictures/R7.jpg" />
-      </div>
-      <div className="menu-name">
-        
-        <h1 >Item Name: {menu.itemName}</h1>
-      </div>
-      <div>
-        <h3>Item Description: {menu.description}</h3>
+    <div className="restaurant-single-menu">
+      <div className="restaurant-single-menu-container">
+        <img className="restaurant-menu-image" src="../Pictures/R7.jpg" />
       </div>
 
-      <div>
-        <h3>Price: {menu.price}</h3>
-      </div>
+      <div className="restaurant-menu-details">
+        <div className="restaurant-menu-name">{menu.itemName}</div>
 
-      <div>
-        <h3>Category: {menu.category}</h3>
-      </div>
+        <div className="restaurant-menu-description">{menu.description}</div>
 
-      <div className="rating">
-        <Box component="fieldset" mb={3} borderColor="transparent">
-          <Typography component="legend" className="rating_title">
-            Rating
-          </Typography>
-          <Rating name="read-only" value={value} readOnly />
-        </Box>
+        <div className="restaurant-menu-price">Price: {menu.price} Rs.</div>
+
+        <div className="restaurant-menu-category">
+          Category: {menu.category}
+        </div>
+      </div>
+      <div>
+        <button className="restaurant-delete-menu-button">
+          <DeleteIcon /> Delete
+        </button>
       </div>
 
       <div>
-        <button><DeleteIcon/></button>
+        <button className="restaurant-edit-menu-button">
+          <EditIcon /> Edit
+        </button>
       </div>
-
-      <div>
-        <button><EditIcon/></button>
-        
-      </div>
-
-
-    </Grid>
+    </div>
   );
 };
 

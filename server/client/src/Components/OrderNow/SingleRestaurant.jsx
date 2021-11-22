@@ -43,7 +43,12 @@ const SingleRestaurant = ({ restaurant }) => {
           <br />
           <br />
           <Box component="fieldset" mb={3} borderColor="transparent">
-            <Rating name="read-only" value={value} readOnly />
+            <Rating
+              name="half-rating-read"
+              defaultValue={4.2}
+              precision={0.1}
+              readOnly
+            />
           </Box>
         </div>
       </div>

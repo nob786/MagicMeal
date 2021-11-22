@@ -17,6 +17,11 @@ const OrdersHistory = () => {
   const [orders, setOrders] = React.useState([]);
   const [value, setValue] = React.useState(0);
 
+  const pendingFilteredOrders = orders.filter(
+    (n) =>
+      n.status === "pending" || n.status === "accepted" || n.status === "ready"
+  );
+
   const filteredOrders = orders.filter(
     (n) => n.status === "delivered" || n.status === "cancelled"
   );
@@ -82,12 +87,17 @@ const OrdersHistory = () => {
         <Tab onClick={handleClickT2} label="Completed Orders" />
       </Tabs>
       {t1 === true ? (
-        orders.length > 0 ? (
-          orders.map((order, index) => (
+        pendingFilteredOrders.length > 0 ? (
+          pendingFilteredOrders.map((order, index) => (
             <SingleOrder key={index} orders={order} />
           ))
         ) : (
-          <Alert severity="info">
+          <Alert
+            severity="info"
+            style={{
+              justifyContent: "center",
+            }}
+          >
             <AlertTitle>
               {" "}
               <h2> Currently There are no Pending Orders</h2>
@@ -100,10 +110,17 @@ const OrdersHistory = () => {
             <SingleOrder key={index} orders={n} />
           ))
         ) : (
-          <Alert severity="info">
+          <Alert
+            severity="info"
+            style={{
+              justifyContent: "center",
+              marginTop: "10%",
+              marginBottom: "10%",
+            }}
+          >
             <AlertTitle>
               {" "}
-              <h2> Currently There are no Orders</h2>
+              <h2> Currently There are no Completed Orders</h2>
             </AlertTitle>
           </Alert>
         )

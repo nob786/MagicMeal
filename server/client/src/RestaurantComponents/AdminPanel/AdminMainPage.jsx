@@ -1,8 +1,7 @@
 /*============================================Importing React File===================================*/
-import React, { Component , useEffect} from "react";
+import React, { Component, useEffect } from "react";
 
 /*==============================================Importing CSS Files===================================*/
-
 
 //=============================================Importing Browser Router======================
 import {
@@ -29,15 +28,11 @@ import RestOrdersPending from "../RestaurantOrders/RestOrdersPending";
 
 //=================================Importing Components================================//
 
-
-
 class AdminMainPage extends Component {
   constructor(props) {
     super(props);
     this.state = { apiResponse: "" };
   }
-
-  
 
   /*componentWillMount() {
     this.callAPI();
@@ -54,14 +49,13 @@ class AdminMainPage extends Component {
   state = {
     visible: true,
   };
-  
 
-  render(){ 
+  render() {
     return (
       <Router>
         <div className="App">
           <ScrollToTop />
-          <AdminHeader/>
+          <AdminHeader />
 
           {/* <Header/>  Header Section <Footer/> */}
           {/*<AdminAppBar/> {/* Admin bar Optional */}
@@ -71,13 +65,20 @@ class AdminMainPage extends Component {
 
             {/*============================Orders Routers======================= */}
 
-            <Route path="/admin/orders-history" component={RestOrdersHistory} />
-            <Route path="/admin/orders-pending" component={RestOrdersPending} />
+            <Route
+              exact
+              path="/admin/orders-history"
+              component={RestOrdersHistory}
+            />
+            <Route
+              exact
+              path="/admin/orders-pending"
+              component={RestOrdersPending}
+            />
 
             {/*============================Testing Routers======================= */}
 
             <Route path="/admin/menu-items" component={AdminMenuItems} />
-
 
             {/* ============================Admin Page Routes================================== */}
           </Switch>

@@ -1,52 +1,76 @@
-
-
-
-.Single_Menu {
-    height: 200px;
-    width: 700px;
-    margin-top: 20px;
-    background-color: #242424;
-    display: flex;
+.restaurant-single-menu {
+  height: auto;
+  width: 400px;
+  box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-top: 20px;
+  background-color: white;
+}
+.restaurant-single-menu-container {
+  width: 150px;
+  display: flex;
+  float: right;
 }
 
-.container {
-  margin: 0%;
-  padding: 0%;
-  width: 50px; 
-}
-
-.menu_image {
-  height: 200px;
+.restaurant-menu-image {
+  height: 130px;
   width: 150px;
 }
 
-h1 {
-  font-size: 30px;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-}
-
-h3 {
-  color: wheat;
-  font-size: 15px;
-  text-align: center;
-}
-
-.rating {
-
-  text-align: center;
-}
-
-
-
-.menu_link:link {
+.restaurant-menu-name h1 {
+  font-size: 90px;
   color: black;
-  text-decoration: none;
-} 
-
-.rating_title {
-
-  color: white;
 }
 
+.restaurant-menu-details {
+  width: 250;
+  display: inline-block;
+}
+
+.restaurant-menu-description {
+  padding-left: 5%;
+  font-size: 14px;
+  font-weight: bold;
+  height: 70px;
+  width: 200px;
+}
+
+.restaurant-menu-name {
+  padding-left: 5%;
+  height: 30px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.restaurant-menu-price {
+  padding-left: 5%;
+  font-size: 14px;
+  font-weight: bold;
+}
+.restaurant-menu-category {
+  padding-left: 5%;
+  height: 30px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.restaurant-delete-menu-button {
+  border: #2196f3 1px solid;
+  background-color: #2196f3;
+  width: 100%;
+  margin-bottom: 2%;
+  margin-top: 5%;
+}
+.restaurant-delete-menu-button:hover {
+  border: #2196f3 1px solid;
+  background-color: #1769aa;
+}
+.restaurant-edit-menu-button {
+  border: #2196f3 1px solid;
+  width: 100%;
+  background-color: #2196f3;
+}
+.restaurant-edit-menu-button:hover {
+  border: #2196f3 1px solid;
+  background-color: #1769aa;
+}

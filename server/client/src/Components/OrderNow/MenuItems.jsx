@@ -8,20 +8,11 @@ import axios from "../../axios";
 import "./MenuItems.css";
 import NewMenuItem from "../../RestaurantComponents/AdminPanel/NewMenuItem";
 
+//============================Material Ui Imports================
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 
 const MenuItems = (ID) => {
-  // const[restaurant,setRestaurant] = React.useState([
-  //     { imageLoc: "./Pictures/R9.jpg", menuTitle: "Rice" , menuDesc: "Canal Bank Road Multan" ,},
-  //     { imageLoc: "./Pictures/R8.jpg", menuTitle: "Macroni" , menuDesc: "Canal Bank Road Multan"},
-  //     { imageLoc: "./Pictures/R3.jpg", menuTitle: "Biryani" , menuDesc: "Canal Bank Road Multan"},
-  //     { imageLoc: "./Pictures/R4.jpg", menuTitle: "Burger" , menuDesc: "Canal Bank Road Multan"},
-  //     { imageLoc: "./Pictures/R5.jpg", menuTitle: "Pancake" , menuDesc: "Canal Bank Road Multan"},
-  //     { imageLoc: "./Pictures/R6.jpg", menuTitle: "Salad" , menuDesc: "Canal Bank Road Multan"},
-  //     { imageLoc: "./Pictures/R7.jpg", menuTitle: "Mango Milk Shake" , menuDesc: "Canal Bank Road Multan"},
-  //     { imageLoc: "./Pictures/R8.jpg", menuTitle: "Grill Burger" , menuDesc: "Canal Bank Road Multan"},
-  //     { imageLoc: "./Pictures/R9.jpg", menuTitle: "Club Sandwitch" , menuDesc: "Canal Bank Road Multan"},
-  // ]);
-
   const [items, setItems] = React.useState([]);
 
   useEffect(async () => {
@@ -48,9 +39,23 @@ const MenuItems = (ID) => {
     <div className="Restaurants">
       <TitleTag title="Menu Items Available" />
       <div className="restaurants_grid">
-        {items.map((item, index) => (
-          <SingleMenu key={index} menu={item} />
-        ))}
+        {items.length > 0 ? (
+          items.map((item, index) => <SingleMenu key={index} menu={item} />)
+        ) : (
+          <Alert
+            severity="info"
+            style={{
+              justifyContent: "center",
+              marginTop: "10%",
+              marginBottom: "10%",
+            }}
+          >
+            <AlertTitle>
+              {" "}
+              <h2> Currently There are no Menu Items. Please Add Some.</h2>
+            </AlertTitle>
+          </Alert>
+        )}
       </div>
     </div>
   );
