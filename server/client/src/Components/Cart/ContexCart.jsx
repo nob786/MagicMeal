@@ -50,12 +50,12 @@ function ContexCart() {
     console.log("jsdjsdhj");
   };
 
-  const cartItems = () => {
-    dispatch(pushItemsLength(item.length));
-  };
+  //const cartItems = () => {
+  //dispatch(pushItemsLength(item.length));
+  //};
 
   useEffect(() => {
-    cartItems();
+    // cartItems();
   }, []);
 
   return (

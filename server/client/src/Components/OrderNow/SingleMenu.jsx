@@ -23,15 +23,19 @@ const SingleMenu = ({ menu }) => {
       </div>
 
       <div className="restaurant-menu-details">
-        <div className="restaurant-menu-name">{menu.itemName}</div>
+        <div className="restaurant-menu-name">
+          {" "}
+          <h2>{menu.itemName}</h2>{" "}
+        </div>
+        <br />
 
         <div className="restaurant-menu-description">{menu.description}</div>
-
-        <div className="restaurant-menu-price">Price: {menu.price} Rs.</div>
-
+        <br />
         <div className="restaurant-menu-category">
           Category: {menu.category}
         </div>
+        <br />
+        <div className="restaurant-menu-price">Price: {menu.price} Rs.</div>
       </div>
       <div>
         <button className="restaurant-delete-menu-button">

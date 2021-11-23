@@ -39,28 +39,49 @@ const SingleOrder = ({ orders }) => {
         id="panel1a-header"
       >
         <Box sx={{ width: "100%", margin: "1%" }}>
-          <Stepper
-            style={{ marginTop: "1%", marginBottom: "2%" }}
-            activeStep={
-              orders.status === "pending"
-                ? 1
-                : orders.status === "accepted"
-                ? 2
-                : orders.status === "ready"
-                ? 3
-                : null
-            }
-          >
-            {steps.map((label, index) => {
-              const labelProps = {};
+          {orders.status === "delivered" ? (
+            <Stepper
+              style={{ marginTop: "1%", marginBottom: "2%" }}
+              activeStep={1}
+            >
+              <Step>
+                <StepLabel>Completed</StepLabel>
+              </Step>
+            </Stepper>
+          ) : null}
+          {orders.status === "cancelled" ? (
+            <Typography
+              variant="caption"
+              color="error"
+              style={{ fontSize: "18px" }}
+            >
+              Order Cancelled/Rejected
+            </Typography>
+          ) : null}
+          {!(orders.status === "cancelled" || orders.status === "delivered") ? (
+            <Stepper
+              style={{ marginTop: "1%", marginBottom: "2%" }}
+              activeStep={
+                orders.status === "pending"
+                  ? 1
+                  : orders.status === "accepted"
+                  ? 2
+                  : orders.status === "ready"
+                  ? 3
+                  : null
+              }
+            >
+              {steps.map((label, index) => {
+                const labelProps = {};
 
-              return (
-                <Step key={label}>
-                  <StepLabel {...labelProps}>{label}</StepLabel>
-                </Step>
-              );
-            })}
-          </Stepper>
+                return (
+                  <Step key={label}>
+                    <StepLabel {...labelProps}>{label}</StepLabel>
+                  </Step>
+                );
+              })}
+            </Stepper>
+          ) : null}
           <span className="user-order-id">
             <h2>Order ID: {orders._id}</h2>
           </span>

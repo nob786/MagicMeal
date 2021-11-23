@@ -53,18 +53,19 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
 
   //===============================Add to Cart Handle=================================
   const addtoCart = () => {
-    dispatch(pushItemsLength(clickedMenuId.length));
+    //dispatch(pushItemsLength(clickedMenuId.length));
+
     if (authCust === true) {
       if (cartRestaurantId === "") {
         dispatch(pushMenuId(fullCartMenu));
         dispatch(pushcartRestaurantId(restId));
         dispatch(pushcartRestaurant(restaurantData));
+        dispatch(pushItemsLength());
         window.alert(menu.itemName + " Item Added to Cart");
-        dispatch(pushItemsLength(clickedMenuId.length));
       } else if (cartRestaurantId === restId) {
         dispatch(pushMenuId(fullCartMenu));
+        dispatch(pushItemsLength());
         window.alert(menu.itemName + " Item Added to Cart");
-        dispatch(pushItemsLength(clickedMenuId.length));
       } else if (restId !== cartRestaurantId)
         window.alert("Different Restaurant Item.");
     } else {

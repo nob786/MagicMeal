@@ -5,9 +5,11 @@ import {
   ADD_CART_RESTAURANT,
   PUSH_ITEMS_LENGTH,
   PUSH_CART_TOTAL,
+  INC_CART_ITEM_QUANTITY,
+  DEC_CART_ITEM_QUANTITY,
+  DELETE_CART_ITEM,
+  CLEAR_CART,
 } from "./types";
-
-import { useDispatch, useSelector } from "react-redux";
 
 export const pushMenuId = (menu) => (dispatch) => {
   dispatch({
@@ -37,16 +39,42 @@ export const pushcartRestaurant = (restaurant) => (dispatch) => {
   });
 };
 
-export const pushItemsLength = (number) => (dispatch) => {
+export const pushItemsLength = () => (dispatch) => {
   dispatch({
     type: PUSH_ITEMS_LENGTH,
-    payload: number,
   });
 };
 
 export const pushCartTotal = () => (dispatch) => {
   dispatch({
     type: PUSH_CART_TOTAL,
+  });
+};
+
+export const incCartItemQuantity = (menuId) => (dispatch) => {
+  dispatch({
+    type: INC_CART_ITEM_QUANTITY,
+    payload: menuId,
+  });
+};
+
+export const decCartItemQuantity = (menuId) => (dispatch) => {
+  dispatch({
+    type: DEC_CART_ITEM_QUANTITY,
+    payload: menuId,
+  });
+};
+
+export const deleteCartItem = (menuId) => (dispatch) => {
+  dispatch({
+    type: DELETE_CART_ITEM,
+    payload: menuId,
+  });
+};
+
+export const clearCart = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_CART,
   });
 };
 

@@ -230,7 +230,7 @@ const NewMenuItem = ({
                       variant="outlined"
                       onChange={handleChange}
                       value={description}
-                      inputProps={{ maxLength: 100 }}
+                      inputProps={{ maxLength: 120 }}
                     />
                   </Grid>
 

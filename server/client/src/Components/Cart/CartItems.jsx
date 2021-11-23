@@ -10,7 +10,15 @@ import Select from "@mui/material/Select";
 
 //==========================REDUX PART============================
 import { useDispatch, useSelector } from "react-redux";
+import {
+  decCartItemQuantity,
+  deleteCartItem,
+  incCartItemQuantity,
+  pushCartTotal,
+  pushItemsLength,
+} from "../../Redux/actions/cartAction";
 
+//Context Cart
 import { CartContext } from "./Cart";
 
 const CartItems = ({
@@ -31,7 +39,21 @@ const CartItems = ({
     setAge(event.target.value);
   };
 
-  const { counter } = useSelector((state) => state.counter);
+  const incQuantity = () => {
+    dispatch(incCartItemQuantity(_id));
+    dispatch(pushCartTotal());
+    dispatch(pushItemsLength());
+  };
+  const decQuantity = () => {
+    dispatch(decCartItemQuantity(_id));
+    dispatch(pushCartTotal());
+    dispatch(pushItemsLength());
+  };
+  const deleteMenu = () => {
+    dispatch(deleteCartItem(_id));
+    dispatch(pushCartTotal());
+    dispatch(pushItemsLength());
+  };
 
   return (
     <div className="cart-item-info">
@@ -61,8 +83,8 @@ const CartItems = ({
         */}
 
       <div className="cart-add-minus-quantity">
-        {incr > 1 ? (
-          <button>
+        {quantity > 1 ? (
+          <button onClick={decQuantity}>
             <RemoveIcon />
           </button>
         ) : (
@@ -70,9 +92,9 @@ const CartItems = ({
             <RemoveIcon />
           </button>
         )}
-        <h4>{incr}</h4>
+        <h4>{quantity}</h4>
         {quantity < 10 ? (
-          <button>
+          <button onClick={incQuantity}>
             <AddIcon />
           </button>
         ) : (
@@ -91,7 +113,7 @@ const CartItems = ({
       </div>
 
       <div className="cart-remove-item">
-        <button onClick={() => deleteMenuItem(_id)}>
+        <button onClick={deleteMenu}>
           <DeleteIcon
             style={{
               fontSize: "20px",

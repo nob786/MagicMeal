@@ -28,9 +28,13 @@ import StepLabel from "@mui/material/StepLabel";
 
 toast.configure();
 
+const steps = ["Delivered"];
+
 const SingleRestOrder = ({ orders }) => {
   const { restData } = useSelector((state) => state.auth);
   const history = useHistory();
+
+  //Approve order fuction
   const approveOrder = async () => {
     const restId = restData._id;
     let pushOrderStatus;
@@ -55,7 +59,7 @@ const SingleRestOrder = ({ orders }) => {
       )
       .then((response) => {
         //window.alert("Order Successfully Approved");
-        toast.success(`Order Status Updated`, {
+        toast.success(`Order Status Updated to: ${pushOrderStatus}`, {
           position: toast.POSITION.TOP_CENTER,
         });
         setTimeout(
@@ -70,6 +74,37 @@ const SingleRestOrder = ({ orders }) => {
       });
   };
 
+  // Cancel Order
+  const cancelOrder = async () => {
+    const restId = restData._id;
+    await axios
+      .put(
+        `/item/update-pending-orders/${restId}`,
+        {
+          orderId: orders._id,
+          status: "cancelled",
+        },
+        {
+          headers: {
+            authorization:
+              localStorage.getItem("token") !== null
+                ? JSON.parse(localStorage.getItem("token"))
+                : null,
+          },
+        }
+      )
+      .then((response) => {
+        //window.alert("Order Successfully Approved");
+        toast.success(`Order Cancelled`, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        setTimeout(
+          () => window.location.replace("/admin/orders-pending"),
+          1000
+        );
+      });
+  };
+
   return (
     <Accordion className="restaurant-order-history" style={{ margin: "5%" }}>
       <AccordionSummary
@@ -78,6 +113,32 @@ const SingleRestOrder = ({ orders }) => {
         id="panel1a-header"
       >
         <Box sx={{ width: "100%", margin: "1%" }}>
+          {orders.status === "delivered" ? (
+            <Stepper
+              style={{ marginTop: "1%", marginBottom: "2%" }}
+              activeStep={orders.status === "delivered" ? 1 : null}
+            >
+              {steps.map((label, index) => {
+                const labelProps = {};
+
+                return (
+                  <Step key={label}>
+                    <StepLabel {...labelProps}>{label}</StepLabel>
+                  </Step>
+                );
+              })}
+            </Stepper>
+          ) : null}
+          {orders.status === "cancelled" ? (
+            <Typography
+              variant="caption"
+              color="error"
+              style={{ fontSize: "18px" }}
+            >
+              Order Cancelled/Rejected
+            </Typography>
+          ) : null}
+
           {orders.status === "pending" ? (
             <button onClick={approveOrder}>Approve Order</button>
           ) : orders.status === "accepted" ? (
@@ -86,7 +147,7 @@ const SingleRestOrder = ({ orders }) => {
             <button onClick={approveOrder}>Delivered to Customer</button>
           ) : null}
           {orders.status === "pending" ? (
-            <button onClick={approveOrder}>Cancel/Reject Order</button>
+            <button onClick={cancelOrder}>Cancel/Reject Order</button>
           ) : null}
           <span className="user-order-id">
             <h2>Order ID: {orders._id}</h2>
@@ -109,6 +170,9 @@ const SingleRestOrder = ({ orders }) => {
                 ? "Delivered to Customer"
                 : null}
             </h2>
+          </span>
+          <span className="user-order-restaurant-name">
+            <h2>Customer Contact: {orders.customer.contact}</h2>
           </span>
         </Box>
       </AccordionSummary>

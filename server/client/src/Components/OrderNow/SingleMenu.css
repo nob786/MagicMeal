@@ -13,25 +13,26 @@
 }
 
 .restaurant-menu-image {
-  height: 130px;
+  height: 150px;
   width: 150px;
 }
 
-.restaurant-menu-name h1 {
-  font-size: 90px;
+.restaurant-menu-name h2 {
+  margin-top: 10%;
+  font-size: 18px;
   color: black;
+  font-weight: bold;
+  font-family: cursive;
 }
 
 .restaurant-menu-details {
-  width: 250;
   display: inline-block;
 }
 
 .restaurant-menu-description {
   padding-left: 5%;
   font-size: 14px;
-  font-weight: bold;
-  height: 70px;
+  height: 80px;
   width: 200px;
 }
 

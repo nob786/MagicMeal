@@ -24,10 +24,7 @@ const RestOrdersPending = () => {
 
   const filteredOrders = orders.filter(
     (n) =>
-      n.status === "pending" ||
-      n.status === "accepted" ||
-      n.status === "ready" ||
-      n.status === null
+      n.status === "pending" || n.status === "accepted" || n.status === "ready"
   );
 
   useEffect(async () => {

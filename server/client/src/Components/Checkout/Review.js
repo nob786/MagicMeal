@@ -58,7 +58,9 @@ export default function Review() {
               primary={product.itemName}
               secondary={product.description}
             />
-            <Typography variant="body2">{product.price}</Typography>
+            <Typography variant="body2">
+              {product.price}*{product.quantity}={product.total}
+            </Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>

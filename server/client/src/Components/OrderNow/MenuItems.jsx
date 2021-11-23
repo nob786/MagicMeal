@@ -37,7 +37,7 @@ const MenuItems = (ID) => {
 
   return (
     <div className="Restaurants">
-      <TitleTag title="Menu Items Available" />
+      <TitleTag title="Menu Management" />
       <div className="restaurants_grid">
         {items.length > 0 ? (
           items.map((item, index) => <SingleMenu key={index} menu={item} />)

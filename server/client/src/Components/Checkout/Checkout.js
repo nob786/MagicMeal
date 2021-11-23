@@ -185,9 +185,7 @@ export default function Checkout() {
   </AppBar>*/}
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
-            Checkout
-          </Typography>
+          <Typography component="h1" variant="h4" align="center"></Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
               <Step key={label}>
