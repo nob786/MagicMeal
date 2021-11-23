@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+
+//========================Material ui Imports ============================
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -169,6 +175,26 @@ const NewMenuItem = ({
                     />
                   </Grid>
 
+                  {/*<Grid item xs={12}>
+                    <InputLabel id="demo-simple-select-label">
+                      Category
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="category"
+                      value={category}
+                      label="Category"
+                      onChange={handleChange}
+                      fullWidth
+                      style={{ color: "black" }}
+                    >
+                      <MenuItem value={"Fast Food"}>Fast Food</MenuItem>
+                      <MenuItem value={"Chinese"}>Chinese</MenuItem>
+                      <MenuItem value={"Italian"}>Italian</MenuItem>
+                    </Select>
+                  </Grid>
+      */}
+
                   {/*<Grid item xs={12} sm={10}>
                         <TextField
                     id="outlined-select-currency-native"
@@ -204,7 +230,7 @@ const NewMenuItem = ({
                       variant="outlined"
                       onChange={handleChange}
                       value={description}
-                      inputProps={{ maxLength: 50 }}
+                      inputProps={{ maxLength: 100 }}
                     />
                   </Grid>
 

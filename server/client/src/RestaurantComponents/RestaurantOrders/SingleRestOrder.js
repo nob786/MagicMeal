@@ -13,21 +13,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { LaptopWindows } from "@material-ui/icons";
 import { Redirect, useHistory } from "react-router";
 
+//==========================Material Ui Imports=============================
+
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+
 toast.configure();
 
 const SingleRestOrder = ({ orders }) => {
   const { restData } = useSelector((state) => state.auth);
   const history = useHistory();
-
   const approveOrder = async () => {
-    //window.alert(restData._id);
     const restId = restData._id;
+    let pushOrderStatus;
+    if (orders.status === "pending") pushOrderStatus = "accepted";
+    else if (orders.status === "accepted") pushOrderStatus = "ready";
+    else if (orders.status === "ready") pushOrderStatus = "delivered";
     await axios
       .put(
         `/item/update-pending-orders/${restId}`,
         {
           orderId: orders._id,
-          status: "accepted",
+          status: pushOrderStatus,
         },
         {
           headers: {
@@ -40,7 +55,7 @@ const SingleRestOrder = ({ orders }) => {
       )
       .then((response) => {
         //window.alert("Order Successfully Approved");
-        toast.success(`Order Approved`, {
+        toast.success(`Order Status Updated`, {
           position: toast.POSITION.TOP_CENTER,
         });
         setTimeout(
@@ -56,19 +71,78 @@ const SingleRestOrder = ({ orders }) => {
   };
 
   return (
-    <div className="Single-Restaurant">
-      <h1>Order Id: {orders._id}</h1>
-
-      <h2>Restaurant Name: {orders.restaurant.restaurantName}</h2>
-
-      <h2>
-        Order Status: {orders.status === "pending" ? "PENDING APPROVAL" : null}
-      </h2>
-
-      {orders.status === "pending" ? (
-        <button onClick={approveOrder}>Approve Order</button>
-      ) : null}
-    </div>
+    <Accordion className="restaurant-order-history" style={{ margin: "5%" }}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <Box sx={{ width: "100%", margin: "1%" }}>
+          {orders.status === "pending" ? (
+            <button onClick={approveOrder}>Approve Order</button>
+          ) : orders.status === "accepted" ? (
+            <button onClick={approveOrder}>Ready For Take-Away</button>
+          ) : orders.status === "ready" ? (
+            <button onClick={approveOrder}>Delivered to Customer</button>
+          ) : null}
+          {orders.status === "pending" ? (
+            <button onClick={approveOrder}>Cancel/Reject Order</button>
+          ) : null}
+          <span className="user-order-id">
+            <h2>Order ID: {orders._id}</h2>
+          </span>
+          <span className="user-order-restaurant-name">
+            <h2>Customer Name: {orders.customer.name}</h2>
+          </span>
+          <span className="user-order-status">
+            <h2>
+              Current Order Status:{" "}
+              {orders.status === "pending"
+                ? "PENDING APPROVAL"
+                : orders.status === "accepted"
+                ? "Accepted"
+                : orders.status === "cancelled"
+                ? "Order Cancelled"
+                : orders.status === "ready"
+                ? "Oreder is Ready"
+                : orders.status === "delivered"
+                ? "Delivered to Customer"
+                : null}
+            </h2>
+          </span>
+        </Box>
+      </AccordionSummary>
+      <AccordionDetails>
+        {orders.items.map((item, index) => (
+          <div className="order-history-details">
+            <span className="order-history-item-name">
+              Item Name: {item.itemName}
+            </span>
+            <br />
+            <span className="order-history-item-price">
+              Price: {item.price}
+            </span>
+            <br />
+            <span className="order-history-item-quantity">
+              Quantity: {item.quantity}
+            </span>
+            <br />
+            <span className="order-history-item-total">
+              Total: {item.total}
+            </span>
+            <br />
+            <br />
+          </div>
+        ))}
+        <span className="order-history-item-grand-total">
+          Grand Total: {orders.grandTotal}
+        </span>
+        {/*orders.status==="accepted" ?<button className="user-order-status-confirm" style={{ width: "100%"}}>Confirm Received</button>: null*/}
+        <br />
+        <br />
+        <br />
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

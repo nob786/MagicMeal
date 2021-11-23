@@ -24,7 +24,10 @@ const RestOrdersPending = () => {
 
   const filteredOrders = orders.filter(
     (n) =>
-      n.status === "pending" || n.status === "accepted" || n.status === "ready"
+      n.status === "pending" ||
+      n.status === "accepted" ||
+      n.status === "ready" ||
+      n.status === null
   );
 
   useEffect(async () => {
@@ -32,6 +35,7 @@ const RestOrdersPending = () => {
       .get(`/item/get-pending-orders/${restId}`)
       .then((res) => {
         if (res) console.log("Response", res);
+        console.log("pending order rest", res.data);
         const pendingOrders = res.data.pendingOrders;
         //console.log("RESTORDERS FETCH",updatedOrders);
         setOrders(pendingOrders);
