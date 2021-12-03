@@ -1,5 +1,6 @@
 import { SingleBed } from "@material-ui/icons";
 import React, { useState, useEffect, Component } from "react";
+import { useParams } from "react-router";
 
 import TitleTag from "../SpecialComp/TitleTag";
 import SingleUserMenu from "./SingleUserMenu";
@@ -20,14 +21,16 @@ const UserMenuItems = () => {
   const [restaurantId, setRestaurantId] = React.useState();
   const [restaurantName, setRestaurantName] = React.useState();
   const [contact, setContact] = React.useState();
+  const { id } = useParams();
 
   const { clickedRestaurantId } = useSelector((state) => state.data);
   const { clickedRestaurantData } = useSelector((state) => state.data);
 
-  const restId = clickedRestaurantId;
+  //const restId = clickedRestaurantId;
 
   useEffect(async () => {
-    const { data } = await axios.get(`/user/get-restaurant-menu/${restId}`, {
+    window.alert(id);
+    const { data } = await axios.get(`/user/get-restaurant-menu/${id}`, {
       /*headers: {
         authorization:
           localStorage.getItem("token") !== null

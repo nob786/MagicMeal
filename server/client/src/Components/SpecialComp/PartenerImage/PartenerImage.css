@@ -1,86 +1,72 @@
+.partener-image {
+  min-height: 500px;
+  height: auto;
+  background: url("../../MainPage/img/food.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  margin-bottom: 1px;
+  padding-bottom: 20px;
+}
 .partener-container {
-    position: relative;
-    text-align: center;
-
+  text-align: center;
 }
 .partener-container img {
-    width: 100%;
-  max-width: 100%px;
+  width: 100%;
+  max-width: 100%;
   max-height: 700px;
 }
 
-
 .partener-text {
   font-size: 19px;
-  width: 80%;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  padding-top: 10%;
 }
-.partener-text h1{
-
-  font-size: 40px;
-
+.partener-text h1 {
+  font-size: 50px;
 }
 
-
-.partener-text h1{
-    color: white;
+.partener-text h1 {
+  color: var(--prime-shinegrey);
 }
 
 .partener-text p {
-    color: white;
+  color: var(--prime-shinegrey);
 }
 .partener-button {
-    margin-top: 2rem;
-
+  margin-top: 2rem;
 }
 
-
 .partner-button {
-    height: 3rem;
-    width: 18rem;
-    transition-duration: 0.4s;
-    background-color: #242424;
-    color: white;
-    border: white 1px solid;
-  }
-  
-  .partner-button:hover {
-    background-color: white; /* Green */
-    color: black;
-  }
-    
+  height: 3rem;
+  width: 18rem;
+  transition-duration: 0.4s;
+  background-color: #fe724c;
+  border-radius: 5px;
+  border: none;
 
+  color: white;
+}
 
-
+.partner-button:hover {
+  background: var(--btn-hover-clr);
+  background: var(--btn-hover-grad);
+}
 
 /*===========================Media Queries ================================*/
 @media (max-width: 700px) {
-    .partner-button {
-        height: 50px;
-        width: 100%;
-        font-size: 14px;
-        
-      }
-      .partener-text p{
-          font-size:  14px;
-      }
-      .partener-text h1 {
-          margin-top: 4rem;
-          font-size:  20px;
-          margin-bottom: 1.5rem;
-      }
+  .partner-button {
+    min-height: 55px;
+    width: auto;
+  }
 
-      .partener-container img {
-      max-width: 100%;
-      height: 400px;
-      max-height: 700px;
-    }
+  .partener-text h1 {
+    margin-top: 4rem;
+    font-size: 32px;
+    margin-bottom: 1.5rem;
+  }
 
-    .partener-text {
-      width: 80%;
-    }
-    
+  .partener-text {
+    width: 100%;
+  }
 }

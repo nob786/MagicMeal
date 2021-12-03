@@ -67,9 +67,11 @@ function AdminHeader() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("persist:root");
+    //localStorage.removeItem("magic-meal-restaurant-token");
     localStorage.removeItem("token");
-    //dispatch(addAuthRest(false));
+    localStorage.removeItem("persist:root");
+
+    dispatch(addAuthRest(false));
     //history.push("/");
     //window.location.reload(false);
     setTimeout(() => {
@@ -92,7 +94,7 @@ function AdminHeader() {
     <div className="Restaurant-Header">
       <div className="restaurant-header-navbar">
         <Link className="restaurant-logo-name-link" to="/admin/menu-items">
-          <h2>Eatsabyte Chef Panel </h2>
+          <h2>MagicMeal Restaurant Panel </h2>
         </Link>
 
         {/*} <div className="navbar-menuicon" >

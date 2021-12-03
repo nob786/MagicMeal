@@ -109,6 +109,10 @@ const FoodieLogin = () => {
           //window.alert("User Logged in");
           localStorage.setItem("token", JSON.stringify(token));
           if (role === "restaurant") {
+            /*localStorage.setItem(
+              "magic-meal-restaurant-token",
+              JSON.stringify(token)
+            );*/
             setRole("Restaurant");
             //window.alert("Restaurant Logged In");
             dispatch(addAuthRest(true));
@@ -128,6 +132,10 @@ const FoodieLogin = () => {
             );
             //history.push("/admin/dashboard");
           } else if (role === "customer") {
+            /*localStorage.setItem(
+              "magic-meal-customer-token",
+              JSON.stringify(token)
+            );*/
             setRole("Customer");
             //window.alert("Customer Logged In");
             dispatch(addAuthCust(true));

@@ -1,56 +1,55 @@
 /*=============================Footer Component=============================*/
 
 .Footer {
-  background-color: #242424;
-    border-top: 1px solid #242424;
-    
-    padding-bottom: 20px;
-  }
-  .Footer-b{
-    border-bottom: 1px white solid;
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  }
-  .Footer-b h1 {
-    font-family: sans-serif;
-    font-size: 22px;
-    color: white;
-  }
-  
-  .Footer div {
-    margin-top: 10px;
-  }
-  .Footer li {
-    list-style: none;
-  }
-  
-  .footer-child li {
-    font-size: 14px;
-    margin-top: 10px;
-  }
-  
-  .footer-child {
-    text-align: center;
-    margin-bottom: 80px;
-  }
- 
+  background-color: #272d2f;
+  border-top: 1px solid #272d2f;
 
-  .footer-bottom-mark {
-    padding-left: 5%;
-    padding-right: 5%;
-    text-align: center;
+  padding-bottom: 20px;
+  bottom: 0;
+}
+.Footer-b {
+  border-bottom: 1px white solid;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.Footer-b h1 {
+  font-family: sans-serif;
+  font-size: 22px;
+  color: white;
+}
 
-  }
-  .footer-bottom-mark h1 {
-    color: lightgray;
-    font-size: 10px;
-    padding-top: 10px;
-  }
+.Footer div {
+  margin-top: 10px;
+}
+.Footer li {
+  list-style: none;
+}
+
+.footer-child li {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.footer-child {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.footer-bottom-mark {
+  padding-left: 5%;
+  padding-right: 5%;
+  text-align: center;
+}
+.footer-bottom-mark h1 {
+  color: lightgray;
+  font-size: 10px;
+  padding-top: 10px;
+}
 
 .a:link {
-    color: lightgray;
-  } 
+  color: lightgray;
+}
 .a:hover {
   color: white;
 }
@@ -60,16 +59,14 @@ a:visited {
   color: lightgray;
 }
 
-
 .footer-child Link {
   color: #242424;
 }
 
-
 .fa-facebook {
-  color: lightgray;
+  color: white;
 }
- 
+
 .fa-instagram {
   color: lightgray;
   padding-left: 10px;
@@ -84,11 +81,14 @@ a:visited {
   margin-left: 10px;
 }
 
-.fa-instagram:hover {
+.fa-linkedin {
   color: white;
 }
+.fa-linkedin:hover {
+  opacity: 0.7;
+}
 .fa-facebook:hover {
-  color: white;
+  opacity: 0.7;
 }
 
 .follow-icon-link:link {

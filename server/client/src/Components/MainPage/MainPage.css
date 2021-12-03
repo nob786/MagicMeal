@@ -1,15 +1,69 @@
 .MainPage {
-    background-color: white ;
+  background-color: white;
 }
 
-.main-page-image-gallery{
-    margin-top: 1px;
-
+.main-page-image-gallery {
+  margin-top: 1px;
 }
 
 @media (max-width: 550px) {
-    .main-page-image-gallery{
-        height: 100%;
-    
-    }
+  .main-page-image-gallery {
+    height: 100%;
+  }
+}
+
+/*============Client==============*/
+.client-row {
+  width: 100%;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin: auto;
+}
+.client-container {
+  width: 100%;
+}
+
+.clients {
+  width: 100%;
+  padding: 100px 0;
+  background: url("./img/food.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-size: 24px;
+  color: white;
+  background-attachment: fixed;
+}
+
+.client {
+  border-radius: 25px;
+  width: 100%;
+  text-align: center;
+}
+.client h1 {
+  width: auto;
+  color: var(--prime-lightred);
+  font-size: 28px;
+  font-weight: bolder;
+}
+.client p {
+  font-family: cursive;
+  color: var(--prime-shinegrey);
+  justify-items: center;
+  font-size: 28px;
+  font-weight: bolder;
+}
+@media (max-width: 700px) {
+  .col-3,
+  .col-4,
+  .col-6 {
+    width: 100%;
+  }
+
+  .client h1 {
+    font-size: 18px;
+  }
+  .client p {
+    font-size: 18px;
+  }
 }

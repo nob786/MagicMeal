@@ -21,7 +21,8 @@ const SingleRestaurant = ({ restaurant }) => {
     dispatch(pushRestaurantId(restaurant._id));
     dispatch(pushClickedRestaurantData(restaurant));
     /*window.alert(restaurant._id);*/
-    history.push("/user-menu-items");
+    //history.push("/user-menu-items");
+    history.push(`/user-menu-items/${restaurant._id}`);
   };
   return (
     <div onClick={onRestaurantClick} style={{ textDecoration: "none" }}>

@@ -46,6 +46,7 @@ import RestOrdersHistory from "./RestaurantComponents/RestaurantOrders/RestOrder
 import AdminHeader from "./RestaurantComponents/AdminHeader/AdminHeader";
 
 function App() {
+  const [screenSize, setScreenSize] = React.useState();
   /*componentWillMount() {
     this.callAPI();
   }
@@ -59,19 +60,26 @@ function App() {
   state = {
     visible: true,
   };*/
-  useEffect(() => {}, []);
+  function funcScreenSize() {
+    setScreenSize(window.innerWidth);
+    console.log("screen size", screenSize);
+  }
+
+  useEffect(() => {
+    funcScreenSize();
+  }, []);
 
   return (
     <Router>
       <div className="App">
         <ScrollToTop />
-        {window.innerWidth > 970 &&
+        {screenSize > 970 &&
         window.location.pathname.indexOf("/admin/") != 0 ? (
           <Header />
-        ) : window.innerWidth <= 970 &&
+        ) : screenSize <= 970 &&
           window.location.pathname.indexOf("/admin/") != 0 ? (
           <MobileHeader />
-        ) : window.innerWidth > 970 &&
+        ) : screenSize > 970 &&
           window.location.pathname.indexOf("/admin/") == 0 ? (
           <AdminHeader />
         ) : null}
@@ -124,7 +132,7 @@ function App() {
             component={OrdersHistory}
           />
           {/* ============================User Not Restricted Routes================================== */}
-          <Route path="/user-menu-items" component={UserMenuItems} />
+          <Route path="/user-menu-items/:id" component={UserMenuItems} />
 
           {/*============================Testing Routers======================= */}
 

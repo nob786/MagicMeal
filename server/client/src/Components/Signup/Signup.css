@@ -1,180 +1,152 @@
 /*=========================================================================Restaurant Signup================================================*/
 
-
 .restaurant_signup_form {
-    text-align: center;
+  text-align: center;
 }
 
 .restaurant-signup-container {
-    margin-top: 5%;
-    margin-bottom: 5%;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 
-
-.restaurant-signup-submit-button{
-    margin-top: 10%;
-    margin-bottom: 10%;
-    height: 35px;
-    width: 100px;
-    transition-duration: 0.4s;
-    color: black;
-    border: #242424 1px solid;
-  }
-  
-  .restaurant-signup-submit-button:hover {
-    background-color: #242424; /* Green */
-    color: white;
-    border: black 1px solid;
-  }
-
-
-  .restaurant-signup-submit-button-div {
-    text-align: center;
+.restaurant-signup-submit-button {
+  margin-top: 10%;
+  margin-bottom: 10%;
+  height: 35px;
+  width: 100px;
+  transition-duration: 0.4s;
+  color: black;
+  border: #242424 1px solid;
 }
 
+.restaurant-signup-submit-button:hover {
+  background-color: #242424; /* Green */
+  color: white;
+  border: black 1px solid;
+}
 
-
-
-
-
-
-
-
-
+.restaurant-signup-submit-button-div {
+  text-align: center;
+}
 
 /*============================================================================Foodie Signup===================================================*/
 
 .foodie_signup_container {
-    display: flex;
-    flex-direction: row;
-    max-width: 1000px;
-    margin: auto;
-    margin-top: 2%;
+  display: flex;
+  flex-direction: row;
+  max-width: 1000px;
+  margin: auto;
+  margin-top: 2%;
 }
 
 .form-fields {
-    padding-top: 10px;
+  padding-top: 10px;
 }
 
 .image img {
-    width: 500px;
-    height: 700px;
-    
+  width: 500px;
+  height: 700px;
 }
 
 .image {
-    width: 500px;
-    height: 700px;
+  width: 500px;
+  height: 700px;
 }
 
-
 .foodie_signup_form {
-    color: white;
-    text-align: center;
-    background-color: orange;
-    width: 500px;
-    height: 700px;
+  color: white;
+  text-align: center;
+  background-color: orange;
+  width: 500px;
+  height: 700px;
 }
 
 .foodie-signup-form-title {
-
-    font-family: cursive;
-    font-size: 99px;
-    padding-top: 50px;
-    padding-bottom: 20px;
+  font-family: cursive;
+  font-size: 99px;
+  padding-top: 50px;
+  padding-bottom: 20px;
 }
-
 
 .submit {
-    padding-top: 50px;
-    color: black;
+  padding-top: 50px;
+  color: black;
 }
 
-
-
 .fields {
-    width: 80%;
+  width: 80%;
 }
 
 .mobilecode {
-    width: 300px;
+  width: 300px;
 }
 
 .mobilecode_field {
-    display: flex;
-    padding-left: 50px;
+  display: flex;
+  padding-left: 50px;
 }
 
 .mobilecode_button {
-    margin-top: 10px;
-
+  margin-top: 10px;
 }
 
-
 .emailcode {
-    width: 300px;
+  width: 300px;
 }
 
 .emailcode_field {
-    display: flex;
-    padding-left: 50px;
+  display: flex;
+  padding-left: 50px;
 }
 
 .emailcode_button {
-    margin-top: 10px;
+  margin-top: 10px;
 }
-
-
 
 .already {
-    margin-top: 10px;
-    color: black;
+  margin-top: 10px;
+  color: black;
 }
 
+.foodie-signup-submit-button {
+  margin-top: 10%;
+  height: 35px;
+  width: 100px;
+  transition-duration: 0.4s;
+  background-color: orange;
+  color: white;
+  border: white 1px solid;
+}
 
+.foodie-signup-submit-button:hover {
+  background-color: white; /* Green */
+  color: black;
+  border: black 1px solid;
+}
 
-.foodie-signup-submit-button{
-    margin-top: 10%;
-    height: 35px;
-    width: 100px;
-    transition-duration: 0.4s;
-    background-color: orange;
+.foodie-signup-fields {
+  width: 400px;
+}
+
+/*========================Media Querries ===================================*/
+@media (max-width: 999px) {
+  .foodie_signup_form {
     color: white;
-    border: white 1px solid;
+    background-color: orange;
+    width: 95%;
+    margin: auto;
+    margin-top: 5%;
+    height: auto;
+    padding: 5%;
   }
-  
-  .foodie-signup-submit-button:hover {
-    background-color: white; /* Green */
-    color: black;
-    border: black 1px solid;
+  .foodie-signup-fields {
+    width: 95%;
   }
-
-
-  .foodie-signup-fields{
-    width: 400px;
+  .title h1 {
+    font-size: 16px;
+    font-weight: unset;
+  }
+  .form-fields {
+    width: 95%;
+  }
 }
-
-
-  /*========================Media Querries ===================================*/
-  @media (max-width: 999px) {
-    .foodie_signup_form {
-        color: white;
-        background-color: orange;
-        width: 95%;
-        margin: auto;
-        margin-top: 5%;
-        height: auto;
-        padding: 5%;
-    }
-    .foodie-signup-fields{
-        width: 95%;
-    }
-    .title h1{
-        font-size: 16px;
-        font-weight: unset;
-    }
-    .form-fields {
-        width: 95%;;
-    }
-    
-  }

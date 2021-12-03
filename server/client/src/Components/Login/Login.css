@@ -1,142 +1,113 @@
-
-
-
-
-
-
-
-
-
-
-
-
 /*===================================================================Foodie Login===============================================================*/
 
-
 .foodie_login_container {
-    max-width: 500px;
-    margin: auto;
-    margin-top: 5%;
-    margin-bottom: 1%;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 5%;
+  margin-bottom: 1%;
 }
 
 .form-fields {
-    padding-top: 2px;
+  padding-top: 2px;
 }
-
-
-
-
 
 .foodie_login_form {
-    color: white;
-    text-align: center;
-    background-color: orange;
-    width: 500px;
-    height: 500px;
+  color: white;
+  text-align: center;
+  background-color: #ffc529;
+  width: 500px;
+  height: 500px;
+  background: rgb(43, 43, 43);
+  background: linear-gradient(
+    90deg,
+    rgba(43, 43, 43, 1) 0%,
+    rgba(254, 114, 76, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
 }
 
-.login-form-title{
-    font-family: cursive;
-    padding-top: 10%;
-    padding-bottom: 20px;
+.login-form-title {
+  font-family: cursive;
+  padding-top: 10%;
+  padding-bottom: 20px;
 }
 
-.login-form-title h1{
-    font-size: 26px;
-    font-weight: unset;
+.login-form-title h1 {
+  font-size: 26px;
+  font-weight: unset;
 }
-
 
 .submit {
-    padding-top: 50px;
-    color: black;
+  padding-top: 50px;
+  color: black;
 }
 
-
-
 .fields {
-    width: 400x;
+  width: 400x;
 }
 
 .mobilecode {
-    width: 3000px;
+  width: 3000px;
 }
 
 .mobilecode_field {
-    padding-left: 500px;
+  padding-left: 500px;
 }
 
 .mobilecode_button1 {
-    margin-top: 10px;
-
+  margin-top: 10px;
 }
 .mobilecode_button2 {
-    margin-top: 10px;
-
+  margin-top: 10px;
 }
-
-
-
-
 
 .already {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
-
-.email,.password{
-    width: 400px;
+.email,
+.password {
+  width: 400px;
 }
 
-.email  :checked{
+.email :checked {
+  color: white;
+}
+
+.login-submit-button {
+  height: 50px;
+  width: 150px;
+  margin-bottom: 10%;
+  border-radius: 25px;
+  transition-duration: 0.4s;
+  background-color: #fe724c;
+  color: white;
+  border: #fe724c 1px solid;
+}
+
+.login-submit-button:hover {
+  opacity: 0.5;
+}
+
+/*========================Media Querries ===================================*/
+@media (max-width: 480px) {
+  .foodie_login_form {
     color: white;
-}
-
-
-
-
-
-.login-submit-button{
-    height: 35px;
-    width: 100px;
-    margin-bottom: 10%;
-    transition-duration: 0.4s;
     background-color: orange;
-    color: white;
-    border: white 1px solid;
+    width: 95%;
+    margin: auto;
+    height: 400px;
+    padding: 5%;
   }
-  
-  .login-submit-button:hover {
-    background-color: white; /* Green */
-    color: black;
-    border: white 1px solid;
+  .email,
+  .password {
+    width: 95%;
   }
-  
-
-
-
-
-
-  /*========================Media Querries ===================================*/
-  @media (max-width: 480px) {
-    .foodie_login_form {
-        color: white;
-        background-color: orange;
-        width: 95%;
-        margin: auto;
-        height: 400px;
-        padding: 5%;
-    }
-    .email,.password{
-        width: 95%;
-    }
-    .title h1{
-        font-size: 16px;
-        font-weight: unset;
-    }
-    .form-fields {
-        width: 100%;;
-    }
-    
+  .title h1 {
+    font-size: 16px;
+    font-weight: unset;
   }
+  .form-fields {
+    width: 100%;
+  }
+}

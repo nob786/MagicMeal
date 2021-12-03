@@ -1,81 +1,74 @@
 .newsletter {
-    background-color: #242424;
-    height: 400px;
-    margin-top: 1px;
-    text-align: center;
-    border-bottom: white 1px solid;
-    font-size: 11px;
+  background: url("../../MainPage/img/food.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 400px;
+  margin-top: 1px;
+  text-align: center;
+  border-bottom: white 1px solid;
 }
 
 .newsletter-cont {
-    margin-top: 1px;
-    text-align: center;
+  margin-top: 1px;
+  text-align: center;
 }
 
 /*   Title of News Letter*/
 .newsletter-title {
-    padding-top: 80px;
-    text-align: center;
-    color: white;
+  font-weight: bold;
+  padding-top: 80px;
+  text-align: center;
+  color: var(--prime-shinegrey);
+  border-color: white;
 }
 
-
-
-
 .newsletter-field {
-    font-size: 18px;
-    height: 50px;
-    width: 500px;
-    margin-top: 20px;
+  font-size: 18px;
+  height: 50px;
+  width: 500px;
+  margin-top: 20px;
 }
 
 .subscribe_button {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
-
 .newsletter-submit-button {
-    height: 50px;
-    width: 11rem;
-    transition-duration: 0.4s;
-    background-color: #242424;
-    color: white;
-    border: white 1px solid;
-  }
-  
-  .newsletter-submit-button:hover {
-    background-color: white; /* Green */
-    color: black;
-  }
-    
+  height: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  width: 13rem;
+  border-radius: 25px;
+  transition-duration: 0.4s;
+  background-color: var(--prime-lightred);
+  color: white;
+  border: none;
+}
 
-
-
-
-
-
+.newsletter-submit-button:hover {
+  background: var(--btn-hover-clr);
+  background: var(--btn-hover-grad);
+}
 
 /*===========================Media Queries ================================*/
 @media (max-width: 550px) {
-    .newsletter-field {
-        font-size: 16px;
-        height: 40px;
-        width: 80%;
-        margin-top: 20px;
-    }
-    .newsletter-cont {
-        height: 50px;
-    }
-    .newsletter-submit-button {
-        font-size: 14px;
-        height: 35px;
-        width: 11rem;
-        
-      }
+  .newsletter-field {
+    font-size: 16px;
+    height: 40px;
+    width: 80%;
+    margin-top: 20px;
+  }
+  .newsletter-cont {
+    height: 50px;
+  }
+  .newsletter-submit-button {
+    font-size: 16px;
+    height: 35px;
+    width: 11rem;
+  }
 
-      .newsletter-title {
-        font-size: 18px;
-    }
-    
-      
+  .newsletter-title {
+    font-size: 24px;
+  }
 }
