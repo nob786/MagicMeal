@@ -17,6 +17,11 @@
 }
 .App {
   font-family: sans-serif;
-  background-color: #d7d7d7;
   color: #272d2f;
+}
+body {
+  background: url("./Components/MainPage/img/test.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }

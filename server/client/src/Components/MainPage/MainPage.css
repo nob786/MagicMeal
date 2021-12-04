@@ -61,37 +61,99 @@
   }
 
   .client h1 {
-    font-size: 18px;
+    font-size: 22px;
   }
   .client p {
-    font-size: 18px;
+    font-size: 32px;
   }
 }
 
 /*========================Main Page 1st Pic==================================*/
+.main-page-location-bar {
+  width: 30%;
+}
+
 .main-page-location {
-  background: url("./img/bg.jpg");
+  padding-top: 15%;
+  padding-left: 2%;
+  background: url("./img/main1.jpg");
 
   background-size: cover;
   height: 600px;
   margin-bottom: 1px;
+}
+.main-page-location h1 {
+  color: var(--prime-shinegrey);
+  text-align: start;
+  font-size: 50px;
+  margin-bottom: 5%;
+}
+.main-page-delivery-button {
+  width: 100px;
+  height: 50px;
+  margin: 10px;
+  color: white;
+  background-color: var(--prime-lightred);
+  border: none;
+}
+.main-page-delivery-button:hover {
+  background: var(--btn-hover-clr);
+  background: var(--btn-hover-grad);
+}
+.main-page-pickup-button {
+  width: 100px;
+  height: 50px;
+  margin: 10px;
+  color: white;
+  background-color: var(--prime-lightred);
+  border: none;
+}
+.main-page-pickup-button:hover {
+  background: var(--btn-hover-clr);
+  background: var(--btn-hover-grad);
+}
+@media (max-width: 800px) {
+  .main-page-location-bar {
+    width: auto;
+  }
+  .main-page-location h1 {
+    font-size: 32px;
+  }
+}
+
+/*============================Main Page SLider Images=============*/
+.main-page-slide-h1 {
+  font-size: 50px;
+  color: var(--prime-lightred);
+  padding-bottom: 2%;
+  font-weight: bold;
+}
+.main-page-slide-p {
+  font-size: 32px;
+  color: var(--prime-shinegrey);
+  margin-bottom: 10%;
+  font-weight: bold;
+}
+.main-slide-button {
+  margin-bottom: 5%;
 }
 
 .d-block {
   height: 700px;
 }
 .p1 {
-  background: url("./img/food.jpg");
+  background: url("./img/slide-1.jpg");
   background-size: cover;
   height: 600px;
 }
 .p2 {
-  background: url("./img/bg.jpg");
+  background: url("./img/slide-2.jpg");
+  background-blend-mode: saturation;
   background-size: cover;
   height: 600px;
 }
 .p3 {
-  background: url("./img/pizza.jpg");
+  background: url("./img/slide-3.jpg");
   background-size: cover;
   height: 600px;
 }

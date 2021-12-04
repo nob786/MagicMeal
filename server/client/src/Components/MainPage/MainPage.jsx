@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useEffect } from "react";
+import { useHistory } from "react-router";
 /*=========================Importing CSS File=========================*/
 import "../MainPage/MainPage.css";
 import NewsLetter from "../SpecialComp/NewsLetter/NewsLetter";
@@ -7,10 +7,107 @@ import NewsLetter from "../SpecialComp/NewsLetter/NewsLetter";
 /**=============================Importing Components====================== */
 import PartenerImage from "../SpecialComp/PartenerImage/PartenerImage.jsx";
 
+//=================================Material Ui Fonts===========================
+import GpsFixedIcon from "@mui/icons-material/GpsFixed";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Input from "@mui/material/Input";
+import FilledInput from "@mui/material/FilledInput";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { alpha, styled } from "@mui/material/styles";
+import { Link } from "react-router-dom";
+
 const MainPage = () => {
+  const [location, setLocation] = React.useState({
+    loaded: false,
+    coordinates: { lat: "", long: "" },
+  });
+  const history = useHistory();
+
+  useEffect(() => {}, []);
+
+  const handleClickGps = () => {
+    navigator.geolocation.getCurrentPosition((location) => {
+      setLocation({
+        loaded: true,
+        coordinates: {
+          lat: location.coords.latitude,
+          long: location.coords.longitude,
+        },
+      });
+    });
+    console.log("loc", location);
+  };
+
+  const handleDeliveryRestaurants = () => {
+    if (location.loaded === true) {
+      history.push(
+        `/restaurants/delivery/${location.coordinates.lat}&${location.coordinates.long}`
+      );
+    }
+  };
+
+  const handlePickupRestaurants = () => {
+    if (location.loaded === true) {
+      history.push(
+        `/restaurants/pickup/${location.coordinates.lat}&${location.coordinates.long}`
+      );
+    }
+  };
+
   return (
     <div className="MainPage">
-      <div className="main-page-location"></div>
+      <div className="main-page-location">
+        <h1>It's the food you love, delivered</h1>
+        <div className="main-page-location-container">
+          <FormControl
+            color="warning"
+            className="main-page-location-bar"
+            sx={{ m: 1 }}
+            variant="outlined"
+          >
+            <InputLabel htmlFor="outlined-adornment-password">
+              Enter full Address
+            </InputLabel>
+            <OutlinedInput
+              id="outlined"
+              endAdornment={
+                <InputAdornment position="end">
+                  <GpsFixedIcon
+                    onClick={handleClickGps}
+                    sx={{
+                      color: "#fe724c",
+                      cursor: "grab",
+                    }}
+                  />
+                </InputAdornment>
+              }
+              label="Enter Full Address"
+              value={`${location.coordinates.lat} ${location.coordinates.long}`}
+            />
+          </FormControl>
+          <button
+            className="main-page-delivery-button"
+            onClick={handleDeliveryRestaurants}
+          >
+            DELIVERY
+          </button>
+          OR
+          <button
+            className="main-page-pickup-button"
+            onClick={handlePickupRestaurants}
+          >
+            PICK UP
+          </button>
+        </div>
+      </div>
 
       <div class="bd-example">
         <div
@@ -35,10 +132,17 @@ const MainPage = () => {
                 alt="Pehli Slide"
               />*/}
               <div class="carousel-caption d-md-block">
-                <h5>First slide label</h5>
-                <p>
-                  Nulla vitae elit libero, a pharetra augue mollis interdum.
+                <h1 className="main-page-slide-h1">
+                  Get Food Delivered to Your Door Step!
+                </h1>
+                <p className="main-page-slide-p">
+                  Place Order and the Restaurant will Deliver to your Location.
                 </p>
+                <Link to="/restaurants">
+                  <button className="partner-button main-slide-button">
+                    ORDER NOW
+                  </button>
+                </Link>
               </div>
             </div>
             <div class="carousel-item p2">
@@ -48,8 +152,17 @@ const MainPage = () => {
                 alt="ssissisi"
               />*/}
               <div class="carousel-caption d-md-block">
-                <h5>Second slide label</h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h1 className="main-page-slide-h1">
+                  Go and Grab your Meal from Restaurant!
+                </h1>
+                <p className="main-page-slide-p">
+                  Place Order and Pick it up from Restaurant.
+                </p>
+                <Link to="/restaurants/pickup">
+                  <button className="partner-button main-slide-button">
+                    ORDER NOW
+                  </button>
+                </Link>
               </div>
             </div>
             <div class="carousel-item p3">
@@ -59,11 +172,17 @@ const MainPage = () => {
                 alt="ssjisjks"
               />*/}
               <div class="carousel-caption d-md-block">
-                <h5>Third slide label</h5>
-                <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur.
+                <h1 className="main-page-slide-h1">
+                  Wanna Book a Table for Your Family?
+                </h1>
+                <p className="main-page-slide-p">
+                  Browser Restaurants and Book Table in Advance.
                 </p>
+                <Link to="/restaurant-signup">
+                  <button className="partner-button main-slide-button">
+                    BOOK TABLE
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 .user-order-history {
-  color: black;
+  color: var(--prime-shinegrey);
   font-size: 11px;
-  border: #242424 1px solid;
+  border: none;
 }
 
 .user-order-id h2 {

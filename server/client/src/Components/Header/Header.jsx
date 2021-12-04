@@ -142,7 +142,7 @@ function Header() {
       <div className="Header">
         <div className="header-navbar">
           <Link className="logo-name-link" to="/" onClick={closeMobileMenu}>
-            <h2>MagicMeal </h2>
+            <h2>{window.name}</h2>
             {/*<i class="fas fa-hamburger"></i>*/}
           </Link>
 
@@ -255,7 +255,6 @@ function Header() {
                       </Link>
                     </li>
                   )}
-
                   <li className="navbar-menu-items">
                     <Link
                       className="header-link"

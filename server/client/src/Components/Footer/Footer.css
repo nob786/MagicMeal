@@ -1,8 +1,8 @@
 /*=============================Footer Component=============================*/
 
 .Footer {
-  background-color: #272d2f;
-  border-top: 1px solid #272d2f;
+  background: transparent;
+  border-top: 1px solid var(--prime-shinegrey);
 
   padding-bottom: 20px;
   bottom: 0;
@@ -16,7 +16,7 @@
 .Footer-b h1 {
   font-family: sans-serif;
   font-size: 22px;
-  color: white;
+  color: var(--prime-shinegrey);
 }
 
 .Footer div {
@@ -42,21 +42,21 @@
   text-align: center;
 }
 .footer-bottom-mark h1 {
-  color: lightgray;
+  color: var(--prime-shinegrey);
   font-size: 10px;
   padding-top: 10px;
 }
 
 .a:link {
-  color: lightgray;
+  color: var(--prime-shinegrey);
 }
 .a:hover {
-  color: white;
+  color: var(--prime-shinegrey);
 }
 
 /* visited link */
 a:visited {
-  color: lightgray;
+  color: var(--prime-shinegrey);
 }
 
 .footer-child Link {
@@ -64,31 +64,31 @@ a:visited {
 }
 
 .fa-facebook {
-  color: white;
+  color: #3b5998;
 }
 
 .fa-instagram {
-  color: lightgray;
+  color: var(--prime-shinegrey);
   padding-left: 10px;
 }
 
 .fa-cc-mastercard {
-  color: white;
+  color: #eb001b;
 }
 
 .fa-cc-visa {
-  color: white;
+  color: #1a1f71;
   margin-left: 10px;
 }
 
 .fa-linkedin {
-  color: white;
+  color: #0077b5;
 }
 .fa-linkedin:hover {
-  opacity: 0.7;
+  color: #0077b5;
 }
 .fa-facebook:hover {
-  opacity: 0.7;
+  color: #3b5998;
 }
 
 .follow-icon-link:link {

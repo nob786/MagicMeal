@@ -1,11 +1,17 @@
-.privacy-policy p{
+.privacy-policy p {
   font-size: 18px;
   text-align: center;
   margin-bottom: 20%;
   margin-right: 10%;
   margin-left: 10%;
 }
-.privacy-policy{
+.privacy-policy {
   width: 80%;
   margin: auto;
+}
+
+@media (max-width: 800px) {
+  .privacy-policy p {
+    font-size: 16px;
+  }
 }

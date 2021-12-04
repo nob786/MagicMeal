@@ -31,6 +31,7 @@
 }
 
 .partener-text p {
+  font-size: 22px;
   color: var(--prime-shinegrey);
 }
 .partener-button {
@@ -41,7 +42,7 @@
   height: 3rem;
   width: 18rem;
   transition-duration: 0.4s;
-  background-color: #fe724c;
+  background-color: var(--prime-lightred);
   border-radius: 5px;
   border: none;
 

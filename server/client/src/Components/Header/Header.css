@@ -21,7 +21,8 @@
   border: white 1px solid;
 }
 .close-header-button:hover {
-  opacity: 0.7;
+  background: var(--btn-hover-clr);
+  background: var(--btn-hover-grad);
 }
 @media (max-width: 700px) {
   .close-header h2 {
@@ -40,15 +41,16 @@
   z-index: 2000;
   top: 0;
   background-color: var(--prime-white);
-  height: 80px;
+  height: 70px;
   align-items: center;
-  background: rgb(255, 255, 255);
+  border-bottom: var(--prime-shinegrey) 1px solid;
+  /*background: rgb(255, 255, 255);
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 1) 7%,
     rgba(254, 138, 106, 1) 47%,
     rgba(255, 255, 255, 1) 92%
-  );
+  );*/
 }
 
 .header-navbar {
@@ -84,7 +86,7 @@
 .logo-name-link h2 {
   color: var(--prime-lightred);
   float: left;
-  font-size: 40px;
+  font-size: 32px;
   font-weight: bolder;
 }
 

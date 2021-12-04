@@ -21,220 +21,117 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { useHistory } from "react-router-dom";
 
-
 // Redux Imports
 import { useSelector } from "react-redux";
 
-
-
 //Import Css File
-import "./UserProfile.css"
-
-
+import "./UserProfile.css";
 
 const useStyles = makeStyles((theme) => ({
-    paper: {
-      marginTop: theme.spacing(8),
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-    },
-    avatar: {
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+  root: {
+    "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
+      width: "25ch",
     },
-    form: {
-      width: "100%", // Fix IE 11 issue.
-      marginTop: theme.spacing(3),
-    },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
-    },
-    root: {
-      "& .MuiTextField-root": {
-        margin: theme.spacing(1),
-        width: "25ch",
-      },
-    },
-  }));
+  },
+}));
 
+const UserProfile = () => {
+  const classes = useStyles();
+  const history = useHistory();
 
+  //Customer Data
+  const { custData } = useSelector((state) => state.auth);
+  console.log(custData);
 
-const UserProfile= () =>{
-
-    const [editChanges, setEditChanges] = React.useState(false);
-    const [rOnly, setROnly] = React.useState(true);
-
-    
-    const classes = useStyles();
-     const history =useHistory();
-
-
-
-     //Customer Data
-     const {custData} = useSelector(
-        (state) => state.auth
-      );
-
-   const handleUserProfileEdit=()=>{
-       setEditChanges(true);
-       setROnly(false);
-  }
-
-  
-  const handleUserCancel=()=>{
-
-    setEditChanges(false);
-    setROnly(true);
-}
-
-
-      
-
-return(
-    
+  return (
     <div className="user-profile">
+      <div class=" ">
+        <div class="padding">
+          <div class=" justify-content-center">
+            <div class="">
+              <div class="card ">
+                <div class="row">
+                  <div class="col-sm-4 bg-c-lite-green ">
+                    <div class=" text-center text-white">
+                      <div class="">
+                        {" "}
+                        <img
+                          src="https://img.icons8.com/bubbles/100/000000/user.png"
+                          class="img-radius"
+                          alt="User-Profile-Image"
+                        />{" "}
+                      </div>
+                      <h6 class="">
+                        {custData.firstName + " " + custData.lastName}
+                      </h6>
+                      <p>Customer Profile</p> <i class="  "></i>
+                    </div>
+                  </div>
+                  <div class="col-sm-8">
+                    <div class="card-block">
+                      <h6 class="m-b-20 p-b-5 b-b-default f-w-600">
+                        Information
+                      </h6>
+                      <div class="">
+                        <div class="">
+                          <p class="m-b-10 f-w-600 user-profile-p">
+                            First Name
+                          </p>
+                          <h6 class="text-muted f-w-400 user-profile-h6">
+                            {custData.firstName}
+                          </h6>
+                        </div>
 
+                        <div class="">
+                          <p class="m-b-10 f-w-600 user-profile-p">Last Name</p>
+                          <h6 class="text-muted f-w-400 user-profile-h6">
+                            {custData.lastName}
+                          </h6>
+                        </div>
+                      </div>
+                      <div class="">
+                        <div class="">
+                          <p class="m-b-10 f-w-600 user-profile-p">Email</p>
+                          <h6 class="text-muted f-w-400 user-profile-h6">
+                            {custData.email}shameermasood@gmail.com
+                          </h6>
+                        </div>
 
-        <div className="user-profile-header">
-                <h1>Welcome! {custData.firstName+" "+custData.lastName}</h1>
-                
-        </div>
-
-        
-       
-        
-
-        <Container component="main" maxWidth="xs" className="user-profile-container">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12} >
-              <TextField
-                name="userFirstName"
-                variant="outlined"
-                fullWidth
-                label="First Name"
-                defaultValue= {custData.firstName}
-                InputProps={{
-                    readOnly: rOnly,
-                  }}
-
-               
-              />
-            </Grid>
-
-          
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                fullWidth
-                label="Last Name"
-                name="userLastName"
-                defaultValue= {custData.lastName}
-                InputProps={{
-                    readOnly: rOnly,
-                  }}
-             
-              />
-            </Grid>
-
-
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="mobile"
-                label="Mobile Number"
-                name="contact"
-                defaultValue= {custData.contact}
-                InputProps={{
-                    readOnly: rOnly,
-                  }}
-             
-               
-
-              />
-            </Grid>
-
-            
-
-           {/*} <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                
-              />
-            </Grid>
-                */}
-
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="New Password"
-                name="password"
-                InputProps={{
-                    readOnly: rOnly,
-                  }}
-                
-              />
-            </Grid>
-
-           
-
-
-
-            
-           
-          </Grid>
-          {
-              
-                editChanges === false ? 
-                <button onClick={handleUserProfileEdit}>
-                Edit Profile
-            </button>
-            : 
-              editChanges === true ?
-          <div className="restaurant-signup-submit-button-div">
-                  <button className="user-save-button">
-                    Save Changes
-                  </button>
-                  <button  onClick={handleUserCancel} className="user-cancel-button" >
-                    Cancel
-                  </button>
+                        <div class="">
+                          <p class="m-b-10 f-w-600user-profile-p">Phone</p>
+                          <h6 class="text-muted f-w-400 user-profile-h6">
+                            {custData.contact}
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          : 
-          null
-}
-
-        
-
-         
-        </form>
+        </div>
       </div>
-      <Box mt={5}>
-        
-      </Box>
-    </Container>
-
-
-
-
-
     </div>
-);
-   
-
-}
+  );
+};
 
 export default UserProfile;
-

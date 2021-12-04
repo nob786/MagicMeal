@@ -82,8 +82,8 @@ const OrdersHistory = () => {
   return (
     <div className="orders">
       <Tabs value={value} onChange={handleChange} centered>
-        <Tab onClick={handleClickT1} label="Pending Orders" />
-        <Tab onClick={handleClickT2} label="Completed Orders" />
+        <Tab onClick={handleClickT1} label="Active Orders" />
+        <Tab onClick={handleClickT2} label="Past Orders" />
       </Tabs>
       {t1 === true ? (
         pendingFilteredOrders.length > 0 ? (
