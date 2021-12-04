@@ -10,13 +10,7 @@ import PartenerImage from "../SpecialComp/PartenerImage/PartenerImage.jsx";
 const MainPage = () => {
   return (
     <div className="MainPage">
-      <div>
-        <img
-          src="./Pictures/main1.jpg"
-          class="d-block w-100"
-          alt="Pehli Slide"
-        />
-      </div>
+      <div className="main-page-location"></div>
 
       <div class="bd-example">
         <div
@@ -34,12 +28,12 @@ const MainPage = () => {
             <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
           </ol>
           <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img
+            <div class="carousel-item active p1">
+              {/*<img
                 src="./Pictures/main2.jpg"
                 class="d-block w-100"
                 alt="Pehli Slide"
-              />
+              />*/}
               <div class="carousel-caption d-md-block">
                 <h5>First slide label</h5>
                 <p>
@@ -47,23 +41,23 @@ const MainPage = () => {
                 </p>
               </div>
             </div>
-            <div class="carousel-item">
-              <img
+            <div class="carousel-item p2">
+              {/*<img
                 src="./Pictures/Gr2.jpg"
                 class="d-block w-100"
                 alt="ssissisi"
-              />
+              />*/}
               <div class="carousel-caption d-md-block">
                 <h5>Second slide label</h5>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               </div>
             </div>
-            <div class="carousel-item">
-              <img
+            <div class="carousel-item p3">
+              {/*<img
                 src="./Pictures/Gr1.jpg"
                 class="d-block w-100"
                 alt="ssjisjks"
-              />
+              />*/}
               <div class="carousel-caption d-md-block">
                 <h5>Third slide label</h5>
                 <p>

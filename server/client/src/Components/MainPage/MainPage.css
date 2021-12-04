@@ -27,7 +27,7 @@
 .clients {
   width: 100%;
   padding: 100px 0;
-  background: url("./img/food.jpg");
+  background: url("./img/food2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   font-size: 24px;
@@ -66,4 +66,55 @@
   .client p {
     font-size: 18px;
   }
+}
+
+/*========================Main Page 1st Pic==================================*/
+.main-page-location {
+  background: url("./img/bg.jpg");
+
+  background-size: cover;
+  height: 600px;
+  margin-bottom: 1px;
+}
+
+.d-block {
+  height: 700px;
+}
+.p1 {
+  background: url("./img/food.jpg");
+  background-size: cover;
+  height: 600px;
+}
+.p2 {
+  background: url("./img/bg.jpg");
+  background-size: cover;
+  height: 600px;
+}
+.p3 {
+  background: url("./img/pizza.jpg");
+  background-size: cover;
+  height: 600px;
+}
+
+@media (max-width: 800px) {
+  .main-page-location {
+    height: 400px;
+  }
+
+  .d-block {
+    height: 400px;
+  }
+}
+@media (max-width: 541px) {
+  .main-page-location {
+    height: 400px;
+  }
+
+  .d-block {
+    height: 300px;
+  }
+}
+
+.bd-example {
+  margin-bottom: 1px;
 }
