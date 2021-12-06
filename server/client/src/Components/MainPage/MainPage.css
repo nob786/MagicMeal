@@ -89,6 +89,7 @@
   margin-bottom: 5%;
 }
 .main-page-delivery-button {
+  border-radius: 5px;
   width: 100px;
   height: 50px;
   margin: 10px;
@@ -101,6 +102,7 @@
   background: var(--btn-hover-grad);
 }
 .main-page-pickup-button {
+  border-radius: 5px;
   width: 100px;
   height: 50px;
   margin: 10px;
@@ -165,6 +167,13 @@
 
   .d-block {
     height: 400px;
+  }
+
+  .main-page-slide-h1 {
+    font-size: 42px;
+  }
+  .main-page-slide-p {
+    font-size: 24px;
   }
 }
 @media (max-width: 541px) {

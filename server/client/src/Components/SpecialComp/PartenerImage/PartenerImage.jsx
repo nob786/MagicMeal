@@ -20,7 +20,7 @@ const PartenerImage = () => {
           <div className="partener-button">
             <Link to="/restaurant-signup">
               <button className="partner-button">
-                Become our Business Partener
+                Become our Business Partner
               </button>
             </Link>
           </div>

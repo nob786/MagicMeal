@@ -22,6 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const FoodieSignup = () => {
+  const [loading, setLoading] = React.useState(false);
   const history = useHistory();
   const [signupPic, setSignupPic] = React.useState(true);
 
@@ -64,53 +65,12 @@ const FoodieSignup = () => {
     setPassword({ [event.target.name]: event.target.value });
     setPhone({ [event.target.name]: event.target.value });
     */
-    setFormData((preVal) => {
-      if (name === "firstName") {
-        return {
-          firstName: value,
-          lastName: preVal.lastName,
-          email: preVal.email,
-          password: preVal.password,
-          contact: preVal.contact,
-        };
-      } else if (name === "lastName") {
-        return {
-          firstName: preVal.firstName,
-          lastName: value,
-          email: preVal.email,
-          password: preVal.password,
-          contact: preVal.contact,
-        };
-      } else if (name === "email") {
-        return {
-          firstName: preVal.firstName,
-          lastName: preVal.lastName,
-          email: value,
-          password: preVal.password,
-          contact: preVal.contact,
-        };
-      } else if (name === "password") {
-        return {
-          firstName: preVal.firstName,
-          lastName: preVal.lastName,
-          email: preVal.email,
-          password: value,
-          contact: preVal.contact,
-        };
-      } else if (name === "contact") {
-        return {
-          firstName: preVal.firstName,
-          lastName: preVal.lastName,
-          email: preVal.email,
-          password: preVal.password,
-          contact: value,
-        };
-      }
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
   //=======================================Handle Submmit================================
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
     console.log(formData);
     const { firstName, lastName, email, password, contact, role } = formData;
@@ -125,6 +85,7 @@ const FoodieSignup = () => {
         role: "customer",
       })
       .then((res) => {
+        setLoading(false);
         console.log(res.data);
         //window.alert("User Resgister Successfully");
         toast.success(`Successfully Signed-up as a Customer`, {
@@ -134,6 +95,7 @@ const FoodieSignup = () => {
         history.push("/foodie-login");
       })
       .catch((err) => {
+        setLoading(false);
         window.alert("ERROR");
       });
 
@@ -303,7 +265,17 @@ const FoodieSignup = () => {
             className="foodie-signup-submit-button"
             onClick={handleSubmit}
           >
-            Submit
+            {loading === true ? (
+              <div
+                class="spinner-border"
+                role="status"
+                style={{ color: "white" }}
+              >
+                <span class="sr-only">Loading...</span>
+              </div>
+            ) : (
+              "Submit"
+            )}
           </button>
 
           <div className="already">

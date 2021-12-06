@@ -45,6 +45,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const FoodieLogin = () => {
+  const [loading, setLoading] = React.useState(false);
   const [formData, setFormData] = React.useState({
     email: "",
     password: "",
@@ -82,6 +83,7 @@ const FoodieLogin = () => {
   };
 
   const handleSubmit = async (event) => {
+    setLoading(true);
     event.preventDefault();
     const { email, password } = formData;
 
@@ -91,6 +93,7 @@ const FoodieLogin = () => {
         password: password,
       })
       .then((response) => {
+        setLoading(false);
         /* console.log("Whole response", response);
         console.log("Response data", response.data);
         console.log("token", response.data.token);
@@ -305,7 +308,17 @@ const FoodieLogin = () => {
             />*/}
 
           <button className="login-submit-button" onClick={handleSubmit}>
-            Submit
+            {loading === true ? (
+              <div
+                class="spinner-border"
+                role="status"
+                style={{ color: "white" }}
+              >
+                <span class="sr-only">Loading...</span>
+              </div>
+            ) : (
+              "Submit"
+            )}
           </button>
           <Snackbar
             anchorOrigin={{ vertical: "top", horizontal: "center" }}

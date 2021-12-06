@@ -1,4 +1,6 @@
 import React from "react";
+import validate from "../ValidateForms/ValidateForm";
+//=================Material Ui Imports========================
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -20,25 +22,10 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { useHistory } from "react-router-dom";
 
-
 //=================React  Notification
-import {toast} from "react-toastify"
-import 'react-toastify/dist/ReactToastify.css'
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 toast.configure();
-
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://eatsabyte.com/">
-        Eatsabyte.com
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -49,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "#fe724c",
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -67,9 +54,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RestaurantSignup() {
+  const [loading, setLoading] = React.useState(false);
   const classes = useStyles();
 
-  const history =useHistory();
+  const history = useHistory();
 
   //const [cities, setCity] = React.useState('M');
 
@@ -81,12 +69,12 @@ export default function RestaurantSignup() {
     restaurantLocation: "",
     contact: "",
     category: "",
-    role: "restaurant"
+    role: "restaurant",
   });
 
   const handleChange = (event) => {
-    console.log(event.target.value);
-    console.log(event.target.name);
+    //console.log(event.target.value);
+    //console.log(event.target.name);
     const value = event.target.value;
     const name = event.target.name;
 
@@ -95,6 +83,7 @@ export default function RestaurantSignup() {
 
   //=======================================Handle Submmit================================
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
     //console.log(formData);
     const {
@@ -103,7 +92,7 @@ export default function RestaurantSignup() {
       password,
       restaurantName,
       restaurantLocation,
-      contact, 
+      contact,
       category,
       role,
     } = restAdmin;
@@ -120,36 +109,46 @@ export default function RestaurantSignup() {
         role: role,
       })
       .then((res) => {
+        setLoading(false);
         console.log(res.data);
         //window.alert("Signup Successfully");
-        toast.success(`Successfully Signed-up Partner Account`, {position: toast.POSITION.TOP_CENTER ,
-        autoClose: 2000});
+        toast.success(`Successfully Signed-up Partner Account`, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
         history.push("/foodie-login");
       })
       .catch((req) => {
+        setLoading(false);
         window.alert(req.message);
       });
   };
 
-
-
-   const handleAlreadyRestSignup =()=>{
-     history.push("/foodie-login");
-  }
+  const handleAlreadyRestSignup = () => {
+    history.push("/foodie-login");
+  };
 
   return (
-    <Container component="main" maxWidth="xs" className="restaurant-signup-container">
+    <Container
+      component="main"
+      maxWidth="xs"
+      className="restaurant-signup-container"
+    >
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5" style={{ color: "black", marginBottom: "10%" }} >
-          Chefs Partnership Form
+        <Typography
+          component="h1"
+          variant="h5"
+          style={{ color: "black", marginBottom: "10%" }}
+        >
+          Restaurant Business Form
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} >
+            <Grid item xs={12}>
               <TextField
                 autoComplete="name"
                 name="OwnerName"
@@ -199,13 +198,13 @@ export default function RestaurantSignup() {
                     </Select>
               </FormControl>
             </Grid> */}
-                        <Grid item xs={12}>
+            <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
                 fullWidth
                 id="restaurant_name"
-                label="Service Name"
+                label="Restaurant Name"
                 name="restaurantName"
                 value={restAdmin.restaurantName}
                 onChange={handleChange}
@@ -293,10 +292,7 @@ export default function RestaurantSignup() {
               />
             </Grid>
 
-
-
-
-           {/* <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <TextField
                 id="outlined-textarea"
                 label="Restaurant Category"
@@ -310,7 +306,6 @@ export default function RestaurantSignup() {
             </Grid>
         */}
 
-            
             {/*<Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
@@ -319,11 +314,23 @@ export default function RestaurantSignup() {
         </Grid>*/}
           </Grid>
           <div className="restaurant-signup-submit-button-div">
-                  <button className="restaurant-signup-submit-button" onClick={handleSubmit}>
-                    Submit
-                  </button>
+            <button
+              className="restaurant-signup-submit-button"
+              onClick={handleSubmit}
+            >
+              {loading === true ? (
+                <div
+                  class="spinner-border"
+                  role="status"
+                  style={{ color: "white" }}
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+              ) : (
+                "Submit"
+              )}
+            </button>
           </div>
-         
 
           {/*<Button
             type="submit"
@@ -334,21 +341,20 @@ export default function RestaurantSignup() {
           >
             Apply for Partener Program
           </Button>*/}
-          
 
           <Grid container justify="flex-end">
             <Grid item>
-              <Link variant="body2" to="/foodie-login" onClick={handleAlreadyRestSignup}>
+              <Link
+                variant="body2"
+                to="/foodie-login"
+                onClick={handleAlreadyRestSignup}
+              >
                 Already have an account? Sign in
               </Link>
-              
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
     </Container>
   );
 }

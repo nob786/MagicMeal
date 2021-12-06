@@ -29,6 +29,7 @@ const MainPage = () => {
     loaded: false,
     coordinates: { lat: "", long: "" },
   });
+  const [helperText, setHelperText] = React.useState("");
   const history = useHistory();
 
   useEffect(() => {}, []);
@@ -51,6 +52,8 @@ const MainPage = () => {
       history.push(
         `/restaurants/delivery/${location.coordinates.lat}&${location.coordinates.long}`
       );
+    } else if (location.loaded === true) {
+      setHelperText("Selev");
     }
   };
 
@@ -59,6 +62,8 @@ const MainPage = () => {
       history.push(
         `/restaurants/pickup/${location.coordinates.lat}&${location.coordinates.long}`
       );
+    } else if (location.loaded === true) {
+      setHelperText("Selev");
     }
   };
 
@@ -74,7 +79,7 @@ const MainPage = () => {
             variant="outlined"
           >
             <InputLabel htmlFor="outlined-adornment-password">
-              Enter full Address
+              Select Location
             </InputLabel>
             <OutlinedInput
               id="outlined"

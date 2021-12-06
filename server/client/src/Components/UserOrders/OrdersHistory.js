@@ -13,6 +13,7 @@ import AlertTitle from "@mui/material/AlertTitle";
 import SingleOrder from "./SingleOrder";
 
 const OrdersHistory = () => {
+  const [loading, setLoading] = React.useState(false);
   const [orders, setOrders] = React.useState([]);
   const [value, setValue] = React.useState(0);
 
@@ -43,6 +44,7 @@ const OrdersHistory = () => {
         const updatedOrders = res.data.updatedOrder;
         //console.log("orderss", updatedOrders);
         setOrders(updatedOrders);
+        setLoading(true);
         //window.alert("Orders Imported");
       })
       .catch((err) => {
@@ -85,7 +87,17 @@ const OrdersHistory = () => {
         <Tab onClick={handleClickT1} label="Active Orders" />
         <Tab onClick={handleClickT2} label="Past Orders" />
       </Tabs>
-      {t1 === true ? (
+      {loading === false ? (
+        <div class="d-flex justify-content-center">
+          <div
+            class="spinner-border m-5"
+            role="status"
+            style={{ color: "#fe724c" }}
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      ) : t1 === true && loading === true ? (
         pendingFilteredOrders.length > 0 ? (
           pendingFilteredOrders.map((order, index) => (
             <SingleOrder key={index} orders={order} />
@@ -103,7 +115,7 @@ const OrdersHistory = () => {
             </AlertTitle>
           </Alert>
         )
-      ) : t2 === true ? (
+      ) : t2 === true && loading === true ? (
         filteredOrders.length > 0 ? (
           filteredOrders.map((n, index) => (
             <SingleOrder key={index} orders={n} />

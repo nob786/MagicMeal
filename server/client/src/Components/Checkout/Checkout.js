@@ -93,7 +93,7 @@ function getStepContent(step) {
     /*case 1:
       return <AddressForm className="address-form"/>;*/
     case 1:
-      return <PaymentForm className="payment-form" />;
+      return <AddressForm className="address-form" />;
     case 2:
       return <Review className="review-form" />;
     default:

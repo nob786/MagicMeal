@@ -17,6 +17,7 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 
 const UserMenuItems = () => {
+  const [loading, setLoading] = React.useState(false);
   const [items, setItems] = React.useState([]);
   const [restaurantId, setRestaurantId] = React.useState();
   const [restaurantName, setRestaurantName] = React.useState();
@@ -29,7 +30,7 @@ const UserMenuItems = () => {
   //const restId = clickedRestaurantId;
 
   useEffect(async () => {
-    window.alert(id);
+    //window.alert(id);
     const { data } = await axios.get(`/user/get-restaurant-menu/${id}`, {
       /*headers: {
         authorization:
@@ -48,13 +49,24 @@ const UserMenuItems = () => {
       setRestaurantId(data.data._id);
       setRestaurantName(data.data.restaurantName);
       setContact(data.data.contact);
+      setLoading(true);
     } else {
       console.log("Could not fetch data.");
     }
   }, []);
   console.log("This ID", items);
 
-  return (
+  return loading === false ? (
+    <div class="d-flex justify-content-center">
+      <div
+        class="spinner-border m-5"
+        role="status"
+        style={{ color: "#fe724c" }}
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  ) : (
     <div className="Menus">
       <div className="menu-restaurant-profile">
         <span className="user-menu-restaurant-name">
