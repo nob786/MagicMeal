@@ -39,4 +39,9 @@ router.delete(
   authMiddleWare.verifyCustomer,
   userController.deleteComment
 );
+router.post(
+  "/restaurants-location/:lat/:ln",
+  userController.getRestaurantsByAddress
+);
+
 module.exports = router;
