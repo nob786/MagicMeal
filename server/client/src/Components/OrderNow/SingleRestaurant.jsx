@@ -42,7 +42,7 @@ const SingleRestaurant = ({ restaurant }) => {
 
         <div className="rating">
           <br />
-          <br />
+          Rating: 4.2
           <Box component="fieldset" mb={3} borderColor="transparent">
             <Rating
               name="half-rating-read"

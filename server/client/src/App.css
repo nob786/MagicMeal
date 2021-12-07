@@ -20,8 +20,7 @@
   color: #272d2f;
 }
 body {
-  background: url("./Components/MainPage/img/test.jpg");
-  background-repeat: no-repeat;
+  background: url("./Components/Signup/Images/signup-image.jpg");
+
   background-size: cover;
-  background-attachment: fixed;
 }

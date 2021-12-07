@@ -26,6 +26,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 //=================React  Notification==================
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import MobileHeader from "../MobileHeader/MobileHeader";
 toast.configure();
 
 //============================Main Function===================================//
@@ -117,195 +118,201 @@ function Header() {
   window.addEventListener("resize", showButton);
   return location.pathname === "/admin/dashboard" ? null : (
     <>
-      {partnerHeader === true ? (
-        <div className="close-header">
-          <h2>Register your Restaurant today!</h2>
-          <button
-            className="close-header-button"
-            onClick={handleRestaurantSignup}
-          >
-            Restaurant Signup
-          </button>
-          <CloseIcon
-            sx={{
-              color: "white",
-              margin: "20px",
-              cursor: "pointer",
-              position: "absolute",
-              float: "right",
-              right: "0",
-            }}
-            onClick={handleCloseHeader}
-          />
-        </div>
-      ) : null}
-      <div className="Header">
-        <div className="header-navbar">
-          <Link className="logo-name-link" to="/" onClick={closeMobileMenu}>
-            <h2>{window.name}</h2>
-            {/*<i class="fas fa-hamburger"></i>*/}
-          </Link>
+      <>
+        {" "}
+        <MobileHeader />
+      </>
+      <>
+        {partnerHeader === true ? (
+          <div className="close-header">
+            <h2>Register your Restaurant today!</h2>
+            <button
+              className="close-header-button"
+              onClick={handleRestaurantSignup}
+            >
+              Restaurant Signup
+            </button>
+            <CloseIcon
+              sx={{
+                color: "white",
+                margin: "20px",
+                cursor: "pointer",
+                position: "absolute",
+                float: "right",
+                right: "0",
+              }}
+              onClick={handleCloseHeader}
+            />
+          </div>
+        ) : null}
+        <div className="Header">
+          <div className="header-navbar">
+            <Link className="logo-name-link" to="/" onClick={closeMobileMenu}>
+              <h2>{window.name}</h2>
+              {/*<i class="fas fa-hamburger"></i>*/}
+            </Link>
 
-          {/*} <div className="navbar-menuicon" >
+            {/*} <div className="navbar-menuicon" >
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} onClick={handleClick}/>
     </div>*/}
 
-          {
-            //================== Mobile Version Hidden Navbar==========================
+            {
+              //================== Mobile Version Hidden Navbar==========================
 
-            sButton === true ? (
-              <div className="navbar-menu">
-                <ul
-                  className={
-                    click
-                      ? "navbar-menu-items active"
-                      : "nav-menu-items inactive"
-                  }
-                >
-                  {authCust === true ? (
-                    <li className="navbar-menu-items">
-                      <Link
-                        className="login-button-link"
-                        onClick={handleProfile}
-                      >
-                        <Avatar
-                          sx={{
-                            width: 32,
-                            height: 32,
-                            color: "white",
-                            backgroundColor: "#fe724c",
-                            textCombineUpright: "none",
-                          }}
+              sButton === true ? (
+                <div className="navbar-menu">
+                  <ul
+                    className={
+                      click
+                        ? "navbar-menu-items active"
+                        : "nav-menu-items inactive"
+                    }
+                  >
+                    {authCust === true ? (
+                      <li className="navbar-menu-items">
+                        <Link
+                          className="login-button-link"
+                          onClick={handleProfile}
                         >
-                          {custData.firstName[0]}
-                        </Avatar>
-                      </Link>
-                      <Menu
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleProfileClose}
-                        onClick={handleProfileClose}
-                        PaperProps={{
-                          elevation: 0,
-                          sx: {
-                            overflow: "visible",
-                            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                            mt: 3,
-                            "& .MuiAvatar-root": {
-                              color: "white",
-                              backgroundColor: "#fe724c",
+                          <Avatar
+                            sx={{
                               width: 32,
                               height: 32,
-                              ml: 0,
-                              mr: 1,
+                              color: "white",
+                              backgroundColor: "#fe724c",
+                              textCombineUpright: "none",
+                            }}
+                          >
+                            {custData.firstName[0]}
+                          </Avatar>
+                        </Link>
+                        <Menu
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClose={handleProfileClose}
+                          onClick={handleProfileClose}
+                          PaperProps={{
+                            elevation: 0,
+                            sx: {
+                              overflow: "visible",
+                              filter:
+                                "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                              mt: 3,
+                              "& .MuiAvatar-root": {
+                                color: "white",
+                                backgroundColor: "#fe724c",
+                                width: 32,
+                                height: 32,
+                                ml: 0,
+                                mr: 1,
+                              },
+                              "&:before": {
+                                content: '""',
+                                display: "block",
+                                position: "absolute",
+                                top: 0,
+                                right: 14,
+                                width: 10,
+                                height: 10,
+                                bgcolor: "background.paper",
+                                transform: "translateY(-50%) rotate(45deg)",
+                                zIndex: 0,
+                              },
                             },
-                            "&:before": {
-                              content: '""',
-                              display: "block",
-                              position: "absolute",
-                              top: 0,
-                              right: 14,
-                              width: 10,
-                              height: 10,
-                              bgcolor: "background.paper",
-                              transform: "translateY(-50%) rotate(45deg)",
-                              zIndex: 0,
-                            },
-                          },
-                        }}
-                        transformOrigin={{
-                          horizontal: "right",
-                          vertical: "top",
-                        }}
-                        anchorOrigin={{
-                          horizontal: "right",
-                          vertical: "bottom",
-                        }}
-                      >
-                        {/*<MenuItem>
+                          }}
+                          transformOrigin={{
+                            horizontal: "right",
+                            vertical: "top",
+                          }}
+                          anchorOrigin={{
+                            horizontal: "right",
+                            vertical: "bottom",
+                          }}
+                        >
+                          {/*<MenuItem>
         <ListItemIcon>
             {<Settings fontSize="small" />}
           </ListItemIcon>
         {custData.firstName+" "+custData.lastName}
         </MenuItem>
         */}
-                        <Divider />
-                        <MenuItem onClick={handleMyAccount}>
-                          <Avatar /> User Profile
-                        </MenuItem>
-                        <Divider />
-                        {/* <MenuItem>
+                          <Divider />
+                          <MenuItem onClick={handleMyAccount}>
+                            <Avatar /> User Profile
+                          </MenuItem>
+                          <Divider />
+                          {/* <MenuItem>
                           <ListItemIcon>
 
                           </ListItemIcon>
                           Settings
                         </MenuItem> */}
-                        <MenuItem onClick={handleLogout}>
-                          {/* <ListItemIcon>
+                          <MenuItem onClick={handleLogout}>
+                            {/* <ListItemIcon>
                             <Logout fontSize="small" />
                             
                           </ListItemIcon> */}
-                          <LogoutIcon
-                            sx={{
-                              color: "#fe724c",
-                              width: 32,
-                              height: 32,
-                              ml: 0,
-                              mr: 1,
-                            }}
-                          />
-                          Logout
-                        </MenuItem>
-                      </Menu>
-                    </li>
-                  ) : (
-                    <li className="navbar-menu-items">
-                      <Link className="header-link" to="/">
-                        Home
-                      </Link>
-                    </li>
-                  )}
-                  <li className="navbar-menu-items">
-                    <Link
-                      className="header-link"
-                      to="/restaurants"
-                      onClick={closeMobileMenu}
-                    >
-                      Restaurants
-                    </Link>
-                  </li>
-
-                  {authCust === true ? (
-                    <li className="navbar-menu-items">
-                      <Link className="header-link" to="/user/orders-history">
-                        Orders
-                      </Link>
-                    </li>
-                  ) : null}
-
-                  {authCust === true ? (
-                    <li className="navbar-menu-items">
-                      <Badge
-                        badgeContent={itemsLength}
-                        style={{
-                          fontSize: "20px",
-                          color: "#272d2f",
-                        }}
-                      >
-                        <Link className="header-link" to="/checkout">
-                          <ShoppingCartIcon
-                            style={{
-                              color: "#fe724c",
-                            }}
-                          />
+                            <LogoutIcon
+                              sx={{
+                                color: "#fe724c",
+                                width: 32,
+                                height: 32,
+                                ml: 0,
+                                mr: 1,
+                              }}
+                            />
+                            Logout
+                          </MenuItem>
+                        </Menu>
+                      </li>
+                    ) : (
+                      <li className="navbar-menu-items">
+                        <Link className="header-link" to="/">
+                          Home
                         </Link>
-                      </Badge>
-                    </li>
-                  ) : null}
-
-                  {authCust === false ? (
+                      </li>
+                    )}
                     <li className="navbar-menu-items">
-                      {/*<Button
+                      <Link
+                        className="header-link"
+                        to="/restaurants"
+                        onClick={closeMobileMenu}
+                      >
+                        Restaurants
+                      </Link>
+                    </li>
+
+                    {authCust === true ? (
+                      <li className="navbar-menu-items">
+                        <Link className="header-link" to="/user/orders-history">
+                          Orders
+                        </Link>
+                      </li>
+                    ) : null}
+
+                    {authCust === true ? (
+                      <li className="navbar-menu-items">
+                        <Badge
+                          badgeContent={itemsLength}
+                          style={{
+                            fontSize: "20px",
+                            color: "#272d2f",
+                          }}
+                        >
+                          <Link className="header-link" to="/checkout">
+                            <ShoppingCartIcon
+                              style={{
+                                color: "#fe724c",
+                              }}
+                            />
+                          </Link>
+                        </Badge>
+                      </li>
+                    ) : null}
+
+                    {authCust === false ? (
+                      <li className="navbar-menu-items">
+                        {/*<Button
                 title="SignUp"
                 btn_link="/foodie-signup"
                 height="35px"
@@ -321,33 +328,37 @@ function Header() {
               />
            */}
 
-                      <Link className="signup-button-link" to="/foodie-signup">
-                        <button className="signup-button">Signup</button>
-                      </Link>
+                        <Link
+                          className="signup-button-link"
+                          to="/foodie-signup"
+                        >
+                          <button className="signup-button">Signup</button>
+                        </Link>
 
-                      {/*<button onClick={handleSignup}>
+                        {/*<button onClick={handleSignup}>
                 Signup
           </button>*/}
-                    </li>
-                  ) : null}
-
-                  <li className="navbar-menu-items">
-                    {authCust === false ? (
-                      <Link className="login-button-link" to="/foodie-login">
-                        <button className="login-button">Login</button>
-                      </Link>
+                      </li>
                     ) : null}
 
-                    {/*<button onClick={handleLogin}>
+                    <li className="navbar-menu-items">
+                      {authCust === false ? (
+                        <Link className="login-button-link" to="/foodie-login">
+                          <button className="login-button">Login</button>
+                        </Link>
+                      ) : null}
+
+                      {/*<button onClick={handleLogin}>
                 Login
         </button>*/}
-                  </li>
-                </ul>
-              </div>
-            ) : null
-          }
+                    </li>
+                  </ul>
+                </div>
+              ) : null
+            }
+          </div>
         </div>
-      </div>
+      </>
     </>
   );
 }

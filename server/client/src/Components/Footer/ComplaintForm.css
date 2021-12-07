@@ -1,22 +1,29 @@
-.complaint-form p{
+.complaint-form p {
   text-align: center;
-
 }
-
-
-.complaint-form-button-div{
+.complaint-form-container {
+  margin: auto;
+  margin-top: 5%;
+  border-radius: 5px;
+  box-shadow: 5px 10px 38px var(--prime-lightred);
+  height: auto;
+  background-color: white;
+}
+.complaint-form-button-div {
   text-align: center;
   margin-bottom: 50%;
   margin-top: 15%;
 }
 
-.complaint-form-button{
+.complaint-form-button {
+  width: 100%;
+  border-radius: 5px;
   height: 50px;
-  background-color: #242424; opacity: 0.9;
+  background-color: var(--prime-lightred);
   color: white;
+  border: none;
 }
-.complaint-form-button:hover{
+.complaint-form-button:hover {
   height: 50px;
-  background-color: white;
-  color: black;
+  background: var(--btn-hover-grad);
 }

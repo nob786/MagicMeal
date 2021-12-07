@@ -6,7 +6,12 @@
   text-transform: Uppercase;
   font-family: "Rubik", sans-serif;
   font-size: 50px;
-  background: -webkit-linear-gradient(#fe724c, #5e5e5e);
+  background: linear-gradient(
+    90deg,
+    rgba(190, 91, 64, 1) 5%,
+    rgba(198, 78, 78, 1) 60%,
+    rgba(228, 124, 95, 1) 99%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

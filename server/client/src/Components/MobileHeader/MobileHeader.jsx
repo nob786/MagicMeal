@@ -7,6 +7,8 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
+import "./MobileHeader.css";
+
 //=========================Material Ui Imports=================
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -271,8 +273,8 @@ export default function MobileHeader() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="sticky" style={{ backgroundColor: "#242424" }}>
+    <Box className="Mobile-Header" sx={{ flexGrow: 1 }}>
+      <AppBar position="sticky" style={{ backgroundColor: "#fe724c" }}>
         <Toolbar>
           {["left"].map((anchor) => (
             <React.Fragment key={anchor}>
@@ -286,7 +288,14 @@ export default function MobileHeader() {
               >
                 <MenuIcon />
               </IconButton>
-              <Link style={{ textDecoration: "none", fontSize: "28px" }} to="/">
+              <Link
+                style={{
+                  textDecoration: "none",
+                  fontSize: "28px",
+                  color: "white",
+                }}
+                to="/"
+              >
                 MagicMeal
               </Link>
 

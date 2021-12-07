@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router";
+import Geocode from "react-geocode";
+import axios from "../../axios";
 /*=========================Importing CSS File=========================*/
 import "../MainPage/MainPage.css";
 import NewsLetter from "../SpecialComp/NewsLetter/NewsLetter";
@@ -9,19 +11,19 @@ import PartenerImage from "../SpecialComp/PartenerImage/PartenerImage.jsx";
 
 //=================================Material Ui Fonts===========================
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Input from "@mui/material/Input";
-import FilledInput from "@mui/material/FilledInput";
+// import Box from "@mui/material/Box";
+// import IconButton from "@mui/material/IconButton";
+// import Input from "@mui/material/Input";
+// import FilledInput from "@mui/material/FilledInput";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
-import FormHelperText from "@mui/material/FormHelperText";
+// import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { alpha, styled } from "@mui/material/styles";
+// import TextField from "@mui/material/TextField";
+// import Visibility from "@mui/icons-material/Visibility";
+// import VisibilityOff from "@mui/icons-material/VisibilityOff";
+// import { alpha, styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 
 const MainPage = () => {
@@ -30,31 +32,90 @@ const MainPage = () => {
     coordinates: { lat: "", long: "" },
   });
   const [helperText, setHelperText] = React.useState("");
+  const [currentAddress, setCurrentAddress] = React.useState("");
   const history = useHistory();
 
-  useEffect(() => {}, []);
+  //=======================Google APi Implementation===================
+  // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
+  Geocode.setApiKey("AIzaSyDVU4OuR8QfN2mlaNw8HQDPTC2JusVQtHY");
 
-  const handleClickGps = () => {
-    navigator.geolocation.getCurrentPosition((location) => {
+  // set response language. Defaults to english.
+  Geocode.setLanguage("en");
+
+  // set response region. Its optional.
+  // A Geocoding request with region=es (Spain) will return the Spanish city.
+  Geocode.setRegion("es");
+
+  // set location_type filter . Its optional.
+  // google geocoder returns more that one address for given lat/lng.
+  // In some case we need one address as response for which google itself provides a location_type filter.
+  // So we can easily parse the result for fetching address components
+  // ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE are the accepted values.
+  // And according to the below google docs in description, ROOFTOP param returns the most accurate result.
+  Geocode.setLocationType("ROOFTOP");
+
+  // Enable or disable logs. Its optional.
+  Geocode.enableDebug();
+  //=========================================================================
+
+  // useEffect(async () => {
+  //   navigator.geolocation.getCurrentPosition((l) => {
+  //     setLocation({
+  //       loaded: true,
+  //       coordinates: {
+  //         lat: l.coords.latitude,
+  //         long: l.coords.longitude,
+  //       },
+  //     });
+  //   });
+  // }, []);
+
+  const handleClickGps = async () => {
+    navigator.geolocation.getCurrentPosition(async (l) => {
+      // console.log("location foiund", l);
+      Geocode.fromLatLng(l.coords.latitude, l.coords.longitude).then(
+        (response) => {
+          // const address = response.results[0].formatted_address;
+          // console.log("Current Address", address);
+          setCurrentAddress(response.results[0].formatted_address);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
       setLocation({
         loaded: true,
         coordinates: {
-          lat: location.coords.latitude,
-          long: location.coords.longitude,
+          lat: l.coords.latitude,
+          long: l.coords.longitude,
         },
       });
     });
-    console.log("loc", location);
+    // console.log("jshdjsdh");
+    Geocode.fromLatLng(
+      location.coordinates.lat,
+      location.coordinates.long
+    ).then(
+      (response) => {
+        // const address = response.results[0].formatted_address;
+        // console.log("Current Address", address);
+        setCurrentAddress(response.results[0].formatted_address);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   };
+  // console.log("loc3", location);
 
   const handleDeliveryRestaurants = () => {
-    if (location.loaded === true) {
-      history.push(
-        `/restaurants/delivery/${location.coordinates.lat}&${location.coordinates.long}`
-      );
-    } else if (location.loaded === true) {
-      setHelperText("Selev");
-    }
+    // if (location.loaded === true) {
+    //   history.push(
+    //     `/restaurants/delivery/${location.coordinates.lat}&${location.coordinates.long}`
+    //   );
+    // } else if (location.loaded === true) {
+    //   setHelperText("Selev");
+    // }
   };
 
   const handlePickupRestaurants = () => {
@@ -75,7 +136,7 @@ const MainPage = () => {
           <FormControl
             color="warning"
             className="main-page-location-bar"
-            sx={{ m: 1 }}
+            sx={{ m: 1, maxWidth: "600px" }}
             variant="outlined"
           >
             <InputLabel htmlFor="outlined-adornment-password">
@@ -95,7 +156,8 @@ const MainPage = () => {
                 </InputAdornment>
               }
               label="Enter Full Address"
-              value={`${location.coordinates.lat} ${location.coordinates.long}`}
+              // value={`${location.coordinates.lat} ${location.coordinates.long}`}\
+              value={currentAddress}
             />
           </FormControl>
           <button

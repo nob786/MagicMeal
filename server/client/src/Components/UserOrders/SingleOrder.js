@@ -48,6 +48,17 @@ const SingleOrder = ({ orders }) => {
         id="panel1a-header"
       >
         <Box sx={{ width: "100%", margin: "1%" }}>
+          {!(orders.status === "cancelled" || orders.status === "delivered") ? (
+            <div
+              style={{
+                textAlign: "center",
+                fontSize: "32px",
+                color: "#fe724c",
+              }}
+            >
+              Estimated Ready Time: 45min
+            </div>
+          ) : null}
           {orders.status === "delivered" ? (
             <Stepper
               className={c.root}
@@ -99,7 +110,7 @@ const SingleOrder = ({ orders }) => {
             <h2>Order ID: {orders._id}</h2>
           </span>
           <span className="user-order-restaurant-name">
-            <h2>Restaurant Name: {orders.restaurant.restaurantName}</h2>
+            <h2>{orders.restaurant.restaurantName}</h2>
           </span>
           <span className="user-order-status">
             <h2>Order Status: {orders.status}</h2>
@@ -109,22 +120,20 @@ const SingleOrder = ({ orders }) => {
       <AccordionDetails>
         {orders.items.map((item, index) => (
           <div className="order-history-details">
-            <span className="order-history-item-name">
-              Item Name: {item.itemName}
-            </span>
+            <span className="order-history-item-name">{item.itemName}</span>
             <br />
             <span className="order-history-item-price">
-              Price: {item.price}
+              {item.price} x {item.quantity} = {item.total}.Rs Total
             </span>
             <br />
-            <span className="order-history-item-quantity">
+            {/* <span className="order-history-item-quantity">
               Quantity: {item.quantity}
             </span>
             <br />
             <span className="order-history-item-total">
               Total: {item.total}
-            </span>
-            <br />
+            </span> */}
+            {/* <br /> */}
             <br />
           </div>
         ))}

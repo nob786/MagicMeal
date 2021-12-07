@@ -1,4 +1,7 @@
 /*===============================Header==================================*/
+.Mobile-Header {
+  display: none;
+}
 .close-header {
   justify-content: center;
   margin: auto;
@@ -34,6 +37,7 @@
   }
 }
 .Header {
+  display: unset;
   width: 100%;
   display: flex;
   padding-right: 5%;
@@ -92,7 +96,15 @@
 
 .logo-name-link h2:hover {
   text-decoration: none;
-  opacity: 0.7;
+  /* opacity: 0.9; */
+  background: linear-gradient(
+    90deg,
+    rgba(190, 91, 64, 1) 5%,
+    rgba(198, 78, 78, 1) 60%,
+    rgba(228, 124, 95, 1) 99%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .header-link {
@@ -174,3 +186,16 @@
   }
 }
 /*========================================================*/
+
+/* ========================================Mobile Header===================== */
+@media (max-width: 800px) {
+  .Header {
+    display: none;
+  }
+  .close-header {
+    display: none;
+  }
+  .Mobile-Header {
+    display: unset;
+  }
+}

@@ -1,5 +1,5 @@
 /*============================================Importing React File===================================*/
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 
 /*==============================================Importing CSS Files===================================*/
 import "./App.css"; /*App Css File*/
@@ -9,13 +9,8 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 //=============================================Importing Browser Router======================
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 //=================================Importing Components================================//
 import Header from "./Components/Header/Header";
@@ -31,7 +26,6 @@ import FoodieLogin from "./Components/Login/FoodieLogin";
 import FoodieSignup from "./Components/Signup/FoodieSignup";
 import ComplaintForm from "./Components/Footer/ComplaintForm";
 import FAQ from "./Components/Footer/FAQ";
-import AdminMainPage from "./RestaurantComponents/AdminPanel/AdminMainPage";
 import Restaurants from "./Components/OrderNow/Restaurants";
 import Checkout from "./Components/Checkout/Checkout";
 import UserMenuItems from "./Components/UserMenuItems/UserMenuItems";
@@ -44,6 +38,7 @@ import AdminMenuItems from "./RestaurantComponents/AdminPanel/AdminMenuItems";
 import RestOrdersPending from "./RestaurantComponents/RestaurantOrders/RestOrdersPending";
 import RestOrdersHistory from "./RestaurantComponents/RestaurantOrders/RestOrdersHistory";
 import AdminHeader from "./RestaurantComponents/AdminHeader/AdminHeader";
+import RestaurantProfile from "./RestaurantComponents/RestaurantProfile/RestaurantProfile";
 
 function App() {
   const [screenSize, setScreenSize] = React.useState();
@@ -74,13 +69,13 @@ function App() {
       <div className="App">
         <ScrollToTop />
         {screenSize > 970 &&
-        window.location.pathname.indexOf("/admin/") != 0 ? (
+        window.location.pathname.indexOf("/admin/") !== 0 ? (
           <Header />
         ) : screenSize <= 970 &&
-          window.location.pathname.indexOf("/admin/") != 0 ? (
+          window.location.pathname.indexOf("/admin/") !== 0 ? (
           <MobileHeader />
         ) : screenSize > 970 &&
-          window.location.pathname.indexOf("/admin/") == 0 ? (
+          window.location.pathname.indexOf("/admin/") === 0 ? (
           <AdminHeader />
         ) : null}
         {/* <Header/>  Header Section <Footer/> */}
@@ -104,6 +99,11 @@ function App() {
             path="/admin/orders-pending"
             component={RestOrdersPending}
           />
+          <RestaurantProtectedRoutes
+            exact
+            path="/admin/profile"
+            component={RestaurantProfile}
+          />
 
           {/*============================ Admin Testing Routers======================= */}
 
@@ -119,8 +119,8 @@ function App() {
           <Route path="/foodie-signup" component={FoodieSignup} />
 
           {/* ============================Restaurant and Order Pages================================== */}
-
-          <Route path="/restaurants" component={Restaurants} />
+          <Route exact path="/restaurants" component={Restaurants} />
+          <Route exact path="/restaurants/:lat" component={Restaurants} />
 
           {/* ============================User Restricted Routes================================== */}
           <CustomerProtectedRoutes

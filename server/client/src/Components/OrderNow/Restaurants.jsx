@@ -1,6 +1,7 @@
 import { SingleBed } from "@material-ui/icons";
 import React, { useEffect, useState, Component } from "react";
 import axios from "../../axios";
+import { useParams } from "react-router";
 
 //=========================MAterial Ui Imports=======================
 import FormControl from "@mui/material/FormControl";
@@ -12,6 +13,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import TitleTag from "../SpecialComp/TitleTag";
 import SingleRestaurant from "./SingleRestaurant";
 import "./Restaurants.css";
+import { useHistory } from "react-router";
 
 const Restaurants = () => {
   const [location, setLocation] = React.useState({
@@ -19,7 +21,11 @@ const Restaurants = () => {
     coordinates: { lat: "", long: "" },
   });
   let [d, setD] = useState([]);
-  let data;
+  let [nearbyRestaurants, setNearbyRestaurants] = useState();
+  const history = useHistory();
+  // const { lat } = useParams();
+
+  // const { long } = useParams();
 
   //===============Handle CLick Gps
   const handleClickGps = () => {
@@ -55,7 +61,24 @@ const Restaurants = () => {
     //});
   }, []);
   console.log("This is data of your state", d);
-
+  const handleFindRestaurants = () => {
+    if (location.loaded === true) {
+      // history.push(
+      //   `/restaurants/delivery/${location.coordinates.lat}&${location.coordinates.long}`
+      // );
+      const { nearbyData } = axios.get(
+        `/restaurants-location/${location.coordinates.lat}/${location.coordinates.long}`
+      );
+      if (nearbyData) {
+        setNearbyRestaurants(nearbyData);
+        console.log("Got It", nearbyData);
+      } else {
+      }
+    } else if (location.loaded === false) {
+      console.log("Not Get It");
+    }
+    // window.alert(lat);
+  };
   // Main Return Function
   return (
     <div className="Restaurants">
@@ -88,8 +111,20 @@ const Restaurants = () => {
               value={`${location.coordinates.lat} ${location.coordinates.long}`}
             />
           </FormControl>
-          <button className="restaurant-page-button">Find Restaurants</button>
+          <button
+            onClick={handleFindRestaurants}
+            className="restaurant-page-button"
+          >
+            Find Restaurants
+          </button>
         </div>
+      </div>
+      <TitleTag title="Nearby Restaurants" />
+      <br />
+      <div className="restaurants_grid">
+        {d.map((item, key) => (
+          <SingleRestaurant key={key} restaurant={item} />
+        ))}
       </div>
       <TitleTag title="All Restaurants" />
       <br />

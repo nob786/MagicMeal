@@ -7,9 +7,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 const Footer = () => {
   const location = useLocation();
 
-  return location.pathname === "/foodie-signup" ||
-    location.pathname === "/checkout" ||
-    location.pathname === "/foodie-login" ? null : (
+  return location.pathname === "/checkout" ? null : (
     <div className="Footer">
       <div className="Footer-b">
         <div className="footer-child">

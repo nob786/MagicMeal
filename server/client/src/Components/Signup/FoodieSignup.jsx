@@ -14,6 +14,7 @@ import TextField from "@material-ui/core/TextField";
 import EmailIcon from "@material-ui/icons/Email";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
+import Container from "@material-ui/core/Container";
 
 //=================React  Notification
 import { toast } from "react-toastify";
@@ -96,7 +97,11 @@ const FoodieSignup = () => {
       })
       .catch((err) => {
         setLoading(false);
-        window.alert("ERROR");
+        toast.error(err.message, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+        });
+        //window.alert("ERROR");
       });
 
     /*
@@ -111,9 +116,12 @@ const FoodieSignup = () => {
   };
 
   return (
-    <div className="foodie_signup_container">
-      <img className="image" src="./Pictures/foodiesignup.jpg" alt="" />
-
+    <Container
+      component="main"
+      maxWidth="sm"
+      className="foodie_signup_container"
+    >
+      {/* <div className="foodie_signup_container"> */}
       <form className="foodie_signup_form" onSubmit={handleSubmit}>
         <div className="foodie-signup-form-title">
           <h1>Sign Up as Foodie</h1>
@@ -121,6 +129,7 @@ const FoodieSignup = () => {
 
         <div className="form-fields">
           <TextField
+            variant="outlined"
             name="firstName"
             className="foodie-signup-fields"
             id="input-with-icon-textfield"
@@ -138,6 +147,7 @@ const FoodieSignup = () => {
 
         <div className="form-fields">
           <TextField
+            variant="outlined"
             name="lastName"
             className="foodie-signup-fields"
             id="input-with-icon-textfield"
@@ -155,6 +165,7 @@ const FoodieSignup = () => {
 
         <div className="form-fields">
           <TextField
+            variant="outlined"
             name="email"
             className="foodie-signup-fields"
             id="input-with-icon-textfield"
@@ -173,6 +184,7 @@ const FoodieSignup = () => {
 
         <div className="form-fields">
           <TextField
+            variant="outlined"
             name="password"
             className="foodie-signup-fields"
             id="input-with-icon-textfield"
@@ -215,6 +227,7 @@ const FoodieSignup = () => {
 
         <div className="form-fields">
           <TextField
+            variant="outlined"
             name="contact"
             className="foodie-signup-fields"
             id="input-with-icon-textfield"
@@ -279,22 +292,20 @@ const FoodieSignup = () => {
           </button>
 
           <div className="already">
-            Already registered? Please{" "}
             <Link
               style={{
                 textDecoration: "none",
                 color: "black",
-                fontWeight: "bold",
               }}
               to="/foodie-login"
             >
-              Login
-            </Link>{" "}
-            as a Foodie
+              Already registered? Please Login as a Foodie
+            </Link>
           </div>
         </div>
       </form>
-    </div>
+      {/* </div> */}
+    </Container>
   );
 };
 

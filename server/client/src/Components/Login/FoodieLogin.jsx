@@ -37,6 +37,7 @@ import { addCustomerData } from "../../Redux/actions/authentication";
 import { addRestaurantData } from "../../Redux/actions/authentication";
 import { addAuthCust } from "../../Redux/actions/authentication.js";
 import { addAuthRest } from "../../Redux/actions/authentication.js";
+import TitleTag from "../SpecialComp/TitleTag";
 
 toast.configure();
 
@@ -157,25 +158,33 @@ const FoodieLogin = () => {
           }
         }
         //history.push("/menus");
+      })
+      .catch((req) => {
+        setLoading(false);
+        // //window.alert(req.message);
+        toast.error(req.message, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+        });
       });
+  };
 
-    //const data = res.json();
-    //console.log("This is the response data", data);
-    /*if (!data) {
+  //const data = res.json();
+  //console.log("This is the response data", data);
+  /*if (!data) {
       window.alert("Could not login");
     } else {
       window.alert("Logged In Successfully");
     }*/
 
-    //console.log(formData);
-    /*
+  //console.log(formData);
+  /*
       console.log(firstName);
       console.log(lastName);
       console.log(email);
       console.log(password);
       console.log(phone);
   */
-  };
 
   const [role, setRole] = React.useState("");
 
@@ -199,12 +208,14 @@ const FoodieLogin = () => {
         <div className="login-form-title">
           <h1>Login Form</h1>
         </div>
+        {/* <TitleTag title="login form" /> */}
 
         <div className="form-fields">
           <TextField
             name="email"
+            variant="outlined"
             className="email"
-            id="input-with-icon-textfield"
+            id="input-textfield"
             label="Email"
             type="email"
             InputProps={{
@@ -221,11 +232,11 @@ const FoodieLogin = () => {
         <div className="form-fields">
           <TextField
             name="password"
+            variant="outlined"
             className="password"
             id="input-with-icon-textfield"
             label="Password"
             type="password"
-            autoComplete="current-password"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -338,21 +349,20 @@ const FoodieLogin = () => {
           </Snackbar>
 
           <div className="already-login">
-            Not Registered yet?{" "}
             <Link
               style={{
                 textDecoration: "none",
                 color: "black",
-                fontWeight: "bold",
               }}
               to="/foodie-signup"
             >
-              Signup
+              Not Registered yet? Signup as a Foodie
             </Link>{" "}
-            as a Foodie
           </div>
         </div>
       </form>
+      <br />
+      <br />
     </div>
   );
 };

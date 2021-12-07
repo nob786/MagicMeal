@@ -122,7 +122,7 @@ export default function RestaurantSignup() {
         setLoading(false);
         //window.alert(req.message);
         toast.error(req.message, {
-          position: toast.POSITION.BOTTOM_CENTER,
+          position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
         });
       });
@@ -135,9 +135,10 @@ export default function RestaurantSignup() {
   return (
     <Container
       component="main"
-      maxWidth="xs"
+      maxWidth="sm"
       className="restaurant-signup-container"
     >
+      <br />
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -145,7 +146,7 @@ export default function RestaurantSignup() {
         </Avatar>
         <Typography
           component="h1"
-          variant="h5"
+          variant="h4"
           style={{ color: "black", marginBottom: "10%" }}
         >
           Restaurant Business Form
@@ -346,9 +347,10 @@ export default function RestaurantSignup() {
             Apply for Partener Program
           </Button>*/}
 
-          <Grid container justify="flex-end">
+          <Grid container justify="center">
             <Grid item>
               <Link
+                style={{ cursor: "grab" }}
                 variant="body2"
                 to="/foodie-login"
                 onClick={handleAlreadyRestSignup}
@@ -359,6 +361,8 @@ export default function RestaurantSignup() {
           </Grid>
         </form>
       </div>
+      <br />
+      <br />
     </Container>
   );
 }

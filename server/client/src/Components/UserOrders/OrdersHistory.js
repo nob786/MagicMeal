@@ -87,7 +87,7 @@ const OrdersHistory = () => {
   return (
     <div className="orders">
       <Tabs
-        TabIndicatorProps={{ style: { background: "red", color: "red" } }}
+        TabIndicatorProps={{ style: { background: "#fe724c", color: "red" } }}
         value={value}
         onChange={handleChange}
         centered

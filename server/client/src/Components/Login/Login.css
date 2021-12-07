@@ -1,6 +1,10 @@
 /*===================================================================Foodie Login===============================================================*/
 
 .foodie_login_container {
+  box-shadow: 5px 10px 38px var(--prime-lightred);
+  border-radius: 25px;
+  background: url("../Signup/Images/signup-image.jpg");
+  background-size: cover;
   max-width: 500px;
   margin: auto;
   margin-top: 5%;
@@ -12,38 +16,31 @@
 }
 
 .foodie_login_form {
+  border-radius: 25px;
   color: white;
   text-align: center;
-  background-color: #ffc529;
-  width: 500px;
-  height: 500px;
-  background: rgb(43, 43, 43);
-  background: linear-gradient(
-    90deg,
-    rgba(43, 43, 43, 1) 0%,
-    rgba(254, 114, 76, 1) 0%,
-    rgba(255, 255, 255, 1) 100%
-  );
 }
 
 .login-form-title {
-  font-family: cursive;
   padding-top: 10%;
   padding-bottom: 20px;
 }
 
 .login-form-title h1 {
-  font-size: 26px;
-  font-weight: unset;
+  font-size: 32px;
+  background: linear-gradient(
+    90deg,
+    rgba(190, 91, 64, 1) 5%,
+    rgba(198, 78, 78, 1) 60%,
+    rgba(228, 124, 95, 1) 99%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .submit {
   padding-top: 50px;
   color: black;
-}
-
-.fields {
-  width: 400x;
 }
 
 .mobilecode {
@@ -67,7 +64,7 @@
 
 .email,
 .password {
-  width: 400px;
+  width: 90%;
 }
 
 .email :checked {
@@ -76,38 +73,33 @@
 
 .login-submit-button {
   height: 50px;
-  width: 150px;
+  width: 90%;
   margin-bottom: 10%;
-  border-radius: 25px;
+  border-radius: 5px;
   transition-duration: 0.4s;
   background-color: #fe724c;
   color: white;
-  border: #fe724c 1px solid;
+  border: none;
 }
 
 .login-submit-button:hover {
-  opacity: 0.5;
+  background: var(--btn-hover-grad);
 }
 
 /*========================Media Querries ===================================*/
 @media (max-width: 480px) {
   .foodie_login_form {
     color: white;
-    background-color: orange;
-    width: 95%;
     margin: auto;
-    height: 400px;
-    padding: 5%;
+    height: 450px;
   }
-  .email,
-  .password {
-    width: 95%;
-  }
+
   .title h1 {
     font-size: 16px;
     font-weight: unset;
   }
-  .form-fields {
-    width: 100%;
+  .email,
+  .password {
+    width: 95%;
   }
 }

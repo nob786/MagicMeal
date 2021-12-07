@@ -1,39 +1,26 @@
 import React, { createContext } from "react";
-import { Link } from "react-router-dom";
-
-
-
-
+// import { Link } from "react-router-dom";
 
 import "./Cart.css";
 
-
 import ContexCart from "./ContexCart.jsx";
 
-
-
 //==========================Redux imports===================================
-import { useDispatch, useSelector } from "react-redux";
-import {pushMenuId} from "../../Redux/actions/cartAction"
+import { useSelector } from "react-redux";
+// import { pushMenuId } from "../../Redux/actions/cartAction";
 
-
-
-export  const CartContext = createContext();
+export const CartContext = createContext();
 
 const Cart = () => {
+  const { clickedMenuId } = useSelector((state) => state.cart);
 
-
-  const {clickedMenuId} = useSelector(
-    (state) => state.cart
-  );
-
-  const deleteMenuItem=(menuId)=>{
+  const deleteMenuItem = (menuId) => {
     window.alert(menuId);
-  }
+  };
 
   return (
-    <CartContext.Provider value={{clickedMenuId,deleteMenuItem}}>
-    <ContexCart/>
+    <CartContext.Provider value={{ clickedMenuId, deleteMenuItem }}>
+      <ContexCart />
     </CartContext.Provider>
   );
 };
