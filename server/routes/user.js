@@ -39,7 +39,7 @@ router.delete(
   authMiddleWare.verifyCustomer,
   userController.deleteComment
 );
-router.post(
+router.get(
   "/restaurants-location/:lat/:ln",
   userController.getRestaurantsByAddress
 );
