@@ -22,7 +22,7 @@ import CloseIcon from "@mui/icons-material/Close";
 //import PersonAdd from '@mui/icons-material/PersonAdd';
 //import Settings from '@mui/icons-material/Settings';
 //import Logout from '@mui/icons-material/Logout';
-
+import LogoutIcon from "@mui/icons-material/Logout";
 //=================React  Notification==================
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -196,7 +196,7 @@ function Header() {
                               backgroundColor: "#fe724c",
                               width: 32,
                               height: 32,
-                              ml: -0.5,
+                              ml: 0,
                               mr: 1,
                             },
                             "&:before": {
@@ -231,19 +231,29 @@ function Header() {
         */}
                         <Divider />
                         <MenuItem onClick={handleMyAccount}>
-                          <Avatar /> My Account
+                          <Avatar /> User Profile
                         </MenuItem>
                         <Divider />
-                        <MenuItem>
+                        {/* <MenuItem>
                           <ListItemIcon>
-                            {/*<Settings fontSize="small" />*/}
+
                           </ListItemIcon>
                           Settings
-                        </MenuItem>
+                        </MenuItem> */}
                         <MenuItem onClick={handleLogout}>
-                          <ListItemIcon>
-                            {/*<Logout fontSize="small" />*/}
-                          </ListItemIcon>
+                          {/* <ListItemIcon>
+                            <Logout fontSize="small" />
+                            
+                          </ListItemIcon> */}
+                          <LogoutIcon
+                            sx={{
+                              color: "#fe724c",
+                              width: 32,
+                              height: 32,
+                              ml: 0,
+                              mr: 1,
+                            }}
+                          />
                           Logout
                         </MenuItem>
                       </Menu>

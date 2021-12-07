@@ -120,7 +120,11 @@ export default function RestaurantSignup() {
       })
       .catch((req) => {
         setLoading(false);
-        window.alert(req.message);
+        //window.alert(req.message);
+        toast.error(req.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+          autoClose: 3000,
+        });
       });
   };
 

@@ -19,10 +19,10 @@
     linear,
     left top,
     right top,
-    from(#f29263),
-    to(#ee5a6f)
+    from(#fe724c),
+    to(#f29263)
   );
-  background: linear-gradient(to right, #ee5a6f, #f29263);
+  background: linear-gradient(to right, #fe724c, #f29263);
 }
 
 .img-radius {

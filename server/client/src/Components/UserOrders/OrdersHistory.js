@@ -9,6 +9,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import { makeStyles } from "@mui/styles";
 
 import SingleOrder from "./SingleOrder";
 
@@ -16,6 +17,8 @@ const OrdersHistory = () => {
   const [loading, setLoading] = React.useState(false);
   const [orders, setOrders] = React.useState([]);
   const [value, setValue] = React.useState(0);
+
+  //===================Mui Styles=====================
 
   const pendingFilteredOrders = orders.filter(
     (n) =>
@@ -83,7 +86,12 @@ const OrdersHistory = () => {
 
   return (
     <div className="orders">
-      <Tabs value={value} onChange={handleChange} centered>
+      <Tabs
+        TabIndicatorProps={{ style: { background: "red", color: "red" } }}
+        value={value}
+        onChange={handleChange}
+        centered
+      >
         <Tab onClick={handleClickT1} label="Active Orders" />
         <Tab onClick={handleClickT2} label="Past Orders" />
       </Tabs>
@@ -103,17 +111,9 @@ const OrdersHistory = () => {
             <SingleOrder key={index} orders={order} />
           ))
         ) : (
-          <Alert
-            severity="info"
-            style={{
-              justifyContent: "center",
-            }}
-          >
-            <AlertTitle>
-              {" "}
-              <h2> Currently There are no Pending Orders</h2>
-            </AlertTitle>
-          </Alert>
+          <div class="alert alert-secondary text-center" role="alert">
+            No Active Orders.
+          </div>
         )
       ) : t2 === true && loading === true ? (
         filteredOrders.length > 0 ? (
@@ -121,19 +121,9 @@ const OrdersHistory = () => {
             <SingleOrder key={index} orders={n} />
           ))
         ) : (
-          <Alert
-            severity="info"
-            style={{
-              justifyContent: "center",
-              marginTop: "10%",
-              marginBottom: "10%",
-            }}
-          >
-            <AlertTitle>
-              {" "}
-              <h2> Currently There are no Completed Orders</h2>
-            </AlertTitle>
-          </Alert>
+          <div class="alert alert-secondary text-center mt-5 mb-5" role="alert">
+            Currently There are no Past Orders
+          </div>
         )
       ) : null}
     </div>

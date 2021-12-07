@@ -17,10 +17,19 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
+import { makeStyles } from "@mui/styles";
 
 const steps = ["Order Placed", "Accepted", "Ready"];
 
 const SingleOrder = ({ orders }) => {
+  const useStyles = makeStyles(() => ({
+    root: {
+      "& .Mui-disabled .MuiStepIcon-root": { color: "#5e5e5e" },
+      "& .Mui-active": { color: "#5e5e5e" },
+      "& .Mui-completed": { color: "#fe724c" },
+    },
+  }));
+  const c = useStyles();
   const [showDetails, setShowDetails] = React.useState(false);
 
   const handleDetails = () => {
@@ -41,6 +50,8 @@ const SingleOrder = ({ orders }) => {
         <Box sx={{ width: "100%", margin: "1%" }}>
           {orders.status === "delivered" ? (
             <Stepper
+              className={c.root}
+              orientation="vertical"
               style={{ marginTop: "1%", marginBottom: "2%" }}
               activeStep={1}
             >
@@ -60,6 +71,8 @@ const SingleOrder = ({ orders }) => {
           ) : null}
           {!(orders.status === "cancelled" || orders.status === "delivered") ? (
             <Stepper
+              className={c.root}
+              orientation="vertical"
               style={{ marginTop: "1%", marginBottom: "2%" }}
               activeStep={
                 orders.status === "pending"

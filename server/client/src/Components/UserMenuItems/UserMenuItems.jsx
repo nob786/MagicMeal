@@ -91,18 +91,12 @@ const UserMenuItems = () => {
 
       <TitleTag title="Menu Items We Have" />
       {clickedRestaurantData.items.length === 0 ? (
-        <span className="restaurant-item-check">
-          <Alert severity="info">
-            <AlertTitle>
-              {" "}
-              <h2>
-                {" "}
-                Currently This Restaurant has not added any Item. Please come
-                back later or Contact the Restaurant for any Querry.
-              </h2>
-            </AlertTitle>
-          </Alert>
-        </span>
+        <div class="alert alert-secondary text-center" role="alert">
+          No Menu Found.{" "}
+          <a href="/restaurants" class="alert-link">
+            Click here to Browse Other Restaurants
+          </a>
+        </div>
       ) : null}
       <div className="user-menus-grid">
         {items.map((item, index) => (

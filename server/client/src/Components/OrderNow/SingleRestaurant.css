@@ -1,91 +1,85 @@
-
 .Single_Restaurant {
-      height: 450px;
-      width: 400px;
-      margin-top: 20px;
-      transition: transform .2s;
-      background-color: white;
-      box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      margin-bottom: 3%;
-      cursor: pointer;
+  height: 450px;
+  width: 400px;
+  margin-top: 20px;
+  transition: transform 0.2s;
+  background-color: white;
+  box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 3%;
+  cursor: pointer;
 }
 .Single_Restaurant:hover {
-        transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-
+  transform: scale(
+    1.1
+  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 .restaurant-image-container {
-    width: 400px; 
+  width: 400px;
 }
 
 .restaurant-title {
-    color: black;
+  color: black;
 }
 
 .restaurant_image {
-    height: 300px;
-    width: 400px;
+  height: 300px;
+  width: 400px;
 }
 
 h1 {
-    font-size: 30px;
-    color: black;
-    font-weight: bold;
-    text-align: center;
+  font-size: 30px;
+  color: black;
+  font-weight: bold;
+  text-align: center;
 }
 
 .restaurant-address {
-    color: black;
-    font-size: 15px;
-    text-align: center;
+  color: black;
+  font-size: 15px;
+  text-align: center;
 }
 
 .rating {
-    text-align: center;
+  text-align: center;
 }
-
-
 
 .restaurant_link:link {
-    color: black;
-    text-decoration: none;
-} 
-
-
-.rating_title {
-
-    color: black;
-    font-size: 100px;
+  color: black;
+  text-decoration: none;
 }
 
-
+.rating_title {
+  color: black;
+  font-size: 100px;
+}
 
 /*========================Media Queries ==========================*/
 @media (max-width: 480px) {
-    .Single_Restaurant {
-        margin: auto;
-        width: 90%;
-        height: 100%;
-        background-color: white;
+  .Single_Restaurant {
+    margin: auto;
+    width: 90%;
+    height: 100%;
+    background-color: white;
   }
   .restaurant-image-container {
-      width: 100%;
-}
+    width: 100%;
+  }
 
-.restaurant_image {
+  .restaurant_image {
     height: 15rem;
     width: 100%;
-}
-.restaurant-title {
+  }
+  .restaurant-title {
     font-size: 16px;
     color: black;
     font-weight: bold;
+  }
 
-}
-
-h3 {
+  h3 {
     color: gray;
     font-size: 12px;
     text-align: center;
-}
   }
+}
