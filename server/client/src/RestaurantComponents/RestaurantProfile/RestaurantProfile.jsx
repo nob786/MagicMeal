@@ -50,11 +50,24 @@ const RestaurantProfile = () => {
     console.log("loc", location);
   };
 
-  const handleUploadLocation = () => {
-    if (location.loaded === true) {
-      history.push("/admin/");
-    } else if (location.loaded === false) {
-    }
+  const handleUploadLocation = async () => {
+    let lat = "30.210098";
+    let lng = "71.514337";
+    await axios
+      .post(`/item/restaurants-location/${lat}/${lng}`, {
+        headers: {
+          authorization:
+            localStorage.getItem("token") !== null
+              ? JSON.parse(localStorage.getItem("token"))
+              : null,
+        },
+      })
+      .then((res) => {
+        console.log("Successful");
+      })
+      .catch(() => {
+        console.log("Un-Successful");
+      });
   };
 
   //Customer Data

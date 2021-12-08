@@ -16,13 +16,25 @@ const NewsLetter = () => {
     axios
       .post("/public/subscribe-to-newsletter", { email })
       .then((res) => {
-        toast.success(`Successfully Subscribed to Our NewsLetter Service`, {
+        //console.log("Subscription data", res.data.message);
+        if (res.data.message)
+          toast.success(res.data.message, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
+        else {
+          toast.success("Successfully Subscribed", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
+        }
+      })
+      .catch((err) => {
+        // console.log("error", err._message);
+        toast.error("Validation Error", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000,
         });
-      })
-      .catch((req) => {
-        window.alert("Error");
       });
   };
 

@@ -25,10 +25,27 @@ const SingleRestaurant = ({ restaurant }) => {
     history.push(`/user-menu-items/${restaurant._id}`);
   };
   return (
-    <div onClick={onRestaurantClick} style={{ textDecoration: "none" }}>
+    <div
+      className="Single-Restaurant"
+      onClick={onRestaurantClick}
+      style={{ textDecoration: "none" }}
+    >
       <div className="Single_Restaurant">
-        <div className="restaurant-image-container">
-          <img className="restaurant_image" src={"../Pictures/R7.jpg"} />
+        <div
+          style={{
+            backgroundImage:
+              "url(https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500)",
+            height: "250px",
+            borderRadius: "25px",
+          }}
+          className="restaurant-image-container"
+        >
+          {/* <img
+            className="restaurant_image"
+            src={
+              "https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+            }
+          /> */}
         </div>
         {/*} <div>
         <FavoriteBorderIcon

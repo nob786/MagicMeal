@@ -20,8 +20,12 @@ const Restaurants = () => {
     loaded: false,
     coordinates: { lat: "", long: "" },
   });
-  let [d, setD] = useState([]);
   let [nearbyRestaurants, setNearbyRestaurants] = useState();
+  let [deliveryRestaurants, setDeliveryRestaurants] = useState([]);
+  let [pickupRestaurants, setPickupRestaurants] = useState([]);
+
+  let [allRestaurants, setAllRestaurants] = useState([]);
+
   const history = useHistory();
   // const { lat } = useParams();
 
@@ -47,7 +51,14 @@ const Restaurants = () => {
     if (data) {
       console.log("Data was  fetched", data.data);
       let finalDataToLaod = data.data;
-      setD(finalDataToLaod);
+      setAllRestaurants(finalDataToLaod);
+      //console.log("ALL rest", allRestaurants);
+      setPickupRestaurants(
+        finalDataToLaod.filter((rest) => rest.pickUp === true)
+      );
+      setDeliveryRestaurants(
+        finalDataToLaod.filter((rest) => rest.delivery === true)
+      );
     } else {
       console.log("Could not fetch data");
       return null;
@@ -60,7 +71,8 @@ const Restaurants = () => {
  */ //console.log(d);
     //});
   }, []);
-  console.log("This is data of your state", d);
+  //console.log("Pickupfetched", pickupRestaurants);
+  // console.log("This is data of your state", allRestaurants);
   const handleFindRestaurants = () => {
     if (location.loaded === true) {
       // history.push(
@@ -119,17 +131,35 @@ const Restaurants = () => {
           </button>
         </div>
       </div>
-      <TitleTag title="Nearby Restaurants" />
-      <br />
-      <div className="restaurants_grid">
-        {d.map((item, key) => (
-          <SingleRestaurant key={key} restaurant={item} />
-        ))}
-      </div>
+      {/* Imlementation of Nearby Restaurants */}
+      <>
+        <TitleTag title="Nearby Restaurants" />
+        <br />
+        <div className="restaurants_grid">
+          {allRestaurants.map((item, key) => (
+            <SingleRestaurant key={key} restaurant={item} />
+          ))}
+        </div>
+      </>
+      {/* Imlementation of All Pickup Restaurants */}
+
+      {/* {allRestaurants.filter((rest) => rest.pickUp === true) !== null ? (
+        <>
+          <TitleTag title="Pickup Restaurants" />
+          <div className="restaurants_grid">
+            {allRestaurants
+              .filter((rest) => rest.pickUp === true)
+              .map((rest, key) => {
+                return <SingleRestaurant key={key} restaurant={rest} />;
+              })}
+          </div>
+        </>
+      ) : null} */}
+      {/* Imlementation of All Restaurants */}
       <TitleTag title="All Restaurants" />
       <br />
       <div className="restaurants_grid">
-        {d.map((item, key) => (
+        {allRestaurants.map((item, key) => (
           <SingleRestaurant key={key} restaurant={item} />
         ))}
       </div>

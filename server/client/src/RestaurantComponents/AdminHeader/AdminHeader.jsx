@@ -63,7 +63,7 @@ function AdminHeader() {
   };
 
   const handleMyAccount = () => {
-    history.push("/restaurant/my-account");
+    history.push("/admin/profile");
   };
 
   const handleLogout = () => {

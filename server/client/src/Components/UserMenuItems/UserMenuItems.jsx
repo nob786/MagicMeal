@@ -68,8 +68,18 @@ const UserMenuItems = () => {
     </div>
   ) : (
     <div className="Menus">
-      <div className="menu-restaurant-profile">
-        <span className="user-menu-restaurant-name">
+      <div
+        style={{
+          background:
+            "url(https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500)",
+        }}
+        className="menu-restaurant-profile"
+      >
+        {/* <img
+          src="https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+          alt="new"
+        /> */}
+        {/* <span className="user-menu-restaurant-name">
           {clickedRestaurantData.restaurantName}{" "}
         </span>
         <br />
@@ -86,7 +96,23 @@ const UserMenuItems = () => {
         <span className="user-menu-restaurant-category">
           Type: {clickedRestaurantData.category}{" "}
         </span>
-        <br />
+        <br /> */}
+        <div className="bg-text">
+          <h2 className="user-menu-restaurant-name">
+            {" "}
+            {clickedRestaurantData.restaurantName}
+          </h2>
+          <br />
+          <br />
+          <br />
+          <h3 className="user-menu-restaurant-address">
+            <LocationOnIcon /> {clickedRestaurantData.address} <br />
+            <PhoneInTalkIcon /> {clickedRestaurantData.contact}
+            <br />
+            Type: {clickedRestaurantData.category} <br />
+          </h3>
+          <br />
+        </div>
       </div>
 
       <TitleTag title="Menu Items We Have" />

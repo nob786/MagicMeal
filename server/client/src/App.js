@@ -68,14 +68,9 @@ function App() {
     <Router>
       <div className="App">
         <ScrollToTop />
-        {screenSize > 970 &&
-        window.location.pathname.indexOf("/admin/") !== 0 ? (
+        {window.location.pathname.indexOf("/admin/") !== 0 ? (
           <Header />
-        ) : screenSize <= 970 &&
-          window.location.pathname.indexOf("/admin/") !== 0 ? (
-          <MobileHeader />
-        ) : screenSize > 970 &&
-          window.location.pathname.indexOf("/admin/") === 0 ? (
+        ) : window.location.pathname.indexOf("/admin/") === 0 ? (
           <AdminHeader />
         ) : null}
         {/* <Header/>  Header Section <Footer/> */}
