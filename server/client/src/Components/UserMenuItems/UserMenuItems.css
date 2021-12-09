@@ -69,6 +69,35 @@
   text-align: center;
 }
 
+.user-book-table-button {
+  color: white;
+  border-radius: 10px;
+  height: 50px;
+  width: 200px;
+  max-width: 500px;
+  background-color: var(--prime-lightred);
+  border: none;
+  font-size: 28px;
+}
+.user-book-table-button:hover {
+  background: var(--btn-hover-grad);
+}
+.book-table-modal {
+  z-index: 2001;
+}
+.book-table-send-button {
+  border: none;
+  color: white;
+  background-color: var(--prime-lightred);
+}
+.book-table-send-button:hover {
+  color: white;
+  background: var(--btn-hover-grad);
+}
+.book-table-send-button:link {
+  background: var(--btn-hover-grad);
+}
+
 @media (max-width: 480px) {
   .Menus {
     margin: 1%;
