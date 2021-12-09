@@ -33,33 +33,14 @@ const orderSchema = mongoose.Schema({
       required: true,
     },
   },
-  /*date: {
-    day: {
-      type: Number,
-      required: true,
-    },
-    month: {
-      type: String,
-      required: true,
-    },
-    year: {
-      type: Number,
-      required: true,
-    },
-  },
-  type: {
-    type: String,
-    enum: ["delivery","takeaway"],
-    required: true,
-  },*/
   items: [
     {
-      itemId: { type: String, required: true },
+      _id: { type: String, required: true },
       itemName: { type: String, required: true },
       itemDescription: { type: String, required: true },
       price: { type: Number, required: true },
       quantity: { type: Number, required: true },
-      total: { type: Number, required: true },
+      total: { type: Number },
     },
   ],
 

@@ -64,4 +64,10 @@ router.get(
   itemController.getPendingOrders
 );
 
+router.post(
+  "/upload-location/:lat/:lng",
+  authMiddleWare.verifyRestaurant,
+  itemController.uploadLocation
+);
+
 module.exports = router;

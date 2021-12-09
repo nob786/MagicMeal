@@ -102,7 +102,7 @@ exports.postOrder = async (req, res) => {
   const userId = req.loggedInUserId;
   const itemsArray = items.map((i) => {
     return {
-      itemId: i._id,
+      _id: i._id,
       itemName: i.itemName,
       itemDescription: i.description,
       price: i.price,
