@@ -108,23 +108,23 @@ const MainPage = () => {
   };
   // console.log("loc3", location);
 
-  const handleDeliveryRestaurants = () => {
-    // if (location.loaded === true) {
-    //   history.push(
-    //     `/restaurants/delivery/${location.coordinates.lat}&${location.coordinates.long}`
-    //   );
-    // } else if (location.loaded === true) {
-    //   setHelperText("Selev");
-    // }
+  const handleTableBookingRestaurants = () => {
+    if (location.loaded === true) {
+      history.push(
+        `/restaurants/tableBooking/${location.coordinates.lat}&${location.coordinates.long}`
+      );
+    } else if (location.loaded === false) {
+      setHelperText("Please Select Gps Location");
+    }
   };
 
   const handlePickupRestaurants = () => {
     if (location.loaded === true) {
       history.push(
-        `/restaurants/pickup/${location.coordinates.lat}&${location.coordinates.long}`
+        `/restaurants/pickUp/${location.coordinates.lat}&${location.coordinates.long}`
       );
-    } else if (location.loaded === true) {
-      setHelperText("Selev");
+    } else if (location.loaded === false) {
+      setHelperText("Please Select Gps Location");
     }
   };
 
@@ -162,9 +162,9 @@ const MainPage = () => {
           </FormControl>
           <button
             className="main-page-delivery-button"
-            onClick={handleDeliveryRestaurants}
+            onClick={handleTableBookingRestaurants}
           >
-            DELIVERY
+            BOOKING
           </button>
           OR
           <button
@@ -200,10 +200,10 @@ const MainPage = () => {
               />*/}
               <div class="carousel-caption d-md-block">
                 <h1 className="main-page-slide-h1">
-                  Get Food Delivered to Your Door Step!
+                  Select Your Favourite Food and Get it!
                 </h1>
                 <p className="main-page-slide-p">
-                  Place Order and the Restaurant will Deliver to your Location.
+                  Place Order and Pick it up from Restaurant.
                 </p>
                 <Link to="/restaurants">
                   <button className="partner-button main-slide-button">
@@ -213,21 +213,21 @@ const MainPage = () => {
               </div>
             </div>
             <div class="carousel-item p2">
-              {/*<img
+              {/* <img
                 src="./Pictures/Gr2.jpg"
                 class="d-block w-100"
                 alt="ssissisi"
-              />*/}
+              /> */}
               <div class="carousel-caption d-md-block">
                 <h1 className="main-page-slide-h1">
-                  Go and Grab your Meal from Restaurant!
+                  Scan Qr Code, Fetch Menus and Get Your Order on Table!
                 </h1>
                 <p className="main-page-slide-p">
-                  Place Order and Pick it up from Restaurant.
+                  Place Order and Get it on your table.
                 </p>
-                <Link to="/restaurants/pickup">
+                <Link to="/dine-in/qrscanner">
                   <button className="partner-button main-slide-button">
-                    ORDER NOW
+                    Dine-In
                   </button>
                 </Link>
               </div>

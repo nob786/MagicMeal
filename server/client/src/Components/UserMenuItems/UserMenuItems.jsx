@@ -1,5 +1,6 @@
 import { SingleBed } from "@material-ui/icons";
 import React, { useState, useEffect, Component } from "react";
+import { useHistory } from "react-router-dom";
 import { useParams } from "react-router";
 
 import TitleTag from "../SpecialComp/TitleTag";
@@ -20,20 +21,76 @@ import AlertTitle from "@mui/material/AlertTitle";
 import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
 
+//=================React  Notification
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
+
 const UserMenuItems = () => {
-  const [value, onChange] = useState(new Date());
-  const [time, setTime] = useState("10:00");
+  var currentDate = new Date();
+  // const [currentDate, setCurrentDate] = useState(new Date());
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState();
   const [loading, setLoading] = React.useState(false);
+  const [restaurantData, setRestaurantData] = React.useState([]);
   const [items, setItems] = React.useState([]);
-  const [restaurantId, setRestaurantId] = React.useState();
-  const [restaurantName, setRestaurantName] = React.useState();
-  const [contact, setContact] = React.useState();
+  // const [restaurantId, setRestaurantId] = React.useState();
+  // const [restaurantName, setRestaurantName] = React.useState();
+  // const [contact, setContact] = React.useState();
   const { id } = useParams();
+  const history = useHistory();
+
+  //Auth
+  const { authCust } = useSelector((state) => state.auth);
 
   const { clickedRestaurantId } = useSelector((state) => state.data);
   const { clickedRestaurantData } = useSelector((state) => state.data);
 
   //const restId = clickedRestaurantId;
+
+  const handleBookTableToggle = () => {
+    if (authCust === false) {
+      // console.log("toggle Data", String(restaurantData.bookTable));
+      history.push("/foodie-login");
+      toast.info(`Please Login First to Book Table`, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: false,
+      });
+    } else if (authCust === true && restaurantData.bookTable === false) {
+      toast.info(`Restaurant Has Disabled Table Reservation`, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: false,
+      });
+    }
+  };
+  const handleBookTableRequest = () => {
+    if (
+      date.getMonth() === currentDate.getMonth() &&
+      date.getDate() > currentDate.getDate() &&
+      date.getFullYear() === currentDate.getFullYear()
+      //&&
+      // Int time > currentDate.getHours()
+    ) {
+      // console.log("Order Place");
+      toast.success(`Table Reservation Request Sent`, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+    } else {
+      toast.info(`Booking Only Allow from Next Day`, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+    }
+    // console.log("Current Date", currentDate.getTimezoneOffset());
+    // console.log("Current", currentDate.getFullYear());
+    // console.log("User", time);
+    // console.log(
+    //   "Date Day",
+    //   currentDate.getHours() + ":" + currentDate.getMinutes()
+    // );
+    // console.log("Time", time);
+  };
 
   useEffect(async () => {
     //window.alert(id);
@@ -51,10 +108,11 @@ const UserMenuItems = () => {
       console.log("Restaurant", data.data);
       let finalLoadedData = data.data.items;
       //let restaurantId=data.data._id;
+      setRestaurantData(data.data);
       setItems(finalLoadedData);
-      setRestaurantId(data.data._id);
-      setRestaurantName(data.data.restaurantName);
-      setContact(data.data.contact);
+      // setRestaurantId(data.data._id);
+      // setRestaurantName(data.data.restaurantName);
+      // setContact(data.data.contact);
       setLoading(true);
     } else {
       console.log("Could not fetch data.");
@@ -106,22 +164,27 @@ const UserMenuItems = () => {
         <div className="bg-text">
           <h2 className="user-menu-restaurant-name">
             {" "}
-            {clickedRestaurantData.restaurantName}
+            {restaurantData.restaurantName}
           </h2>
           <br />
           <br />
           <br />
           <h3 className="user-menu-restaurant-address">
-            <LocationOnIcon /> {clickedRestaurantData.address} <br />
-            <PhoneInTalkIcon /> {clickedRestaurantData.contact}
+            <LocationOnIcon /> {restaurantData.address} <br />
+            <PhoneInTalkIcon /> {restaurantData.contact}
             <br />
-            Type: {clickedRestaurantData.category} <br />
+            Type: {restaurantData.category} <br />
           </h3>
           <br />
           <button
+            onClick={handleBookTableToggle}
             type="button"
             class="btn btn-primary"
-            data-toggle="modal"
+            data-toggle={
+              restaurantData.bookTable === true && authCust === true
+                ? "modal"
+                : null
+            }
             data-target="#exampleModal"
             data-whatever="@mdo"
             className="user-book-table-button"
@@ -132,7 +195,7 @@ const UserMenuItems = () => {
       </div>
 
       <TitleTag title="Menu Items We Have" />
-      {clickedRestaurantData.items.length === 0 ? (
+      {restaurantData.items.length === 0 ? (
         <div class="alert alert-secondary text-center" role="alert">
           No Menu Found.{" "}
           <a href="/restaurants" class="alert-link">
@@ -145,9 +208,9 @@ const UserMenuItems = () => {
           <SingleUserMenu
             key={index}
             menu={item}
-            restId={restaurantId}
-            restName={restaurantName}
-            cont={contact}
+            restId={restaurantData._id}
+            restName={restaurantData.restaurantName}
+            cont={restaurantData.contact}
             quantity={1}
           />
         ))}
@@ -183,7 +246,6 @@ const UserMenuItems = () => {
                   </label>
                   <input
                     type="number"
-                    maxLength={1}
                     class="form-control"
                     id="recipient-name"
                   />
@@ -193,7 +255,7 @@ const UserMenuItems = () => {
                     Message:
                   </label>
                   <textarea class="form-control" id="message-text"></textarea> */}
-                  <DatePicker onChange={onChange} value={value} />
+                  <DatePicker onChange={setDate} value={date} />
                 </div>
                 <div class="form-group">
                   <TimePicker onChange={setTime} value={time} />
@@ -208,7 +270,11 @@ const UserMenuItems = () => {
               >
                 Close
               </button>
-              <button type="button" class="btn book-table-send-button">
+              <button
+                onClick={handleBookTableRequest}
+                type="button"
+                class="btn book-table-send-button"
+              >
                 Send Request
               </button>
             </div>

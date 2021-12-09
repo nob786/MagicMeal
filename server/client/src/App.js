@@ -39,6 +39,7 @@ import RestOrdersPending from "./RestaurantComponents/RestaurantOrders/RestOrder
 import RestOrdersHistory from "./RestaurantComponents/RestaurantOrders/RestOrdersHistory";
 import AdminHeader from "./RestaurantComponents/AdminHeader/AdminHeader";
 import RestaurantProfile from "./RestaurantComponents/RestaurantProfile/RestaurantProfile";
+import QrScanner from "./Components/QrScanner/QrScanner";
 
 function App() {
   const [screenSize, setScreenSize] = React.useState();
@@ -128,6 +129,7 @@ function App() {
           />
           {/* ============================User Not Restricted Routes================================== */}
           <Route path="/user-menu-items/:id" component={UserMenuItems} />
+          <Route path="/dine-in/qrscanner" component={QrScanner} />
 
           {/*============================Testing Routers======================= */}
 
@@ -141,6 +143,7 @@ function App() {
           <Route path="/" exact component={MainPage} />
 
           {/* ============================User Restriced Routes================================== */}
+
           <CustomerProtectedRoutes path="/checkout" component={Checkout} />
 
           <Route path="/*" component={NotFound} />

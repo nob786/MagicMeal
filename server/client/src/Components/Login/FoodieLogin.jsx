@@ -130,10 +130,9 @@ const FoodieLogin = () => {
               window.location.replace("/admin/menu-items");
             }, 1500);
 
-            toast.success(
-              `Welcome ${restaurant.ownerName}! You Have successfully Logged in to ${role} Account`,
-              { position: toast.POSITION.TOP_CENTER }
-            );
+            toast.success(`Welcome! ${restaurant.restaurantName}`, {
+              position: toast.POSITION.TOP_CENTER,
+            });
             //history.push("/admin/dashboard");
           } else if (role === "customer") {
             /*localStorage.setItem(
@@ -152,7 +151,7 @@ const FoodieLogin = () => {
 
             history.push("/");
             toast.success(
-              `Welcome ${customer.firstName} ${customer.lastName}! You Have successfully Logged in to Customer Account`,
+              `Welcome ${customer.firstName} ${customer.lastName}`,
               { position: toast.POSITION.TOP_CENTER, autoClose: 2000 }
             );
           }

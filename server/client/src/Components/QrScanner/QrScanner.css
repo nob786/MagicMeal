@@ -1,0 +1,11 @@
+.qr-scanner {
+  width: 400px;
+  margin: auto;
+}
+
+@media (max-width: 400px) {
+  .qr-scanner {
+    width: auto;
+    margin: auto;
+  }
+}

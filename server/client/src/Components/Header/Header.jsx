@@ -282,6 +282,15 @@ function Header() {
                         Restaurants
                       </Link>
                     </li>
+                    <li className="navbar-menu-items">
+                      <Link
+                        className="header-link"
+                        to="/dine-in/qrscanner"
+                        // onClick={closeMobileMenu}
+                      >
+                        Dine-In
+                      </Link>
+                    </li>
 
                     {authCust === true ? (
                       <li className="navbar-menu-items">
