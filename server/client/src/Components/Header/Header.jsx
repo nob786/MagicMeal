@@ -171,19 +171,20 @@ function Header() {
                     {authCust === true ? (
                       <li className="navbar-menu-items">
                         <Link
+                          style={{ textDecoration: "none" }}
                           className="login-button-link"
                           onClick={handleProfile}
                         >
                           <Avatar
                             sx={{
-                              width: 32,
-                              height: 32,
+                              maxWidth: 32,
+                              maxHeight: 32,
                               color: "white",
                               backgroundColor: "#fe724c",
                               textCombineUpright: "none",
                             }}
                           >
-                            {custData.firstName[0]}
+                            {custData.firstName ? custData.firstName[0] : null}
                           </Avatar>
                         </Link>
                         <Menu

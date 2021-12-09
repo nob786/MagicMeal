@@ -199,3 +199,23 @@
     display: unset;
   }
 }
+
+/*================================Boot strap ===============================*/
+.bootstrap-profile-dropdown {
+  background-color: var(--prime-white);
+  border-radius: 5px;
+  border: var(--prime-lightred) 1px solid;
+}
+
+.bootstrap-profile-dropdown:hover {
+  background: var(--btn-hover-grad);
+  border: none;
+}
+.bootstrap-profile-dropdown:checked {
+  background: var(--btn-hover-grad);
+  border: none;
+}
+.bootstrap-profile-dropdown:link {
+  background: var(--btn-hover-grad);
+  border: none;
+}

@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ["Cart", "Payment details", "Review and Place your order"];
+const steps = ["Cart", "Review and Place your order"];
 let showNext = true;
 /*const checkItems = (number) => {
   if (number >=1) 
@@ -89,12 +89,12 @@ let showNext = true;
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <Cart className="address-form" />;
+      return <Cart />;
     /*case 1:
       return <AddressForm className="address-form"/>;*/
+    // case 1:
+    //   return <PaymentForm className="payment-form" />;
     case 1:
-      return <PaymentForm className="payment-form" />;
-    case 2:
       return <Review className="review-form" />;
     default:
       throw new Error("Unknown step");

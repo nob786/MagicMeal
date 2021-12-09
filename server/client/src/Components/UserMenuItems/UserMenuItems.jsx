@@ -16,7 +16,13 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 
+//=========================oTHER iMPORTS==========================
+import DatePicker from "react-date-picker";
+import TimePicker from "react-time-picker";
+
 const UserMenuItems = () => {
+  const [value, onChange] = useState(new Date());
+  const [time, setTime] = useState("10:00");
   const [loading, setLoading] = React.useState(false);
   const [items, setItems] = React.useState([]);
   const [restaurantId, setRestaurantId] = React.useState();
@@ -68,8 +74,18 @@ const UserMenuItems = () => {
     </div>
   ) : (
     <div className="Menus">
-      <div className="menu-restaurant-profile">
-        <span className="user-menu-restaurant-name">
+      <div
+        style={{
+          background:
+            "url(https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500)",
+        }}
+        className="menu-restaurant-profile"
+      >
+        {/* <img
+          src="https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+          alt="new"
+        /> */}
+        {/* <span className="user-menu-restaurant-name">
           {clickedRestaurantData.restaurantName}{" "}
         </span>
         <br />
@@ -86,7 +102,33 @@ const UserMenuItems = () => {
         <span className="user-menu-restaurant-category">
           Type: {clickedRestaurantData.category}{" "}
         </span>
-        <br />
+        <br /> */}
+        <div className="bg-text">
+          <h2 className="user-menu-restaurant-name">
+            {" "}
+            {clickedRestaurantData.restaurantName}
+          </h2>
+          <br />
+          <br />
+          <br />
+          <h3 className="user-menu-restaurant-address">
+            <LocationOnIcon /> {clickedRestaurantData.address} <br />
+            <PhoneInTalkIcon /> {clickedRestaurantData.contact}
+            <br />
+            Type: {clickedRestaurantData.category} <br />
+          </h3>
+          <br />
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#exampleModal"
+            data-whatever="@mdo"
+            className="user-book-table-button"
+          >
+            Book Table
+          </button>
+        </div>
       </div>
 
       <TitleTag title="Menu Items We Have" />
@@ -109,6 +151,69 @@ const UserMenuItems = () => {
             quantity={1}
           />
         ))}
+      </div>
+      <div
+        class="modal fade book-table-modal"
+        id="exampleModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Table Reservation Request
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">
+                    Number of Persons:
+                  </label>
+                  <input
+                    type="number"
+                    maxLength={1}
+                    class="form-control"
+                    id="recipient-name"
+                  />
+                </div>
+                <div class="form-group">
+                  {/* <label for="message-text" class="col-form-label">
+                    Message:
+                  </label>
+                  <textarea class="form-control" id="message-text"></textarea> */}
+                  <DatePicker onChange={onChange} value={value} />
+                </div>
+                <div class="form-group">
+                  <TimePicker onChange={setTime} value={time} />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn book-table-send-button">
+                Send Request
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -26,7 +26,8 @@ const SingleOrder = ({ orders }) => {
     root: {
       "& .Mui-disabled .MuiStepIcon-root": { color: "#5e5e5e" },
       "& .Mui-active": { color: "#5e5e5e" },
-      "& .Mui-completed": { color: "#fe724c" },
+      "& .Mui-completed": { color: "#5cb85c" },
+      // "#fe724c"
     },
   }));
   const c = useStyles();
@@ -48,7 +49,7 @@ const SingleOrder = ({ orders }) => {
         id="panel1a-header"
       >
         <Box sx={{ width: "100%", margin: "1%" }}>
-          {!(orders.status === "cancelled" || orders.status === "delivered") ? (
+          {/* {!(orders.status === "cancelled" || orders.status === "delivered") ? (
             <div
               style={{
                 textAlign: "center",
@@ -58,7 +59,7 @@ const SingleOrder = ({ orders }) => {
             >
               Estimated Ready Time: 45min
             </div>
-          ) : null}
+          ) : null} */}
           {orders.status === "delivered" ? (
             <Stepper
               className={c.root}
