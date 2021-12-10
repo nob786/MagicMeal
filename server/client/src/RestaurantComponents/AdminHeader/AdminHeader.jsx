@@ -13,6 +13,10 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
+import LogoutIcon from "@mui/icons-material/Logout";
+import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
+import SettingsIcon from "@mui/icons-material/Settings";
+import HomeIcon from "@mui/icons-material/Home";
 
 //==========================Redux imports===================================
 import { useDispatch, useSelector } from "react-redux";
@@ -66,6 +70,19 @@ function AdminHeader() {
     history.push("/admin/profile");
   };
 
+  //HandeClickMenuMangement
+  const handleClickMenuManagement = () => {
+    history.push("/admin/menu-items");
+  };
+
+  //HandeClickMenuMangement
+  const handleClickAdminSettings = () => {
+    history.push("/admin/settings");
+  };
+  const handleClickDashboard = () => {
+    history.push("/admin/dashboard");
+  };
+
   const handleLogout = () => {
     //localStorage.removeItem("magic-meal-restaurant-token");
     localStorage.removeItem("token");
@@ -91,117 +108,306 @@ function AdminHeader() {
 
   window.addEventListener("resize", showButton);
   return (
-    <div className="Restaurant-Header">
-      <div className="restaurant-header-navbar">
-        <Link className="restaurant-logo-name-link" to="/admin/menu-items">
-          <h2>MagicMeal Restaurant Panel </h2>
+    <div className="Header">
+      <div className="header-navbar">
+        <Link
+          className="logo-name-link"
+          to="/admin/dashboard"
+          onClick={closeMobileMenu}
+        >
+          <h2>{window.name}</h2>
+          {/*<i class="fas fa-hamburger"></i>*/}
         </Link>
 
         {/*} <div className="navbar-menuicon" >
-            <i className={click ? 'fas fa-times' : 'fas fa-bars'} onClick={handleClick}/>
-    </div>*/}
+      <i className={click ? 'fas fa-times' : 'fas fa-bars'} onClick={handleClick}/>
+</div>*/}
 
-        <div className="restaurant-navbar-menu">
-          <ul
-            className={
-              click
-                ? "restaurant-navbar-menu-items active"
-                : "restaurant-nav-menu-items inactive"
-            }
-          >
-            <li className="restaurant-navbar-menu-items">
-              <Link className="restaurant-header-link" to="/admin/menu-items">
-                Menu
-              </Link>
-            </li>
+        {
+          //================== Mobile Version Hidden Navbar==========================
 
-            <li className="restaurant-navbar-menu-items">
-              <Link
-                className="restaurant-header-link"
-                to="/admin/orders-pending"
-              >
-                Orders Approval
-              </Link>
-            </li>
-
-            <li className="restaurant-navbar-menu-items">
-              <Link
-                className="restaurant-header-link"
-                to="/admin/orders-history"
-              >
-                Orders History
-              </Link>
-            </li>
-
-            <li className="restaurant-navbar-menu-items">
-              <Link
-                className="restaurant-login-button-link"
-                onClick={handleProfile}
-              >
-                <Avatar sx={{ width: 32, height: 32 }}>
-                  {restData.restaurantName[0]}
-                </Avatar>
-              </Link>
-              <Menu
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleProfileClose}
-                onClick={handleProfileClose}
-                PaperProps={{
-                  elevation: 0,
-                  sx: {
-                    overflow: "visible",
-                    filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                    mt: 3,
-                    "& .MuiAvatar-root": {
-                      width: 32,
-                      height: 32,
-                      ml: -0.5,
-                      mr: 1,
+          <div className="navbar-menu">
+            <ul
+              className={
+                click ? "navbar-menu-items active" : "nav-menu-items inactive"
+              }
+            >
+              <li className="navbar-menu-items">
+                <Link
+                  style={{ textDecoration: "none" }}
+                  className="login-button-link"
+                  onClick={handleProfile}
+                >
+                  <Avatar
+                    sx={{
+                      maxWidth: 32,
+                      maxHeight: 32,
+                      color: "white",
+                      backgroundColor: "#fe724c",
+                      textCombineUpright: "none",
+                    }}
+                  >
+                    {restData.restaurantName
+                      ? restData.restaurantName[0]
+                      : null}
+                  </Avatar>
+                </Link>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleProfileClose}
+                  onClick={handleProfileClose}
+                  PaperProps={{
+                    elevation: 0,
+                    sx: {
+                      overflow: "visible",
+                      filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                      mt: 3,
+                      "& .MuiAvatar-root": {
+                        color: "white",
+                        backgroundColor: "#fe724c",
+                        width: 32,
+                        height: 32,
+                        mr: 1,
+                      },
+                      "&:before": {
+                        content: '""',
+                        display: "block",
+                        position: "absolute",
+                        top: 0,
+                        right: 14,
+                        width: 10,
+                        height: 10,
+                        bgcolor: "background.paper",
+                        transform: "translateY(-50%) rotate(45deg)",
+                        zIndex: 0,
+                      },
                     },
-                    "&:before": {
-                      content: '""',
-                      display: "block",
-                      position: "absolute",
-                      top: 0,
-                      right: 14,
-                      width: 10,
-                      height: 10,
-                      bgcolor: "background.paper",
-                      transform: "translateY(-50%) rotate(45deg)",
-                      zIndex: 0,
-                    },
-                  },
-                }}
-                transformOrigin={{ horizontal: "right", vertical: "top" }}
-                anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-              >
-                {/*<MenuItem>
-        <ListItemIcon>
-            {<Settings fontSize="small" />}
-          </ListItemIcon>
-        {custData.firstName+" "+custData.lastName}
-        </MenuItem>
-        */}
-                <Divider />
-                <MenuItem onClick={handleMyAccount}>
-                  <Avatar /> My Account
-                </MenuItem>
-                <Divider />
-                <MenuItem>
-                  <ListItemIcon>
-                    {/*<Settings fontSize="small" />*/}
-                  </ListItemIcon>
-                  Settings
-                </MenuItem>
-                <MenuItem onClick={handleLogout}>
-                  <ListItemIcon>{/*<Logout fontSize="small" />*/}</ListItemIcon>
-                  Logout
-                </MenuItem>
-              </Menu>
-            </li>
-          </ul>
-        </div>
+                  }}
+                  transformOrigin={{
+                    horizontal: "right",
+                    vertical: "top",
+                  }}
+                  anchorOrigin={{
+                    horizontal: "right",
+                    vertical: "bottom",
+                  }}
+                >
+                  {/*<MenuItem>
+  <ListItemIcon>
+      {<Settings fontSize="small" />}
+    </ListItemIcon>
+  {custData.firstName+" "+custData.lastName}
+  </MenuItem>
+  */}
+                  <Divider />
+                  <MenuItem onClick={handleMyAccount}>
+                    <Avatar
+                      sx={{
+                        color: "#fe724c",
+                        width: 32,
+                        height: 32,
+                        ml: 0,
+                        mr: 1,
+                      }}
+                    />{" "}
+                    Restaurant Profile
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem
+                    sx={{ marginTop: 1 }}
+                    onClick={handleClickDashboard}
+                  >
+                    <HomeIcon
+                      sx={{
+                        color: "#fe724c",
+                        width: 32,
+                        height: 32,
+                        ml: 0,
+                        mr: 1,
+                      }}
+                    />{" "}
+                    Dashboard
+                  </MenuItem>
+
+                  <MenuItem
+                    sx={{ marginTop: 1 }}
+                    onClick={handleClickMenuManagement}
+                  >
+                    <RestaurantMenuIcon
+                      sx={{
+                        color: "#fe724c",
+                        width: 32,
+                        height: 32,
+                        ml: 0,
+                        mr: 1,
+                      }}
+                    />{" "}
+                    Menu Management
+                  </MenuItem>
+
+                  <MenuItem
+                    sx={{ marginTop: 1 }}
+                    onClick={handleClickAdminSettings}
+                  >
+                    <SettingsIcon
+                      sx={{
+                        color: "#fe724c",
+                        width: 32,
+                        height: 32,
+                        ml: 0,
+                        mr: 1,
+                      }}
+                    />{" "}
+                    Settings
+                  </MenuItem>
+                  <Divider />
+
+                  <MenuItem onClick={handleLogout}>
+                    {/* <ListItemIcon>
+                      <Logout fontSize="small" />
+                      
+                    </ListItemIcon> */}
+                    <LogoutIcon
+                      sx={{
+                        color: "#fe724c",
+                        width: 32,
+                        height: 32,
+                        ml: 0,
+                        mr: 1,
+                      }}
+                    />
+                    Logout
+                  </MenuItem>
+                </Menu>
+              </li>
+              {/* <li className="navbar-menu-items">
+                <Link className="header-link" to="/admin/dashboard">
+                  Dashboard
+                </Link>
+              </li> */}
+
+              <li className="navbar-menu-items">
+                <div class="dropdown">
+                  <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Dine-In Orders
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <a class="dropdown-item" href="#">
+                      Active Orders
+                    </a>
+                    <a class="dropdown-item" href="#">
+                      Past Orders
+                    </a>
+                  </div>
+                </div>
+              </li>
+
+              {/* <li className="navbar-menu-items">
+                <Link
+                  className="header-link"
+                  to="/restaurants"
+                  onClick={closeMobileMenu}
+                >
+                  Restaurants
+                </Link>
+              </li> */}
+              {/* <li className="navbar-menu-items">
+                <Link
+                  className="header-link"
+                  to="/dine-in/qrscanner"
+                  // onClick={closeMobileMenu}
+                >
+                  Dine-In
+                </Link>
+              </li> */}
+              <li className="navbar-menu-items">
+                <div class="dropdown">
+                  <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Table Reservations
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <a class="dropdown-item" href="#">
+                      Pending Reservations
+                    </a>
+                    <a class="dropdown-item" href="#">
+                      Reservations
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li className="navbar-menu-items">
+                <div class="dropdown">
+                  <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    PickUp Orders
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <Link class="dropdown-item" to="/admin/orders-pending">
+                      Pending Approvals
+                    </Link>
+                    <Link class="dropdown-item" to="/">
+                      Accepted Orders
+                    </Link>
+                    <Link class="dropdown-item" to="/">
+                      Ready Orders
+                    </Link>
+                    <Link class="dropdown-item" to="/admin/orders-history">
+                      Past Orders
+                    </Link>
+                  </div>
+                </div>
+              </li>
+
+              {/* <li className="navbar-menu-items">
+                <Link className="header-link" to="/user/orders-history">
+                  Orders
+                </Link>
+              </li> */}
+
+              {/* <li className="navbar-menu-items">
+                <Link className="signup-button-link" to="/foodie-signup">
+                  <button className="signup-button">Signup</button>
+                </Link>
+              </li>
+
+              <li className="navbar-menu-items">
+                <Link className="login-button-link" to="/foodie-login">
+                  <button className="login-button">Login</button>
+                </Link>
+              </li> */}
+            </ul>
+          </div>
+        }
       </div>
     </div>
   );

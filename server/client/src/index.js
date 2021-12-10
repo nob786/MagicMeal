@@ -14,6 +14,7 @@ ReactDOM.render(
     <React.StrictMode>
       <PersistGate persistor={persistor}>
         <App />
+        {/* <QrGenerator /> */}
       </PersistGate>
     </React.StrictMode>
   </Provider>,

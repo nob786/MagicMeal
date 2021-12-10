@@ -23,6 +23,7 @@ import CloseIcon from "@mui/icons-material/Close";
 //import Settings from '@mui/icons-material/Settings';
 //import Logout from '@mui/icons-material/Logout';
 import LogoutIcon from "@mui/icons-material/Logout";
+import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
 //=================React  Notification==================
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -110,6 +111,10 @@ function Header() {
 
   const handleCloseHeader = () => {
     setPartnerHeader(false);
+  };
+
+  const handleQrScan = () => {
+    history.push("/dine-in/qrscanner");
   };
   useEffect(() => {
     showButton();
@@ -204,7 +209,6 @@ function Header() {
                                 backgroundColor: "#fe724c",
                                 width: 32,
                                 height: 32,
-                                ml: 0,
                                 mr: 1,
                               },
                               "&:before": {
@@ -248,6 +252,23 @@ function Header() {
                           </ListItemIcon>
                           Settings
                         </MenuItem> */}
+                          <MenuItem onClick={handleQrScan}>
+                            {/* <ListItemIcon>
+                            <Logout fontSize="small" />
+                            
+                          </ListItemIcon> */}
+                            <QrCodeScannerIcon
+                              sx={{
+                                color: "#fe724c",
+                                width: 32,
+                                height: 32,
+                                ml: 0,
+                                mr: 1,
+                              }}
+                            />
+                            Qr Scan
+                          </MenuItem>
+                          <Divider />
                           <MenuItem onClick={handleLogout}>
                             {/* <ListItemIcon>
                             <Logout fontSize="small" />
@@ -282,7 +303,7 @@ function Header() {
                         Restaurants
                       </Link>
                     </li>
-                    <li className="navbar-menu-items">
+                    {/* <li className="navbar-menu-items">
                       <Link
                         className="header-link"
                         to="/dine-in/qrscanner"
@@ -290,7 +311,7 @@ function Header() {
                       >
                         Dine-In
                       </Link>
-                    </li>
+                    </li> */}
 
                     {authCust === true ? (
                       <li className="navbar-menu-items">

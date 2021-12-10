@@ -98,6 +98,15 @@
   background: var(--btn-hover-grad);
 }
 
+.timePick {
+  width: 100%;
+  height: 50px;
+  text-align: start;
+}
+/* .book-table-person-field {
+  height: 100px;
+} */
+
 @media (max-width: 480px) {
   .Menus {
     margin: 1%;

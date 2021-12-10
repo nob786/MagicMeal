@@ -26,6 +26,7 @@ import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
 //=========================Importing Links and Icons=================
 import { Link, useHistory } from "react-router-dom";
 
@@ -111,10 +112,10 @@ export default function MobileHeader() {
             style={{ color: "black", textDecoration: "none" }}
           >
             <ListItem button>
-              <AccountCircleIcon style={{ color: "black", marginTop: "5%" }} />
+              <AccountCircleIcon style={{ color: "#fe724c" }} />
               <ListItemText
-                primary={"My Account"}
-                style={{ color: "black", marginTop: "5%", marginLeft: "5%" }}
+                primary={"User Profile"}
+                style={{ color: "#272d2f", marginLeft: "5%" }}
               />
             </ListItem>
           </Link>
@@ -125,10 +126,10 @@ export default function MobileHeader() {
       <List style={{}}>
         <Link to="/" style={{ color: "black", textDecoration: "none" }}>
           <ListItem button>
-            <HomeIcon style={{ color: "black", marginTop: "5%" }} />
+            <HomeIcon style={{ color: "#fe724c" }} />
             <ListItemText
               primary={"Home"}
-              style={{ color: "black", marginTop: "5%", marginLeft: "5%" }}
+              style={{ color: "#272d2f", marginLeft: "5%" }}
             />
           </ListItem>
         </Link>
@@ -138,9 +139,9 @@ export default function MobileHeader() {
           style={{ color: "black", textDecoration: "none" }}
         >
           <ListItem button>
-            <RestaurantIcon style={{ color: "black", marginTop: "5%" }} />
+            <RestaurantIcon style={{ color: "#fe724c", marginTop: "5%" }} />
             <ListItemText
-              primary={"Chefs"}
+              primary={"Restaurants"}
               style={{ color: "black", marginTop: "5%", marginLeft: "5%" }}
             />
           </ListItem>
@@ -152,29 +153,27 @@ export default function MobileHeader() {
             style={{ color: "black", textDecoration: "none" }}
           >
             <ListItem button>
-              <HistoryIcon style={{ color: "black", marginTop: "5%" }} />
+              <HistoryIcon style={{ color: "#fe724c", marginTop: "5%" }} />
               <ListItemText
-                primary={"Orders History"}
+                primary={"Orders"}
                 style={{ color: "black", marginTop: "5%", marginLeft: "5%" }}
               />
             </ListItem>
           </Link>
         ) : null}
 
-        {authCust === false ? (
-          <Link
-            to="/mobile-app"
-            style={{ color: "black", textDecoration: "none" }}
-          >
-            <ListItem button>
-              <PhoneIphoneIcon style={{ color: "black", marginTop: "5%" }} />
-              <ListItemText
-                primary={"Mobile App"}
-                style={{ color: "black", marginTop: "5%", marginLeft: "5%" }}
-              />
-            </ListItem>
-          </Link>
-        ) : null}
+        <Link
+          to="/dine-in/qrscanner"
+          style={{ color: "black", textDecoration: "none" }}
+        >
+          <ListItem button>
+            <QrCodeScannerIcon style={{ color: "#fe724c", marginTop: "5%" }} />
+            <ListItemText
+              primary={"QR-Scan"}
+              style={{ color: "black", marginTop: "5%", marginLeft: "5%" }}
+            />
+          </ListItem>
+        </Link>
 
         {authCust === true ? (
           <Link
@@ -182,7 +181,7 @@ export default function MobileHeader() {
             style={{ color: "black", textDecoration: "none" }}
           >
             <ListItem button>
-              <ShoppingCartIcon style={{ color: "black", marginTop: "5%" }} />
+              <ShoppingCartIcon style={{ color: "#fe724c", marginTop: "5%" }} />
               <ListItemText
                 primary={"Cart"}
                 style={{ color: "black", marginTop: "5%", marginLeft: "5%" }}
@@ -201,7 +200,7 @@ export default function MobileHeader() {
             style={{ color: "black", textDecoration: "none" }}
           >
             <ListItem button>
-              <LoginIcon style={{ color: "black", marginTop: "5%" }} />
+              <LoginIcon style={{ color: "#fe724c", marginTop: "5%" }} />
               <ListItemText
                 primary={"Login"}
                 style={{ color: "black", marginTop: "5%", marginLeft: "5%" }}
@@ -216,7 +215,7 @@ export default function MobileHeader() {
             style={{ color: "black", textDecoration: "none" }}
           >
             <ListItem button>
-              <AddCircleIcon style={{ color: "black", marginTop: "5%" }} />
+              <AddCircleIcon style={{ color: "#fe724c", marginTop: "5%" }} />
               <ListItemText
                 primary={"Signup"}
                 style={{ color: "black", marginTop: "5%", marginLeft: "5%" }}
@@ -231,7 +230,7 @@ export default function MobileHeader() {
             style={{ color: "black", textDecoration: "none" }}
           >
             <ListItem button>
-              <LogoutIcon style={{ color: "black", marginTop: "5%" }} />
+              <LogoutIcon style={{ color: "#fe724c", marginTop: "5%" }} />
               <ListItemText
                 primary={"Logout"}
                 style={{
@@ -249,13 +248,13 @@ export default function MobileHeader() {
       <Divider />
 
       <List style={{}}>
-        {authCust === true ? (
+        {/* authCust === true ? (
           <Link
             to="/user/settings"
             style={{ color: "black", textDecoration: "none" }}
           >
             <ListItem button>
-              <SettingsIcon style={{ color: "black", marginTop: "5%" }} />
+              <SettingsIcon style={{ color: "#fe724c", marginTop: "5%" }} />
               <ListItemText
                 primary={"Settings"}
                 style={{
@@ -267,7 +266,7 @@ export default function MobileHeader() {
               />
             </ListItem>
           </Link>
-        ) : null}
+        ) : null */}
       </List>
     </Box>
   );

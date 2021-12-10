@@ -1,8 +1,9 @@
-import { SET_RESTAURANT,
-   SET_RESTAURANTS,
-    PUSH_RESTAURANT_ID,
-    PUSH_CLICKED_RESTAURANT_DATA
-  } from "./types";
+import {
+  SET_RESTAURANT,
+  SET_RESTAURANTS,
+  PUSH_RESTAURANT_ID,
+  PUSH_CLICKED_RESTAURANT_DATA,
+} from "./types";
 import axios from "../../axios";
 
 export const getRestaurants = () => (dispatch) => {
@@ -42,25 +43,15 @@ export const getRestaurant = (restId) => (dispatch) => {
 };
 
 export const pushRestaurantId = (restaurantId) => (dispatch) => {
-  
-      dispatch({
-        type: PUSH_RESTAURANT_ID,
-        payload: restaurantId,
-      });
-    
+  dispatch({
+    type: PUSH_RESTAURANT_ID,
+    payload: restaurantId,
+  });
 };
 
 export const pushClickedRestaurantData = (restaurantData) => (dispatch) => {
-  
   dispatch({
     type: PUSH_CLICKED_RESTAURANT_DATA,
     payload: restaurantData,
   });
-
 };
-
-
-
-
-
-

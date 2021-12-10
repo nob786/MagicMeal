@@ -29,8 +29,9 @@ toast.configure();
 const UserMenuItems = () => {
   var currentDate = new Date();
   // const [currentDate, setCurrentDate] = useState(new Date());
+  const [persons, setPersons] = React.useState();
   const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState();
+  const [time, setTime] = useState("10:00");
   const [loading, setLoading] = React.useState(false);
   const [restaurantData, setRestaurantData] = React.useState([]);
   const [items, setItems] = React.useState([]);
@@ -42,6 +43,8 @@ const UserMenuItems = () => {
 
   //Auth
   const { authCust } = useSelector((state) => state.auth);
+  //Customer Data
+  const { custData } = useSelector((state) => state.auth);
 
   const { clickedRestaurantId } = useSelector((state) => state.data);
   const { clickedRestaurantData } = useSelector((state) => state.data);
@@ -63,7 +66,13 @@ const UserMenuItems = () => {
       });
     }
   };
-  const handleBookTableRequest = () => {
+
+  const handleChangeNumberOfPersons = async (event) => {
+    setPersons(event.target.value);
+  };
+
+  const handleBookTableRequest = (event) => {
+    event.preventDefault();
     if (
       date.getMonth() === currentDate.getMonth() &&
       date.getDate() > currentDate.getDate() &&
@@ -72,15 +81,61 @@ const UserMenuItems = () => {
       // Int time > currentDate.getHours()
     ) {
       // console.log("Order Place");
-      toast.success(`Table Reservation Request Sent`, {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 2000,
-      });
+      //APi Call for Table Reservation
+      //Order Post //
+      let reservationData = {
+        numberOfPersons: persons,
+        reservationDate: date,
+        reservationTime: time,
+        customer: {
+          customerName: custData.firstName + custData.lastName,
+          customerId: custData._id,
+        },
+        restaurant: {
+          restaurantName: restaurantData.restaurantName,
+          restaurantId: restaurantData._id,
+        },
+      };
+
+      console.log("Table Reservation Data", reservationData);
+      axios
+        .post(`/user/book-table`, reservationData, {
+          headers: {
+            authorization:
+              localStorage.getItem("token") !== null
+                ? JSON.parse(localStorage.getItem("token"))
+                : null,
+          },
+        })
+        .then((res) => {
+          if (res) {
+            toast.success(`Reservation Request Placed`, {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 2000,
+            });
+            //window.alert("Order Placed");
+          } else console.log("Response Not Avalable");
+        })
+        .catch((err) => {
+          // console.log("Error in FE", err);
+          toast.error(err, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
+        });
+      //================end api
+      // toast.success(`Table Reservation Request Sent`, {
+      //   position: toast.POSITION.TOP_CENTER,
+      //   autoClose: 2000,
+      // });
     } else {
-      toast.info(`Booking Only Allow from Next Day`, {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 2000,
-      });
+      toast.info(
+        `Please Note: We only allow booking from Next Day to End of Current Month`,
+        {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: false,
+        }
+      );
     }
     // console.log("Current Date", currentDate.getTimezoneOffset());
     // console.log("Current", currentDate.getFullYear());
@@ -89,7 +144,9 @@ const UserMenuItems = () => {
     //   "Date Day",
     //   currentDate.getHours() + ":" + currentDate.getMinutes()
     // );
-    // console.log("Time", time);
+    console.log("Persons", persons);
+    console.log("Date", date);
+    console.log("Time", time);
   };
 
   useEffect(async () => {
@@ -185,7 +242,7 @@ const UserMenuItems = () => {
                 ? "modal"
                 : null
             }
-            data-target="#exampleModal"
+            data-target="#bookTableModal"
             data-whatever="@mdo"
             className="user-book-table-button"
           >
@@ -217,7 +274,7 @@ const UserMenuItems = () => {
       </div>
       <div
         class="modal fade book-table-modal"
-        id="exampleModal"
+        id="bookTableModal"
         tabindex="-1"
         role="dialog"
         aria-labelledby="exampleModalLabel"
@@ -241,24 +298,35 @@ const UserMenuItems = () => {
             <div class="modal-body">
               <form>
                 <div class="form-group">
-                  <label for="recipient-name" class="col-form-label">
+                  <label for="book-table-person-number" class="col-form-label ">
                     Number of Persons:
                   </label>
                   <input
+                    value={persons}
+                    onChange={handleChangeNumberOfPersons}
                     type="number"
-                    class="form-control"
-                    id="recipient-name"
+                    class="form-control form-control-lg "
+                    id="book-table-person-number"
+                    placeholder="Example: 4"
                   />
                 </div>
-                <div class="form-group">
+                <div class="form-group text-center">
                   {/* <label for="message-text" class="col-form-label">
                     Message:
                   </label>
                   <textarea class="form-control" id="message-text"></textarea> */}
-                  <DatePicker onChange={setDate} value={date} />
+                  <DatePicker
+                    className="timePick"
+                    onChange={setDate}
+                    value={date}
+                  />
                 </div>
-                <div class="form-group">
-                  <TimePicker onChange={setTime} value={time} />
+                <div class="form-group text-center">
+                  <TimePicker
+                    className="timePick"
+                    onChange={setTime}
+                    value={time}
+                  />
                 </div>
               </form>
             </div>
