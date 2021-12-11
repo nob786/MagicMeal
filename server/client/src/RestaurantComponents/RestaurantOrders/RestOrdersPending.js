@@ -8,10 +8,14 @@ import { useSelector } from "react-redux";
 import SingleRestOrder from "./SingleRestOrder";
 
 //============================Material Ui Imports================
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+// import Tabs from "@mui/material/Tabs";
+// import Tab from "@mui/material/Tab";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+
+//=====================Other Imports
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
 const RestOrdersPending = () => {
   const [loading, setLoading] = React.useState(true);
@@ -58,17 +62,52 @@ const RestOrdersPending = () => {
     </div>
   ) : (
     <div className="orders-history">
-      <TitleTag title="Pending Orders' Approval" />
+      {/*test  */}
+      <Tabs
+        style={{
+          textAlign: "center",
+          //   marginTop: "5%",
+          marginBottom: "5%",
+          // marginRight: "5%",
+          // marginLeft: "5%",
+          fontSize: "20px",
+        }}
+      >
+        <TabList
+          style={{
+            backgroundColor: "#f3724c",
+            color: "white",
+            borderRadius: "5px",
+          }}
+        >
+          <Tab style={{ transitionDuration: "1.2s" }}>Pending Approvals</Tab>
+          <Tab style={{ transitionDuration: "1.2s" }}>Accepted Orders</Tab>
+          <Tab style={{ transitionDuration: "1.2s" }}>Ready Orders</Tab>
+          <Tab style={{ transitionDuration: "1.2s" }}>Completed Orders</Tab>
+        </TabList>
 
-      {filteredOrders.length > 0 ? (
-        filteredOrders.map((order, index) => (
-          <SingleRestOrder key={index} orders={order} />
-        ))
-      ) : (
-        <div class="alert alert-secondary text-center" role="alert">
-          No Orders Found. <a href="/restaurants" class="alert-link"></a>
-        </div>
-      )}
+        <TabPanel>
+          {filteredOrders.length > 0 ? (
+            filteredOrders.map((order, index) => (
+              <SingleRestOrder key={index} orders={order} />
+            ))
+          ) : (
+            <div class="alert alert-secondary text-center" role="alert">
+              No Orders Found. <a href="/restaurants" class="alert-link"></a>
+            </div>
+          )}
+        </TabPanel>
+
+        <TabPanel>skdjkadj</TabPanel>
+
+        <TabPanel>
+          <h2>Any content 2</h2>
+        </TabPanel>
+
+        <TabPanel>sjksjk</TabPanel>
+      </Tabs>
+      {/* test */}
+      {/* <TitleTag title="Pending Orders' Approval" /> */}
     </div>
   );
 };

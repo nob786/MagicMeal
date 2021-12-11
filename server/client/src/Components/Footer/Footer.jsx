@@ -11,56 +11,40 @@ const Footer = () => {
     <div className="Footer">
       <div className="Footer-b">
         <div className="footer-child">
-          <h1> About Us</h1>
+          <h1 style={{ color: "#fe724c" }}> About Us</h1>
           <li>
-            <Link
-              className="a"
-              style={{ textDecoration: "none" }}
-              to="/about-us"
-            >
+            <Link className="a" to="/about-us">
               About Us
             </Link>
           </li>
           <li>
-            <Link
-              className="a"
-              style={{ textDecoration: "none" }}
-              to="/contact-us"
-            >
+            <Link className="a" to="/contact-us">
               Contact Us
             </Link>
           </li>
           <li>
-            <Link
-              className="a"
-              style={{ textDecoration: "none" }}
-              to="/privacy-policy"
-            >
+            <Link className="a" to="/privacy-policy">
               Privacy Policy
             </Link>
           </li>
         </div>
 
         <div className="footer-child">
-          <h1>Customer Care</h1>
+          <h1 style={{ color: "#fe724c" }}>Customer Care</h1>
           <li>
-            <Link
-              className="a"
-              style={{ textDecoration: "none" }}
-              to="/complaint-form"
-            >
+            <Link className="a" to="/complaint-form">
               Complaint Form
             </Link>
           </li>
           <li>
-            <Link className="a" style={{ textDecoration: "none" }} to="/FAQs">
+            <Link className="a" to="/FAQs">
               FAQ's
             </Link>
           </li>
         </div>
 
         <div className="footer-child follow-us">
-          <h1>Payment Partners</h1>
+          <h1 style={{ color: "#fe724c" }}>Payment Partners</h1>
           <li>
             <i class="fab fa-cc-mastercard fa-3x"></i>
             <i class="fab fa-cc-visa fa-3x"></i>
@@ -68,7 +52,7 @@ const Footer = () => {
         </div>
 
         <div className="footer-child follow-us">
-          <h1>Follow Us</h1>
+          <h1 style={{ color: "#fe724c" }}>Follow Us</h1>
           <li>
             <a
               className="follow-icon-link"
@@ -92,7 +76,9 @@ const Footer = () => {
       </div>
 
       <div className="footer-bottom-mark">
-        <h1>MagicMeal.inc</h1>
+        <h1 style={{ color: "#fe724c", borderTop: "black 1px solid" }}>
+          MagicMeal.inc
+        </h1>
       </div>
     </div>
   );

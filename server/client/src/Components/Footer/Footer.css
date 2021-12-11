@@ -27,7 +27,7 @@
 }
 
 .footer-child li {
-  font-size: 14px;
+  font-size: 16px;
   margin-top: 10px;
 }
 
@@ -43,7 +43,7 @@
 }
 .footer-bottom-mark h1 {
   color: var(--prime-shinegrey);
-  font-size: 10px;
+  font-size: 14px;
   padding-top: 10px;
 }
 

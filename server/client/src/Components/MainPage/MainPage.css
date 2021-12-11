@@ -55,6 +55,13 @@
   font-size: 28px;
   font-weight: bolder;
 }
+
+@media (max-width: 700px) {
+  .clients {
+    height: 100%;
+  }
+}
+
 @media (max-width: 700px) {
   .col-3,
   .col-4,

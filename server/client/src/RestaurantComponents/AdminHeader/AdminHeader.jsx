@@ -291,7 +291,7 @@ function AdminHeader() {
                 </Link>
               </li> */}
 
-                <li className="navbar-menu-items">
+                {/* <li className="navbar-menu-items">
                   <div class="dropdown">
                     <button
                       class="btn btn-secondary dropdown-toggle"
@@ -315,17 +315,44 @@ function AdminHeader() {
                       </a>
                     </div>
                   </div>
-                </li>
+                </li> */}
 
+                <li className="navbar-menu-items">
+                  <Link
+                    className="header-link"
+                    to="/admin/dinein-orders"
+                    onClick={closeMobileMenu}
+                  >
+                    Dine-in Orders
+                  </Link>
+                </li>
+                <li className="navbar-menu-items">
+                  <Link
+                    className="header-link"
+                    to="/admin/orders-pending"
+                    onClick={closeMobileMenu}
+                  >
+                    Pick-Up Orders
+                  </Link>
+                </li>
+                <li className="navbar-menu-items">
+                  <Link
+                    className="header-link"
+                    to="/admin/table-reservations"
+                    onClick={closeMobileMenu}
+                  >
+                    Table Reservations
+                  </Link>
+                </li>
                 {/* <li className="navbar-menu-items">
-                <Link
-                  className="header-link"
-                  to="/restaurants"
-                  onClick={closeMobileMenu}
-                >
-                  Restaurants
-                </Link>
-              </li> */}
+                  <Link
+                    className="header-link"
+                    to="/restaurants"
+                    onClick={closeMobileMenu}
+                  >
+                    Dine-in Orders
+                  </Link>
+                </li> */}
                 {/* <li className="navbar-menu-items">
                 <Link
                   className="header-link"
@@ -335,7 +362,7 @@ function AdminHeader() {
                   Dine-In
                 </Link>
               </li> */}
-                <li className="navbar-menu-items">
+                {/* <li className="navbar-menu-items">
                   <div class="dropdown">
                     <button
                       class="btn btn-secondary dropdown-toggle"
@@ -390,7 +417,7 @@ function AdminHeader() {
                       </Link>
                     </div>
                   </div>
-                </li>
+                </li> */}
 
                 {/* <li className="navbar-menu-items">
                 <Link className="header-link" to="/user/orders-history">

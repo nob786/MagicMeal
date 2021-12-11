@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./QrGen.css";
 
-function QrGenerator() {
+function QrGenerator({ id }) {
   const [temp, setTemp] = useState("");
   const [word, setWord] = useState("");
   const [size, setSize] = useState(400);
@@ -19,33 +19,49 @@ function QrGenerator() {
   // Updating the input word when user
   // click on the generate button
   function handleClick() {
-    setWord(temp);
+    setWord(id);
   }
 
   return (
-    <div className="App">
-      <h1>QR Code Generator</h1>
+    <div>
+      <h1
+        style={{
+          color: "#fe724c",
+          marginTop: "5%",
+          marginBottom: "5%",
+          fontSize: "30px",
+        }}
+      >
+        QR Code Generator
+      </h1>
       <div className="input-box">
         <div className="gen">
-          <input
+          {/* <input
             type="text"
-            onChange={(e) => {
-              setTemp(e.target.value);
-            }}
-            placeholder="Enter text to encode"
-          />
-          <button className="button" onClick={handleClick}>
+            // onChange={(e) => {
+            //   setTemp(e.target.value);
+            // }}
+            // placeholder="Enter text to encode"
+            value={id}
+          /> */}
+          <input
+            class="form-control form-control-lg w-50 form-center  qr-gen-field"
+            type="text"
+            placeholder=".form-control-lg"
+            value={id}
+          ></input>
+          <button className="qr-gen-button" onClick={handleClick}>
             Generate
           </button>
         </div>
-        <div className="extra">
-          <h5>Background Color:</h5>
+        <div>
+          {/* <h5>Background Color:</h5>
           <input
             type="color"
             onChange={(e) => {
               setBgColor(e.target.value.substring(1));
             }}
-          />
+          /> */}
           <h5>Dimension:</h5>
           <input
             type="range"
@@ -58,12 +74,14 @@ function QrGenerator() {
           />
         </div>
       </div>
-      <div className="output-box">
+      <br />
+      <div>
         <img src={qrCode} alt="" />
-        <a href={qrCode} download="QRCode">
-          <button type="button">Download</button>
-        </a>
+        <a href={qrCode} download="QRCode"></a>
       </div>
+      <button className="qr-gen-button" type="button">
+        Download
+      </button>
     </div>
   );
 }

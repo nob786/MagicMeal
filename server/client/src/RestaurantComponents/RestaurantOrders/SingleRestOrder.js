@@ -140,14 +140,91 @@ const SingleRestOrder = ({ orders }) => {
           ) : null}
 
           {orders.status === "pending" ? (
-            <button onClick={approveOrder}>Approve Order</button>
+            // <button onClick={approveOrder}>Approve Order</button>
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Update Order Status
+              </button>
+              <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                <button onClick={approveOrder} class="dropdown-item">
+                  Accepted
+                </button>
+                <button disabled class="dropdown-item">
+                  Ready
+                </button>
+                <button disabled class="dropdown-item">
+                  Delivered
+                </button>
+              </div>
+            </div>
           ) : orders.status === "accepted" ? (
-            <button onClick={approveOrder}>Ready For Take-Away</button>
+            // <button onClick={approveOrder}>Ready For Take-Away</button>
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Update Order Status
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button disabled class="dropdown-item">
+                  Accepted
+                </button>
+                <button onClick={approveOrder} class="dropdown-item">
+                  Ready
+                </button>
+                <button disabled class="dropdown-item">
+                  Delivered
+                </button>
+              </div>
+            </div>
           ) : orders.status === "ready" ? (
-            <button onClick={approveOrder}>Delivered to Customer</button>
+            // <button onClick={approveOrder}>Delivered to Customer</button>
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Update Order Status
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button disabled class="dropdown-item">
+                  Accepted
+                </button>
+                <button disabled class="dropdown-item">
+                  Ready
+                </button>
+                <button onClick={approveOrder} class="dropdown-item">
+                  Delivered
+                </button>
+              </div>
+            </div>
           ) : null}
           {orders.status === "pending" ? (
-            <button onClick={cancelOrder}>Cancel/Reject Order</button>
+            // <button onClick={cancelOrder}>Cancel/Reject Order</button>
+            // <button onClick={cancelOrder}>Cancel/Reject Order</button>
+            <button
+              style={{ marginTop: "30px" }}
+              type="button"
+              class="btn btn-warning"
+            >
+              Cancel/Reject Order
+            </button>
           ) : null}
           <span className="user-order-id">
             <h2>Order ID: {orders._id}</h2>

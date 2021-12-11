@@ -49,13 +49,13 @@ const MenuItems = (ID) => {
     </div>
   ) : (
     <div className="Restaurants">
-      <TitleTag title="Menu Management" />
+      <TitleTag title="Menu Management-B" />
       <div className="restaurants_grid">
         {items.length > 0 ? (
           items.map((item, index) => <SingleMenu key={index} menu={item} />)
         ) : (
-          <div class="alert alert-secondary text-center" role="alert">
-            No Menu Found. <a href="/restaurants" class="alert-link"></a>
+          <div class="alert alert-primary m-5" role="alert">
+            No Menus Found.
           </div>
         )}
       </div>

@@ -40,6 +40,8 @@ import RestOrdersHistory from "./RestaurantComponents/RestaurantOrders/RestOrder
 import AdminHeader from "./RestaurantComponents/AdminHeader/AdminHeader";
 import RestaurantProfile from "./RestaurantComponents/RestaurantProfile/RestaurantProfile";
 import QrScanner from "./Components/QrScanner/QrScanner";
+import RestMainPage from "./RestaurantComponents/RestMainPage/RestMainPage";
+import RestSettings from "./RestaurantComponents/RestSettings/RestSettings";
 
 function App() {
   const [screenSize, setScreenSize] = React.useState();
@@ -83,7 +85,7 @@ function App() {
             path="/admin/dashboard"
             component={AdminMainPage}
           />*/}
-          {/*============================Admin Orders Routers======================= */}
+          {/*============================Admin Restricted Orders Routers======================= */}
 
           <RestaurantProtectedRoutes
             exact
@@ -99,6 +101,16 @@ function App() {
             exact
             path="/admin/profile"
             component={RestaurantProfile}
+          />
+          <RestaurantProtectedRoutes
+            exact
+            path="/admin/dashboard"
+            component={RestMainPage}
+          />
+          <RestaurantProtectedRoutes
+            exact
+            path="/admin/settings"
+            component={RestSettings}
           />
 
           {/*============================ Admin Testing Routers======================= */}

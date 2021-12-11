@@ -149,6 +149,21 @@ export default function MobileHeader() {
 
         {authCust === true ? (
           <Link
+            to="/restaurants"
+            style={{ color: "black", textDecoration: "none" }}
+          >
+            <ListItem button>
+              <RestaurantIcon style={{ color: "#fe724c", marginTop: "5%" }} />
+              <ListItemText
+                primary={"Table Bookings"}
+                style={{ color: "black", marginTop: "5%", marginLeft: "5%" }}
+              />
+            </ListItem>
+          </Link>
+        ) : null}
+
+        {authCust === true ? (
+          <Link
             to="/user/orders-history"
             style={{ color: "black", textDecoration: "none" }}
           >

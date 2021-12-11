@@ -303,6 +303,17 @@ function Header() {
                         Restaurants
                       </Link>
                     </li>
+                    {authCust === true ? (
+                      <li className="navbar-menu-items">
+                        <Link
+                          className="header-link"
+                          to="/restaurants"
+                          onClick={closeMobileMenu}
+                        >
+                          Table Bookings
+                        </Link>
+                      </li>
+                    ) : null}
                     {/* <li className="navbar-menu-items">
                       <Link
                         className="header-link"
