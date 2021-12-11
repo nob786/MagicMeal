@@ -53,30 +53,35 @@ export default function Review() {
       </Typography>
       <List disablePadding>
         {clickedMenuId.map((product) => (
-          <ListItem className={classes.listItem} key={product.itemName}>
+          <ListItem
+            style={{ color: "#272d2f" }}
+            className={classes.listItem}
+            key={product.itemName}
+          >
             <ListItemText
               primary={product.itemName}
               secondary={product.description}
             />
             <Typography variant="body2">
-              {product.price}*{product.quantity}={product.total}
+              {product.price} x {product.quantity} = {product.total} Rs.
             </Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>
-          <ListItemText primary="Total" />
+          <ListItemText primary="Grand Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            {cartTotal}
+            {cartTotal} Rs.
           </Typography>
         </ListItem>
       </List>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>
-            Delivery Address
+            Customer Details
           </Typography>
           <Typography gutterBottom>{custData.firstName}</Typography>
-          <Typography gutterBottom>{deliveryAddress}</Typography>
+          <Typography gutterBottom>{custData.contact}</Typography>
+          {/* <Typography gutterBottom>{deliveryAddress}</Typography> */}
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>

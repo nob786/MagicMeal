@@ -63,7 +63,7 @@ router.get(
   // authMiddleWare.verifyRestaurant,
   itemController.getPendingOrders
 );
-
+// API for uploading location
 router.post(
   "/upload-location/:lat/:lng",
   authMiddleWare.verifyRestaurant,

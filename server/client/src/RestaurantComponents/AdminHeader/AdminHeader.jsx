@@ -25,6 +25,7 @@ import { addAuthRest } from "../../Redux/actions/authentication.js";
 //=================React  Notification
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AdminMobileHeader from "../../Components/MobileHeader/AdminMobileHeader";
 toast.configure();
 
 //============================Main Function===================================//
@@ -107,213 +108,216 @@ function AdminHeader() {
   }, []);
 
   window.addEventListener("resize", showButton);
+  // return !window.location.pathname.indexOf("/admin/") ? (
   return (
-    <div className="Header">
-      <div className="header-navbar">
-        <Link
-          className="logo-name-link"
-          to="/admin/dashboard"
-          onClick={closeMobileMenu}
-        >
-          <h2>{window.name}</h2>
-          {/*<i class="fas fa-hamburger"></i>*/}
-        </Link>
+    <>
+      <AdminMobileHeader />
+      <div className="Header">
+        <div className="header-navbar">
+          <Link
+            className="logo-name-link"
+            to="/admin/dashboard"
+            onClick={closeMobileMenu}
+          >
+            <h2>{window.name}-B</h2>
+            {/*<i class="fas fa-hamburger"></i>*/}
+          </Link>
 
-        {/*} <div className="navbar-menuicon" >
+          {/*} <div className="navbar-menuicon" >
       <i className={click ? 'fas fa-times' : 'fas fa-bars'} onClick={handleClick}/>
 </div>*/}
 
-        {
-          //================== Mobile Version Hidden Navbar==========================
+          {
+            //================== Mobile Version Hidden Navbar==========================
 
-          <div className="navbar-menu">
-            <ul
-              className={
-                click ? "navbar-menu-items active" : "nav-menu-items inactive"
-              }
-            >
-              <li className="navbar-menu-items">
-                <Link
-                  style={{ textDecoration: "none" }}
-                  className="login-button-link"
-                  onClick={handleProfile}
-                >
-                  <Avatar
-                    sx={{
-                      maxWidth: 32,
-                      maxHeight: 32,
-                      color: "white",
-                      backgroundColor: "#fe724c",
-                      textCombineUpright: "none",
-                    }}
+            <div className="navbar-menu">
+              <ul
+                className={
+                  click ? "navbar-menu-items active" : "nav-menu-items inactive"
+                }
+              >
+                <li className="navbar-menu-items">
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    className="login-button-link"
+                    onClick={handleProfile}
                   >
-                    {restData.restaurantName
-                      ? restData.restaurantName[0]
-                      : null}
-                  </Avatar>
-                </Link>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleProfileClose}
-                  onClick={handleProfileClose}
-                  PaperProps={{
-                    elevation: 0,
-                    sx: {
-                      overflow: "visible",
-                      filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                      mt: 3,
-                      "& .MuiAvatar-root": {
+                    <Avatar
+                      sx={{
+                        maxWidth: 32,
+                        maxHeight: 32,
                         color: "white",
                         backgroundColor: "#fe724c",
-                        width: 32,
-                        height: 32,
-                        mr: 1,
+                        textCombineUpright: "none",
+                      }}
+                    >
+                      {restData.restaurantName
+                        ? restData.restaurantName[0]
+                        : null}
+                    </Avatar>
+                  </Link>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleProfileClose}
+                    onClick={handleProfileClose}
+                    PaperProps={{
+                      elevation: 0,
+                      sx: {
+                        overflow: "visible",
+                        filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                        mt: 3,
+                        "& .MuiAvatar-root": {
+                          color: "white",
+                          backgroundColor: "#fe724c",
+                          width: 32,
+                          height: 32,
+                          mr: 1,
+                        },
+                        "&:before": {
+                          content: '""',
+                          display: "block",
+                          position: "absolute",
+                          top: 0,
+                          right: 14,
+                          width: 10,
+                          height: 10,
+                          bgcolor: "background.paper",
+                          transform: "translateY(-50%) rotate(45deg)",
+                          zIndex: 0,
+                        },
                       },
-                      "&:before": {
-                        content: '""',
-                        display: "block",
-                        position: "absolute",
-                        top: 0,
-                        right: 14,
-                        width: 10,
-                        height: 10,
-                        bgcolor: "background.paper",
-                        transform: "translateY(-50%) rotate(45deg)",
-                        zIndex: 0,
-                      },
-                    },
-                  }}
-                  transformOrigin={{
-                    horizontal: "right",
-                    vertical: "top",
-                  }}
-                  anchorOrigin={{
-                    horizontal: "right",
-                    vertical: "bottom",
-                  }}
-                >
-                  {/*<MenuItem>
+                    }}
+                    transformOrigin={{
+                      horizontal: "right",
+                      vertical: "top",
+                    }}
+                    anchorOrigin={{
+                      horizontal: "right",
+                      vertical: "bottom",
+                    }}
+                  >
+                    {/*<MenuItem>
   <ListItemIcon>
       {<Settings fontSize="small" />}
     </ListItemIcon>
   {custData.firstName+" "+custData.lastName}
   </MenuItem>
   */}
-                  <Divider />
-                  <MenuItem onClick={handleMyAccount}>
-                    <Avatar
-                      sx={{
-                        color: "#fe724c",
-                        width: 32,
-                        height: 32,
-                        ml: 0,
-                        mr: 1,
-                      }}
-                    />{" "}
-                    Restaurant Profile
-                  </MenuItem>
-                  <Divider />
-                  <MenuItem
-                    sx={{ marginTop: 1 }}
-                    onClick={handleClickDashboard}
-                  >
-                    <HomeIcon
-                      sx={{
-                        color: "#fe724c",
-                        width: 32,
-                        height: 32,
-                        ml: 0,
-                        mr: 1,
-                      }}
-                    />{" "}
-                    Dashboard
-                  </MenuItem>
+                    <Divider />
+                    <MenuItem onClick={handleMyAccount}>
+                      <Avatar
+                        sx={{
+                          color: "#fe724c",
+                          width: 32,
+                          height: 32,
+                          ml: 0,
+                          mr: 1,
+                        }}
+                      />{" "}
+                      Restaurant Profile
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem
+                      sx={{ marginTop: 1 }}
+                      onClick={handleClickDashboard}
+                    >
+                      <HomeIcon
+                        sx={{
+                          color: "#fe724c",
+                          width: 32,
+                          height: 32,
+                          ml: 0,
+                          mr: 1,
+                        }}
+                      />{" "}
+                      Dashboard
+                    </MenuItem>
 
-                  <MenuItem
-                    sx={{ marginTop: 1 }}
-                    onClick={handleClickMenuManagement}
-                  >
-                    <RestaurantMenuIcon
-                      sx={{
-                        color: "#fe724c",
-                        width: 32,
-                        height: 32,
-                        ml: 0,
-                        mr: 1,
-                      }}
-                    />{" "}
-                    Menu Management
-                  </MenuItem>
+                    <MenuItem
+                      sx={{ marginTop: 1 }}
+                      onClick={handleClickMenuManagement}
+                    >
+                      <RestaurantMenuIcon
+                        sx={{
+                          color: "#fe724c",
+                          width: 32,
+                          height: 32,
+                          ml: 0,
+                          mr: 1,
+                        }}
+                      />{" "}
+                      Menu Management
+                    </MenuItem>
 
-                  <MenuItem
-                    sx={{ marginTop: 1 }}
-                    onClick={handleClickAdminSettings}
-                  >
-                    <SettingsIcon
-                      sx={{
-                        color: "#fe724c",
-                        width: 32,
-                        height: 32,
-                        ml: 0,
-                        mr: 1,
-                      }}
-                    />{" "}
-                    Settings
-                  </MenuItem>
-                  <Divider />
+                    <MenuItem
+                      sx={{ marginTop: 1 }}
+                      onClick={handleClickAdminSettings}
+                    >
+                      <SettingsIcon
+                        sx={{
+                          color: "#fe724c",
+                          width: 32,
+                          height: 32,
+                          ml: 0,
+                          mr: 1,
+                        }}
+                      />{" "}
+                      Settings
+                    </MenuItem>
+                    <Divider />
 
-                  <MenuItem onClick={handleLogout}>
-                    {/* <ListItemIcon>
+                    <MenuItem onClick={handleLogout}>
+                      {/* <ListItemIcon>
                       <Logout fontSize="small" />
                       
                     </ListItemIcon> */}
-                    <LogoutIcon
-                      sx={{
-                        color: "#fe724c",
-                        width: 32,
-                        height: 32,
-                        ml: 0,
-                        mr: 1,
-                      }}
-                    />
-                    Logout
-                  </MenuItem>
-                </Menu>
-              </li>
-              {/* <li className="navbar-menu-items">
+                      <LogoutIcon
+                        sx={{
+                          color: "#fe724c",
+                          width: 32,
+                          height: 32,
+                          ml: 0,
+                          mr: 1,
+                        }}
+                      />
+                      Logout
+                    </MenuItem>
+                  </Menu>
+                </li>
+                {/* <li className="navbar-menu-items">
                 <Link className="header-link" to="/admin/dashboard">
                   Dashboard
                 </Link>
               </li> */}
 
-              <li className="navbar-menu-items">
-                <div class="dropdown">
-                  <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Dine-In Orders
-                  </button>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    <a class="dropdown-item" href="#">
-                      Active Orders
-                    </a>
-                    <a class="dropdown-item" href="#">
-                      Past Orders
-                    </a>
+                <li className="navbar-menu-items">
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Dine-In Orders
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a class="dropdown-item" href="#">
+                        Active Orders
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        Past Orders
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </li>
+                </li>
 
-              {/* <li className="navbar-menu-items">
+                {/* <li className="navbar-menu-items">
                 <Link
                   className="header-link"
                   to="/restaurants"
@@ -322,7 +326,7 @@ function AdminHeader() {
                   Restaurants
                 </Link>
               </li> */}
-              {/* <li className="navbar-menu-items">
+                {/* <li className="navbar-menu-items">
                 <Link
                   className="header-link"
                   to="/dine-in/qrscanner"
@@ -331,70 +335,70 @@ function AdminHeader() {
                   Dine-In
                 </Link>
               </li> */}
-              <li className="navbar-menu-items">
-                <div class="dropdown">
-                  <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Table Reservations
-                  </button>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    <a class="dropdown-item" href="#">
-                      Pending Reservations
-                    </a>
-                    <a class="dropdown-item" href="#">
-                      Reservations
-                    </a>
+                <li className="navbar-menu-items">
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Table Reservations
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a class="dropdown-item" href="#">
+                        Pending Reservations
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        Reservations
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </li>
-              <li className="navbar-menu-items">
-                <div class="dropdown">
-                  <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    PickUp Orders
-                  </button>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    <Link class="dropdown-item" to="/admin/orders-pending">
-                      Pending Approvals
-                    </Link>
-                    <Link class="dropdown-item" to="/">
-                      Accepted Orders
-                    </Link>
-                    <Link class="dropdown-item" to="/">
-                      Ready Orders
-                    </Link>
-                    <Link class="dropdown-item" to="/admin/orders-history">
-                      Past Orders
-                    </Link>
+                </li>
+                <li className="navbar-menu-items">
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      PickUp Orders
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <Link class="dropdown-item" to="/admin/orders-pending">
+                        Pending Approvals
+                      </Link>
+                      <Link class="dropdown-item" to="/">
+                        Accepted Orders
+                      </Link>
+                      <Link class="dropdown-item" to="/">
+                        Ready Orders
+                      </Link>
+                      <Link class="dropdown-item" to="/admin/orders-history">
+                        Past Orders
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </li>
+                </li>
 
-              {/* <li className="navbar-menu-items">
+                {/* <li className="navbar-menu-items">
                 <Link className="header-link" to="/user/orders-history">
                   Orders
                 </Link>
               </li> */}
 
-              {/* <li className="navbar-menu-items">
+                {/* <li className="navbar-menu-items">
                 <Link className="signup-button-link" to="/foodie-signup">
                   <button className="signup-button">Signup</button>
                 </Link>
@@ -405,12 +409,15 @@ function AdminHeader() {
                   <button className="login-button">Login</button>
                 </Link>
               </li> */}
-            </ul>
-          </div>
-        }
+              </ul>
+            </div>
+          }
+        </div>
       </div>
-    </div>
+    </>
   );
+
+  // ) : null;
 }
 
 export default AdminHeader;

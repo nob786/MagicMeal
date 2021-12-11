@@ -102,7 +102,7 @@ exports.postOrder = async (req, res) => {
   const userId = req.loggedInUserId;
   const itemsArray = items.map((i) => {
     return {
-      _id: i._id,
+      itemId: i._id,
       itemName: i.itemName,
       itemDescription: i.description,
       price: i.price,
@@ -345,4 +345,100 @@ exports.getRestaurantsByAddress = (req, res, next) => {
       if (!err.statusCode) err.statusCode = 500;
       next(err);
     });
+};
+
+//====================================Table Booking======================================
+exports.bookTable = async (req, res) => {
+  const {
+    // tableNo,
+    numberOfPersons,
+    reservationDate,
+    reservationTime,
+    customer,
+    restaurant,
+
+    // reservationStatus,
+  } = req.body;
+
+  console.log("Customer Previous", customer.customerId);
+  // const customerAccount = await Account.findById(customer.customerId);
+  const customerData = await Customer.findById(customer.customerId);
+
+  // if (customerData) {
+  //   console.log("Customer Account", customerData);
+  // } else {
+  //   console.log("Customer Account Not Found");
+  //   return res.status(404).send("Customer Not Found");
+  // }
+
+  // console.log("Customer Account",customerAccount);
+
+  if (customerData.activeTableBookings < customerData.maxOrders) {
+    // console.log("Max Bookings Limit Reached");
+
+    if (
+      // tableNo &&
+      numberOfPersons &&
+      reservationDate &&
+      reservationTime &&
+      customer &&
+      restaurant
+    ) {
+      const booking = new Bookings({
+        // tableNo: tableNo,
+        numberOfPersons: numberOfPersons,
+        reservationDate: reservationDate,
+        reservationTime: reservationTime,
+        customer: {
+          customerName: customer.customerName,
+          customerId: customer.customerId,
+        },
+        restaurant: {
+          restaurantName: restaurant.restaurantName,
+          restaurantId: restaurant.restaurantId,
+        },
+        reservationStatus: "pending",
+      });
+
+      await booking
+        .save()
+        .then((data) => {
+          console.log("Data", data);
+          customerData.activeTableBookings += 1;
+          customerData
+            .save()
+            .then((res) => {
+              console.log("Data Incremented");
+            })
+            .catch((err) => {
+              console.log("Data not Incremented");
+            });
+          return res.status(200).json({
+            message: "Booking request placed",
+            data: data,
+          });
+        })
+        .catch((error) => {
+          if (error) {
+            return res.status(400).json({
+              message: "Check your request",
+              error: error,
+            });
+          } else {
+            console.log("Server Error");
+            return res.status(500).json({
+              message: "Server Error",
+            });
+          }
+        });
+    } else {
+      console.log("Data is faulty", req.body);
+      return res.status(400).json({
+        message: "Data is faulty",
+        error: req.body,
+      });
+    }
+  } else if (customerData.activeTableBookings === customerData.maxOrders) {
+    console.log("Max Booking Limit Reached", customerData);
+  }
 };

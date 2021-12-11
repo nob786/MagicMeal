@@ -26,51 +26,93 @@ const SingleRestaurant = ({ restaurant }) => {
   };
   return (
     <div
-      className="Single-Restaurant"
+      style={{
+        borderRadius: "25px",
+        boxShadow:
+          "5px 5px 10px 5px rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+      }}
       onClick={onRestaurantClick}
-      style={{ textDecoration: "none" }}
+      className="Single_Restaurant"
+      class="card Single_Restaurant"
     >
-      <div className="Single_Restaurant">
-        <div
-          style={{
-            backgroundImage:
-              "url(https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500)",
-            height: "250px",
-            borderRadius: "25px",
-          }}
-          className="restaurant-image-container"
-        >
-          {/* <img
-            className="restaurant_image"
-            src={
-              "https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            }
-          /> */}
-        </div>
-        {/*} <div>
-        <FavoriteBorderIcon
-          style={{ fontSize: 40, color: "red", float: "left" }}
-        />
-  </div>*/}
-        <div>
-          <h1 className="restaurant-title">{restaurant.restaurantName}</h1>
-        </div>
-        <div className="restaurant-address">{restaurant.address}</div>
-
-        <div className="rating">
-          <br />
-          Rating: 4.2
-          <Box component="fieldset" mb={3} borderColor="transparent">
-            <Rating
-              name="half-rating-read"
-              defaultValue={4.2}
-              precision={0.1}
-              readOnly
-            />
-          </Box>
-        </div>
+      <img
+        style={{
+          backgroundImage:
+            "url(https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500)",
+          height: "250px",
+          borderRadius: "25px",
+        }}
+        // class="card-img-top"
+      />
+      <div class="card-body text-center">
+        <h5 class="card-title text-center restaurant-name-container">
+          {restaurant.restaurantName}
+        </h5>
+        <p class="card-text">{restaurant.address}</p>
+      </div>
+      {/* <ul class="list-group list-group-flush">
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+      </ul> */}
+      <div class="card-body text-center">
+        Rating: 4.2
+        <Box component="fieldset" mb={3} borderColor="transparent">
+          <Rating
+            name="half-rating-read"
+            defaultValue={4.2}
+            precision={0.1}
+            readOnly
+          />
+        </Box>
       </div>
     </div>
+    //   <div
+    //     className="Single-Restaurant"
+    //     onClick={onRestaurantClick}
+    //     style={{ textDecoration: "none" }}
+    //   >
+    //     <div className="Single_Restaurant">
+    //       <div
+    //         style={{
+    //           backgroundImage:
+    //             "url(https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500)",
+    //           height: "250px",
+    //           borderRadius: "25px",
+    //         }}
+    //         className="restaurant-image-container"
+    //       >
+    //         {/* <img
+    //           className="restaurant_image"
+    //           src={
+    //             "https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+    //           }
+    //         /> */}
+    //       </div>
+    //       {/*} <div>
+    //       <FavoriteBorderIcon
+    //         style={{ fontSize: 40, color: "red", float: "left" }}
+    //       />
+    // </div>*/}
+    //       <div>
+    //         <h1 className="restaurant-title">{restaurant.restaurantName}</h1>
+    //       </div>
+    //       <div className="restaurant-address">{restaurant.address}</div>
+
+    //       <div className="rating">
+    //         <br />
+    //         Rating: 4.2
+    //         <Box component="fieldset" mb={3} borderColor="transparent">
+    //           <Rating
+    //             name="half-rating-read"
+    //             defaultValue={4.2}
+    //             precision={0.1}
+    //             readOnly
+    //           />
+    //         </Box>
+    //       </div>
+    //     </div>
+    //   </div>
   );
 };
 

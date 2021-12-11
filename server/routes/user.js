@@ -44,4 +44,11 @@ router.get(
   userController.getRestaurantsByAddress
 );
 
+//===============Table Booking Route
+router.post(
+  "/book-table",
+  authMiddleWare.verifyCustomer,
+  userController.bookTable
+);
+
 module.exports = router;

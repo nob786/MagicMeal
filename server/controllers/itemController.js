@@ -215,46 +215,6 @@ exports.getPendingOrders = async (req, res) => {
     });
 };
 
-exports.uploadLocation = async (req, res) => {
-  const { lat, lng } = req.body;
-
-  if (!lat || !lng) {
-    console.log("Lat and lng are empty");
-    return res.json({
-      message: "Lat and lng are empty",
-    });
-  }
-
-  const restaurant = await Restaurant.findOne({
-    account: req.loggedInUserId,
-  });
-
-  if (!restaurant)
-    return res.status(404).json({
-      message: "Restaurant not found",
-    });
-
-  restaurant.location.lat = lat;
-  restaurant.location.lng = lng;
-
-  await restaurant
-    .save()
-    .then((response) => {
-      return res.json({
-        message: "location uploaded",
-      });
-    })
-    .catch((err) => {
-      if (err) {
-        return res.json({
-          message: "Something went wrong while uploading location. Try again",
-        });
-      } else
-        return res.status(500).json({
-          message: "Server error",
-        });
-    });
-};
 // API for updating pending order status
 
 exports.updatePendingOrders = async (req, res) => {
@@ -285,5 +245,46 @@ exports.updatePendingOrders = async (req, res) => {
       else {
         return res.status(500).send("Server Error");
       }
+    });
+};
+
+// API for updating Location order status
+exports.uploadLocation = async (req, res) => {
+  const lat = req.params.lat;
+  const lng = req.params.lng;
+
+  if (!lat || !lng) {
+    console.log("Lat and lng are empty");
+    return res.json({
+      message: "Lat and lng are empty",
+    });
+  }
+
+  const restaurant = await Restaurant.findOne({
+    account: req.loggedInUserId,
+  });
+  if (!restaurant)
+    return res.status(404).json({
+      message: "Restaurant not found",
+    });
+  restaurant.location.lat = lat;
+  restaurant.location.lng = lng;
+
+  await restaurant
+    .save()
+    .then((response) => {
+      return res.json({
+        message: "location uploaded",
+      });
+    })
+    .catch((err) => {
+      if (err) {
+        return res.json({
+          message: "Something went wrong while uploading location. Try again",
+        });
+      } else
+        return res.status(500).json({
+          message: "Server error",
+        });
     });
 };

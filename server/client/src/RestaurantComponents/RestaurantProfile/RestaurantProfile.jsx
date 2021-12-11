@@ -54,7 +54,7 @@ const RestaurantProfile = () => {
     let lat = "30.210098";
     let lng = "71.514337";
     await axios
-      .post(`/item/restaurants-location/${lat}/${lng}`, {
+      .post(`/item/upload-location/${lat}/${lng}`, {
         headers: {
           authorization:
             localStorage.getItem("token") !== null

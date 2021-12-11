@@ -4,11 +4,15 @@
   width: 400px;
   margin-top: 20px;
   transition: transform 0.2s;
-  background-color: white;
+  /* background-color: white; */
   box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin-bottom: 3%;
   cursor: pointer;
+}
+.restaurant-name-container {
+  color: var(--prime-lightred);
+  font-size: 28px;
 }
 .Single_Restaurant:hover {
   transform: scale(

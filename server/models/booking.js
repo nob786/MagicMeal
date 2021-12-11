@@ -2,22 +2,24 @@ const mongoose = require("mongoose");
 
 const bookingSchema = mongoose.Schema({
   tableNo: {
-    type: String,
-    required: true,
+    type: Number,
   },
-  tableStatus: {
-    type: String,
-    enum: ["Booked", "Available"],
-    required: true,
-  },
-  availableTables: {
+
+  numberOfPersons: {
     type: Number,
     required: true,
   },
-  orderId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Orders",
+
+  reservationDate: {
+    type: Date,
+    required: true,
   },
+
+  reservationTime: {
+    type: String,
+    required: true,
+  },
+
   customer: {
     customerName: {
       type: String,
@@ -29,10 +31,21 @@ const bookingSchema = mongoose.Schema({
       ref: "Customer",
     },
   },
-  restaurantId: {
-    type: mongoose.Schema.Types.ObjectId,
+  restaurant: {
+    restaurantName: {
+      type: String,
+      required: true,
+    },
+    restaurantId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Restaurant",
+    },
+  },
+  reservationStatus: {
+    type: String,
+    enum: ["pending", "cancelled", "accepted"],
     required: true,
-    ref: "Restaurant",
   },
 });
 

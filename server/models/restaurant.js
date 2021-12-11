@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
-
+// const addressInfo = {
+//   lat: Number,
+//   lng: Number,
+// };
 //R
 const restaurantSchema = mongoose.Schema({
   ownerName: {
@@ -21,6 +24,27 @@ const restaurantSchema = mongoose.Schema({
   address: {
     type: String,
     required: true,
+  },
+  location: {
+    lat: { type: String },
+    lng: { type: String },
+  },
+  dineIn: {
+    type: Boolean,
+    default: true,
+  },
+  pickUp: {
+    type: Boolean,
+    default: true,
+  },
+
+  bookTable: {
+    type: Boolean,
+    default: true,
+  },
+  ActiveStatus: {
+    type: Boolean,
+    default: true,
   },
 
   items: [

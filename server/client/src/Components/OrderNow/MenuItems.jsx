@@ -13,6 +13,7 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 
 const MenuItems = (ID) => {
+  const [loading, setLoading] = React.useState(true);
   const [items, setItems] = React.useState([]);
 
   useEffect(async () => {
@@ -29,32 +30,33 @@ const MenuItems = (ID) => {
       console.log("Data Fetched", data.data);
       let finalLoadedData = data.data;
       setItems(finalLoadedData);
+      setLoading(false);
     } else {
       console.log("Could not fetch data.");
     }
   }, []);
   console.log("This ID", ID);
 
-  return (
+  return loading === true ? (
+    <div class="d-flex justify-content-center">
+      <div
+        class="spinner-border m-5"
+        role="status"
+        style={{ color: "#fe724c" }}
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  ) : (
     <div className="Restaurants">
       <TitleTag title="Menu Management" />
       <div className="restaurants_grid">
         {items.length > 0 ? (
           items.map((item, index) => <SingleMenu key={index} menu={item} />)
         ) : (
-          <Alert
-            severity="info"
-            style={{
-              justifyContent: "center",
-              marginTop: "10%",
-              marginBottom: "10%",
-            }}
-          >
-            <AlertTitle>
-              {" "}
-              <h2> Currently There are no Menu Items. Please Add Some.</h2>
-            </AlertTitle>
-          </Alert>
+          <div class="alert alert-secondary text-center" role="alert">
+            No Menu Found. <a href="/restaurants" class="alert-link"></a>
+          </div>
         )}
       </div>
     </div>

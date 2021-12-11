@@ -33,18 +33,55 @@ const orderSchema = mongoose.Schema({
       required: true,
     },
   },
+  /*date: {
+    day: {
+      type: Number,
+      required: true,
+    },
+    month: {
+      type: String,
+      required: true,
+    },
+    year: {
+      type: Number,
+      required: true,
+    },
+  },
+  type: {
+    type: String,
+    enum: ["delivery","takeaway"],
+    required: true,
+  },*/
   items: [
     {
-      _id: { type: String, required: true },
+      itemId: { type: String, required: true },
       itemName: { type: String, required: true },
       itemDescription: { type: String, required: true },
       price: { type: Number, required: true },
       quantity: { type: Number, required: true },
-      total: { type: Number },
+      total: { type: Number, required: true },
     },
   ],
 
   grandTotal: { type: Number, required: true },
+
+  orderDate: {
+    type: Date,
+  },
+
+  orderType: {
+    type: String,
+    enum: ["dinein", "pickup"],
+  },
+
+  tableNumber: {
+    type: Number,
+  },
+
+  estimatedReadyTime: {
+    type: Number,
+  },
+
   status: {
     type: String,
     enum: ["pending", "cancelled", "accepted", "ready", "delivered"],

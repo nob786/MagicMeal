@@ -33,6 +33,7 @@
   font-size: 24px;
   color: white;
   background-attachment: fixed;
+  height: 400px;
 }
 
 .client {
@@ -41,6 +42,7 @@
   text-align: center;
 }
 .client h1 {
+  padding-top: 20%;
   width: auto;
   color: var(--prime-lightred);
   font-size: 28px;

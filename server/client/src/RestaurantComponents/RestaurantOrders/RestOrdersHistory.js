@@ -15,6 +15,7 @@ import AlertTitle from "@mui/material/AlertTitle";
 //==========================Main Function==================
 
 const RestOrdersHistory = () => {
+  const [loading, setLoading] = React.useState(true);
   const [orders, setOrders] = React.useState([]);
   //const[customerId,setCustomerId]= React.useState();
   const filteredOrders = orders.filter(
@@ -33,6 +34,7 @@ const RestOrdersHistory = () => {
         const pendingOrders = res.data.pendingOrders;
         //console.log("RESTORDERS FETCH",updatedOrders);
         setOrders(pendingOrders);
+        setLoading(false);
         //window.alert("REST Orders Imported");
       })
       .catch((err) => {
@@ -40,7 +42,17 @@ const RestOrdersHistory = () => {
       });
   }, []);
 
-  return (
+  return loading === true ? (
+    <div class="d-flex justify-content-center">
+      <div
+        class="spinner-border m-5"
+        role="status"
+        style={{ color: "#fe724c" }}
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  ) : (
     <div className="orders-history">
       <TitleTag title="Orders history" />
 
@@ -49,19 +61,9 @@ const RestOrdersHistory = () => {
           <SingleRestOrder key={index} orders={n} />
         ))
       ) : (
-        <Alert
-          severity="info"
-          style={{
-            justifyContent: "center",
-            marginTop: "10%",
-            marginBottom: "10%",
-          }}
-        >
-          <AlertTitle>
-            {" "}
-            <h2> Currently There are no Completed Orders</h2>
-          </AlertTitle>
-        </Alert>
+        <div class="alert alert-secondary text-center" role="alert">
+          NO ORDERS FOUND. <a href="/restaurants" class="alert-link"></a>
+        </div>
       )}
     </div>
   );

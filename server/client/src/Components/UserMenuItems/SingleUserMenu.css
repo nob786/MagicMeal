@@ -7,15 +7,18 @@
   background-color: white;
 }
 
-.user-menu-container {
+.user-menu-image-container {
   width: 150px;
   display: flex;
   float: right;
+  right: 0;
 }
 
 .user-menu-image {
-  height: 130px;
-  width: 150px;
+  height: 150px;
+  width: 100%;
+  display: flex;
+  float: right;
 }
 .user-menu-name h1 {
   font-size: 90px;
@@ -23,8 +26,10 @@
 }
 
 .user-menu-details {
-  width: 250;
+  width: auto;
   display: inline-block;
+  display: flex;
+  float: right;
 }
 
 .user-menu-description {
@@ -85,7 +90,25 @@
   color: #242424;
   border: #242424 1px solid;
 }
-
+/*=====================================================*/
+.boot-menu-button {
+  margin-top: 0%;
+  padding-top: 0%;
+  text-decoration: underline;
+  font-size: 14px;
+  background: none;
+  color: var(--prime-shinegrey);
+  border: none;
+}
+.boot-menu-button:focus-within {
+  border: none;
+}
+.boot-user-add-to-cart-button {
+  color: white;
+}
+.boot-user-add-to-cart-button:hover {
+  background: var(--btn-hover-grad);
+}
 /*================================Media Queries================================*/
 @media (max-width: 480px) {
   .single_user_menu_box {
@@ -102,10 +125,10 @@
     width: 100px;
     height: auto;
   }
-  .user-menu-image {
+  /* .user-menu-image {
     width: 100px;
     height: 100px;
-  }
+  } */
   .user-menu-name {
     font-size: 50px;
     color: black;
@@ -166,7 +189,7 @@
     border: white 1px solid;
   }
   .user-add-to-cart-button:hover {
-    background-color: white; /* Green */
+    background-color: white;
     color: black;
     border: black 1px solid;
   }

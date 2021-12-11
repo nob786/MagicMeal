@@ -23,6 +23,13 @@
   font-size: 22px;
   color: var(--prime-shinegrey);
 }
+
+@media (max-width: 400px) {
+  .faq {
+    width: 100%;
+  }
+}
+
 @media (max-width: 800px) {
   .faq-questions {
     font-size: 20px;

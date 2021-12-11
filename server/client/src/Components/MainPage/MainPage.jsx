@@ -27,6 +27,7 @@ import FormControl from "@mui/material/FormControl";
 import { Link } from "react-router-dom";
 
 const MainPage = () => {
+  const [loading, setLoading] = React.useState(false);
   const [location, setLocation] = React.useState({
     loaded: false,
     coordinates: { lat: "", long: "" },
@@ -71,6 +72,7 @@ const MainPage = () => {
   // }, []);
 
   const handleClickGps = async () => {
+    setLoading(true);
     navigator.geolocation.getCurrentPosition(async (l) => {
       // console.log("location foiund", l);
       Geocode.fromLatLng(l.coords.latitude, l.coords.longitude).then(
@@ -78,6 +80,7 @@ const MainPage = () => {
           // const address = response.results[0].formatted_address;
           // console.log("Current Address", address);
           setCurrentAddress(response.results[0].formatted_address);
+          setLoading(false);
         },
         (error) => {
           console.error(error);
@@ -99,7 +102,9 @@ const MainPage = () => {
       (response) => {
         // const address = response.results[0].formatted_address;
         // console.log("Current Address", address);
+
         setCurrentAddress(response.results[0].formatted_address);
+        // setLoading(false);
       },
       (error) => {
         console.error(error);
@@ -146,13 +151,25 @@ const MainPage = () => {
               id="outlined"
               endAdornment={
                 <InputAdornment position="end">
-                  <GpsFixedIcon
-                    onClick={handleClickGps}
-                    sx={{
-                      color: "#fe724c",
-                      cursor: "grab",
-                    }}
-                  />
+                  {loading === true ? (
+                    <div class="d-flex justify-content-center">
+                      <div
+                        class="spinner-border"
+                        role="status"
+                        style={{ color: "#fe724c" }}
+                      >
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <GpsFixedIcon
+                      onClick={handleClickGps}
+                      sx={{
+                        color: "#fe724c",
+                        cursor: "grab",
+                      }}
+                    />
+                  )}
                 </InputAdornment>
               }
               label="Enter Full Address"
@@ -212,6 +229,7 @@ const MainPage = () => {
                 </Link>
               </div>
             </div>
+
             <div class="carousel-item p2">
               {/* <img
                 src="./Pictures/Gr2.jpg"
@@ -227,11 +245,12 @@ const MainPage = () => {
                 </p>
                 <Link to="/dine-in/qrscanner">
                   <button className="partner-button main-slide-button">
-                    Dine-In
+                    DINE-IN
                   </button>
                 </Link>
               </div>
             </div>
+
             <div class="carousel-item p3">
               {/*<img
                 src="./Pictures/Gr1.jpg"

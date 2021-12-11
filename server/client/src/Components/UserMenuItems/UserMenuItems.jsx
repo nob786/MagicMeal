@@ -342,6 +342,7 @@ const UserMenuItems = () => {
                 onClick={handleBookTableRequest}
                 type="button"
                 class="btn book-table-send-button"
+                data-dismiss="modal"
               >
                 Send Request
               </button>

@@ -17,6 +17,22 @@ const customerSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Account",
   },
+  activeTableBookings: {
+    type: Number,
+    default: 0,
+  },
+  activePickupOrders: {
+    type: Number,
+    default: 0,
+  },
+  activeDineInOrders: {
+    type: Number,
+    default: 0,
+  },
+  maxOrders: {
+    type: Number,
+    default: 1,
+  },
 });
 
 // Customer has order virtuals

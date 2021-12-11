@@ -16,6 +16,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { pushItemsLength, pushMenuId } from "../../Redux/actions/cartAction";
 import { pushcartRestaurantId } from "../../Redux/actions/cartAction";
 import { pushcartRestaurant } from "../../Redux/actions/cartAction";
+//=================React  Notification
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 
 const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
   const dispatch = useDispatch();
@@ -61,11 +65,19 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
         dispatch(pushcartRestaurantId(restId));
         dispatch(pushcartRestaurant(restaurantData));
         dispatch(pushItemsLength());
-        window.alert(menu.itemName + " Item Added to Cart");
+        // window.alert(menu.itemName + " Item Added to Cart");
+        toast.info(`${menu.itemName} Added to Cart`, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
       } else if (cartRestaurantId === restId) {
         dispatch(pushMenuId(fullCartMenu));
         dispatch(pushItemsLength());
-        window.alert(menu.itemName + " Item Added to Cart");
+        // window.alert(menu.itemName + " Item Added to Cart");
+        toast.info(`${menu.itemName} Added to Cart`, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
       } else if (restId !== cartRestaurantId)
         window.alert("Different Restaurant Item.");
     } else {
@@ -73,27 +85,157 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
     }
   };
   return (
-    <div className="single_user_menu_box">
-      <div className="single_user_menu">
-        <div className="user-menu-container">
-          <img className="user-menu-image" src="../Pictures/R7.jpg" />
+    <div
+      style={{
+        boxShadow:
+          "5px 5px 10px 5px rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+      }}
+      class="card h-60"
+    >
+      <div class="row no-gutters">
+        <div class="col-sm-5">
+          <img
+            style={{ height: "100%" }}
+            class="card-img"
+            src="../Pictures/R7.jpg"
+          />
         </div>
+        <div class="col-sm-7">
+          <div class="card-body">
+            <h5
+              style={{ color: "#fe724c", fontFamily: "cursive" }}
+              class="card-title text-center"
+            >
+              {menu.itemName}
+            </h5>
 
-        <div className="user-menu-details">
-          <div className="user-menu-name">{menu.itemName}</div>
+            <div id="accordion">
+              {" "}
+              <div class="card ">
+                {" "}
+                <div class="card-header text-center" id="headingOne">
+                  {" "}
+                  <h5 class="mb-0 ">
+                    {" "}
+                    <button
+                      className="boot-menu-button"
+                      class="boot-menu-button "
+                      data-toggle="collapse"
+                      data-target="#collapseOne"
+                      aria-expanded="true"
+                      aria-controls="collapseOne"
+                    >
+                      Menu Description
+                    </button>
+                  </h5>
+                </div>
+                <div
+                  id="collapseOne"
+                  class="collapse"
+                  aria-labelledby="headingOne"
+                  data-parent="#accordion"
+                >
+                  <div class="card-body">{menu.description}</div>
+                </div>
+              </div>
+            </div>
 
-          <div className="user-menu-description">
-            <span style={{ fontWeight: "normal" }}>{menu.description}</span>
+            <p class="card-text">{menu.price} Rs.</p>
+            <a
+              onClick={addtoCart}
+              style={{
+                width: "100%",
+                color: "white",
+                backgroundColor: "#fe724c",
+                border: "none",
+              }}
+              className="boot-user-add-to-cart-button"
+              class="btn text-center mt-4 boot-user-add-to-cart-button"
+            >
+              Add to Cart
+            </a>
           </div>
-
-          <div className="user-menu-price">{menu.price} Rs.</div>
         </div>
       </div>
-
-      <button className="user-add-to-cart-button" onClick={addtoCart}>
-        Add to cart
-      </button>
     </div>
+
+    // <div
+    //   style={{
+    //     boxShadow:
+    //       "5px 5px 10px 5px rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+    //   }}
+    //   class="card w-75"
+    // >
+    //   <img className="user-menu-image" src="../Pictures/R7.jpg" />{" "}
+    //   <div class="card-body ">
+    //     <h5
+    //       style={{ color: "#fe724c", fontFamily: "cursive" }}
+    //       class="card-title text-center"
+    //     >
+    //       {menu.itemName}
+    //     </h5>
+
+    //     <div id="accordion">
+    //       <div class="card ">
+    //         <div class="card-header text-center" id="headingOne">
+    //           <h5 class="mb-0 ">
+    //             <button
+    //               className="boot-menu-button"
+    //               class="boot-menu-button "
+    //               data-toggle="collapse"
+    //               data-target="#collapseOne"
+    //               aria-expanded="true"
+    //               aria-controls="collapseOne"
+    //             >
+    //               Menu Description
+    //             </button>
+    //           </h5>
+    //         </div>
+
+    //         <div
+    //           id="collapseOne"
+    //           class="collapse"
+    //           aria-labelledby="headingOne"
+    //           data-parent="#accordion"
+    //         >
+    //           <div class="card-body">{menu.description}</div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //     <p class="card-text text-center mt-2">{menu.price} Rs.</p>
+    //     <a
+    //       onClick={addtoCart}
+    //       style={{
+    //         width: "100%",
+    //         color: "white",
+    //         backgroundColor: "#fe724c",
+    //         border: "none",
+    //       }}
+    //       className="boot-user-add-to-cart-button"
+    //       class="btn text-center mt-4 boot-user-add-to-cart-button"
+    //     >
+    //       Add to Cart
+    //     </a>
+    //   </div>
+    // </div>
+    // <div className="single_user_menu_box">
+    //   <div className="user-menu-image-container">
+    //     <img className="user-menu-image" src="../Pictures/R7.jpg" />
+    //   </div>
+
+    //   <div className="user-menu-details">
+    //     <div className="user-menu-name">{menu.itemName}</div>
+
+    //     <div className="user-menu-price">{menu.price} Rs.</div>
+    //   </div>
+    //   <div className="user-menu-description">
+    //     <span style={{ fontWeight: "normal" }}>{menu.description}</span>
+    //   </div>
+
+    //   <button className="user-add-to-cart-button" onClick={addtoCart}>
+    //     Add to cart
+    //   </button>
+    // </div>
   );
 };
 
