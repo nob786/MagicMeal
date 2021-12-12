@@ -40,6 +40,7 @@ exports.updateReservationTableStatus = async (req, res) => {
     let customerData = await Customer.findById(customerId);
     if (customerData) {
       customerData.activeTableBookings -= 1;
+      customerData.save();
     } else {
       console.log(
         "Could not find customer id for updating active Table bookings data"
