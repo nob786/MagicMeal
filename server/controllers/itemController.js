@@ -10,7 +10,7 @@ exports.updateReservationTableStatus = async (req, res) => {
   console.log("Inside restaurant update reservation status api");
   const { tableNumber, reservationStatus, reservationId, customerId } =
     req.body;
-  if (!tableNumber && !reservationStatus && !reservationId) {
+  if (!tableNumber && !reservationStatus && !reservationId && !customerId) {
     console.log("Did not get required parameters for finding bookings");
     return res.json({
       message: "Did not get required parameters for finding bookings",
@@ -37,17 +37,19 @@ exports.updateReservationTableStatus = async (req, res) => {
   });
 
   if (booking) {
-    let customerData = await Customer.findById(customerId);
-    if (customerData) {
-      customerData.activeTableBookings -= 1;
-      customerData.save();
-    } else {
-      console.log(
-        "Could not find customer id for updating active Table bookings data"
-      );
+    if (reservationStatus === "free" || reservationStatus === "cancelled") {
+      let customerData = await Customer.findById(customerId);
+      if (customerData) {
+        customerData.activeTableBookings -= 1;
+        customerData.save();
+      } else {
+        console.log(
+          "Could not find customer id for updating active Table bookings data"
+        );
+      }
     }
-    console.log("Booking updated", booking);
 
+    console.log("Booking updated", booking);
     return res.status(200).json({
       message: "Bookings status updated",
       data: booking,
@@ -376,7 +378,7 @@ exports.uploadLocation = async (req, res) => {
       console.log("Printing response inside API function", response);
       return res.status(200).json({
         messgae: "Location updated  Successfully",
-        updatedLocation: response,
+        updatedOrder: response,
       });
     })
     .catch((error) => {
