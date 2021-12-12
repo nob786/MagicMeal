@@ -44,7 +44,7 @@ const bookingSchema = mongoose.Schema({
   },
   reservationStatus: {
     type: String,
-    enum: ["pending", "cancelled", "accepted"],
+    enum: ["pending", "cancelled", "reserved", "free"],
     required: true,
   },
 });

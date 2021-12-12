@@ -41,7 +41,14 @@ const OrdersHistory = () => {
 
   useEffect(async () => {
     axios
-      .get(`/user/get-updated-order/${customerId}`)
+      .get(`/user/get-updated-order/${customerId}`, {
+        headers: {
+          authorization:
+            localStorage.getItem("token") !== null
+              ? JSON.parse(localStorage.getItem("token"))
+              : null,
+        },
+      })
       .then((res) => {
         //if (res) console.log("Response", res);
         const updatedOrders = res.data.updatedOrder;

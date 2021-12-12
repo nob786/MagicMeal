@@ -42,6 +42,7 @@ import RestaurantProfile from "./RestaurantComponents/RestaurantProfile/Restaura
 import QrScanner from "./Components/QrScanner/QrScanner";
 import RestMainPage from "./RestaurantComponents/RestMainPage/RestMainPage";
 import RestSettings from "./RestaurantComponents/RestSettings/RestSettings";
+import RestDineInOrders from "./RestaurantComponents/RestDineInOrders/RestDineInOrders";
 
 function App() {
   const [screenSize, setScreenSize] = React.useState();
@@ -96,6 +97,11 @@ function App() {
             exact
             path="/admin/orders"
             component={RestOrdersPending}
+          />
+          <RestaurantProtectedRoutes
+            exact
+            path="/admin/dinein-orders"
+            component={RestDineInOrders}
           />
           <RestaurantProtectedRoutes
             exact

@@ -110,6 +110,23 @@ const SingleOrder = ({ orders }) => {
           <span className="user-order-id">
             <h2>Order ID: {orders._id}</h2>
           </span>
+          <span className="user-order-status">
+            <h2>Order Type: {orders.orderType.toUpperCase()}</h2>
+          </span>
+          {orders.orderType === "dinein" ? (
+            <span className="user-order-status">
+              <h2>Table Number: {orders.tableNumber}</h2>
+            </span>
+          ) : null}
+          {orders.estimatedReadyTime !== null ? (
+            <span className="user-order-status">
+              <h2>Estimated Ready Time: {orders.estimatedReadyTime}min</h2>
+            </span>
+          ) : null}
+
+          <span className="user-order-status">
+            <h2>Order Date: {String(orders.orderDate)}</h2>
+          </span>
           <span className="user-order-restaurant-name">
             <h2>{orders.restaurant.restaurantName}</h2>
           </span>

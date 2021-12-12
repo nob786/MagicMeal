@@ -1,7 +1,7 @@
 import axios from "../../axios";
 import React, { Component } from "react";
 
-import "./SingleRestOrder.css";
+// import "./SingleRestOrder.css";
 
 //=================React  Notification
 import { toast } from "react-toastify";
@@ -30,7 +30,7 @@ toast.configure();
 
 const steps = ["Delivered"];
 
-const SingleRestOrder = ({ orders }) => {
+const SingleRestDineIn = ({ orders }) => {
   const [estReadyTime, setEstReadyTime] = React.useState("");
   const { restData } = useSelector((state) => state.auth);
   const history = useHistory();
@@ -192,22 +192,21 @@ const SingleRestOrder = ({ orders }) => {
             //   </div>
             // </div>
             <form class="form-inline">
-              {/* <div class="form-group mx-sm-3 mb-2"> */}
               <label class="sr-only">
                 Enter Estimated Ready Time in Minutes
               </label>
               <input
+                // maxLength={10}
+                value={estReadyTime}
                 type="number"
-                class="form-control"
-                id="inputPassword2"
+                // class="form-control"
                 placeholder="Estimated Delivery Time"
                 onChange={(event) => {
                   setEstReadyTime(event.target.value);
                   console.log("ready time", event.target.value);
                 }}
-                value={estReadyTime}
               />
-              {/* </div> */}
+
               <button
                 onClick={approveWithTime}
                 className="update-order-status-button"
@@ -276,7 +275,7 @@ const SingleRestOrder = ({ orders }) => {
               onClick={cancelOrder}
               style={{ marginTop: "30px" }}
               type="button"
-              class="btn btn-warning m-10"
+              class="btn btn-warning"
             >
               Cancel/Reject Order
             </button>
@@ -285,6 +284,9 @@ const SingleRestOrder = ({ orders }) => {
             <h2>Order ID: {orders._id}</h2>
           </span>
           {/* testing Data */}
+          <span className="user-order-restaurant-name">
+            <h2>Table Number: {orders.tableNumber}</h2>
+          </span>
           <span className="user-order-restaurant-name">
             <h2>Order Type: {orders.orderType.toUpperCase()}</h2>
           </span>
@@ -354,4 +356,4 @@ const SingleRestOrder = ({ orders }) => {
   );
 };
 
-export default SingleRestOrder;
+export default SingleRestDineIn;

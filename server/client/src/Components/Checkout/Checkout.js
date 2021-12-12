@@ -133,9 +133,13 @@ export default function Checkout() {
     restaurantData: cartRestaurant,
     items: clickedMenuId,
     grandTotal: cartTotal,
+    orderDate: new Date(),
+    orderType: "pickup",
+    // orderType: "dinein",
+    // tableNumber: "14",
   };
 
-  console.log("PLACED ORDER DATA", OrderData);
+  console.log("Checkout ORDER DATA", OrderData);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -146,6 +150,8 @@ export default function Checkout() {
   };
 
   const placeOrder = async (event) => {
+    // let newDate = new Date();
+    // OrderData.orderDate = newDate;
     //Order Post //
     event.preventDefault();
     await axios

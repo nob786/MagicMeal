@@ -7,7 +7,7 @@ const app = express();
 const auth = require("./routes/auth");
 const item = require("./routes/item");
 const user = require("./routes/user");
-const public = require("./routes/public");
+// const public = require("./routes/public");
 
 mongoose
   .connect(
@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 app.use("/auth", auth);
 app.use("/item", item);
 app.use("/user", user);
-app.use("/public", public);
+// app.use("/public", public);
 
 const port = process.env.PORT || 3001;
 

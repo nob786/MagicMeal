@@ -8,3 +8,14 @@
   border: none;
   color: white;
 }
+.update-order-status-time-button {
+  margin-left: 5px;
+  color: white;
+  background: var(--prime-lightred);
+  border: none;
+}
+.update-order-status-time-button:hover {
+  background: var(--btn-hover-grad);
+  border: none;
+  color: white;
+}

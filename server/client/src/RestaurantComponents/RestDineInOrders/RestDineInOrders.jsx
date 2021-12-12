@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import TitleTag from "../../Components/SpecialComp/TitleTag";
 import axios from "../../axios";
-
+import SingleRestDineIn from "./SingleRestDineIn";
 //===========================Redux Imports=========================
 import { useSelector } from "react-redux";
-
-import SingleRestOrder from "./SingleRestOrder";
 
 //============================Material Ui Imports================
 // import Tabs from "@mui/material/Tabs";
@@ -17,7 +15,7 @@ import AlertTitle from "@mui/material/AlertTitle";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
-const RestOrdersPending = () => {
+const RestDineInOrders = () => {
   const [loading, setLoading] = React.useState(true);
   const [orders, setOrders] = React.useState([]);
   //=======================Search Terms===================================
@@ -52,7 +50,7 @@ const RestOrdersPending = () => {
         console.log("pending order rest", res.data);
         const pendingOrders = res.data.pendingOrders;
         //console.log("RESTORDERS FETCH",updatedOrders);
-        setOrders(pendingOrders.filter((n) => n.orderType === "pickup"));
+        setOrders(pendingOrders.filter((n) => n.orderType === "dinein"));
         setLoading(false);
         //window.alert("REST Orders Imported");
       })
@@ -105,7 +103,7 @@ const RestOrdersPending = () => {
         <TabPanel>
           {pendingOrders.length > 0 ? (
             pendingOrders.map((order, index) => (
-              <SingleRestOrder key={index} orders={order} />
+              <SingleRestDineIn key={index} orders={order} />
             ))
           ) : (
             <div class="alert alert-secondary text-center m-5" role="alert">
@@ -148,7 +146,7 @@ const RestOrdersPending = () => {
                 }
               })
               .map((order, index) => (
-                <SingleRestOrder key={index} orders={order} />
+                <SingleRestDineIn key={index} orders={order} />
               ))
           ) : (
             <div class="alert alert-secondary text-center m-5" role="alert">
@@ -191,7 +189,7 @@ const RestOrdersPending = () => {
                 }
               })
               .map((order, index) => (
-                <SingleRestOrder key={index} orders={order} />
+                <SingleRestDineIn key={index} orders={order} />
               ))
           ) : (
             <div class="alert alert-secondary text-center m-5" role="alert">
@@ -234,7 +232,7 @@ const RestOrdersPending = () => {
                 }
               })
               .map((order, index) => (
-                <SingleRestOrder key={index} orders={order} />
+                <SingleRestDineIn key={index} orders={order} />
               ))
           ) : (
             <div class="alert alert-secondary text-center m-5" role="alert">
@@ -246,7 +244,7 @@ const RestOrdersPending = () => {
         <TabPanel>
           {cancelledOrders.length > 0 ? (
             cancelledOrders.map((order, index) => (
-              <SingleRestOrder key={index} orders={order} />
+              <SingleRestDineIn key={index} orders={order} />
             ))
           ) : (
             <div class="alert alert-secondary text-center m-5" role="alert">
@@ -261,4 +259,4 @@ const RestOrdersPending = () => {
   );
 };
 
-export default RestOrdersPending;
+export default RestDineInOrders;

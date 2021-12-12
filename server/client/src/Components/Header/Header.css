@@ -114,10 +114,14 @@
 }
 
 .header-link:visited {
+  /* text-decoration: underline; */
   color: var(--prime-darkgrey);
 }
 
 .header-link:hover {
+  text-decoration: underline;
+}
+.header-link:active {
   text-decoration: underline;
 }
 

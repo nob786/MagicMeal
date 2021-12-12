@@ -50,13 +50,20 @@
 .a:link {
   color: var(--prime-shinegrey);
 }
+
 .a:hover {
+  color: var(--prime-shinegrey);
+}
+a:visited {
+  text-decoration: underline;
   color: var(--prime-shinegrey);
 }
 
 /* visited link */
-a:visited {
-  color: var(--prime-shinegrey);
+
+a:active {
+  text-decoration: underline;
+  /* color: blue; */
 }
 
 .footer-child Link {
