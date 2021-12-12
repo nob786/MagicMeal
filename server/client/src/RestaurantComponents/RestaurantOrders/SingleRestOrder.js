@@ -62,10 +62,7 @@ const SingleRestOrder = ({ orders }) => {
         toast.success(`Order Status Updated to: ${pushOrderStatus}`, {
           position: toast.POSITION.TOP_CENTER,
         });
-        setTimeout(
-          () => window.location.replace("/admin/orders-pending"),
-          1000
-        );
+        setTimeout(() => window.location.replace("/admin/orders"), 1000);
 
         //console.log(response.data);
         //const token = localStorage.getItem("token");
@@ -98,10 +95,7 @@ const SingleRestOrder = ({ orders }) => {
         toast.success(`Order Cancelled`, {
           position: toast.POSITION.TOP_CENTER,
         });
-        setTimeout(
-          () => window.location.replace("/admin/orders-pending"),
-          1000
-        );
+        setTimeout(() => window.location.replace("/admin/orders"), 1000);
       });
   };
 
@@ -143,7 +137,8 @@ const SingleRestOrder = ({ orders }) => {
             // <button onClick={approveOrder}>Approve Order</button>
             <div class="dropdown">
               <button
-                class="btn btn-secondary dropdown-toggle"
+                className="update-order-status-button"
+                class="btn dropdown-toggle update-order-status-button"
                 type="button"
                 id="dropdownMenuButton"
                 data-toggle="dropdown"
@@ -168,7 +163,8 @@ const SingleRestOrder = ({ orders }) => {
             // <button onClick={approveOrder}>Ready For Take-Away</button>
             <div class="dropdown">
               <button
-                class="btn btn-secondary dropdown-toggle"
+                className="update-order-status-button"
+                class="btn dropdown-toggle update-order-status-button"
                 type="button"
                 id="dropdownMenuButton"
                 data-toggle="dropdown"
@@ -193,7 +189,8 @@ const SingleRestOrder = ({ orders }) => {
             // <button onClick={approveOrder}>Delivered to Customer</button>
             <div class="dropdown">
               <button
-                class="btn btn-secondary dropdown-toggle"
+                className="update-order-status-button"
+                class="btn dropdown-toggle update-order-status-button"
                 type="button"
                 id="dropdownMenuButton"
                 data-toggle="dropdown"
@@ -242,7 +239,7 @@ const SingleRestOrder = ({ orders }) => {
                 : orders.status === "cancelled"
                 ? "Order Cancelled"
                 : orders.status === "ready"
-                ? "Oreder is Ready"
+                ? "Order is Ready"
                 : orders.status === "delivered"
                 ? "Delivered to Customer"
                 : null}

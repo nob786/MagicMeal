@@ -170,7 +170,7 @@ export default function AdminMobileHeader() {
           </ListItem>
         </Link>
         <Link
-          to="/admin/orders-history"
+          to="/admin/orders"
           style={{ color: "black", textDecoration: "none" }}
         >
           <ListItem button>

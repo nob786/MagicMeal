@@ -1,0 +1,10 @@
+.update-order-status-button {
+  color: white;
+  background: var(--prime-lightred);
+  border: none;
+}
+.update-order-status-button:hover {
+  background: var(--btn-hover-grad);
+  border: none;
+  color: white;
+}

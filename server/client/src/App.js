@@ -94,7 +94,7 @@ function App() {
           />
           <RestaurantProtectedRoutes
             exact
-            path="/admin/orders-pending"
+            path="/admin/orders"
             component={RestOrdersPending}
           />
           <RestaurantProtectedRoutes

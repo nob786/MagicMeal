@@ -329,7 +329,7 @@ function AdminHeader() {
                 <li className="navbar-menu-items">
                   <Link
                     className="header-link"
-                    to="/admin/orders-pending"
+                    to="/admin/orders"
                     onClick={closeMobileMenu}
                   >
                     Pick-Up Orders
