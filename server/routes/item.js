@@ -89,7 +89,7 @@ router.get(
 
 // Uploading location
 router.post(
-  "/upload-location/:lat/:lng",
+  "/upload-location",
   authMiddleWare.verifyRestaurant,
   itemController.uploadLocation
 );
