@@ -28,7 +28,9 @@ const restaurantSchema = mongoose.Schema({
   location: {
     lat: { type: String },
     lng: { type: String },
+    address: { type: String },
   },
+
   dineIn: {
     type: Boolean,
     default: true,

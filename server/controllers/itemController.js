@@ -355,7 +355,7 @@ exports.updatePendingOrders = async (req, res) => {
 
 // API for updating Location order status
 exports.uploadLocation = async (req, res) => {
-  const { lat, lng } = req.body;
+  const { lat, lng, address } = req.body;
 
   if (!lat || !lng) {
     console.log("Lat and lng are empty");
@@ -368,27 +368,45 @@ exports.uploadLocation = async (req, res) => {
     account: req.loggedInUserId,
   };
 
-  let update = {
-    "location.lat": lat,
-    "location.lng": lng,
-  };
+  // let update = {
+  //   "location.lat": lat,
+  //   "location.lng": lng,
+  // };
 
-  await Restaurant.findOneAndUpdate(query, update)
-    .then((response) => {
-      console.log("Printing response inside API function", response);
-      return res.status(200).json({
-        messgae: "Location updated  Successfully",
-        updatedOrder: response,
-      });
-    })
-    .catch((error) => {
-      if (error)
-        return res.status(400).json({
-          message: "Catch error",
-          error: error,
-        });
-      else {
-        return res.status(500).send("Server Error");
-      }
+  let restaurant = await Restaurant.find(query);
+  restaurant.location.lat = lat;
+  restaurant.lcoation.lng = lng;
+  restaurant.location.address = address;
+  await restaurant.save();
+
+  if (!restaurant) {
+    return res.status(404).json({
+      message: "Could not save your restaurant",
     });
+  } else {
+    return res.status(200).json({
+      message: "Saved your data",
+      data: restaurant,
+    });
+  }
 };
+
+// await Restaurant.findOneAndUpdate(query, update)
+//   .then((response) => {
+//     console.log("Printing response inside API function", response);
+//     return res.status(200).json({
+//       messgae: "Location updated  Successfully",
+//       updatedOrder: response,
+//     });
+//   })
+//   .catch((error) => {
+//     if (error)
+//       return res.status(400).json({
+//         message: "Catch error",
+//         error: error,
+//       });
+//     else {
+//       return res.status(500).send("Server Error");
+//     }
+//   });
+// };
