@@ -38,7 +38,11 @@ exports.updateReservationTableStatus = async (req, res) => {
 };
 exports.getReservedTables = async (req, res) => {
   console.log("Inside restaurant get reservation api");
-  const { restaurantId } = req.body;
+  const restaurantId = req.params.restaurantId;
+  //_____________________________________________//
+  console.log("Customer in params", req.params);
+  console.log("CustomerId variable", restaurantId);
+  //_____________________________________________//
   if (!restaurantId) {
     console.log("Could not find restaurant id");
     return res.json({

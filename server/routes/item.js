@@ -32,7 +32,7 @@ router.put(
 
 // Geeting reserved tables
 router.get(
-  "/get-reserved-tables",
+  "/get-reserved-tables/:restaurantId",
   authMiddleWare.verifyRestaurant,
   itemController.getReservedTables
 );
