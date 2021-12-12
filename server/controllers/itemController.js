@@ -288,7 +288,7 @@ exports.getPendingOrders = async (req, res) => {
 
 exports.updatePendingOrders = async (req, res) => {
   //const restId = req.params.restId;
-  const { orderId, status } = req.body;
+  const { orderId, status, estimatedReadyTime } = req.body;
   //console.log("restaurant id", restId);
   //if (!restId) return res.status(404).send("No restaurant ID found in params");
   const query1 = {
@@ -296,7 +296,13 @@ exports.updatePendingOrders = async (req, res) => {
     _id: orderId,
   };
 
-  const update = { status: status };
+  const update = null;
+  if (status === "accepted") {
+    update = { status: status, estimatedReadyTime: estimatedReadyTime };
+  } else {
+    update = { status: status };
+  }
+
   await Orders.findOneAndUpdate(query1, update)
     .then((response) => {
       console.log("Printing response inside API function", response);
