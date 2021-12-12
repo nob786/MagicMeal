@@ -341,8 +341,7 @@ exports.updatePendingOrders = async (req, res) => {
 
 // API for updating Location order status
 exports.uploadLocation = async (req, res) => {
-  const lat = req.params.lat;
-  const lng = req.params.lng;
+  const { lat, lng } = req.body;
 
   if (!lat || !lng) {
     console.log("Lat and lng are empty");
@@ -351,31 +350,31 @@ exports.uploadLocation = async (req, res) => {
     });
   }
 
-  const restaurant = await Restaurant.findOne({
+  const query = {
     account: req.loggedInUserId,
-  });
-  if (!restaurant)
-    return res.status(404).json({
-      message: "Restaurant not found",
-    });
-  restaurant.location.lat = lat;
-  restaurant.location.lng = lng;
+  };
 
-  await restaurant
-    .save()
+  let update = {
+    "location.lat": lat,
+    "location.lng": lng,
+  };
+
+  await Restaurant.findOneAndUpdate(query, update)
     .then((response) => {
-      return res.json({
-        message: "location uploaded",
+      console.log("Printing response inside API function", response);
+      return res.status(200).json({
+        messgae: "Location updated  Successfully",
+        updatedLocation: response,
       });
     })
-    .catch((err) => {
-      if (err) {
-        return res.json({
-          message: "Something went wrong while uploading location. Try again",
+    .catch((error) => {
+      if (error)
+        return res.status(400).json({
+          message: "Catch error",
+          error: error,
         });
-      } else
-        return res.status(500).json({
-          message: "Server error",
-        });
+      else {
+        return res.status(500).send("Server Error");
+      }
     });
 };
