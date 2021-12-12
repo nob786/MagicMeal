@@ -368,11 +368,6 @@ exports.uploadLocation = async (req, res) => {
     account: req.loggedInUserId,
   };
 
-  // let update = {
-  //   "location.lat": lat,
-  //   "location.lng": lng,
-  // };
-
   let restaurant = await Restaurant.find(query);
   restaurant.location.lat = lat;
   restaurant.lcoation.lng = lng;
@@ -384,6 +379,7 @@ exports.uploadLocation = async (req, res) => {
       message: "Could not save your restaurant",
     });
   } else {
+    console.log("Saved your data", restaurant);
     return res.status(200).json({
       message: "Saved your data",
       data: restaurant,
