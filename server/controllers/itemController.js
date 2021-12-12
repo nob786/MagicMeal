@@ -2,7 +2,76 @@ const { Restaurant } = require("../models/restaurant");
 const { Account } = require("../models/account");
 const { Items } = require("../models/item");
 const { Orders } = require("../models/order");
+const { Bookings } = require("../models/booking");
 const { validateItem } = require("../middleware/validation");
+
+exports.updateReservationTableStatus = async (req, res) => {
+  console.log("Inside restaurant update reservation status api");
+  const { tableNo, reservationStatus, restaurantId, customerId } = req.body;
+  if (!tableNo && reservationStatus && restaurantId && customerId) {
+    console.log("Did not get required parameters for finding bookings");
+    return res.json({
+      message: "Did not get required parameters for finding bookings",
+    });
+  }
+  const query = {
+    "restaurant.restaurantId": restaurantId,
+    "customer.customerId": customerId,
+  };
+
+  const update = { reservationStatus: reservationStatus, tableNo: tableNo };
+  let booking = await Bookings.findOneAndUpdate(query, update, {
+    useFindAndModify: false,
+  });
+
+  if (booking) {
+    console.log("Booking updated", booking);
+    return res.status(200).json({
+      message: "Bookings status updated",
+      data: booking,
+    });
+  } else {
+    return res.status(400).json({
+      message: "Could not update status",
+    });
+  }
+};
+exports.getReservedTables = async (req, res) => {
+  console.log("Inside restaurant get reservation api");
+  const { restaurantId } = req.body;
+  if (!restaurantId) {
+    console.log("Could not find restaurant id");
+    return res.json({
+      message: "Could not find restaurant id",
+    });
+  }
+
+  const query = { "restaurant.restaurantId": restaurantId };
+  await Bookings.find(query)
+    .then((response) => {
+      if (response) {
+        console.log("Found your reservations", response);
+        return res.status(200).json({
+          message: "Found your reservation",
+          reservations: response,
+        });
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        console.log("We are in catch block due to some unforseen error");
+        return res.status(400).json({
+          message: "Unknown error possibly in code",
+          err: error,
+        });
+      } else {
+        console.log("Server error");
+        return res.status(500).json({
+          message: "Server Error",
+        });
+      }
+    });
+};
 
 exports.addItem = async (req, res) => {
   const { error } = validateItem(req.body);

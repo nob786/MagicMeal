@@ -23,47 +23,71 @@ const authMiddleWare = require("../middleware/authMiddleware");
 
 // router.post("/image", upload.single("itemImage"), itemController.testImage);
 
+// Update table reservation status
+router.put(
+  "/update-reservation-status",
+  authMiddleWare.verifyRestaurant,
+  itemController.updateReservationTableStatus
+);
+
+// Geeting reserved tables
+router.get(
+  "/get-reserved-tables",
+  authMiddleWare.verifyRestaurant,
+  itemController.getReservedTables
+);
+
+// Adding items to menu
 router.post(
   "/add-item",
   authMiddleWare.verifyRestaurant,
   //upload.single("itemImage"),
   itemController.addItem
 );
+
+// Delete items in menu
 router.delete(
   "/delete-item/:itemId",
   authMiddleWare.verifyRestaurant,
   itemController.deleteItem
 );
+
+// Update items in menu
 router.put(
   "/update-item/:itemId",
   authMiddleWare.verifyRestaurant,
   itemController.updateItem
 );
+
+// Get items in for specififc restaurant
 router.get(
   "/get-items",
   authMiddleWare.verifyRestaurant,
   itemController.getItems
 );
+
+// Get a specific item
 router.get(
   "/get-item/:itemId",
   authMiddleWare.verifyRestaurant,
   itemController.getItem
 );
 
-// API for updating pending order status
+// Updating pending order status
 router.put(
   "/update-pending-orders/:restId",
-  // authMiddleWare.verifyRestaurant,
+  authMiddleWare.verifyRestaurant,
   itemController.updatePendingOrders
 );
 
-// API for fetching pending orders
+// Fetching pending orders
 router.get(
   "/get-pending-orders/:restId",
-  // authMiddleWare.verifyRestaurant,
+  authMiddleWare.verifyRestaurant,
   itemController.getPendingOrders
 );
-// API for uploading location
+
+// Uploading location
 router.post(
   "/upload-location/:lat/:lng",
   authMiddleWare.verifyRestaurant,

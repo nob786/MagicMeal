@@ -5,7 +5,89 @@ const { Bookings } = require("../models/booking");
 const { Account } = require("../models/account");
 const { Orders } = require("../models/order");
 const { validateComment } = require("../middleware/validation");
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 const mongoose = require("mongoose");
+
+const createTransporter = async () => {
+  const oauth2Client = new OAuth2(
+    process.env.CLIENT_ID,
+    process.env.CLIENT_SECRET,
+    "https://developers.google.com/oauthplayground"
+  );
+
+  oauth2Client.setCredentials({
+    refresh_token: process.env.REFRESH_TOKEN,
+  });
+
+  const accessToken = await new Promise((resolve, reject) => {
+    oauth2Client.getAccessToken((err, token) => {
+      if (err) {
+        reject();
+      }
+      resolve(token);
+    });
+  });
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      type: "OAuth2",
+      user: process.env.EMAIL,
+      accessToken,
+
+      clientId: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      refreshToken: process.env.REFRESH_TOKEN,
+    },
+  });
+
+  return transporter;
+};
+
+const sendEmail = async (mailOptions) => {
+  let emailTransporter = await createTransporter();
+  await emailTransporter.sendMail(mailOptions);
+};
+
+exports.getReservedTables = async (req, res) => {
+  console.log("Inside get reserved table api");
+  const { customerId } = req.body;
+  if (!customerId) {
+    console.log("Could not find customer id");
+    return res.json({
+      message: "Could not find customer id",
+    });
+  }
+
+  const query = { "customer.customerId": customerId };
+  await Bookings.find(query)
+    .then((response) => {
+      if (response) {
+        console.log("Found your reservations", response);
+        return res.status(200).json({
+          message: "Found your reservation",
+          reservations: response,
+        });
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        console.log("We are in catch block due to some unforseen error");
+        return res.status(400).json({
+          message: "Unknown error possibly in code",
+          err: error,
+        });
+      } else {
+        console.log("Server error");
+        return res.status(500).json({
+          message: "Server Error",
+        });
+      }
+    });
+};
 
 exports.getRestaurants = async (req, res) => {
   try {
@@ -110,6 +192,7 @@ exports.postOrder = async (req, res) => {
       total: i.total,
     };
   });
+
   //console.log("User Id", userId);
 
   //console.log("Items array", arrayOfItems);
@@ -126,6 +209,7 @@ exports.postOrder = async (req, res) => {
     });
 
   const customerAccount = await Account.findById(userId);
+  const email = customerAccount.email;
   if (!customerAccount)
     return res.status(404).json({
       message: "Could not find account.",
@@ -181,6 +265,16 @@ exports.postOrder = async (req, res) => {
     .save()
     .then((data) => {
       console.log("Data", data);
+      const mailOptions = {
+        to: email,
+        from: "Eatsabyte@gmail.com",
+        subject: "Order Placed",
+        html: `<p>Dear customer your order has been placed  - Eatsabyte</p>
+        `,
+      };
+
+      sendEmail(mailOptions);
+
       return res.status(200).json({
         message: "Order saved",
         data: data,
@@ -350,7 +444,6 @@ exports.getRestaurantsByAddress = (req, res, next) => {
 //====================================Table Booking======================================
 exports.bookTable = async (req, res) => {
   const {
-    // tableNo,
     numberOfPersons,
     reservationDate,
     reservationTime,
@@ -385,7 +478,7 @@ exports.bookTable = async (req, res) => {
       restaurant
     ) {
       const booking = new Bookings({
-        // tableNo: tableNo,
+        tableNo: null,
         numberOfPersons: numberOfPersons,
         reservationDate: reservationDate,
         reservationTime: reservationTime,
