@@ -296,7 +296,7 @@ exports.updatePendingOrders = async (req, res) => {
     _id: orderId,
   };
 
-  const update = null;
+  let update = null;
   if (status === "accepted") {
     update = { status: status, estimatedReadyTime: estimatedReadyTime };
   } else {

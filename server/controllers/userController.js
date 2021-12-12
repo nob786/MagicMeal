@@ -259,6 +259,7 @@ exports.postOrder = async (req, res) => {
     orderDate: orderDate,
     orderType: orderType,
     tableNumber: tableNumber,
+    estimatedReadyTime: null,
   });
 
   await newOrder
