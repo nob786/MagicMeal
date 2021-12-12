@@ -7,6 +7,7 @@ require("dotenv").config();
 const mailgun = require("mailgun-js");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
+const orderid = require("order-id")("key");
 
 const createTransporter = async () => {
   const oauth2Client = new OAuth2(
@@ -148,4 +149,10 @@ exports.subscribeForNewsletter = async (req, res) => {
       data: email,
     });
   }
+};
+
+exports.uniqueId = async (req, res) => {
+  const id = orderid.generate();
+  console.log(typeof id);
+  return res.send("Done");
 };
