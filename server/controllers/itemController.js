@@ -303,6 +303,8 @@ exports.updatePendingOrders = async (req, res) => {
     update = { status: status };
   }
 
+  console.log("Estimated time", update);
+
   await Orders.findOneAndUpdate(query1, update)
     .then((response) => {
       console.log("Printing response inside API function", response);
