@@ -54,7 +54,7 @@ const sendEmail = async (mailOptions) => {
 
 exports.getReservedTables = async (req, res) => {
   console.log("Inside get reserved table api");
-  const { customerId } = req.body;
+  const { customerId } = req.params.customerId;
   if (!customerId) {
     console.log("Could not find customer id");
     return res.json({

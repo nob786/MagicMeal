@@ -6,7 +6,7 @@ const userController = require("../controllers/userController");
 
 // Get booked tables
 router.get(
-  "/get-my-reservations",
+  "/get-my-reservations/:customerId",
   authMiddleWare.verifyCustomer,
   userController.getReservedTables
 );
