@@ -3,11 +3,13 @@ const { Account } = require("../models/account");
 const { Items } = require("../models/item");
 const { Orders } = require("../models/order");
 const { Bookings } = require("../models/booking");
+const { Customer } = require("../models/customer");
 const { validateItem } = require("../middleware/validation");
 
 exports.updateReservationTableStatus = async (req, res) => {
   console.log("Inside restaurant update reservation status api");
-  const { tableNumber, reservationStatus, reservationId } = req.body;
+  const { tableNumber, reservationStatus, reservationId, customerId } =
+    req.body;
   if (!tableNumber && !reservationStatus && !reservationId) {
     console.log("Did not get required parameters for finding bookings");
     return res.json({
@@ -35,7 +37,16 @@ exports.updateReservationTableStatus = async (req, res) => {
   });
 
   if (booking) {
+    let customerData = await Customer.findById(customerId);
+    if (customerData) {
+      customerData.activeTableBookings -= 1;
+    } else {
+      console.log(
+        "Could not find customer id for updating active Table bookings data"
+      );
+    }
     console.log("Booking updated", booking);
+
     return res.status(200).json({
       message: "Bookings status updated",
       data: booking,
