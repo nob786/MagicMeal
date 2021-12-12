@@ -43,6 +43,8 @@ import QrScanner from "./Components/QrScanner/QrScanner";
 import RestMainPage from "./RestaurantComponents/RestMainPage/RestMainPage";
 import RestSettings from "./RestaurantComponents/RestSettings/RestSettings";
 import RestDineInOrders from "./RestaurantComponents/RestDineInOrders/RestDineInOrders";
+import UserTableReservation from "./Components/UserTableReservations/UserRes";
+import RestaurantTableReservation from "./RestaurantComponents/RestTableReservations/RestRes";
 
 function App() {
   const [screenSize, setScreenSize] = React.useState();
@@ -87,6 +89,12 @@ function App() {
             component={AdminMainPage}
           />*/}
           {/*============================Admin Restricted Orders Routers======================= */}
+
+          <RestaurantProtectedRoutes
+            exact
+            path="/admin/table-reservations"
+            component={RestaurantTableReservation}
+          />
 
           <RestaurantProtectedRoutes
             exact
@@ -137,6 +145,10 @@ function App() {
           <Route exact path="/restaurants/:lat" component={Restaurants} />
 
           {/* ============================User Restricted Routes================================== */}
+          <CustomerProtectedRoutes
+            path="/user/table-reservations"
+            component={UserTableReservation}
+          />
           <CustomerProtectedRoutes
             path="/user/my-account"
             component={UserProfile}

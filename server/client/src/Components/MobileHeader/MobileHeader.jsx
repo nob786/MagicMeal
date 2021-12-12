@@ -149,7 +149,7 @@ export default function MobileHeader() {
 
         {authCust === true ? (
           <Link
-            to="/restaurants"
+            to="/user/table-reservations"
             style={{ color: "black", textDecoration: "none" }}
           >
             <ListItem button>

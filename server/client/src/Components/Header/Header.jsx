@@ -307,7 +307,7 @@ function Header() {
                       <li className="navbar-menu-items">
                         <Link
                           className="header-link"
-                          to="/restaurants"
+                          to="/user/table-reservations"
                           onClick={closeMobileMenu}
                         >
                           Table Bookings
