@@ -179,9 +179,18 @@ exports.getUpdatedOrder = async (req, res) => {
 
 exports.postOrder = async (req, res) => {
   console.log("Order Data", req.body);
-  const { restaurantData, customerData, items, grandTotal } = req.body;
+  const {
+    restaurantData,
+    customerData,
+    items,
+    grandTotal,
+    orderDate,
+    orderType,
+    tableNumber,
+  } = req.body;
   const restaurantId = req.params.restId;
   const userId = req.loggedInUserId;
+
   const itemsArray = items.map((i) => {
     return {
       itemId: i._id,
@@ -192,10 +201,6 @@ exports.postOrder = async (req, res) => {
       total: i.total,
     };
   });
-
-  //console.log("User Id", userId);
-
-  //console.log("Items array", arrayOfItems);
 
   if (!userId)
     return res.status(404).json({
@@ -225,14 +230,6 @@ exports.postOrder = async (req, res) => {
       data: customer,
     });
 
-  // const restaurantAccount = await Account.findById(restaurantId);
-
-  // if (!restaurantAccount)
-  //   return res.status(404).json({
-  //     message: "Could not find restaurant account",
-  //     data: restaurantAccount,
-  //   });
-
   const restaurant = await Restaurant.findById(
     restaurantId
     // account: restaurantAccount._id,
@@ -259,6 +256,9 @@ exports.postOrder = async (req, res) => {
     items: itemsArray,
     grandTotal: grandTotal,
     status: "pending",
+    orderDate: orderDate,
+    orderType: orderType,
+    tableNumber: tableNumber,
   });
 
   await newOrder
