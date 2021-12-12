@@ -7,19 +7,29 @@ const { validateItem } = require("../middleware/validation");
 
 exports.updateReservationTableStatus = async (req, res) => {
   console.log("Inside restaurant update reservation status api");
-  const { tableNo, reservationStatus, restaurantId, customerId } = req.body;
-  if (!tableNo && reservationStatus && restaurantId && customerId) {
+  const { tableNumber, reservationStatus, reservationId } = req.body;
+  if (!tableNumber && !reservationStatus && !reservationId) {
     console.log("Did not get required parameters for finding bookings");
     return res.json({
       message: "Did not get required parameters for finding bookings",
     });
   }
   const query = {
-    "restaurant.restaurantId": restaurantId,
-    "customer.customerId": customerId,
+    // "restaurant.restaurantId": restaurantId,
+    // "customer.customerId": customerId,
+    _id: reservationId,
   };
 
-  const update = { reservationStatus: reservationStatus, tableNo: tableNo };
+  let update = null;
+  if (reservationStatus === "reserved") {
+    update = {
+      reservationStatus: reservationStatus,
+      tableNumber: tableNumber,
+    };
+  } else {
+    update = { reservationStatus: reservationStatus };
+  }
+
   let booking = await Bookings.findOneAndUpdate(query, update, {
     useFindAndModify: false,
   });
@@ -40,8 +50,8 @@ exports.getReservedTables = async (req, res) => {
   console.log("Inside restaurant get reservation api");
   const restaurantId = req.params.restaurantId;
   //_____________________________________________//
-  console.log("Customer in params", req.params);
-  console.log("CustomerId variable", restaurantId);
+  console.log("Restaurant in params", req.params);
+  console.log("RestaurantId variable", restaurantId);
   //_____________________________________________//
   if (!restaurantId) {
     console.log("Could not find restaurant id");
