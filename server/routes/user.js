@@ -13,14 +13,14 @@ router.get(
 // Get all the restaurants
 router.get(
   "/get-restaurants",
-  authMiddleWare.verifyCustomer,
+  // authMiddleWare.verifyCustomer,
   userController.getRestaurants
 );
 
 // Get a specific restaurant based on its id.
 router.get(
   "/get-restaurant-menu/:restId",
-  authMiddleWare.verifyCustomer,
+  // authMiddleWare.verifyCustomer,
   userController.getRestaurantMenus
 );
 
