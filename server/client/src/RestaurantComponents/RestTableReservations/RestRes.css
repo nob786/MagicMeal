@@ -1,0 +1,9 @@
+.single-rest-table-res-header {
+  background-color: var(--prime-lightred);
+  color: white;
+  font-size: 22px;
+}
+
+.single-rest-table-res-footer {
+  background: var(--bt-hover-grad);
+}

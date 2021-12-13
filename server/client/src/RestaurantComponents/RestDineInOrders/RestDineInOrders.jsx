@@ -113,7 +113,7 @@ const RestDineInOrders = () => {
         </TabPanel>
         {/* =================================================================Accepted Orders Tab=============================================== */}
         <TabPanel>
-          <TitleTag title="Accepted Orders" />
+          <TitleTag title="Dine-In Accepted Orders" />
           <form
             style={{ justifyContent: "center" }}
             class="form-inline my-2 my-lg-0 text-center"
@@ -156,7 +156,7 @@ const RestDineInOrders = () => {
         </TabPanel>
         {/* =================================================================Ready Orders Tab=============================================== */}
         <TabPanel>
-          <TitleTag title="Ready Orders" />
+          <TitleTag title="Dine-In Ready Orders" />
           <form
             style={{ justifyContent: "center" }}
             class="form-inline my-2 my-lg-0 text-center"
@@ -199,7 +199,7 @@ const RestDineInOrders = () => {
         </TabPanel>
         {/* =================================================================Completed Orders Tab=============================================== */}
         <TabPanel>
-          <TitleTag title="Completed Orders" />
+          <TitleTag title="Dine-In Completed Orders" />
           <form
             style={{ justifyContent: "center" }}
             class="form-inline my-2 my-lg-0 text-center"
@@ -242,6 +242,7 @@ const RestDineInOrders = () => {
         </TabPanel>
         {/* =================================================================Cancelled Orders Tab=============================================== */}
         <TabPanel>
+          <TitleTag title="Dine-In Cancelled Orders" />
           {cancelledOrders.length > 0 ? (
             cancelledOrders.map((order, index) => (
               <SingleRestDineIn key={index} orders={order} />

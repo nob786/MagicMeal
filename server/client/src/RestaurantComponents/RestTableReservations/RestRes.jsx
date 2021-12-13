@@ -1,43 +1,31 @@
 import axios from "axios";
 import React, { Component, useEffect } from "react";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+import TitleTag from "../../Components/SpecialComp/TitleTag";
 
 //=====================================Redux Imports=================================
 import { useDispatch, useSelector } from "react-redux";
+import RestSingleTableReservation from "./RestSingleRes";
 
 const RestaurantTableReservation = () => {
   const [loading, setLoading] = React.useState(true);
+  const [reservationData, setReservationData] = React.useState([]);
+  //=======================Search Terms===================================
+  const [activeSearchTerm, setActiveSearchTerm] = React.useState("");
+  const [acceptedSearchTerm, setReservedSearchTerm] = React.useState("");
+  const [completedSearchTerm, setCompletedSearchTerm] = React.useState("");
   const { restData } = useSelector((state) => state.auth);
-
-  const updateReservationStatus = async () => {
-    // const restId = restData._id;
-    let reservationStatus = "free";
-    await axios
-      .put(
-        `/item//update-reservation-status`,
-        {
-          reservationStatus: reservationStatus,
-          reservationId: "61b3d884a2715a2eb4daa7bb",
-          customerId: "61a723529f51af53b08debd0",
-          tableNumber: "12",
-        },
-        {
-          headers: {
-            authorization:
-              localStorage.getItem("token") !== null
-                ? JSON.parse(localStorage.getItem("token"))
-                : null,
-          },
-        }
-      )
-      .then((response) => {
-        console.log("Update Reservation Status", response);
-        //window.alert("Order Successfully Approved");
-        // toast.success(`Order Approved`, {
-        //   position: toast.POSITION.TOP_CENTER,
-        // });
-        // setTimeout(() => window.location.replace("/admin/orders"), 1000);
-      });
-  };
+  //===================================Filter Reservation Data======================================
+  const activeReservations = reservationData.filter(
+    (n) => n.reservationStatus === "pending"
+  );
+  const acceptedReservations = reservationData.filter(
+    (n) => n.reservationStatus === "reserved"
+  );
+  const completedReservations = reservationData.filter(
+    (n) => n.reservationStatus === "free" || n.status === "cancelled"
+  );
 
   //======================================= Use Effect ============================================
 
@@ -60,22 +48,202 @@ const RestaurantTableReservation = () => {
     if (data) {
       //console.log("Data Fetched", data.data.items);
       console.log("Restaurant Side Reservation Data", data.reservations);
+      setReservationData(data.reservations);
       //   let finalLoadedData = data.data.items;
       //let restaurantId=data.data._id;
 
       // setRestaurantId(data.data._id);
       // setRestaurantName(data.data.restaurantName);
       // setContact(data.data.contact);
-      setLoading(true);
+      setLoading(false);
     } else {
       console.log("Could not fetch data.");
     }
   }, []);
-  return (
-    <div>
-      <button onClick={updateReservationStatus}>
-        Update Reservation Status
-      </button>
+  return loading === true ? (
+    <div class="d-flex justify-content-center">
+      <div
+        class="spinner-border m-5"
+        role="status"
+        style={{ color: "#fe724c" }}
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  ) : (
+    <div className="rest-table-res-div">
+      <Tabs
+        style={{
+          // textAlign: "center",
+          //   marginTop: "5%",
+
+          marginBottom: "5%",
+          // marginRight: "5%",
+          // marginLeft: "5%",
+          fontSize: "20px",
+        }}
+      >
+        <TabList
+          style={{
+            paddingTop: "10px",
+            minHeight: "70px",
+            backgroundColor: "#f3724c",
+            color: "white",
+            textAlign: "center",
+          }}
+        >
+          <Tab style={{ transitionDuration: "1.2s", borderRadius: "25px" }}>
+            Active Reservations
+          </Tab>
+          <Tab style={{ transitionDuration: "1.2s", borderRadius: "25px" }}>
+            Reserved Tables
+          </Tab>
+          <Tab style={{ transitionDuration: "1.2s", borderRadius: "25px" }}>
+            Completed Reservations
+          </Tab>
+          {/* <Tab style={{ transitionDuration: "1.2s" }}>QR Code Generator</Tab> */}
+        </TabList>
+        {/* ====================================================================Active Reservations===================================================== */}
+        <TabPanel>
+          {" "}
+          <TitleTag title="Active Reservations" />
+          <form
+            style={{ justifyContent: "center" }}
+            class="form-inline my-2 my-lg-0 text-center"
+          >
+            <input
+              class="form-control mr-sm-2 w-50"
+              type="search"
+              placeholder="Search by Reservation-ID or Customer Name or Date"
+              aria-label="Search"
+              value={activeSearchTerm}
+              onChange={(event) => {
+                setActiveSearchTerm(event.target.value);
+              }}
+            />
+            {/* <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              Search
+            </button> */}
+          </form>
+          {activeReservations.length > 0 ? (
+            activeReservations
+              .filter((val) => {
+                if (activeSearchTerm === "") {
+                  return val;
+                } else if (val._id.includes(activeSearchTerm)) {
+                  return val;
+                } else if (
+                  val.customer.customerName.includes(activeSearchTerm)
+                ) {
+                  return val;
+                } else if (val.reservationDate.includes(activeSearchTerm)) {
+                  return val;
+                }
+              })
+              .map((order, index) => (
+                <RestSingleTableReservation key={index} reservations={order} />
+              ))
+          ) : (
+            <div class="alert alert-secondary text-center m-5" role="alert">
+              No Reservations Found.{" "}
+              <a href="/restaurants" class="alert-link"></a>
+            </div>
+          )}
+        </TabPanel>
+
+        {/* =============================================================================Reserved Tables============================================================ */}
+        <TabPanel>
+          <TitleTag title="Reserved Tables" />
+          <form
+            style={{ justifyContent: "center" }}
+            class="form-inline my-2 my-lg-0 text-center"
+          >
+            <input
+              class="form-control mr-sm-2 w-50"
+              type="search"
+              placeholder="Search by Reservation-ID or Customer Name or Table Number"
+              aria-label="Search"
+              value={acceptedSearchTerm}
+              onChange={(event) => {
+                setReservedSearchTerm(event.target.value);
+              }}
+            />
+            {/* <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              Search
+            </button> */}
+          </form>
+          {acceptedReservations.length > 0 ? (
+            acceptedReservations
+              .filter((val) => {
+                if (acceptedSearchTerm === "") {
+                  return val;
+                } else if (val._id.includes(acceptedSearchTerm)) {
+                  return val;
+                } else if (
+                  val.customer.customerName.includes(acceptedSearchTerm)
+                ) {
+                  return val;
+                } else if (val.tableNumber.includes(acceptedSearchTerm)) {
+                  return val;
+                }
+              })
+              .map((order, index) => (
+                <RestSingleTableReservation key={index} orders={order} />
+              ))
+          ) : (
+            <div class="alert alert-secondary text-center m-5" role="alert">
+              No Reservations Found.{" "}
+              <a href="/restaurants" class="alert-link"></a>
+            </div>
+          )}
+        </TabPanel>
+
+        {/* ===========================================================Completed Reservations=============================================== */}
+        <TabPanel>
+          {" "}
+          <TitleTag title="Completed Reservations" />
+          <form
+            style={{ justifyContent: "center" }}
+            class="form-inline my-2 my-lg-0 text-center"
+          >
+            <input
+              class="form-control mr-sm-2 w-50"
+              type="search"
+              placeholder="Search by Reservation-ID or Customer Name or Table Number"
+              aria-label="Search"
+              value={completedSearchTerm}
+              onChange={(event) => {
+                setCompletedSearchTerm(event.target.value);
+              }}
+            />
+            {/* <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              Search
+            </button> */}
+          </form>
+          {completedReservations.length > 0 ? (
+            completedReservations
+              .filter((val) => {
+                if (completedSearchTerm === "") {
+                  return val;
+                } else if (val._id.includes(completedSearchTerm)) {
+                  return val;
+                } else if (val.customer.contact.includes(completedSearchTerm)) {
+                  return val;
+                } else if (val.customer.name.includes(completedSearchTerm)) {
+                  return val;
+                }
+              })
+              .map((order, index) => (
+                <RestSingleTableReservation key={index} reservations={order} />
+              ))
+          ) : (
+            <div class="alert alert-secondary text-center m-5" role="alert">
+              No Reservations Found.{" "}
+              <a href="/restaurants" class="alert-link"></a>
+            </div>
+          )}
+        </TabPanel>
+      </Tabs>
     </div>
   );
 };

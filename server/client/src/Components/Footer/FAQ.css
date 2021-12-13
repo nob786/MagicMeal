@@ -1,5 +1,5 @@
 .faq {
-  width: 80%;
+  width: 50%;
   margin: auto;
 }
 
@@ -12,7 +12,7 @@
   font-family: cursive;
   text-align: center;
   width: auto;
-  font-size: 26px;
+  font-size: 22px;
   color: var(--prime-shinegrey);
   font-weight: bold;
 }

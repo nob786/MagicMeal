@@ -103,6 +103,7 @@ const RestOrdersPending = () => {
         </TabList>
         {/* =================================================================Pending Orders Tab=============================================== */}
         <TabPanel>
+          <TitleTag title="Pick-Up Pending" />
           {pendingOrders.length > 0 ? (
             pendingOrders.map((order, index) => (
               <SingleRestOrder key={index} orders={order} />
@@ -115,7 +116,7 @@ const RestOrdersPending = () => {
         </TabPanel>
         {/* =================================================================Accepted Orders Tab=============================================== */}
         <TabPanel>
-          <TitleTag title="Accepted Orders" />
+          <TitleTag title="Pick-Up  Accepted Orders" />
           <form
             style={{ justifyContent: "center" }}
             class="form-inline my-2 my-lg-0 text-center"
@@ -158,7 +159,7 @@ const RestOrdersPending = () => {
         </TabPanel>
         {/* =================================================================Ready Orders Tab=============================================== */}
         <TabPanel>
-          <TitleTag title="Ready Orders" />
+          <TitleTag title="Pick-Up Ready Orders" />
           <form
             style={{ justifyContent: "center" }}
             class="form-inline my-2 my-lg-0 text-center"
@@ -201,7 +202,7 @@ const RestOrdersPending = () => {
         </TabPanel>
         {/* =================================================================Completed Orders Tab=============================================== */}
         <TabPanel>
-          <TitleTag title="Completed Orders" />
+          <TitleTag title="Pick-Up Completed Orders" />
           <form
             style={{ justifyContent: "center" }}
             class="form-inline my-2 my-lg-0 text-center"
@@ -244,6 +245,8 @@ const RestOrdersPending = () => {
         </TabPanel>
         {/* =================================================================Cancelled Orders Tab=============================================== */}
         <TabPanel>
+          <TitleTag title="Pick-Up Cancelled Orders" />
+
           {cancelledOrders.length > 0 ? (
             cancelledOrders.map((order, index) => (
               <SingleRestOrder key={index} orders={order} />

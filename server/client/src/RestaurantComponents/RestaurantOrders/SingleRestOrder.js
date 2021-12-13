@@ -121,11 +121,11 @@ const SingleRestOrder = ({ orders }) => {
       )
       .then((response) => {
         console.log("Approve with time", response);
-        //window.alert("Order Successfully Approved");
-        // toast.success(`Order Approved`, {
-        //   position: toast.POSITION.TOP_CENTER,
-        // });
-        // setTimeout(() => window.location.replace("/admin/orders"), 1000);
+        // window.alert("Order Successfully Approved");
+        toast.success(`Order Approved`, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        setTimeout(() => window.location.replace("/admin/orders"), 1000);
       });
   };
 

@@ -80,16 +80,15 @@ const AdminMenuItems = () => {
         }
       )
       .then((response) => {
-        console.log("Res",response);
+        console.log("Res", response);
         const restaurantData = response.data.data.restaurantData;
         const itemData = response.data.data.itemData;
         if (!restaurantData || !itemData) {
           console.log("Could not get data");
-          console.log("ResData",restaurantData);
-          console.log("item data",itemData);
-          window.alert('invalid Data');
-        } else
-        window.alert("Item added! ");
+          console.log("ResData", restaurantData);
+          console.log("item data", itemData);
+          window.alert("invalid Data");
+        } else window.alert("Item added! ");
         //console.log(response.data);
         //const token = localStorage.getItem("token");
         //const newToken = console.log(JSON.parse(token["_id"]));
@@ -136,14 +135,14 @@ const AdminMenuItems = () => {
 
   return (
     <div>
-      <NewMenuItem
+      {/* <NewMenuItem
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         itemName={data ? data.itemName : null}
         price={data ? data.price : null}
         category={data ? data.category : null}
         description={data ? data.description : null}
-      />
+      /> */}
       <MenuItems />
     </div>
   );
