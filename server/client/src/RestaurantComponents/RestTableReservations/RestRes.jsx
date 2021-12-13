@@ -13,7 +13,7 @@ const RestaurantTableReservation = () => {
   const [reservationData, setReservationData] = React.useState([]);
   //=======================Search Terms===================================
   const [activeSearchTerm, setActiveSearchTerm] = React.useState("");
-  const [acceptedSearchTerm, setReservedSearchTerm] = React.useState("");
+  const [acceptedSearchTerm, setAcceptedSearchTerm] = React.useState("");
   const [completedSearchTerm, setCompletedSearchTerm] = React.useState("");
   const { restData } = useSelector((state) => state.auth);
   //===================================Filter Reservation Data======================================
@@ -24,7 +24,7 @@ const RestaurantTableReservation = () => {
     (n) => n.reservationStatus === "reserved"
   );
   const completedReservations = reservationData.filter(
-    (n) => n.reservationStatus === "free" || n.status === "cancelled"
+    (n) => n.reservationStatus === "free" || n.reservationStatus === "cancelled"
   );
 
   //======================================= Use Effect ============================================
@@ -109,7 +109,7 @@ const RestaurantTableReservation = () => {
           <TitleTag title="Active Reservations" />
           <form
             style={{ justifyContent: "center" }}
-            class="form-inline my-2 my-lg-0 text-center"
+            class="form-inline my-2 my-lg-0 text-center input-group-lg"
           >
             <input
               class="form-control mr-sm-2 w-50"
@@ -161,11 +161,11 @@ const RestaurantTableReservation = () => {
             <input
               class="form-control mr-sm-2 w-50"
               type="search"
-              placeholder="Search by Reservation-ID or Customer Name or Table Number"
+              placeholder="Customer Name or Table Number or Date"
               aria-label="Search"
               value={acceptedSearchTerm}
               onChange={(event) => {
-                setReservedSearchTerm(event.target.value);
+                setAcceptedSearchTerm(event.target.value);
               }}
             />
             {/* <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
@@ -177,18 +177,22 @@ const RestaurantTableReservation = () => {
               .filter((val) => {
                 if (acceptedSearchTerm === "") {
                   return val;
-                } else if (val._id.includes(acceptedSearchTerm)) {
-                  return val;
-                } else if (
+                }
+                // else if (val._id.includes(acceptedSearchTerm)) {
+                //   return val;
+                // }
+                else if (
                   val.customer.customerName.includes(acceptedSearchTerm)
                 ) {
                   return val;
                 } else if (val.tableNumber.includes(acceptedSearchTerm)) {
                   return val;
+                } else if (val.reservationDate.includes(activeSearchTerm)) {
+                  return val;
                 }
               })
               .map((order, index) => (
-                <RestSingleTableReservation key={index} orders={order} />
+                <RestSingleTableReservation key={index} reservations={order} />
               ))
           ) : (
             <div class="alert alert-secondary text-center m-5" role="alert">
@@ -209,7 +213,7 @@ const RestaurantTableReservation = () => {
             <input
               class="form-control mr-sm-2 w-50"
               type="search"
-              placeholder="Search by Reservation-ID or Customer Name or Table Number"
+              placeholder="Search by Reservation-ID or Customer Name"
               aria-label="Search"
               value={completedSearchTerm}
               onChange={(event) => {
@@ -227,11 +231,14 @@ const RestaurantTableReservation = () => {
                   return val;
                 } else if (val._id.includes(completedSearchTerm)) {
                   return val;
-                } else if (val.customer.contact.includes(completedSearchTerm)) {
-                  return val;
-                } else if (val.customer.name.includes(completedSearchTerm)) {
+                } else if (
+                  val.customer.customerName.includes(completedSearchTerm)
+                ) {
                   return val;
                 }
+                // else if (val.reservationDate.includes(activeSearchTerm)) {
+                //   return val;
+                // }
               })
               .map((order, index) => (
                 <RestSingleTableReservation key={index} reservations={order} />

@@ -1,0 +1,13 @@
+/* .single-rest-table-res-header {
+  background-color: var(--prime-lightred);
+  color: var(--prime-white);
+  font-size: 22px;
+}
+
+.single-rest-table-res-footer {
+  background: var(--bt-hover-grad);
+} */
+
+.user-single-table-res-body {
+  background-color: var(--prime-lightred);
+}

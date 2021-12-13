@@ -260,14 +260,27 @@ const Restaurants = () => {
       </div>
       {/*================================================ Search Bar============================================== */}
       <br />
-      <input
-        type="text"
-        placeholder="Search..."
-        onChange={(event) => {
-          setSearchTerm(event.target.value);
-        }}
-      />
-      <TitleTag title="Search Test" />
+      <TitleTag title="Restaurants " />
+      <form
+        style={{ justifyContent: "center" }}
+        class="form-inline my-2 my-lg-0 text-center"
+      >
+        <input
+          style={{ height: "50px", marginBottom: "20px" }}
+          class="form-control mr-sm-2 w-50"
+          type="search"
+          placeholder="Search by Restaurants Name"
+          aria-label="Search"
+          value={searchTerm}
+          onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }}
+        />
+        {/* <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              Search
+            </button> */}
+      </form>
+      {/* <TitleTag title="Search Test" /> */}
       <div className="restaurants_grid">
         {allRestaurants
           .filter((value) => {

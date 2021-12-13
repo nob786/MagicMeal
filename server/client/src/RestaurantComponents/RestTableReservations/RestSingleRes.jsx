@@ -1,22 +1,67 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./RestRes.css";
+//==========================Redux imports===================================
+
+import { useDispatch, useSelector } from "react-redux";
+
+//=================React  Notification
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
+
 const RestSingleTableReservation = ({ reservations }) => {
   const [tableNumber, setTableNumber] = React.useState();
-  let date = reservations.reservationDate;
+  //   let date = reservations.reservationDate;
+  const { restData } = useSelector((state) => state.auth);
 
   //==============================Update Reservation Status===============================
   const updateReservationStatus = async () => {
     // const restId = restData._id;
-    let reservationStatus = "free";
+    // let reservationStatus;
+    if (reservations.reservationStatus === "reserved")
+      //   reservationStatus = "free";
+      await axios
+        .put(
+          `/item//update-reservation-status`,
+          {
+            reservationStatus: "free",
+            reservationId: reservations._id,
+            customerId: reservations.customer.customerId,
+            //   tableNumber: "12",
+          },
+          {
+            headers: {
+              authorization:
+                localStorage.getItem("token") !== null
+                  ? JSON.parse(localStorage.getItem("token"))
+                  : null,
+            },
+          }
+        )
+        .then((response) => {
+          console.log("Table Reservation Completed", response);
+          //window.alert("Order Successfully Approved");
+          toast.success(`Order Approved`, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
+          setTimeout(
+            () => window.location.replace("/admin/table-reservations"),
+            1000
+          );
+        });
+  };
+  //================================================Approve with Table Number===========================================
+  const approveWithTableNumber = async () => {
     await axios
       .put(
         `/item//update-reservation-status`,
         {
-          reservationStatus: reservationStatus,
-          reservationId: "61b295fde981632c84b3e9dc",
-          customerId: "6195663883972436008dd0eb",
-          //   tableNumber: "12",
+          reservationStatus: "reserved",
+          reservationId: reservations._id,
+          customerId: reservations.customer.customerId,
+          tableNumber: tableNumber,
         },
         {
           headers: {
@@ -28,26 +73,66 @@ const RestSingleTableReservation = ({ reservations }) => {
         }
       )
       .then((response) => {
-        console.log("Update Reservation Status", response);
+        // console.log("Update Reservation Status", response);
         //window.alert("Order Successfully Approved");
-        // toast.success(`Order Approved`, {
-        //   position: toast.POSITION.TOP_CENTER,
-        // });
-        // setTimeout(() => window.location.replace("/admin/orders"), 1000);
+        toast.success(`Table Reserved`, {
+          position: toast.POSITION.TOP_CENTER,
+          autoclose: 2000,
+        });
+        setTimeout(
+          () => window.location.replace("/admin/table-reservations"),
+          1000
+        );
       });
   };
-  //================================================Approve with Table Number===========================================
-  const approveWithTableNumber = () => {};
   //================================================Cancel Table Reservations===========================================
-  const cancelTableReservation = () => {};
+  const cancelTableReservation = async () => {
+    await axios
+      .put(
+        `/item//update-reservation-status`,
+        {
+          reservationStatus: "cancelled",
+          reservationId: reservations._id,
+          customerId: reservations.customer.customerId,
+          //   tableNumber: tableNumber,
+        },
+        {
+          headers: {
+            authorization:
+              localStorage.getItem("token") !== null
+                ? JSON.parse(localStorage.getItem("token"))
+                : null,
+          },
+        }
+      )
+      .then((response) => {
+        // console.log("Update Reservation Status", response);
+        //window.alert("Order Successfully Approved");
+        toast.success(`Table Reservation Request Rejected`, {
+          position: toast.POSITION.TOP_CENTER,
+          autoclose: 2000,
+        });
+        setTimeout(
+          () => window.location.replace("/admin/table-reservations"),
+          1000
+        );
+      });
+  };
   return (
-    <div>
+    <div style={{ marginTop: "50px" }}>
       {/* <button on onClick={updateReservationStatus}>
         djdhjsd
       </button> */}
-      <div class="card text-center m-5">
-        <div class="card-header single-rest-table-res-header">
-          {reservations.reservationStatus.toUpperCase()}
+      <div class="card text-center m-5 w-50 m-auto mt-5">
+        <div
+          style={{ backgroundColor: "#fe724c" }}
+          class="card-header single-rest-table-res-header"
+        >
+          {reservations.reservationStatus === "free" ? (
+            <h3>COMPLETED</h3>
+          ) : (
+            <h3>{reservations.reservationStatus.toUpperCase()}</h3>
+          )}
         </div>
         <div class="card-body">
           <h5 class="card-title">{reservations.customer.customerName}</h5>
@@ -108,12 +193,26 @@ const RestSingleTableReservation = ({ reservations }) => {
               Update Reservation Status
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <button class="dropdown-item">Reserve this Table</button>
               <button disabled class="dropdown-item">
+                Reserve this Table
+              </button>
+              <button onClick={updateReservationStatus} class="dropdown-item">
                 Table Has Free
               </button>
             </div>
           </div>
+        ) : null}
+        {reservations.reservationStatus === "pending" ? (
+          // <button onClick={cancelOrder}>Cancel/Reject Order</button>
+          // <button onClick={cancelOrder}>Cancel/Reject Order</button>
+          <button
+            onClick={cancelTableReservation}
+            style={{ marginTop: "30px" }}
+            type="button"
+            class="btn btn-warning m-10 w-90 m-auto"
+          >
+            Cancel/Reject Reservation Request
+          </button>
         ) : null}
         {/* <div class="card-footer text-muted card-header single-rest-table-res-footer">
           2 days ago

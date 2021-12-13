@@ -62,6 +62,7 @@ const SingleRestOrder = ({ orders }) => {
         //window.alert("Order Successfully Approved");
         toast.success(`Order Status Updated to: ${pushOrderStatus}`, {
           position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
         });
         setTimeout(() => window.location.replace("/admin/orders"), 1000);
 
@@ -95,6 +96,7 @@ const SingleRestOrder = ({ orders }) => {
         //window.alert("Order Successfully Approved");
         toast.success(`Order Cancelled`, {
           position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
         });
         setTimeout(() => window.location.replace("/admin/orders"), 1000);
       });
@@ -124,6 +126,7 @@ const SingleRestOrder = ({ orders }) => {
         // window.alert("Order Successfully Approved");
         toast.success(`Order Approved`, {
           position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
         });
         setTimeout(() => window.location.replace("/admin/orders"), 1000);
       });
