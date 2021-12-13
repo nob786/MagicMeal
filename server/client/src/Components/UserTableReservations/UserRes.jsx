@@ -4,6 +4,7 @@ import React, { Component, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import TitleTag from "../../Components/SpecialComp/TitleTag";
+import "./UserRes.css";
 
 //=====================================Redux Imports=================================
 import { useDispatch, useSelector } from "react-redux";
@@ -101,15 +102,15 @@ const UserTableReservation = () => {
         {/* ====================================================================Active Reservations===================================================== */}
         <TabPanel>
           {" "}
-          <TitleTag title="pending Reservations" />
+          <TitleTag title="pending Reservations" paddingBottom="10px" />
           <form
             style={{ justifyContent: "center" }}
             class="form-inline my-2 my-lg-0 text-center"
           >
             <input
-              class="form-control mr-sm-2 w-50"
+              class="form-control mr-sm-2 w-50 "
               type="search"
-              placeholder="Search by Reservation-ID or Customer Name or Date"
+              placeholder="Search by Reservation-ID or Date"
               aria-label="Search"
               value={activeSearchTerm}
               onChange={(event) => {
@@ -126,10 +127,6 @@ const UserTableReservation = () => {
                 if (activeSearchTerm === "") {
                   return val;
                 } else if (val._id.includes(activeSearchTerm)) {
-                  return val;
-                } else if (
-                  val.customer.customerName.includes(activeSearchTerm)
-                ) {
                   return val;
                 } else if (val.reservationDate.includes(activeSearchTerm)) {
                   return val;
@@ -156,7 +153,7 @@ const UserTableReservation = () => {
             <input
               class="form-control mr-sm-2 w-50"
               type="search"
-              placeholder="Search by Reservation-ID or Customer Name or Table Number or Date"
+              placeholder="Search by Reservation-ID or Table Number or Date"
               aria-label="Search"
               value={acceptedSearchTerm}
               onChange={(event) => {
@@ -173,10 +170,6 @@ const UserTableReservation = () => {
                 if (acceptedSearchTerm === "") {
                   return val;
                 } else if (val._id.includes(acceptedSearchTerm)) {
-                  return val;
-                } else if (
-                  val.customer.customerName.includes(acceptedSearchTerm)
-                ) {
                   return val;
                 } else if (val.tableNumber.includes(acceptedSearchTerm)) {
                   return val;
@@ -206,7 +199,7 @@ const UserTableReservation = () => {
             <input
               class="form-control mr-sm-2 w-50"
               type="search"
-              placeholder="Search by Reservation-ID or Customer Name"
+              placeholder="Search by Reservation-ID or Table Number or Date"
               aria-label="Search"
               value={completedSearchTerm}
               onChange={(event) => {
@@ -224,9 +217,7 @@ const UserTableReservation = () => {
                   return val;
                 } else if (val._id.includes(completedSearchTerm)) {
                   return val;
-                } else if (
-                  val.customer.customerName.includes(completedSearchTerm)
-                ) {
+                } else if (val.reservationDate.includes(completedSearchTerm)) {
                   return val;
                 }
                 // else if (val.reservationDate.includes(activeSearchTerm)) {

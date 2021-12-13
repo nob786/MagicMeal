@@ -126,6 +126,7 @@
 }
 
 .signup-button {
+  min-width: 120px;
   height: 40px;
   width: 100px;
   transition-duration: 0.4s;
@@ -137,6 +138,7 @@
   border-radius: 5px;
 }
 .login-button {
+  min-width: 120px;
   height: 40px;
   width: 100px;
   transition-duration: 0.4s;

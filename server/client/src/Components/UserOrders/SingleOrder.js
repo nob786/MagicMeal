@@ -108,7 +108,7 @@ const SingleOrder = ({ orders }) => {
             </Stepper>
           ) : null}
           <span className="user-order-id">
-            <h2>Order ID: {orders._id}</h2>
+            <h2>Order ID: {orders._id.slice(-5)}</h2>
           </span>
           <span className="user-order-status">
             <h2>Order Type: {orders.orderType.toUpperCase()}</h2>
