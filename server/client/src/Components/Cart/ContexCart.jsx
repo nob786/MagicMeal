@@ -81,21 +81,20 @@ function ContexCart() {
 
       <section className="main-cart-section">
         {item.length === 0 ? (
-          <p>You have Nothing in your Cart. Kindly Add some.</p>
+          <p>Cart is Empty.</p>
         ) : (
           <p>
-            Items in Cart:{" "}
-            <span className="total-items-count">{item.length}</span>
+            Cart Items: <span className="total-items-count">{item.length}</span>
           </p>
         )}
 
         <div className="cart-items">
           <div className="cart-items-container">
-            <Scrollbars>
-              {item.map((currItem) => {
-                return <CartItems key={currItem.id} {...currItem} />;
-              })}
-            </Scrollbars>
+            {/* <Scrollbars> */}
+            {item.map((currItem) => {
+              return <CartItems key={currItem.id} {...currItem} />;
+            })}
+            {/* </Scrollbars> */}
           </div>
         </div>
 

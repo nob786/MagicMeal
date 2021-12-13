@@ -31,7 +31,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="/">
-        Eatsabyte.com.pk
+        MagicMeal.com.pk
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -104,6 +104,8 @@ toast.configure();
 export default function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [orderType, setOrderType] = React.useState("pickup");
+  const [tableNumber, setTableNumber] = React.useState("");
 
   //=================Post Order Data ================
 
@@ -111,6 +113,7 @@ export default function Checkout() {
 
   const { deliveryAddress } = useSelector((state) => state.cart);
 
+  //=====================================Check Out Data=========================
   const customerData = {
     name: custData.firstName,
     contact: custData.contact,
@@ -134,12 +137,23 @@ export default function Checkout() {
     items: clickedMenuId,
     grandTotal: cartTotal,
     orderDate: new Date(),
-    orderType: "pickup",
+    orderType: orderType,
     // orderType: "dinein",
-    // tableNumber: "14",
+    // tableNumber: tableNumber,
+  };
+  const DineInOrderData = {
+    customerData: customerData,
+    restaurantData: cartRestaurant,
+    items: clickedMenuId,
+    grandTotal: cartTotal,
+    orderDate: new Date(),
+    orderType: "dinein",
+    // orderType: "dinein",
+    tableNumber: tableNumber,
   };
 
   console.log("Checkout ORDER DATA", OrderData);
+  console.log("Checkout DineIn ORDER DATA", DineInOrderData);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -149,6 +163,38 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+  //===========================================Dine-In Orders=====================================================
+  const placeDineInOrder = async (event) => {
+    // let newDate = new Date();
+    // OrderData.orderDate = newDate;
+    //Order Post //
+    event.preventDefault();
+    await axios
+      .post(`/user/post-order/${restId}`, DineInOrderData, {
+        headers: {
+          authorization:
+            localStorage.getItem("token") !== null
+              ? JSON.parse(localStorage.getItem("token"))
+              : null,
+        },
+      })
+      .then((res) => {
+        if (res) {
+          toast.success(`Order Placed`, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
+          //window.alert("Order Placed");
+          setActiveStep(activeStep + 1);
+          console.log("Response of Order Placed", res);
+        } else console.log("Response Not Avalable");
+      })
+      .catch((err) => {
+        console.log("Error in FE", err);
+      });
+  };
+
+  //==========================================Pickup Order=========================================================
   const placeOrder = async (event) => {
     // let newDate = new Date();
     // OrderData.orderDate = newDate;
@@ -222,14 +268,44 @@ export default function Checkout() {
                   )}
 
                   {activeStep === steps.length - 1 ? (
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={placeOrder}
-                      className={classes.button}
-                    >
-                      Place Order
-                    </Button>
+                    <div>
+                      <form
+                        style={{
+                          justifyContent: "center",
+                          marginBottom: "30px",
+                        }}
+                        class="form-inline"
+                      >
+                        <input
+                          type="number"
+                          class="form-control"
+                          placeholder="Enter Table Number"
+                          onChange={(event) => {
+                            setTableNumber(event.target.value);
+                          }}
+                          value={tableNumber}
+                        />
+                        {/* </div> */}
+                        <button
+                          onClick={placeDineInOrder}
+                          className="update-order-status-button"
+                          class="btn update-order-status-time-button"
+                        >
+                          Place Dine-In Order
+                        </button>
+                        {/* <p>OR</p> */}
+                        <Button
+                          // className="update-order-status-button"
+                          // class="btn update-order-status-time-button"
+                          variant="contained"
+                          color="primary"
+                          onClick={placeOrder}
+                          className={classes.button}
+                        >
+                          Place Pickup Order
+                        </Button>
+                      </form>
+                    </div>
                   ) : clickedMenuId.length > 0 ? (
                     <Button
                       variant="contained"

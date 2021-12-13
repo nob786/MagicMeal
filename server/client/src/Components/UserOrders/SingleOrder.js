@@ -125,7 +125,12 @@ const SingleOrder = ({ orders }) => {
           ) : null}
 
           <span className="user-order-status">
-            <h2>Order Date: {String(orders.orderDate)}</h2>
+            <h2>
+              Order Date:{" "}
+              {String(orders.orderDate).slice(0, 10) +
+                " " +
+                String(orders.orderDate).slice(11, 16)}
+            </h2>
           </span>
           <span className="user-order-restaurant-name">
             <h2>{orders.restaurant.restaurantName}</h2>
