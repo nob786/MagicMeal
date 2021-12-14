@@ -60,7 +60,9 @@ export default function Review() {
           >
             <ListItemText
               primary={product.itemName}
-              secondary={product.description}
+              secondary={
+                <p style={{ maxWidth: "300px" }}>{product.description}</p>
+              }
             />
             <Typography variant="body2">
               {product.price} x {product.quantity} = {product.total} Rs.

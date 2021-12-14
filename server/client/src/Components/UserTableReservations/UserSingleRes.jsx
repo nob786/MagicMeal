@@ -15,16 +15,18 @@ const UserSingleTableReservation = ({ reservations }) => {
       {/* <button on onClick={updateReservationStatus}>
         djdhjsd
       </button> */}
-      <div style={{ borderRadius: "20%" }} class="card text-center w-50 m-auto">
+      <div class="card text-center w-50 m-auto">
         <div class="card-header single-rest-table-res-header">
           {reservations.reservationStatus === "free"
             ? "COMPLETED"
             : reservations.reservationStatus.toUpperCase()}
         </div>
         <div class="card-body">
+          <h5 class="card-title">ID: {reservations._id.slice(-5)}</h5>
           <h5 class="card-title">{reservations.customer.customerName}</h5>
 
-          {reservations.reservationStatus !== "pending" ? (
+          {reservations.reservationStatus === "free" ||
+          reservations.reservationStatus === "reserved" ? (
             <p class="card-text">Reserved Table: {reservations.tableNumber}</p>
           ) : null}
           <p class="card-text">
@@ -34,7 +36,7 @@ const UserSingleTableReservation = ({ reservations }) => {
             Requested Time: {reservations.reservationTime}
           </p>
           <p class="card-text">
-            Requested Date: {reservations.reservationDate}
+            Requested Date: {reservations.reservationDate.slice(0, 10)}
           </p>
         </div>{" "}
         {/* <div class="card-footer text-muted card-header single-rest-table-res-footer">

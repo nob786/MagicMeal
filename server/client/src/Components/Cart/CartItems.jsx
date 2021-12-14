@@ -117,7 +117,9 @@ const CartItems = ({
           <DeleteIcon
             style={{
               fontSize: "20px",
+              color: "red",
             }}
+            // color="secondary"
           />
         </button>
       </div>

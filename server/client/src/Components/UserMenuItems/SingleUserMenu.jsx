@@ -26,7 +26,7 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
 
   //====================================Redux Selectors=========================
   const { clickedMenuId } = useSelector((state) => state.cart);
-
+  const menuCheck = clickedMenuId.filter((n) => n._id === menu._id);
   //=================
 
   const fullCartMenu = {
@@ -54,7 +54,12 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
   const history = useHistory();
   const { authCust } = useSelector((state) => state.auth);
   //console.log("ABCD"+clickedMenuId);
-
+  const alreadyInCart = () => {
+    toast.info(`Already in Cart`, {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+    });
+  };
   //===============================Add to Cart Handle=================================
   const addtoCart = () => {
     //dispatch(pushItemsLength(clickedMenuId.length));
@@ -141,19 +146,35 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
             </div>
 
             <p class="card-text">{menu.price} Rs.</p>
-            <a
-              onClick={addtoCart}
-              style={{
-                width: "100%",
-                color: "white",
-                backgroundColor: "#fe724c",
-                border: "none",
-              }}
-              className="boot-user-add-to-cart-button"
-              class="btn text-center mt-4 boot-user-add-to-cart-button"
-            >
-              Add to Cart
-            </a>
+            {!menuCheck.length > 0 ? (
+              <a
+                onClick={addtoCart}
+                style={{
+                  width: "100%",
+                  color: "white",
+                  backgroundColor: "#fe724c",
+                  border: "none",
+                }}
+                className="boot-user-add-to-cart-button"
+                class="btn text-center mt-4 boot-user-add-to-cart-button"
+              >
+                Add to Cart
+              </a>
+            ) : (
+              <a
+                onClick={alreadyInCart}
+                style={{
+                  width: "100%",
+                  color: "white",
+                  backgroundColor: "#fe724c",
+                  border: "none",
+                }}
+                className="boot-user-add-to-cart-button"
+                class="btn text-center mt-4 boot-user-add-to-cart-button"
+              >
+                Added to Cart
+              </a>
+            )}
           </div>
         </div>
       </div>

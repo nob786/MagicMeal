@@ -18,11 +18,11 @@
 .App {
   font-family: sans-serif;
   color: #272d2f;
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
 }
-/* body {
+body {
   background: url("./Components/Signup/Images/signup-image.jpg");
 
   background-size: cover;
-  background: red;
-} */
+  /* background: red; */
+}

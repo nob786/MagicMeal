@@ -11,3 +11,12 @@
 .user-single-table-res-body {
   background-color: var(--prime-lightred);
 }
+
+.order-search-field {
+  height: 500px;
+  background-color: red;
+}
+
+/* .rest-table-res-div {
+  background: url(https://images.pexels.com/photos/707582/pexels-photo-707582.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);
+} */

@@ -1,9 +1,9 @@
 /*=============================Footer Component=============================*/
 
 .Footer {
-  background: transparent;
-  border-top: 1px solid var(--prime-shinegrey);
-
+  /* background: transparent; */
+  /* border-top: 1px solid var(--prime-shinegrey); */
+  /* background-color: white; */
   padding-bottom: 20px;
   bottom: 0;
 }

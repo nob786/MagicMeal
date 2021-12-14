@@ -109,7 +109,7 @@ const UserMenuItems = () => {
         })
         .then((res) => {
           if (res) {
-            toast.success(`Reservation Request Placed`, {
+            toast.success(res.message, {
               position: toast.POSITION.TOP_CENTER,
               autoClose: 2000,
             });
@@ -117,8 +117,8 @@ const UserMenuItems = () => {
           } else console.log("Response Not Avalable");
         })
         .catch((err) => {
-          // console.log("Error in FE", err);
-          toast.error(err, {
+          console.log("Error in FE", err);
+          toast.error(err.message, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
           });
@@ -227,8 +227,10 @@ const UserMenuItems = () => {
           <br />
           <br />
           <h3 className="user-menu-restaurant-address">
-            <LocationOnIcon /> {restaurantData.address} <br />
-            <PhoneInTalkIcon /> {restaurantData.contact}
+            {/* <LocationOnIcon />  */}
+            {restaurantData.address} <br />
+            {/* <PhoneInTalkIcon /> */}
+            {restaurantData.contact}
             <br />
             Type: {restaurantData.category} <br />
           </h3>

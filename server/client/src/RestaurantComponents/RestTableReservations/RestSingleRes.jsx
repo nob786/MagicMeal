@@ -147,7 +147,7 @@ const RestSingleTableReservation = ({ reservations }) => {
             Requested Time: {reservations.reservationTime}
           </p>
           <p class="card-text">
-            Requested Date: {reservations.reservationDate}
+            Requested Date: {reservations.reservationDate.slice(0, 10)}
           </p>
         </div>{" "}
         {/* =================Pending Status Button */}

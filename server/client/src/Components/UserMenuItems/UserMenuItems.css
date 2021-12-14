@@ -78,6 +78,7 @@
   background-color: var(--prime-lightred);
   border: none;
   font-size: 28px;
+  margin-bottom: 20px;
 }
 .user-book-table-button:hover {
   background: var(--btn-hover-grad);

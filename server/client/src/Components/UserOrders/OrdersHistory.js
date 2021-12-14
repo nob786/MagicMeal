@@ -12,9 +12,10 @@ import AlertTitle from "@mui/material/AlertTitle";
 import { makeStyles } from "@mui/styles";
 
 import SingleOrder from "./SingleOrder";
+import TitleTag from "../SpecialComp/TitleTag";
 
 const OrdersHistory = () => {
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const [orders, setOrders] = React.useState([]);
   const [value, setValue] = React.useState(0);
 
@@ -50,11 +51,11 @@ const OrdersHistory = () => {
         },
       })
       .then((res) => {
-        //if (res) console.log("Response", res);
+        // console.log("User Side Orders Response", res);
         const updatedOrders = res.data.updatedOrder;
-        //console.log("orderss", updatedOrders);
+        console.log("User Side Orders  orderss data", updatedOrders);
         setOrders(updatedOrders);
-        setLoading(true);
+        setLoading(false);
         //window.alert("Orders Imported");
       })
       .catch((err) => {
@@ -91,7 +92,17 @@ const OrdersHistory = () => {
     setT2(true);
   };
 
-  return (
+  return loading === true ? (
+    <div class="d-flex justify-content-center">
+      <div
+        class="spinner-border m-5"
+        role="status"
+        style={{ color: "#fe724c" }}
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  ) : (
     <div className="orders">
       <Tabs
         TabIndicatorProps={{ style: { background: "#272d2f", color: "red" } }}
@@ -102,27 +113,17 @@ const OrdersHistory = () => {
         <Tab onClick={handleClickT1} label="Active Orders" />
         <Tab onClick={handleClickT2} label="Past Orders" />
       </Tabs>
-      {loading === false ? (
-        <div class="d-flex justify-content-center">
-          <div
-            class="spinner-border m-5"
-            role="status"
-            style={{ color: "#fe724c" }}
-          >
-            <span class="sr-only">Loading...</span>
-          </div>
-        </div>
-      ) : t1 === true && loading === true ? (
+      {t1 === true ? (
         pendingFilteredOrders.length > 0 ? (
           pendingFilteredOrders.map((order, index) => (
             <SingleOrder key={index} orders={order} />
           ))
         ) : (
-          <div class="alert alert-secondary text-center" role="alert">
+          <div class="alert alert-secondary text-center m-5" role="alert">
             No Active Orders.
           </div>
         )
-      ) : t2 === true && loading === true ? (
+      ) : t2 === true ? (
         filteredOrders.length > 0 ? (
           filteredOrders.map((n, index) => (
             <SingleOrder key={index} orders={n} />
