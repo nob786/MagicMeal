@@ -262,9 +262,14 @@ export default function Checkout() {
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
+                    <button
+                      className="update-order-status-button"
+                      class="btn update-order-status-time-button"
+                      onClick={handleBack}
+                      className={classes.button}
+                    >
                       Back
-                    </Button>
+                    </button>
                   )}
 
                   {activeStep === steps.length - 1 ? (
@@ -294,37 +299,41 @@ export default function Checkout() {
                           Place Dine-In Order
                         </button>
                         {/* <p>OR</p> */}
-                        <Button
-                          // className="update-order-status-button"
-                          // class="btn update-order-status-time-button"
-                          variant="contained"
-                          color="primary"
+                        <button
+                          className="update-order-status-button"
+                          class="btn update-order-status-time-button"
+                          // variant="contained"
+                          // color="primary"
                           onClick={placeOrder}
                           className={classes.button}
                         >
                           Place Pickup Order
-                        </Button>
+                        </button>
                       </form>
                     </div>
                   ) : clickedMenuId.length > 0 ? (
-                    <Button
-                      variant="contained"
-                      color="primary"
+                    <button
+                      // variant="contained"
+                      // color="primary"
+                      className="update-order-status-button"
+                      class="btn update-order-status-time-button"
                       onClick={handleNext}
                       className={classes.button}
                     >
                       Next
-                    </Button>
+                    </button>
                   ) : (
-                    <Button
+                    <button
                       disabled
-                      variant="contained"
-                      color="primary"
+                      className="update-order-status-button"
+                      class="btn update-order-status-time-button"
+                      // variant="contained"
+                      // color="primary"
                       onClick={handleNext}
                       className={classes.button}
                     >
                       Next
-                    </Button>
+                    </button>
                   )}
                 </div>
               </React.Fragment>

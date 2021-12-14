@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router";
 import Geocode from "react-geocode";
 import axios from "../../axios";
+import { Link } from "react-router-dom";
 /*=========================Importing CSS File=========================*/
 import "../MainPage/MainPage.css";
 import NewsLetter from "../SpecialComp/NewsLetter/NewsLetter";
@@ -24,7 +25,10 @@ import FormControl from "@mui/material/FormControl";
 // import Visibility from "@mui/icons-material/Visibility";
 // import VisibilityOff from "@mui/icons-material/VisibilityOff";
 // import { alpha, styled } from "@mui/material/styles";
-import { Link } from "react-router-dom";
+//=================React  Notification
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 
 const MainPage = () => {
   const [loading, setLoading] = React.useState(false);
