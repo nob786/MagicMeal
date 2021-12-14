@@ -23,18 +23,25 @@ const createTransporter = async () => {
     "https://developers.google.com/oauthplayground"
   );
 
+  console.log("This is oauth2Client before setting credentials", oauth2Client);
+
   oauth2Client.setCredentials({
     refresh_token: process.env.REFRESH_TOKEN,
   });
+  console.log("This is oauth2Client after setting credentials", oauth2Client);
 
   const accessToken = await new Promise((resolve, reject) => {
     oauth2Client.getAccessToken((err, token) => {
       if (err) {
-        reject();
+        reject("Failed to crete access token");
+        console.log("Error in promise");
+        console.log("Token", token);
       }
       resolve(token);
     });
   });
+
+  console.log("Access Token", accessToken);
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -54,6 +61,7 @@ const createTransporter = async () => {
 
 const sendEmail = async (mailOptions) => {
   let emailTransporter = await createTransporter();
+  console.log("Email Transporter", emailTransporter);
   await emailTransporter.sendMail(mailOptions);
 };
 
