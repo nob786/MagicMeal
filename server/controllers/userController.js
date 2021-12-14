@@ -538,5 +538,8 @@ exports.bookTable = async (req, res) => {
     }
   } else if (customerData.activeTableBookings === customerData.maxOrders) {
     console.log("Max Booking Limit Reached", customerData);
+    // return res.status(200).json({
+    //   message: "Max booking reached",
+    // });
   }
 };
