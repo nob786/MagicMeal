@@ -8,17 +8,101 @@ import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Grid } from "@material-ui/core";
+//Material ui dialog testing
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Button from "@mui/material/Button";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Checkbox from "@material-ui/core/Checkbox";
 
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 
+import axios from "../../axios";
+
+//=================React  Notification
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
+
 const SingleMenu = ({ menu, key }) => {
   const [value, setValue] = React.useState();
+  const [open, setOpen] = React.useState(false);
+  const [editMenuData, setEditMenuData] = React.useState({
+    itemName: menu.itemName,
+    price: menu.price,
+    category: menu.category,
+    description: menu.description,
+  });
   const prod = [];
   var id;
 
-  const onMenuEditClick = () => {
-    setValue(menu);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleChange = (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
+
+    setEditMenuData({ ...editMenuData, [name]: value });
+    console.log("edit menu dat", editMenuData);
+  };
+
+  // const onMenuEditClick = () => {
+  //   setValue(menu);
+  // };
+
+  const handleDeleteMenu = () => {
+    const itemId = menu._id;
+    console.log("Item id", itemId);
+    axios
+      .delete(`/item/delete-item/${itemId}`, {
+        headers: {
+          authorization:
+            localStorage.getItem("token") !== null
+              ? JSON.parse(localStorage.getItem("token"))
+              : null,
+        },
+      })
+      .then((res) => {
+        toast.success(`Menu Deleted Successfully`, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        setTimeout(() => window.location.replace("/admin/menu-items"), 1000);
+      });
+  };
+
+  const handleSaveMenu = () => {
+    const itemId = menu._id;
+    console.log("Item id", itemId);
+    axios
+      .put(`/item/update-item/${itemId}`, editMenuData, {
+        headers: {
+          authorization:
+            localStorage.getItem("token") !== null
+              ? JSON.parse(localStorage.getItem("token"))
+              : null,
+        },
+      })
+      .then((res) => {
+        setOpen(false);
+        toast.success(`Menu Updated Successfully`, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        setTimeout(() => window.location.replace("/admin/menu-items"), 1000);
+      });
   };
   return (
     <div
@@ -34,7 +118,7 @@ const SingleMenu = ({ menu, key }) => {
           style={{ color: "#fe724c", fontFamily: "cursive" }}
           class="card-title text-center"
         >
-          {menu.itemName} {console.log("key", key)}
+          {menu.itemName}
         </h5>
         <div id="accordion">
           <div class="card ">
@@ -74,7 +158,8 @@ const SingleMenu = ({ menu, key }) => {
             backgroundColor: "#fe724c",
             border: "none",
           }}
-          onClick={onMenuEditClick}
+          // onClick={onMenuEditClick}
+          onClick={handleClickOpen}
           className="boot-user-add-to-cart-button"
           class="btn text-center mt-4 boot-user-add-to-cart-button"
           data-toggle="modal"
@@ -92,13 +177,14 @@ const SingleMenu = ({ menu, key }) => {
             backgroundColor: "#fe724c",
             border: "none",
           }}
+          onClick={handleDeleteMenu}
           className="boot-user-add-to-cart-button"
           class="btn text-center mt-4 boot-user-add-to-cart-button"
         >
           Delete Menu
         </a>
       </div>
-      {/* =========================Boot Strap Edit Modal ========================== */}
+      {/* =========================Boot Strap Edit Modal ==========================
       <div
         style={{ zIndex: 2000 }}
         class="modal fade"
@@ -188,7 +274,163 @@ const SingleMenu = ({ menu, key }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
+      {/* ===================================Testing DIalog */}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        {/* <DialogTitle id="form-dialog-title">Adding Menu Item</DialogTitle> */}
+        <DialogContent>
+          <Container component="main" maxWidth="l">
+            <CssBaseline />
+            <div /*className={classes.paper}*/>
+              <Typography
+                component="h1"
+                variant="h5"
+                style={{ color: "black", marginBottom: "5%" }}
+              >
+                Edit Menu Item
+              </Typography>
+              <form /*className={classes.form}*/ noValidate>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      name="itemName"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="itemName"
+                      label="Dish Name"
+                      autoFocus
+                      onChange={handleChange}
+                      value={editMenuData.itemName}
+                      inputProps={{ maxLength: 20 }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="lastName"
+                      label="Price"
+                      name="price"
+                      onChange={handleChange}
+                      value={editMenuData.price}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="category"
+                      label="Category"
+                      name="category"
+                      onChange={handleChange}
+                      value={editMenuData.category}
+                    />
+                  </Grid>
+
+                  {/*<Grid item xs={12}>
+                    <InputLabel id="demo-simple-select-label">
+                      Category
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="category"
+                      value={category}
+                      label="Category"
+                      onChange={handleChange}
+                      fullWidth
+                      style={{ color: "black" }}
+                    >
+                      <MenuItem value={"Fast Food"}>Fast Food</MenuItem>
+                      <MenuItem value={"Chinese"}>Chinese</MenuItem>
+                      <MenuItem value={"Italian"}>Italian</MenuItem>
+                    </Select>
+                  </Grid>
+      */}
+
+                  {/*<Grid item xs={12} sm={10}>
+                        <TextField
+                    id="outlined-select-currency-native"
+                    select
+                    label="Category"
+                    value={Category}
+                    onChange={handleChange}
+                    SelectProps={{
+                        native: true,
+                    }}
+                    helperText="Please select your Dish Category"
+                    variant="outlined"
+                    >
+                        {gender.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+                   
+                    </TextField>
+              </Grid>*/}
+
+                  <Grid item xs={12}>
+                    <TextField
+                      rows={2}
+                      maxRows={1}
+                      fullWidth
+                      name="description"
+                      id="outlined-textarea"
+                      label="Description about Ingredients"
+                      placeholder="Placeholder"
+                      multiline
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={editMenuData.description}
+                      inputProps={{ maxLength: 120 }}
+                    />
+                  </Grid>
+
+                  {/* <Grid item xs={12}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox value="allowExtraEmails" color="primary" />
+                      }
+                      label="Show to User By Default"
+                    />
+                  </Grid> */}
+                </Grid>
+                {/* <Button variant="contained" component="label">
+                  Upload Dish Picture
+                  <input
+                    type="file"
+                    hidden
+                    accept="image/*"
+                    // onChange={imageHandler}
+                  />
+                </Button>
+
+                <img
+                  // src={dishPic}
+                  alt=""
+                  style={{ width: "100%", height: "250px" }}
+                /> */}
+              </form>
+            </div>
+          </Container>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSaveMenu} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
     // <div className="restaurant-single-menu">
     //   <div className="restaurant-single-menu-container">
