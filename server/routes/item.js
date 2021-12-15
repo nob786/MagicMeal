@@ -21,7 +21,7 @@ const upload = multer({ storage: storage });
 const itemController = require("../controllers/itemController");
 const authMiddleWare = require("../middleware/authMiddleware");
 
-// router.post("/image", upload.single("itemImage"), itemController.testImage);
+router.post("/image", upload.single("itemImage"), itemController.uploadImage);
 
 // Update table reservation status
 router.put(

@@ -6,6 +6,15 @@ const { Bookings } = require("../models/booking");
 const { Customer } = require("../models/customer");
 const { validateItem } = require("../middleware/validation");
 
+exports.uploadImage = async (req, res) => {
+  console.log("Inside upload image function");
+  try {
+    res.send(req.file);
+  } catch (err) {
+    res.send(err);
+  }
+};
+
 exports.updateReservationTableStatus = async (req, res) => {
   console.log("Inside restaurant update reservation status api");
   const { tableNumber, reservationStatus, reservationId, customerId } =
