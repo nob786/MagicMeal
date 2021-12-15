@@ -135,14 +135,14 @@ const AdminMenuItems = () => {
 
   return (
     <div>
-      {/* <NewMenuItem
+      <NewMenuItem
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         itemName={data ? data.itemName : null}
         price={data ? data.price : null}
         category={data ? data.category : null}
         description={data ? data.description : null}
-      /> */}
+      />
       <MenuItems />
     </div>
   );

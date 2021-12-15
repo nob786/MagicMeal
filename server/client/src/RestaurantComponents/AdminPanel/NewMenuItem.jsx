@@ -103,7 +103,7 @@ const NewMenuItem = ({
 
   return (
     <div>
-      <Button
+      {/* <Button
         style={{
           marginTop: "3%",
           width: "100%",
@@ -114,14 +114,31 @@ const NewMenuItem = ({
         onClick={handleClickOpen}
       >
         Add New Menu
-      </Button>
-
+      </Button> */}
+      <a
+        style={{
+          width: "100%",
+          color: "white",
+          backgroundColor: "#fe724c",
+          border: "none",
+        }}
+        // onClick={onMenuEditClick}
+        onClick={handleClickOpen}
+        className="boot-user-add-to-cart-button"
+        class="btn text-center mt-4 boot-user-add-to-cart-button"
+        data-toggle="modal"
+        data-target="#rest-menu-update-modal"
+        // data-whatever="@getbootstrap"
+        // data-whatever="@mdo"
+      >
+        Add New Menu Menu
+      </a>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Adding Menu Item</DialogTitle>
+        {/* <DialogTitle id="form-dialog-title">Adding Menu Item</DialogTitle> */}
         <DialogContent>
           <Container component="main" maxWidth="l">
             <CssBaseline />
@@ -129,7 +146,7 @@ const NewMenuItem = ({
               <Typography
                 component="h1"
                 variant="h5"
-                style={{ color: "black" }}
+                style={{ color: "black", marginBottom: "5%" }}
               >
                 New Menu Item
               </Typography>
@@ -234,16 +251,16 @@ const NewMenuItem = ({
                     />
                   </Grid>
 
-                  <Grid item xs={12}>
+                  {/* <Grid item xs={12}>
                     <FormControlLabel
                       control={
                         <Checkbox value="allowExtraEmails" color="primary" />
                       }
                       label="Show to User By Default"
                     />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
-                <Button variant="contained" component="label">
+                {/* <Button variant="contained" component="label">
                   Upload Dish Picture
                   <input
                     type="file"
@@ -257,7 +274,7 @@ const NewMenuItem = ({
                   src={dishPic}
                   alt=""
                   style={{ width: "100%", height: "250px" }}
-                />
+                /> */}
               </form>
             </div>
           </Container>

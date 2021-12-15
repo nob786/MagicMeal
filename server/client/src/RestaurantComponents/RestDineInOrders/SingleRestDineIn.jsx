@@ -63,7 +63,7 @@ const SingleRestDineIn = ({ orders }) => {
         toast.success(`Order Status Updated to: ${pushOrderStatus}`, {
           position: toast.POSITION.TOP_CENTER,
         });
-        setTimeout(() => window.location.replace("/admin/orders"), 1000);
+        setTimeout(() => window.location.replace("/admin/dinein-orders"), 1000);
 
         //console.log(response.data);
         //const token = localStorage.getItem("token");
@@ -96,7 +96,7 @@ const SingleRestDineIn = ({ orders }) => {
         toast.success(`Order Cancelled`, {
           position: toast.POSITION.TOP_CENTER,
         });
-        setTimeout(() => window.location.replace("/admin/orders"), 1000);
+        setTimeout(() => window.location.replace("/admin/dinein-orders"), 1000);
       });
   };
   //=======================================Approve with Time==================================
@@ -121,11 +121,12 @@ const SingleRestDineIn = ({ orders }) => {
       )
       .then((response) => {
         console.log("Approve with time", response);
-        //window.alert("Order Successfully Approved");
-        // toast.success(`Order Approved`, {
-        //   position: toast.POSITION.TOP_CENTER,
-        // });
-        // setTimeout(() => window.location.replace("/admin/orders"), 1000);
+        window.alert("Order Successfully Approved");
+        toast.success(`Order Approved`, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
+        setTimeout(() => window.location.replace("/admin/dinein-orders"), 1000);
       });
   };
 

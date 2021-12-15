@@ -10,6 +10,17 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const UserSingleTableReservation = ({ reservations }) => {
+  // const warning = () => {
+  //   if (reservations.reservationStatus === "pending") {
+  //     return "#ffc529";
+  //   } else if (reservations.reservationStatus === "reserved") {
+  //     return "#339900";
+  //   } else if (reservations.reservationStatus === "free") {
+  //     return "#ffc529";
+  //   } else if (reservations.reservationStatus === "cancelled") {
+  //     return "#cc3300";
+  //   }
+  // };
   return (
     <div style={{ marginTop: "50px" }}>
       {/* <button on onClick={updateReservationStatus}>

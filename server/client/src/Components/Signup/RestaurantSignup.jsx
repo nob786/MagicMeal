@@ -79,6 +79,7 @@ export default function RestaurantSignup() {
     const name = event.target.name;
 
     setrestAdmin({ ...restAdmin, [name]: value });
+    // console.log("Restaurant Signup Form Data", restAdmin);
   };
 
   //=======================================Handle Submmit================================
@@ -110,7 +111,7 @@ export default function RestaurantSignup() {
       })
       .then((res) => {
         setLoading(false);
-        console.log(res.data);
+        console.log("Restaurant Signup Full Data", res.data);
         //window.alert("Signup Successfully");
         toast.success(`Successfully Signed-up Partner Account`, {
           position: toast.POSITION.TOP_CENTER,
@@ -211,12 +212,13 @@ export default function RestaurantSignup() {
                 id="restaurant_name"
                 label="Restaurant Name"
                 name="restaurantName"
+                defaultValue={"Multan"}
                 value={restAdmin.restaurantName}
                 onChange={handleChange}
               />
             </Grid>
 
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
@@ -227,6 +229,21 @@ export default function RestaurantSignup() {
                 value={restAdmin.restaurantLocation}
                 onChange={handleChange}
               />
+            </Grid> */}
+            <Grid item xs={12}>
+              <label for="serviceLocation">Service Location:</label>
+              <select
+                placeholder="skjsk"
+                style={{ minHeight: "60px", background: "transparent" }}
+                class="form-control"
+                id="serviceLocation"
+                name="restaurantLocation"
+                onChange={handleChange}
+              >
+                <option selected>Please Select City</option>
+                <option value="multan">Multan</option>
+                <option value="lahore">Lahore</option>
+              </select>
             </Grid>
 
             <Grid item xs={12}>
@@ -284,7 +301,7 @@ export default function RestaurantSignup() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
@@ -295,6 +312,26 @@ export default function RestaurantSignup() {
                 value={restAdmin.category}
                 onChange={handleChange}
               />
+            </Grid> */}
+            <Grid item xs={12}>
+              <label for="category">Food Category:</label>
+              <select
+                style={{ minHeight: "60px", background: "transparent" }}
+                class="form-control"
+                id="category"
+                name="category"
+                onChange={handleChange}
+              >
+                <option selected>Please Select One</option>
+                <option value="chinese">Chinese</option>
+                <option value="thai">Thai</option>
+                <option value="desi">Desi</option>
+                <option value="italian">Italian</option>
+                <option value="arabic">Arabic</option>
+                <option value="fast">Fast Food</option>
+                <option value="sea">Sea Food</option>
+                <option value="mix">Mix Food</option>
+              </select>
             </Grid>
 
             {/* <Grid item xs={12}>

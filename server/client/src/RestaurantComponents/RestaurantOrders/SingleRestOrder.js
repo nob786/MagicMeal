@@ -285,14 +285,19 @@ const SingleRestOrder = ({ orders }) => {
             </button>
           ) : null}
           <span className="user-order-id">
-            <h2>Order ID: {orders._id}</h2>
+            <h2>Order ID: {orders._id.slice(-5)}</h2>
           </span>
           {/* testing Data */}
           <span className="user-order-restaurant-name">
             <h2>Order Type: {orders.orderType.toUpperCase()}</h2>
           </span>
           <span className="user-order-restaurant-name">
-            <h2>Order Date: {String(orders.orderDate)}</h2>
+            <h2>
+              Order Date:{" "}
+              {String(orders.orderDate).slice(0, 10) +
+                " " +
+                String(orders.orderDate).slice(11, 16)}
+            </h2>
           </span>
           {/* <span className="order-history-item-grand-total">
           Table Number: {orders.grandTotal}

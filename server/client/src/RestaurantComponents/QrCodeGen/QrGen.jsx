@@ -77,11 +77,12 @@ function QrGenerator({ id }) {
       <br />
       <div>
         <img src={qrCode} alt="" />
-        <a href={qrCode} download="QRCode"></a>
+        <a href={qrCode} download="QRCode">
+          <button className="qr-gen-button" type="button">
+            Download
+          </button>
+        </a>
       </div>
-      <button className="qr-gen-button" type="button">
-        Download
-      </button>
     </div>
   );
 }

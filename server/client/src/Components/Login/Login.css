@@ -3,8 +3,9 @@
 .foodie_login_container {
   box-shadow: 5px 10px 38px var(--prime-lightred);
   border-radius: 25px;
-  background: url("../Signup/Images/signup-image.jpg");
-  background-size: cover;
+  /* background: url("../Signup/Images/signup-image.jpg");
+  background-size: cover; */
+  background-color: white;
   max-width: 500px;
   margin: auto;
   margin-top: 5%;

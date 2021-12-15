@@ -116,7 +116,7 @@ const Restaurants = () => {
     if (data) {
       console.log("Data was  fetched", data.data);
       let finalDataToLaod = data.data;
-      setAllRestaurants(finalDataToLaod);
+      setAllRestaurants(finalDataToLaod.filter((n) => n.ActiveStatus === true));
       setAllRestaurants2(finalDataToLaod);
       //console.log("ALL rest", allRestaurants);
       setPickupRestaurants(

@@ -187,7 +187,7 @@ const UserMenuItems = () => {
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-  ) : (
+  ) : restaurantData.ActiveStatus === true ? (
     <div className="Menus">
       <div
         style={{
@@ -352,6 +352,15 @@ const UserMenuItems = () => {
           </div>
         </div>
       </div>
+    </div>
+  ) : (
+    <div class="alert alert-secondary text-xl-center m-5 " role="alert">
+      We are Sorry. The {restaurantData.restaurantName.toUpperCase()} has closed
+      for now.
+      <br />
+      <a href="/restaurants" class="alert-link">
+        Click here to Browse Other Restaurants
+      </a>
     </div>
   );
 };
