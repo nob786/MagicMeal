@@ -94,13 +94,14 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
       style={{
         boxShadow:
           "5px 5px 10px 5px rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+        maxWidth: "400px",
       }}
-      class="card h-60"
+      class="card "
     >
       <div class="row no-gutters">
         <div class="col-sm-5">
           <img
-            style={{ height: "100%" }}
+            style={{ height: "200px" }}
             class="card-img"
             src="../Pictures/R7.jpg"
           />
@@ -135,6 +136,7 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
                   </h5>
                 </div>
                 <div
+                  style={{ fontSize: "12px" }}
                   id="collapseOne"
                   class="collapse"
                   aria-labelledby="headingOne"

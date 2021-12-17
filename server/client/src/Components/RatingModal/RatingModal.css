@@ -1,0 +1,18 @@
+.rating-modal-header {
+  background: var(--btn-hover-grad);
+}
+
+.rating-modal-title {
+  color: var(--prime-white);
+}
+
+.rating-modal-submit-button {
+  background: var(--prime-lightred);
+  color: white;
+  border: none;
+}
+
+.rating-modal-submit-button:hover {
+  background: var(--btn-hover-grad);
+  color: white;
+}

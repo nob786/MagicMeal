@@ -117,8 +117,8 @@ export default function RestaurantSignup() {
         })
         .then((res) => {
           setLoading(false);
-          console.log("Restaurant Signup Full Data", res.data);
-          //window.alert("Signup Successfully");
+          // console.log("Restaurant Signup Response Data", res.data);
+
           toast.success(`Successfully Signed-up Partner Account`, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
@@ -127,7 +127,6 @@ export default function RestaurantSignup() {
         })
         .catch((req) => {
           setLoading(false);
-          //window.alert(req.message);
           toast.error(req.message, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,

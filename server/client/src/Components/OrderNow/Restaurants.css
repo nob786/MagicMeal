@@ -3,6 +3,8 @@
 }
 
 .restaurants_grid {
+  margin-top: 5%;
+  margin-bottom: 10%;
   display: grid;
   justify-items: center;
   grid-gap: 30px;

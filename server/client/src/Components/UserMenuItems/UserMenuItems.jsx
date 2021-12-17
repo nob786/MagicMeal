@@ -21,6 +21,10 @@ import AlertTitle from "@mui/material/AlertTitle";
 import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
 
+//======================other imports
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+
 //=================React  Notification
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -40,18 +44,21 @@ const UserMenuItems = () => {
   // const [contact, setContact] = React.useState();
   const { id } = useParams();
   const history = useHistory();
-
   //Auth
   const { authCust } = useSelector((state) => state.auth);
   //Customer Data
   const { custData } = useSelector((state) => state.auth);
 
-  const { clickedRestaurantId } = useSelector((state) => state.data);
-  const { clickedRestaurantData } = useSelector((state) => state.data);
-
-  //const restId = clickedRestaurantId;
+  //===================Category Tabs of Menu Items
+  const arr = items.map((n, k) => {
+    return items[k].category;
+  });
+  let arr2 = arr.filter((item, i, arr) => arr.indexOf(item) === i);
+  //================================================
 
   const handleBookTableToggle = () => {
+    console.log("arr", arr);
+    console.log("arr2", arr2);
     if (authCust === false) {
       // console.log("toggle Data", String(restaurantData.bookTable));
       history.push("/foodie-login");
@@ -196,28 +203,6 @@ const UserMenuItems = () => {
         }}
         className="menu-restaurant-profile"
       >
-        {/* <img
-          src="https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-          alt="new"
-        /> */}
-        {/* <span className="user-menu-restaurant-name">
-          {clickedRestaurantData.restaurantName}{" "}
-        </span>
-        <br />
-        <br />
-        <br />
-        <span className="user-menu-restaurant-address">
-          <LocationOnIcon /> {clickedRestaurantData.address}{" "}
-        </span>
-        <br />
-        <span className="user-menu-restaurant-contact">
-          <PhoneInTalkIcon /> {clickedRestaurantData.contact}{" "}
-        </span>
-        <br />
-        <span className="user-menu-restaurant-category">
-          Type: {clickedRestaurantData.category}{" "}
-        </span>
-        <br /> */}
         <div className="bg-text">
           <h2 className="user-menu-restaurant-name">
             {" "}
@@ -254,15 +239,78 @@ const UserMenuItems = () => {
       </div>
 
       <TitleTag title="Menu Items We Have" />
+
+      {/*menu test */}
       {restaurantData.items.length === 0 ? (
+        <div class="alert alert-secondary text-center m-5" role="alert">
+          No Menu Found.{" "}
+          <a href="/restaurants" class="alert-link">
+            Click here to Browse Other Restaurants
+          </a>
+        </div>
+      ) : (
+        <Tabs
+          style={{
+            // textAlign: "center",
+            //   marginTop: "5%",
+
+            marginBottom: "5%",
+            // marginRight: "5%",
+            // marginLeft: "5%",
+            fontSize: "20px",
+          }}
+        >
+          <TabList
+            style={{
+              paddingTop: "10px",
+              minHeight: "70px",
+              // backgroundColor: "white",
+              color: "#272d2f",
+              textAlign: "center",
+            }}
+          >
+            {arr2 &&
+              arr2.map((tabName, k) => {
+                return <Tab>{tabName}</Tab>;
+              })}
+          </TabList>
+          {/* ====================================================================Active Reservations===================================================== */}
+          {arr2 &&
+            arr2.map((tabName, k) => {
+              return (
+                <TabPanel>
+                  <div className="user-menus-grid">
+                    {items &&
+                      items
+                        .filter((n) => n.category === tabName)
+                        .map((item, index) => {
+                          return (
+                            <SingleUserMenu
+                              key={index}
+                              menu={item}
+                              restId={restaurantData._id}
+                              restName={restaurantData.restaurantName}
+                              cont={restaurantData.contact}
+                              quantity={1}
+                            />
+                          );
+                        })}
+                  </div>
+                </TabPanel>
+              );
+            })}
+        </Tabs>
+      )}
+      {/* menu test */}
+      {/* {restaurantData.items.length === 0 ? (
         <div class="alert alert-secondary text-center" role="alert">
           No Menu Found.{" "}
           <a href="/restaurants" class="alert-link">
             Click here to Browse Other Restaurants
           </a>
         </div>
-      ) : null}
-      <div className="user-menus-grid">
+      ) : null} */}
+      {/* <div className="user-menus-grid">
         {items.map((item, index) => (
           <SingleUserMenu
             key={index}
@@ -273,7 +321,7 @@ const UserMenuItems = () => {
             quantity={1}
           />
         ))}
-      </div>
+      </div> */}
       <div
         class="modal fade book-table-modal"
         id="bookTableModal"

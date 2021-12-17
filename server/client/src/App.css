@@ -15,6 +15,10 @@
     rgba(198, 78, 78, 1) 60%,
     rgba(228, 124, 95, 1) 99%
   );
+
+  --h1-big-screen: 38px;
+  --h2-big-screen: 30px;
+  --p-big-screen: 22px;
 }
 .App {
   font-family: sans-serif;

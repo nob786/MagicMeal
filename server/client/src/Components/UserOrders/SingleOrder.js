@@ -18,6 +18,7 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import { makeStyles } from "@mui/styles";
+import RatingModal from "../RatingModal/RatingModal";
 
 const steps = ["Order Placed", "Accepted", "Ready"];
 
@@ -167,6 +168,7 @@ const SingleOrder = ({ orders }) => {
         <br />
         <br />
         <br />
+        <RatingModal order={orders} />
       </AccordionDetails>
     </Accordion>
   );

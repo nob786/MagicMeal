@@ -27,12 +27,13 @@
 .clients {
   width: 100%;
   padding: 100px 0;
-  background: url("./img/food2.jpg");
+  background: var(--prime-white);
+  /* background: url("./img/food2.jpg");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
   font-size: 24px;
   color: white;
-  background-attachment: fixed;
+  /* background-attachment: fixed; */
   height: 400px;
 }
 
@@ -172,6 +173,9 @@
 @media (max-width: 800px) {
   .main-page-location {
     height: 400px;
+  }
+  .main-slide-button {
+    min-width: 150px;
   }
 
   .d-block {

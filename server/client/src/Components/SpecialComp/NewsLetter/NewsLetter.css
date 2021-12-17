@@ -1,8 +1,9 @@
 .newsletter {
-  background: url("../../MainPage/img/food2.jpg");
+  /* background: url("../../MainPage/img/food2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
+  background-attachment: fixed; */
+  background: var(--btn-hover-grad);
   height: 400px;
   margin-top: 1px;
   text-align: center;
@@ -16,15 +17,16 @@
 
 /*   Title of News Letter*/
 .newsletter-title {
-  font-weight: bold;
+  font-size: var(--h1-big-screen);
+  font-weight: bolder;
   padding-top: 80px;
   text-align: center;
-  color: var(--prime-shinegrey);
+  color: var(--prime-white);
   border-color: white;
 }
 
 .newsletter-field {
-  border: 2px solid var(--prime-shinegrey);
+  border: 1px solid var(--prime-white);
   border-radius: 4px;
   font-size: 18px;
   height: 50px;
@@ -32,7 +34,7 @@
   margin-top: 20px;
 }
 .newsletter-field:defined {
-  color: var(--prime-lightred);
+  color: var(--prime-shinegrey);
 }
 .subscribe_button {
   margin-top: 20px;
@@ -45,9 +47,9 @@
   width: 13rem;
   border-radius: 25px;
   transition-duration: 0.4s;
-  background-color: var(--prime-lightred);
+  background-color: var(--btn-hover-grad);
   color: white;
-  border: none;
+  border: white 1px solid;
 }
 
 .newsletter-submit-button:hover {

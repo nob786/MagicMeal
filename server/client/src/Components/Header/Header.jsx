@@ -303,6 +303,19 @@ function Header() {
                         Restaurants
                       </Link>
                     </li>
+                    {/* <li className="navbar-menu-items">
+                      <div class="dropdown header-link">
+                        <Link to="/restaurants" class="dropbtn ">
+                          Restaurants
+                        </Link>
+                        <div class="dropdown-content">
+                          <Link>Pickup Restaurants</Link>
+                          <Link>Dine-in Restaurants</Link>
+                          <Link>Table Booking Restaurants</Link>
+                        </div>
+                      </div>
+                    </li> */}
+
                     {authCust === true ? (
                       <li className="navbar-menu-items">
                         <Link

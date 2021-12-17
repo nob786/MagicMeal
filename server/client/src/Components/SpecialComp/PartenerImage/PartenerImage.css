@@ -1,10 +1,11 @@
 .partener-image {
   min-height: 500px;
   height: auto;
-  background: url("../../MainPage/img/food2.jpg");
+  background: var(--prime-lightred);
+  /* background: url("../../MainPage/img/food2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
+  background-attachment: fixed; */
   margin-bottom: 1px;
   padding-bottom: 20px;
   border-bottom: black 1px solid;
@@ -21,19 +22,24 @@
 .partener-text {
   font-size: 19px;
   width: 100%;
-  padding-top: 10%;
+  padding-top: 5%;
 }
 .partener-text h1 {
-  font-size: 50px;
+  font-size: var(--h1-big-screen);
+  font-weight: 900;
 }
 
 .partener-text h1 {
   color: var(--prime-shinegrey);
+  padding-bottom: 2%;
 }
 
 .partener-text p {
-  font-size: 22px;
+  margin: auto;
+  font-size: var(--p-big-screen);
   color: var(--prime-shinegrey);
+  width: 50%;
+  padding-bottom: 5%;
 }
 .partener-button {
   margin-top: 2rem;
@@ -45,7 +51,7 @@
   transition-duration: 0.4s;
   background-color: var(--prime-lightred);
   border-radius: 5px;
-  border: none;
+  border: var(--prime-white) 1px solid;
 
   color: white;
 }
@@ -66,6 +72,9 @@
     margin-top: 4rem;
     font-size: 32px;
     margin-bottom: 1.5rem;
+  }
+  .partener-text p {
+    width: 90%;
   }
 
   .partener-text {

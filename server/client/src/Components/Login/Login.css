@@ -9,7 +9,7 @@
   max-width: 500px;
   margin: auto;
   margin-top: 5%;
-  margin-bottom: 1%;
+  margin-bottom: 10%;
 }
 
 .form-fields {
@@ -39,37 +39,9 @@
   -webkit-text-fill-color: transparent;
 }
 
-.submit {
-  padding-top: 50px;
-  color: black;
-}
-
-.mobilecode {
-  width: 3000px;
-}
-
-.mobilecode_field {
-  padding-left: 500px;
-}
-
-.mobilecode_button1 {
-  margin-top: 10px;
-}
-.mobilecode_button2 {
-  margin-top: 10px;
-}
-
-.already {
-  margin-top: 10px;
-}
-
 .email,
 .password {
   width: 90%;
-}
-
-.email :checked {
-  color: white;
 }
 
 .login-submit-button {
@@ -91,7 +63,9 @@
 @media (max-width: 480px) {
   .foodie_login_form {
     color: white;
-    margin: auto;
+    /* margin: auto; */
+    margin-left: 5%;
+    margin-right: 5%;
     height: 450px;
   }
 
