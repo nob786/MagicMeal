@@ -2,6 +2,9 @@ import React from "react";
 import { useEffect } from "react";
 import "./Signup.css";
 
+//validate
+import validate from "../../validate";
+
 //=========================Importing=================
 //import './Signup.css'
 import { Link, useHistory } from "react-router-dom";
@@ -24,6 +27,7 @@ toast.configure();
 
 const FoodieSignup = () => {
   const [loading, setLoading] = React.useState(false);
+  const [errors, setErrors] = React.useState({});
   const history = useHistory();
   const [signupPic, setSignupPic] = React.useState(true);
 
@@ -53,19 +57,11 @@ const FoodieSignup = () => {
   });
 
   const handleChange = (event) => {
-    console.log(event.target.value);
-    console.log(event.target.name);
+    // console.log(event.target.value);
+    // console.log(event.target.name);
     const value = event.target.value;
     const name = event.target.name;
 
-    //setFormData({ [name]: value });
-    /*
-    setFirstName({ [event.target.name]: event.target.value });
-    setlastName({ [event.target.name]: event.target.value });
-    setEmail({ [event.target.name]: event.target.value });
-    setPassword({ [event.target.name]: event.target.value });
-    setPhone({ [event.target.name]: event.target.value });
-    */
     setFormData({ ...formData, [name]: value });
   };
 
@@ -73,36 +69,43 @@ const FoodieSignup = () => {
   const handleSubmit = (event) => {
     setLoading(true);
     event.preventDefault();
-    console.log(formData);
-    const { firstName, lastName, email, password, contact, role } = formData;
+    setErrors(validate(formData));
+    console.log("Errors", errors);
+    // console.log(formData);
 
-    axios
-      .post("/auth/signup-customer", {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-        contact: contact,
-        role: "customer",
-      })
-      .then((res) => {
-        setLoading(false);
-        console.log(res.data);
-        //window.alert("User Resgister Successfully");
-        toast.success(`Successfully Signed-up as a Customer`, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
+    if (Object.keys(validate(formData)).length === 0) {
+      const { firstName, lastName, email, password, contact, role } = formData;
+
+      axios
+        .post("/auth/signup-customer", {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+          contact: contact,
+          role: "customer",
+        })
+        .then((res) => {
+          setLoading(false);
+          console.log(res.data);
+          //window.alert("User Resgister Successfully");
+          toast.success(`Successfully Signed-up as a Customer`, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
+          history.push("/foodie-login");
+        })
+        .catch((err) => {
+          setLoading(false);
+          toast.error(err.message, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+          });
+          //window.alert("ERROR");
         });
-        history.push("/foodie-login");
-      })
-      .catch((err) => {
-        setLoading(false);
-        toast.error(err.message, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
-        });
-        //window.alert("ERROR");
-      });
+    } else if (Object.keys(validate(formData)).length > 0) {
+      setLoading(false);
+    }
 
     /*
     console.log(firstName);
@@ -142,6 +145,9 @@ const FoodieSignup = () => {
               ),
             }}
             onChange={handleChange}
+            value={formData.firstName}
+            helperText={errors.firstName && errors.firstName}
+            error={errors.firstName ? true : false}
           />
         </div>
 
@@ -160,6 +166,9 @@ const FoodieSignup = () => {
               ),
             }}
             onChange={handleChange}
+            value={formData.lastName}
+            helperText={errors.lastName && errors.lastName}
+            error={errors.lastName ? true : false}
           />
         </div>
 
@@ -179,6 +188,9 @@ const FoodieSignup = () => {
               ),
             }}
             onChange={handleChange}
+            value={formData.email}
+            helperText={errors.email && errors.email}
+            error={errors.email ? true : false}
           />
         </div>
 
@@ -199,6 +211,9 @@ const FoodieSignup = () => {
               ),
             }}
             onChange={handleChange}
+            value={formData.password}
+            helperText={errors.password && errors.password}
+            error={errors.password ? true : false}
           />
         </div>
 
@@ -242,6 +257,9 @@ const FoodieSignup = () => {
               ),
             }}
             onChange={handleChange}
+            value={formData.contact}
+            helperText={errors.contact && errors.contact}
+            error={errors.contact ? true : false}
           />
         </div>
 

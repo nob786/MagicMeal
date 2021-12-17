@@ -1,5 +1,7 @@
 import React from "react";
-import validate from "../ValidateForms/ValidateForm";
+//validate
+import validate from "../../validate";
+
 //=================Material Ui Imports========================
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -54,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RestaurantSignup() {
+  const [errors, setErrors] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const classes = useStyles();
 
@@ -86,47 +89,53 @@ export default function RestaurantSignup() {
   const handleSubmit = (event) => {
     setLoading(true);
     event.preventDefault();
-    //console.log(formData);
-    const {
-      OwnerName,
-      email,
-      password,
-      restaurantName,
-      restaurantLocation,
-      contact,
-      category,
-      role,
-    } = restAdmin;
+    console.log("Form Data", restAdmin);
+    setErrors(validate(restAdmin));
+    // console.log("Errors", errors);
+    if (Object.keys(validate(restAdmin)).length === 0) {
+      const {
+        OwnerName,
+        email,
+        password,
+        restaurantName,
+        restaurantLocation,
+        contact,
+        category,
+        role,
+      } = restAdmin;
 
-    axios
-      .post("/auth/signup-restaurant", {
-        ownerName: OwnerName,
-        email: email,
-        password: password,
-        restaurantName: restaurantName,
-        address: restaurantLocation,
-        contact: contact,
-        category: category,
-        role: role,
-      })
-      .then((res) => {
-        setLoading(false);
-        console.log("Restaurant Signup Full Data", res.data);
-        //window.alert("Signup Successfully");
-        toast.success(`Successfully Signed-up Partner Account`, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
+      axios
+        .post("/auth/signup-restaurant", {
+          ownerName: OwnerName,
+          email: email,
+          password: password,
+          restaurantName: restaurantName,
+          address: restaurantLocation,
+          contact: contact,
+          category: category,
+          role: role,
+        })
+        .then((res) => {
+          setLoading(false);
+          console.log("Restaurant Signup Full Data", res.data);
+          //window.alert("Signup Successfully");
+          toast.success(`Successfully Signed-up Partner Account`, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
+          history.push("/foodie-login");
+        })
+        .catch((req) => {
+          setLoading(false);
+          //window.alert(req.message);
+          toast.error(req.message, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+          });
         });
-        history.push("/foodie-login");
-      })
-      .catch((req) => {
-        setLoading(false);
-        //window.alert(req.message);
-        toast.error(req.message, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
-        });
-      });
+    } else if (Object.keys(validate(restAdmin)).length > 0) {
+      setLoading(false);
+    }
   };
 
   const handleAlreadyRestSignup = () => {
@@ -166,6 +175,8 @@ export default function RestaurantSignup() {
                 autoFocus
                 value={restAdmin.OwnerName}
                 onChange={handleChange}
+                helperText={errors.OwnerName && errors.OwnerName}
+                error={errors.OwnerName ? true : false}
               />
             </Grid>
 
@@ -215,6 +226,8 @@ export default function RestaurantSignup() {
                 defaultValue={"Multan"}
                 value={restAdmin.restaurantName}
                 onChange={handleChange}
+                helperText={errors.restaurantName && errors.restaurantName}
+                error={errors.restaurantName ? true : false}
               />
             </Grid>
 
@@ -230,21 +243,6 @@ export default function RestaurantSignup() {
                 onChange={handleChange}
               />
             </Grid> */}
-            <Grid item xs={12}>
-              <label for="serviceLocation">Service Location:</label>
-              <select
-                placeholder="skjsk"
-                style={{ minHeight: "60px", background: "transparent" }}
-                class="form-control"
-                id="serviceLocation"
-                name="restaurantLocation"
-                onChange={handleChange}
-              >
-                <option selected>Please Select City</option>
-                <option value="multan">Multan</option>
-                <option value="lahore">Lahore</option>
-              </select>
-            </Grid>
 
             <Grid item xs={12}>
               <TextField
@@ -256,6 +254,8 @@ export default function RestaurantSignup() {
                 name="contact"
                 value={restAdmin.contact}
                 onChange={handleChange}
+                helperText={errors.contact && errors.contact}
+                error={errors.contact ? true : false}
               />
             </Grid>
 
@@ -284,6 +284,8 @@ export default function RestaurantSignup() {
                 autoComplete="email"
                 value={restAdmin.email}
                 onChange={handleChange}
+                helperText={errors.email && errors.email}
+                error={errors.email ? true : false}
               />
             </Grid>
 
@@ -298,6 +300,8 @@ export default function RestaurantSignup() {
                 autoComplete="password"
                 value={restAdmin.password}
                 onChange={handleChange}
+                helperText={errors.password && errors.password}
+                error={errors.password ? true : false}
               />
             </Grid>
 
@@ -314,6 +318,40 @@ export default function RestaurantSignup() {
               />
             </Grid> */}
             <Grid item xs={12}>
+              <label for="serviceLocation">Service Location:</label>
+              <select
+                placeholder="skjsk"
+                style={{ minHeight: "60px", background: "transparent" }}
+                class="form-control"
+                id="serviceLocation"
+                name="restaurantLocation"
+                onChange={handleChange}
+              >
+                <option selected disabled value="">
+                  Please Select City
+                </option>
+                <option value="multan">Multan</option>
+                <option value="lahore">Lahore</option>
+              </select>
+
+              {errors.restaurantLocation ? (
+                <div
+                  style={{
+                    color: "red",
+                    margin: "5px",
+                    fontSize: "12px",
+                    marginLeft: "3%",
+                  }}
+                >
+                  {" "}
+                  {errors.restaurantLocation}
+                </div>
+              ) : (
+                ""
+              )}
+            </Grid>
+
+            <Grid item xs={12}>
               <label for="category">Food Category:</label>
               <select
                 style={{ minHeight: "60px", background: "transparent" }}
@@ -322,7 +360,9 @@ export default function RestaurantSignup() {
                 name="category"
                 onChange={handleChange}
               >
-                <option selected>Please Select One</option>
+                <option selected disabled value="">
+                  Please Select One
+                </option>
                 <option value="chinese">Chinese</option>
                 <option value="thai">Thai</option>
                 <option value="desi">Desi</option>
@@ -332,6 +372,22 @@ export default function RestaurantSignup() {
                 <option value="sea">Sea Food</option>
                 <option value="mix">Mix Food</option>
               </select>
+
+              {errors.category ? (
+                <div
+                  style={{
+                    color: "red",
+                    margin: "5px",
+                    fontSize: "12px",
+                    marginLeft: "3%",
+                  }}
+                >
+                  {" "}
+                  {errors.category}
+                </div>
+              ) : (
+                ""
+              )}
             </Grid>
 
             {/* <Grid item xs={12}>

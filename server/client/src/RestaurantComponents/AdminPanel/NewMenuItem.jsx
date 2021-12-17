@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "../../axios";
 
 //========================Material ui Imports ============================
 import InputLabel from "@mui/material/InputLabel";
@@ -58,16 +59,53 @@ const NewMenuItem = ({
   description,
   status,
 }) => {
-  const [dishPic, setPic] = React.useState();
+  const [dishPic, setDishPic] = React.useState();
 
-  const imageHandler = (e) => {
+  const imageHandler = async (e) => {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
-        setPic(reader.result);
+        setDishPic(reader.result);
       }
     };
     reader.readAsDataURL(e.target.files[0]);
+    setDishPic(e);
+    console.log("image", dishPic);
+    await axios
+      .post("/item/image", {
+        dishPic,
+      })
+      .then((response) => {
+        window.alert("successful");
+        console.log("Response image upload", response);
+      })
+      .catch((err) => {
+        console.log("image upload error", err);
+      });
+  };
+
+  ////////////////////////Image Upload Test
+  const handleImageUpload = async (e) => {
+    const formData = new FormData();
+    formData.append("itemImage", dishPic);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    await axios
+      .post("/item/image", formData, config)
+      .then((response) => {
+        window.alert("successful");
+        console.log("Response image upload", response);
+      })
+      .catch((err) => {
+        console.log("image upload error", err);
+      });
+  };
+
+  const handleImageChange = (e) => {
+    setDishPic(e.target.files[0]);
   };
 
   const [open, setOpen] = React.useState(false);
@@ -260,7 +298,7 @@ const NewMenuItem = ({
                     />
                   </Grid> */}
                 </Grid>
-                {/* <Button variant="contained" component="label">
+                <Button variant="contained" component="label">
                   Upload Dish Picture
                   <input
                     type="file"
@@ -269,12 +307,18 @@ const NewMenuItem = ({
                     onChange={imageHandler}
                   />
                 </Button>
-
                 <img
                   src={dishPic}
                   alt=""
                   style={{ width: "100%", height: "250px" }}
-                /> */}
+                />
+                <input
+                  type="file"
+                  id="myFile"
+                  name="itemImage"
+                  onChange={handleImageChange}
+                />
+                <input onClick={handleImageUpload}></input>
               </form>
             </div>
           </Container>

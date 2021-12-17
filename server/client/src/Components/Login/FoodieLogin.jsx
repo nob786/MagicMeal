@@ -1,6 +1,9 @@
 import React from "react";
 import "./Login.css";
 
+//Validate
+import validate from "../../validate";
+
 //=================React  Notification
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -51,6 +54,7 @@ const FoodieLogin = () => {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = React.useState("");
   //Snackbar States
   const [openLoginSuccess, setLoginSuccess] = React.useState(false);
 
@@ -63,8 +67,8 @@ const FoodieLogin = () => {
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
-    console.log(event.target.value);
-    console.log(event.target.name);
+    // console.log(event.target.value);
+    // console.log(event.target.name);
     const value = event.target.value;
     const name = event.target.name;
 
@@ -86,86 +90,92 @@ const FoodieLogin = () => {
   const handleSubmit = async (event) => {
     setLoading(true);
     event.preventDefault();
-    const { email, password } = formData;
+    setErrors(validate(formData));
+    // console.log("Errors", errors);
+    if (Object.keys(validate(formData)).length === 0) {
+      const { email, password } = formData;
 
-    await axios
-      .post("/auth/login", {
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        setLoading(false);
-        /* console.log("Whole response", response);
+      await axios
+        .post("/auth/login", {
+          email: email,
+          password: password,
+        })
+        .then((response) => {
+          setLoading(false);
+          /* console.log("Whole response", response);
         console.log("Response data", response.data);
         console.log("token", response.data.token);
         console.log("role", response.data.role); */
-        //console.log(role);
-        //console.log(token);
-        const token = response.data.token;
-        const role = response.data.role;
-        const customer = response.data.customer;
-        const restaurant = response.data.restaurant;
-        //console.log("Restaurant Logged In: ",restaurant);
+          //console.log(role);
+          //console.log(token);
+          const token = response.data.token;
+          const role = response.data.role;
+          const customer = response.data.customer;
+          const restaurant = response.data.restaurant;
+          //console.log("Restaurant Logged In: ",restaurant);
 
-        if (!token) {
-          console.log("Your token is empty", token);
-        } else {
-          //window.alert("User Logged in");
-          localStorage.setItem("token", JSON.stringify(token));
-          if (role === "restaurant") {
-            /*localStorage.setItem(
+          if (!token) {
+            console.log("Your token is empty", token);
+          } else {
+            //window.alert("User Logged in");
+            localStorage.setItem("token", JSON.stringify(token));
+            if (role === "restaurant") {
+              /*localStorage.setItem(
               "magic-meal-restaurant-token",
               JSON.stringify(token)
             );*/
-            setRole("Restaurant");
-            //window.alert("Restaurant Logged In");
-            dispatch(addAuthRest(true));
-            dispatch(addRestaurantData(restaurant));
-            //history.push("/admin/menu-items");
+              setRole("Restaurant");
+              //window.alert("Restaurant Logged In");
+              dispatch(addAuthRest(true));
+              dispatch(addRestaurantData(restaurant));
+              //history.push("/admin/menu-items");
 
-            //setLoginName(restaurant.ownerName);
-            //setTimeout(() => {  history.push("/admin/dashboard"); }, 3000);
-            //setLoginSuccess(true);
-            setTimeout(() => {
-              window.location.replace("/admin/menu-items");
-            }, 1500);
+              //setLoginName(restaurant.ownerName);
+              //setTimeout(() => {  history.push("/admin/dashboard"); }, 3000);
+              //setLoginSuccess(true);
+              setTimeout(() => {
+                window.location.replace("/admin/menu-items");
+              }, 1500);
 
-            toast.success(`Welcome! ${restaurant.restaurantName}`, {
-              position: toast.POSITION.TOP_CENTER,
-            });
-            //history.push("/admin/dashboard");
-          } else if (role === "customer") {
-            /*localStorage.setItem(
+              toast.success(`Welcome! ${restaurant.restaurantName}`, {
+                position: toast.POSITION.TOP_CENTER,
+              });
+              //history.push("/admin/dashboard");
+            } else if (role === "customer") {
+              /*localStorage.setItem(
               "magic-meal-customer-token",
               JSON.stringify(token)
             );*/
-            setRole("Customer");
-            //window.alert("Customer Logged In");
-            dispatch(addAuthCust(true));
-            dispatch(addCustomerData(customer));
-            //window.alert(token.data);
+              setRole("Customer");
+              //window.alert("Customer Logged In");
+              dispatch(addAuthCust(true));
+              dispatch(addCustomerData(customer));
+              //window.alert(token.data);
 
-            //setLoginName(customer.firstName);
-            //setTimeout(() => {  history.push("/"); }, 2000);
-            //setLoginSuccess(true);
+              //setLoginName(customer.firstName);
+              //setTimeout(() => {  history.push("/"); }, 2000);
+              //setLoginSuccess(true);
 
-            history.push("/");
-            toast.success(
-              `Welcome ${customer.firstName} ${customer.lastName}`,
-              { position: toast.POSITION.TOP_CENTER, autoClose: 2000 }
-            );
+              history.push("/");
+              toast.success(
+                `Welcome ${customer.firstName} ${customer.lastName}`,
+                { position: toast.POSITION.TOP_CENTER, autoClose: 2000 }
+              );
+            }
           }
-        }
-        //history.push("/menus");
-      })
-      .catch((req) => {
-        setLoading(false);
-        // //window.alert(req.message);
-        toast.error(req.message, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
+          //history.push("/menus");
+        })
+        .catch((req) => {
+          setLoading(false);
+          // //window.alert(req.message);
+          toast.error(req.message, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+          });
         });
-      });
+    } else if (Object.keys(validate(formData)).length > 0) {
+      setLoading(false);
+    }
   };
 
   //const data = res.json();
@@ -224,7 +234,10 @@ const FoodieLogin = () => {
                 </InputAdornment>
               ),
             }}
+            value={formData.email}
             onChange={handleChange}
+            helperText={errors.email && errors.email}
+            error={errors.email ? true : false}
           />
         </div>
 
@@ -243,7 +256,10 @@ const FoodieLogin = () => {
                 </InputAdornment>
               ),
             }}
+            value={formData.password}
             onChange={handleChange}
+            helperText={errors.password && errors.password}
+            error={errors.password ? true : false}
           />
         </div>
 
