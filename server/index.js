@@ -7,6 +7,7 @@ const app = express();
 const auth = require("./routes/auth");
 const item = require("./routes/item");
 const user = require("./routes/user");
+const test = require("./routes/test");
 // const public = require("./routes/public");
 
 mongoose
@@ -37,6 +38,7 @@ app.use("/auth", auth);
 app.use("/item", item);
 app.use("/user", user);
 // app.use("/public", public);
+app.use("/test", test);
 
 const port = process.env.PORT || 3001;
 

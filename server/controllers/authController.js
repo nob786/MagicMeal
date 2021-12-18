@@ -44,6 +44,13 @@ const createTransporter = async () => {
   console.log("Access Token", accessToken);
 
   const transporter = nodemailer.createTransport({
+    // host: process.env.SMTP_URL,
+    // port: 587,
+    // secure: "false",
+    // auth: {
+    //   user: process.env.SMTP_USER,
+    //   pass: process.env.SMTP_PASS,
+    // },
     service: "gmail",
     auth: {
       type: "OAuth2",
@@ -61,8 +68,14 @@ const createTransporter = async () => {
 
 const sendEmail = async (mailOptions) => {
   let emailTransporter = await createTransporter();
-  console.log("Email Transporter", emailTransporter);
-  await emailTransporter.sendMail(mailOptions);
+  // console.log("Email Transporter", emailTransporter);
+  await emailTransporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.log("Error", err);
+    } else {
+      console.log(`mail sent ${info.response}`);
+    }
+  });
 };
 
 exports.login = async (req, res) => {

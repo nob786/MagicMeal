@@ -8,6 +8,8 @@ const { validateItem } = require("../middleware/validation");
 
 exports.uploadImage = async (req, res) => {
   console.log("Inside upload image function");
+  //  console.log("Req file path", req.file.path);
+
   try {
     res.send(req.file);
   } catch (err) {
@@ -116,11 +118,13 @@ exports.addItem = async (req, res) => {
   if (error) return res.status(400).send("Enter data  correctly.");
 
   const { itemName, price, category, description } = req.body;
+  const { path } = req.file;
+  console.log("Path of imagr", path);
 
   let restaurant = await Restaurant.findOne({
     account: req.loggedInUserId,
   });
-  //console.log("This is the restaurant we found", restaurant);
+  console.log("This is the restaurant we found", restaurant);
 
   try {
     if (!restaurant)
@@ -135,8 +139,10 @@ exports.addItem = async (req, res) => {
       price: price,
       category: category,
       description: description,
+      imageUrl: path,
       restaurant: restaurant._id,
     });
+    // console.log("Item obj", newItem);
 
     restaurant.items.push(newItem);
     let updatedRestaurant = await restaurant.save();
