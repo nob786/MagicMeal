@@ -18,7 +18,7 @@ mongoose
   )
   .then(() => console.log("Monogo is running"))
   .catch((error) => console.log("Error while connecting to atlas", error));
-
+app.use(express.static(__dirname + "./uploads"));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

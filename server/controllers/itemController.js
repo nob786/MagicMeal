@@ -142,7 +142,7 @@ exports.addItem = async (req, res) => {
       imageUrl: path,
       restaurant: restaurant._id,
     });
-    // console.log("Item obj", newItem);
+    console.log("Item obj", newItem);
 
     restaurant.items.push(newItem);
     let updatedRestaurant = await restaurant.save();
