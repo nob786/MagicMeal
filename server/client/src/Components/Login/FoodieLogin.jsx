@@ -9,8 +9,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 //=========================Importing=================
 import { Link, useHistory } from "react-router-dom";
-import Button from "../SpecialComp/Button/Button";
-import ReactInputVerificationCode from "react-input-verification-code";
 import axios from "../../axios";
 
 //================================MAterial Ui===================*/
@@ -20,17 +18,9 @@ import TextField from "@material-ui/core/TextField";
 import EmailIcon from "@material-ui/icons/Email";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
-import DraftsIcon from "@material-ui/icons/Drafts";
-import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
-import ScreenLockPortraitIcon from "@material-ui/icons/ScreenLockPortrait";
 
 //Material Ui for Role
-import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
@@ -40,7 +30,7 @@ import { addCustomerData } from "../../Redux/actions/authentication";
 import { addRestaurantData } from "../../Redux/actions/authentication";
 import { addAuthCust } from "../../Redux/actions/authentication.js";
 import { addAuthRest } from "../../Redux/actions/authentication.js";
-import TitleTag from "../SpecialComp/TitleTag";
+// import TitleTag from "../SpecialComp/TitleTag";
 
 toast.configure();
 
@@ -243,6 +233,7 @@ const FoodieLogin = () => {
 
         <div className="form-fields">
           <TextField
+            style={{ marginTop: "3%" }}
             name="password"
             variant="outlined"
             className="password"

@@ -378,6 +378,19 @@ const UserMenuItems = () => {
                     value={time}
                   />
                 </div>
+                {/* <div class="form-group">
+                  <label for="book-table-person-number" class="col-form-label ">
+                    Requested Time:
+                  </label>
+                  <input
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                    type="time"
+                    class="form-control form-control-lg "
+                    id="book-table-person-number"
+                    placeholder="Example: 4"
+                  />
+                </div> */}
               </form>
             </div>
             <div class="modal-footer">

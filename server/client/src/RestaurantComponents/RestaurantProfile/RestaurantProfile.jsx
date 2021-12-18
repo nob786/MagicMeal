@@ -31,26 +31,13 @@ import { useSelector } from "react-redux";
 import "./RestaurantProfile.css";
 
 const RestaurantProfile = () => {
-  const [location, setLocation] = React.useState({
-    loaded: false,
-    coordinates: { lat: "", long: "" },
-  });
+  const [profilePic, setProfilePic] = React.useState("");
   const history = useHistory();
+  //Customer Data
+  const { restData } = useSelector((state) => state.auth);
+  // console.log(restData);
 
-  const handleClickGps = () => {
-    navigator.geolocation.getCurrentPosition((location) => {
-      setLocation({
-        loaded: true,
-        coordinates: {
-          lat: location.coords.latitude,
-          long: location.coords.longitude,
-        },
-      });
-    });
-    console.log("loc", location);
-  };
-
-  const handleUploadLocation = async () => {
+  const handleUploadPicture = async () => {
     let lat = "30.210098";
     let lng = "71.514337";
     await axios
@@ -69,10 +56,28 @@ const RestaurantProfile = () => {
         console.log("Un-Successful");
       });
   };
-
-  //Customer Data
-  const { restData } = useSelector((state) => state.auth);
-  // console.log(restData);
+  const imageHandler = async (e) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setProfilePic(reader.result);
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+    setProfilePic(e);
+    console.log("image uploaded", profilePic);
+    // await axios
+    //   .post("/item/image", {
+    //     dishPic,
+    //   })
+    //   .then((response) => {
+    //     window.alert("successful");
+    //     console.log("Response image upload", response);
+    //   })
+    //   .catch((err) => {
+    //     console.log("image upload error", err);
+    //   });
+  };
 
   return (
     <div className="user-profile">
@@ -86,14 +91,57 @@ const RestaurantProfile = () => {
                     <div class=" text-center text-white">
                       <div class="">
                         {" "}
-                        <img
-                          src="https://img.icons8.com/bubbles/100/000000/user.png"
-                          class="img-radius"
-                          alt="User-Profile-Image"
-                        />{" "}
+                        {profilePic === "" ? (
+                          <img
+                            style={{
+                              width: "90%",
+                              height: "100%",
+                              marginTop: "10px",
+                            }}
+                            src="https://img.icons8.com/bubbles/100/000000/user.png"
+                            class="img-radius"
+                            alt="User-Profile-Image"
+                          />
+                        ) : (
+                          <img
+                            src={profilePic}
+                            alt="d"
+                            style={{
+                              width: "90%",
+                              maxHeight: "400px",
+                              marginTop: "10px",
+                            }}
+                          />
+                        )}
                       </div>
-                      <h6 class="">{restData.ownerName}</h6>
-                      <p>Restaurant Profile</p> <i class="  "></i>
+                      <h6 style={{ fontSize: "22px" }} class="">
+                        {restData.restaurantName}
+                      </h6>
+                      {/* <button
+                        className="boot-button"
+                        variant="contained"
+                        component="label"
+                        style={{ marginBottom: "10px" }}
+                        type="file"
+                        class="form-control"
+                        id="customFile"
+                      >
+                        Upload Profile Picture
+                        <input
+                          type="file"
+                          hidden
+                          accept="image/*"
+                          onChange={imageHandler}
+                        />
+                      </button> */}
+                      <input
+                        style={{ marginBottom: "10px" }}
+                        onChange={imageHandler}
+                        type="file"
+                        accept="image/*"
+                        class="form-control"
+                        id="customFile"
+                      />
                     </div>
                   </div>
                   <div class="col-sm-8">
@@ -142,40 +190,6 @@ const RestaurantProfile = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="main-page-location-container">
-        <FormControl
-          color="warning"
-          className="main-page-location-bar"
-          sx={{ m: 1, maxWidth: "600px" }}
-          variant="outlined"
-        >
-          <InputLabel htmlFor="outlined-adornment-password">
-            Select Location
-          </InputLabel>
-          <OutlinedInput
-            id="outlined"
-            endAdornment={
-              <InputAdornment position="end">
-                <GpsFixedIcon
-                  onClick={handleClickGps}
-                  sx={{
-                    color: "#fe724c",
-                    cursor: "grab",
-                  }}
-                />
-              </InputAdornment>
-            }
-            label="Enter Full Address"
-            value={`${location.coordinates.lat} ${location.coordinates.long}`}
-          />
-        </FormControl>
-        <button
-          className="main-page-delivery-button"
-          onClick={handleUploadLocation}
-        >
-          Upload Location
-        </button>
       </div>
     </div>
   );
