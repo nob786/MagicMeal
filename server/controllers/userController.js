@@ -412,8 +412,8 @@ exports.getRestaurantsByAddress = (req, res, next) => {
       });
 
       const sellersFinal = sellersVerified.reduce((result, seller) => {
-        const lat2 = seller.address.lat;
-        const lon2 = seller.address.lng;
+        const lat2 = seller.location.lat;
+        const lon2 = seller.location.lng;
 
         const R = 6371; // kms
         const φ1 = (lat1 * Math.PI) / 180; // φ, λ in radians
