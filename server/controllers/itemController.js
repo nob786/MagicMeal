@@ -5,6 +5,74 @@ const { Orders } = require("../models/order");
 const { Bookings } = require("../models/booking");
 const { Customer } = require("../models/customer");
 const { validateItem } = require("../middleware/validation");
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
+
+//_______________________ Email Configurations ______________________________________\\
+
+const createTransporter = async () => {
+  const oauth2Client = new OAuth2(
+    process.env.CLIENT_ID,
+    process.env.CLIENT_SECRET,
+    "https://developers.google.com/oauthplayground"
+  );
+
+  // console.log("This is oauth2Client before setting credentials", oauth2Client);
+
+  oauth2Client.setCredentials({
+    refresh_token: process.env.REFRESH_TOKEN,
+  });
+  // console.log("This is oauth2Client after setting credentials", oauth2Client);
+
+  const accessToken = await new Promise((resolve, reject) => {
+    oauth2Client.getAccessToken((err, token) => {
+      if (err) {
+        reject("Failed to crete access token");
+        console.log("Error in promise");
+        console.log("Token", token);
+      }
+      resolve(token);
+    });
+  });
+
+  // console.log("Access Token", accessToken);
+
+  const transporter = nodemailer.createTransport({
+    // host: process.env.SMTP_URL,
+    // port: 587,
+    // secure: "false",
+    // auth: {
+    //   user: process.env.SMTP_USER,
+    //   pass: process.env.SMTP_PASS,
+    // },
+    service: "gmail",
+    auth: {
+      type: "OAuth2",
+      user: process.env.EMAIL,
+      accessToken,
+
+      clientId: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      refreshToken: process.env.REFRESH_TOKEN,
+    },
+  });
+
+  return transporter;
+};
+
+const sendEmail = async (mailOptions) => {
+  let emailTransporter = await createTransporter();
+  // console.log("Email Transporter", emailTransporter);
+  await emailTransporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.log("Error", err);
+    } else {
+      console.log(`mail sent ${info.response}`);
+    }
+  });
+};
+
+// ___________________________________________________________________________________\\
 
 exports.uploadImage = async (req, res) => {
   console.log("Inside upload image function");
@@ -61,6 +129,13 @@ exports.updateReservationTableStatus = async (req, res) => {
     }
 
     console.log("Booking updated", booking);
+    // const mailOptions = {
+    //   to: email,
+    //   from: "Magic Meal",
+    //   subject: "Booking Status",
+    //   html: `<p>Dear Customer your table has been reserved. Your table no is ${tableNumber} </p>`,
+    // };
+    // sendEmail(mailOptions);
     return res.status(200).json({
       message: "Bookings status updated",
       data: booking,
@@ -350,7 +425,18 @@ exports.updatePendingOrders = async (req, res) => {
 
   await Orders.findOneAndUpdate(query1, update)
     .then((response) => {
-      console.log("Printing response inside API function", response);
+      // const mailOptions = {
+      //   to: email,
+      //   from: "Magic Meal",
+      //   subject: "Order Status",
+      //   html: `<p> Your order has been placed. This is your order id ${orderId}. Your meal will be ready in ${estimatedReadyTime}.`,
+      // };
+      // console.log(
+      //   "Printing response inside Update Pending order api",
+      //   response
+      // );
+      // sendEmail(mailOptions);
+
       return res.status(200).json({
         messgae: "Order Updated Successfully",
         updatedOrder: response,

@@ -1,7 +1,7 @@
 const app = require("express");
 const router = app.Router();
 
-const testController = require("../controllers/testingcontroller");
+const testController = require("../controllers/testController");
 
 router.post("/text-msg", testController.testMsg);
 

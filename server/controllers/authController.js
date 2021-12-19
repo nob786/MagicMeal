@@ -194,17 +194,15 @@ exports.signupRestaurant = async (req, res) => {
 
     const mailOptions = {
       to: email,
-      from: "Eatsabyte",
+      from: "Magic Meal",
       subject: "Verify your account",
       html: `<p>Please verify your email by clicking on the link below - Eatsabyte</p>
-    <p>Click this <a href="https://eatsabyte.herokuapp.com/auth/verify/${verificationToken}">link</a> to verify your account.</p>
+    <p>Click this <a href="https://magicmeal.herokuapp.com/auth/verify/${verificationToken}">link</a> to verify your account.</p>
     `,
     };
     await newRestaurant
       .save()
       .then((savedRestaurant) => {
-        console.log("Gmail Username", process.env.GMAIL_USER);
-        console.log("Gmail Pass", process.env.GMAIL_PASS);
         sendEmail(mailOptions);
         res.status(200).json({
           message: "Saved Restaurant and email sent for verification",
@@ -294,10 +292,10 @@ exports.signupCustomer = async (req, res) => {
 
     const mailOptions = {
       to: email,
-      from: "Eatsabyte",
+      from: "Magic Meal",
       subject: "Verify your account",
       html: `<p>Please verify your email by clicking on the link below - Eatsabyte</p>
-    <p>Click this <a href="https://eatsabyte.herokuapp.com/auth/verify/${verificationToken}">link</a> to verify your account.</p>
+    <p>Click this <a href="https://magicmeal.herokuapp.com/auth/verify/${verificationToken}">link</a> to verify your account.</p>
     `,
     };
 
