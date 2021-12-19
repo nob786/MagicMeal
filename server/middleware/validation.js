@@ -15,6 +15,7 @@ function validateItem(item) {
     price: Joi.number().required(),
     category: Joi.string().required(),
     description: Joi.string().required(),
+    imageUrl: Joi.string().required(),
   });
 
   const result = schema.validate(item);

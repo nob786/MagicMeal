@@ -290,7 +290,7 @@ exports.updateItem = async (req, res) => {
       itemId: itemId,
     });
 
-  const { name, price, category, description } = req.body;
+  const { itemName, price, category, description, imageUrl } = req.body;
 
   try {
     if (!itemId)
@@ -299,10 +299,11 @@ exports.updateItem = async (req, res) => {
         .send("There was no item id found in the request body.");
 
     let item = await Items.findById(itemId);
-    item.name = name;
+    item.itemName = itemName;
     item.price = price;
     item.category = category;
     item.description = description;
+    item.imageUrl = imageUrl;
     await item.save();
 
     return res.status(200).json({
