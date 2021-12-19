@@ -40,8 +40,8 @@ router.get(
 // Adding items to menu
 router.post(
   "/add-item",
-  // authMiddleWare.verifyRestaurant,
-  upload.single("itemImage"),
+  authMiddleWare.verifyRestaurant,
+  // upload.single("itemImage"),
   itemController.addItem
 );
 
