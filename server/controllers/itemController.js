@@ -74,16 +74,51 @@ const sendEmail = async (mailOptions) => {
 
 // ___________________________________________________________________________________\\
 
-exports.uploadImage = async (req, res) => {
+exports.uploadRestaurantImage = async (req, res) => {
   console.log("Inside upload image function");
-  //  console.log("Req file path", req.file.path);
-
-  try {
-    res.send(req.file);
-  } catch (err) {
-    res.send(err);
+  const { imageUrl } = req.body;
+  if (imageUrl) {
+    console.log("Found image");
+  } else {
+    console.log("Did not get image");
+    return res.json({
+      message: "Did not get image",
+    });
   }
+
+  let query = {
+    account: req.loggedInUserId,
+  };
+
+  let update = {
+    imageUrl: imageUrl,
+  };
+
+  await Restaurant.findOneAndUpdate(query, update)
+    .then((response) => {
+      console.log("Image Uploaded");
+      return res.status(200).json({
+        messgae: "Image Uploaded",
+        response: response,
+      });
+    })
+    .catch((err) => {
+      if (err) {
+        console.log("Error in catch block");
+        return res.status(400).json({
+          message: "Error in catch block",
+          error: err,
+        });
+      } else {
+        console.log("Server Error");
+        return res.status(500).json({
+          message: "Server Error",
+        });
+      }
+    });
 };
+
+//_______________________________________________________________________________________\\
 
 exports.updateReservationTableStatus = async (req, res) => {
   console.log("Inside restaurant update reservation status api");

@@ -30,7 +30,9 @@ const restaurantSchema = mongoose.Schema({
     lng: { type: Number, default: null },
     address: { type: String, default: null },
   },
-
+  imageUrl: {
+    type: String,
+  },
   dineIn: {
     type: Boolean,
     default: true,
