@@ -23,12 +23,12 @@ const createTransporter = async () => {
     "https://developers.google.com/oauthplayground"
   );
 
-  console.log("This is oauth2Client before setting credentials", oauth2Client);
+  // console.log("This is oauth2Client before setting credentials", oauth2Client);
 
   oauth2Client.setCredentials({
     refresh_token: process.env.REFRESH_TOKEN,
   });
-  console.log("This is oauth2Client after setting credentials", oauth2Client);
+  // console.log("This is oauth2Client after setting credentials", oauth2Client);
 
   const accessToken = await new Promise((resolve, reject) => {
     oauth2Client.getAccessToken((err, token) => {
@@ -41,7 +41,7 @@ const createTransporter = async () => {
     });
   });
 
-  console.log("Access Token", accessToken);
+  // console.log("Access Token", accessToken);
 
   const transporter = nodemailer.createTransport({
     // host: process.env.SMTP_URL,
@@ -153,67 +153,84 @@ exports.signupRestaurant = async (req, res) => {
     role,
   } = req.body;
 
-  const user = await Account.findOne({ email: email });
-
-  if (user) {
-    return res.status(400).send("User already exists.");
-  }
-
-  const salt = await bcrypt.genSalt(12);
-  const hashedPassword = await bcrypt.hash(password, salt);
-
-  const verificationToken = crypto.randomBytes(32).toString("hex");
-
-  let newAccount = new Account({
-    email: email,
-    password: hashedPassword,
-    role: role,
-    accountVerifyToken: verificationToken,
+  const user = await Account.findOne({ email: email }, function (err, user) {
+    if (err) {
+      console.log("This is error", err);
+    } else {
+      console.log("This is user ", user);
+    }
   });
 
-  await newAccount
-    .save()
-    .then((savedAccount) => {
-      console.log("Account has been registered", savedAccount);
-    })
-    .catch((err) => {
-      console.log("Account not saved", err);
+  if (user === null) {
+    const salt = await bcrypt.genSalt(12);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const verificationToken = crypto.randomBytes(32).toString("hex");
+
+    let newAccount = new Account({
+      email: email,
+      password: hashedPassword,
+      role: role,
+      accountVerifyToken: verificationToken,
     });
 
-  let newRestaurant = new Restaurant({
-    ownerName: ownerName,
-    restaurantName: restaurantName,
-    contact: contact,
-    category: category,
-    address: address,
-    account: newAccount._id,
-  });
+    await newAccount
+      .save()
+      .then((savedAccount) => {
+        console.log("Account has been registered", savedAccount);
+      })
+      .catch((err) => {
+        console.log("Account not saved", err);
+      });
 
-  const mailOptions = {
-    to: email,
-    from: "Eatsabyte",
-    subject: "Verify your account",
-    html: `<p>Please verify your email by clicking on the link below - Eatsabyte</p>
+    let newRestaurant = new Restaurant({
+      ownerName: ownerName,
+      restaurantName: restaurantName,
+      contact: contact,
+      category: category,
+      address: address,
+      account: newAccount._id,
+    });
+
+    const mailOptions = {
+      to: email,
+      from: "Eatsabyte",
+      subject: "Verify your account",
+      html: `<p>Please verify your email by clicking on the link below - Eatsabyte</p>
     <p>Click this <a href="https://eatsabyte.herokuapp.com/auth/verify/${verificationToken}">link</a> to verify your account.</p>
     `,
-  };
-  await newRestaurant
-    .save()
-    .then((savedRestaurant) => {
-      console.log("Gmail Username", process.env.GMAIL_USER);
-      console.log("Gmail Pass", process.env.GMAIL_PASS);
-      sendEmail(mailOptions);
-      res.status(200).json({
-        message: "Saved Restaurant and email sent for verification",
-        data: savedRestaurant,
+    };
+    await newRestaurant
+      .save()
+      .then((savedRestaurant) => {
+        console.log("Gmail Username", process.env.GMAIL_USER);
+        console.log("Gmail Pass", process.env.GMAIL_PASS);
+        sendEmail(mailOptions);
+        res.status(200).json({
+          message: "Saved Restaurant and email sent for verification",
+          data: savedRestaurant,
+        });
+      })
+      .catch((err) => {
+        console.log("Customer could not be saved.", err);
+        return res.status(500).json({
+          message: "Could not save Restaurant.",
+        });
       });
-    })
-    .catch((err) => {
-      console.log("Customer could not be saved.", err);
-      return res.status(500).json({
-        message: "Could not save Restaurant.",
+  } else {
+    const restaurantData = await Restaurant.findOne({ account: user._id });
+    console.log("Restaurant Data ", restaurantData);
+
+    const restaurantContact = restaurantData.contact;
+    console.log("Restaurant Conatct ", restaurantContact);
+
+    if (user || restaurantContact === contact) {
+      console.log("Restaurant already exists with this data");
+      return res.status(404).json({
+        message: "Restaurant already exists with this data",
       });
-    });
+    }
+  }
 };
 
 exports.signupCustomer = async (req, res) => {
@@ -223,104 +240,103 @@ exports.signupCustomer = async (req, res) => {
 
   const { firstName, lastName, contact, email, password, role } = req.body;
 
-  const user = await Account.findOne({ email: email });
-
-  if (user) {
-    return res.status(404).send("User already exists.");
-  }
-
-  const salt = await bcrypt.genSalt(12);
-  const hashedPassword = await bcrypt.hash(password, salt);
-
-  const verificationToken = crypto.randomBytes(32).toString("hex");
-
-  let newAccount = new Account({
-    email: email,
-    password: hashedPassword,
-    role: role,
-    accountVerifyToken: verificationToken,
+  const user = await Account.findOne({ email: email }, function (err, user) {
+    if (err) {
+      console.log("This is error", err);
+    } else {
+      console.log("This is user ", user);
+    }
   });
 
-  await newAccount
-    .save()
-    .then((savedAccount) => {
-      console.log("Account has been registered", savedAccount);
-      // res.status(200).json({
-      //   messgae: "Account registered",
-      //   savedAccount: savedAccount,
-      // });
-    })
-    .catch((err) => {
-      if (err) {
-        console.log("Account not saved, inside catch block");
-        return res.status(400).json({
-          message: "Account not saved inside catch block",
-          error: err,
-        });
-      } else {
-        console.log("Server Error");
-        return res.status(500).json({
-          message: "Server Error",
-        });
-      }
+  if (user === null) {
+    const salt = await bcrypt.genSalt(12);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const verificationToken = crypto.randomBytes(32).toString("hex");
+
+    let newAccount = new Account({
+      email: email,
+      password: hashedPassword,
+      role: role,
+      accountVerifyToken: verificationToken,
     });
 
-  let newCustomer = new Customer({
-    firstName: firstName,
-    lastName: lastName,
-    contact: contact,
-    account: newAccount._id,
-  });
+    await newAccount
+      .save()
+      .then((savedAccount) => {
+        console.log("Account has been registered", savedAccount);
+        // res.status(200).json({
+        //   messgae: "Account registered",
+        //   savedAccount: savedAccount,
+        // });
+      })
+      .catch((err) => {
+        if (err) {
+          console.log("Account not saved, inside catch block");
+          return res.status(400).json({
+            message: "Account not saved inside catch block",
+            error: err,
+          });
+        } else {
+          console.log("Server Error");
+          return res.status(500).json({
+            message: "Server Error",
+          });
+        }
+      });
 
-  const mailOptions = {
-    to: email,
-    from: "Eatsabyte",
-    subject: "Verify your account",
-    html: `<p>Please verify your email by clicking on the link below - Eatsabyte</p>
+    let newCustomer = new Customer({
+      firstName: firstName,
+      lastName: lastName,
+      contact: contact,
+      account: newAccount._id,
+    });
+
+    const mailOptions = {
+      to: email,
+      from: "Eatsabyte",
+      subject: "Verify your account",
+      html: `<p>Please verify your email by clicking on the link below - Eatsabyte</p>
     <p>Click this <a href="https://eatsabyte.herokuapp.com/auth/verify/${verificationToken}">link</a> to verify your account.</p>
     `,
-  };
+    };
 
-  await newCustomer
-    .save()
-    .then((savedCustomer) => {
-      console.log("Gmail Username", process.env.GMAIL_USER);
-      console.log("Gmail Pass", process.env.GMAIL_PASS);
-      sendEmail(mailOptions);
-      // transporter.sendMail(mailOptions, function (err, info) {
-      //   if (err) {
-      //     console.log("Could not send email");
-      //     return res.json({
-      //       message: "Could not send mail",
-      //       err,
-      //     });
-      //   } else {
-      //     console.log("Email sent successfully");
-      //     // return res.status(200).json({
-      //     //   message: "Email sent for verification",
-      //     //   info: info,
-      //     // });
-      //   }
-      // });
-      return res.status(200).json({
-        message: "Saved Customer",
-        data: savedCustomer,
+    await newCustomer
+      .save()
+      .then((savedCustomer) => {
+        sendEmail(mailOptions);
+
+        return res.status(200).json({
+          message: "Saved Customer",
+          data: savedCustomer,
+        });
+      })
+      .catch((err) => {
+        console.log("Customer could not be saved.", err);
+        if (err) {
+          return res.status(400).json({
+            message: "Could not save customer.",
+            error: err,
+          });
+        } else {
+          console.log("Server Error");
+          return res.status(500).json({
+            message: "Server Error",
+          });
+        }
       });
-    })
-    .catch((err) => {
-      console.log("Customer could not be saved.", err);
-      if (err) {
-        return res.status(400).json({
-          message: "Could not save customer.",
-          error: err,
-        });
-      } else {
-        console.log("Server Error");
-        return res.status(500).json({
-          message: "Server Error",
-        });
-      }
-    });
+  } else {
+    const userData = await Customer.findOne({ account: user._id });
+    const userContact = userData.contact;
+    // console.log("Customer Conatct ", userContact);
+
+    if (user || userContact === contact) {
+      console.log("User already exists with this data");
+      return res.status(404).json({
+        message: "User already exists with this data",
+      });
+    }
+  }
 };
 
 exports.verifyAccount = (req, res, next) => {

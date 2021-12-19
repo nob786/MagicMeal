@@ -119,7 +119,7 @@ exports.addItem = async (req, res) => {
 
   const { itemName, price, category, description } = req.body;
   const { path } = req.file;
-  console.log("Path of imagr", path);
+  console.log("Path of image", path);
 
   let restaurant = await Restaurant.findOne({
     account: req.loggedInUserId,
@@ -372,6 +372,10 @@ exports.updatePendingOrders = async (req, res) => {
 exports.uploadLocation = async (req, res) => {
   const { lat, lng, address } = req.body;
 
+  console.log("lat", lat);
+  console.log("address", address);
+  console.log("lng", lng);
+
   if (!lat || !lng) {
     console.log("Lat and lng are empty");
     return res.json({
@@ -383,41 +387,34 @@ exports.uploadLocation = async (req, res) => {
     account: req.loggedInUserId,
   };
 
-  let restaurant = await Restaurant.find(query);
-  restaurant.location.lat = lat;
-  restaurant.lcoation.lng = lng;
-  restaurant.location.address = address;
-  await restaurant.save();
-
-  if (!restaurant) {
-    return res.status(404).json({
-      message: "Could not save your restaurant",
+  const update = {
+    location: {
+      lat: lat,
+      lng: lng,
+      address: address,
+    },
+  };
+  await Restaurant.findOneAndUpdate(query, update)
+    .then((response) => {
+      if (response) {
+        console.log("Location Updated");
+        return res.json({
+          message: "Location Updated",
+        });
+      }
+    })
+    .catch((err) => {
+      if (err) {
+        console.log("This is err in catch", err);
+        return res.json({
+          message: "Err in catch",
+          error: err,
+        });
+      } else {
+        console.log("Server error");
+        return res.json({
+          message: "Server Error",
+        });
+      }
     });
-  } else {
-    console.log("Saved your data", restaurant);
-    return res.status(200).json({
-      message: "Saved your data",
-      data: restaurant,
-    });
-  }
 };
-
-// await Restaurant.findOneAndUpdate(query, update)
-//   .then((response) => {
-//     console.log("Printing response inside API function", response);
-//     return res.status(200).json({
-//       messgae: "Location updated  Successfully",
-//       updatedOrder: response,
-//     });
-//   })
-//   .catch((error) => {
-//     if (error)
-//       return res.status(400).json({
-//         message: "Catch error",
-//         error: error,
-//       });
-//     else {
-//       return res.status(500).send("Server Error");
-//     }
-//   });
-// };
