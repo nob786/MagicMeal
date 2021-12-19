@@ -2,15 +2,9 @@ import { SingleBed } from "@material-ui/icons";
 import React, { useState, useEffect, Component } from "react";
 
 import TitleTag from "../SpecialComp/TitleTag";
-import SingleRestaurant from "./SingleRestaurant";
 import SingleMenu from "./SingleMenu";
 import axios from "../../axios";
 import "./MenuItems.css";
-import NewMenuItem from "../../RestaurantComponents/AdminPanel/NewMenuItem";
-
-//============================Material Ui Imports================
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
 
 const MenuItems = (ID) => {
   const [loading, setLoading] = React.useState(true);

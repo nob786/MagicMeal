@@ -29,36 +29,36 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: "#fe724c",
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   paper: {
+//     marginTop: theme.spacing(8),
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//   },
+//   avatar: {
+//     margin: theme.spacing(1),
+//     backgroundColor: "#fe724c",
+//   },
+//   form: {
+//     width: "100%", // Fix IE 11 issue.
+//     marginTop: theme.spacing(3),
+//   },
+//   submit: {
+//     margin: theme.spacing(3, 0, 2),
+//   },
+//   root: {
+//     "& .MuiTextField-root": {
+//       margin: theme.spacing(1),
+//       width: "25ch",
+//     },
+//   },
+// }));
 
 export default function RestaurantSignup() {
   const [errors, setErrors] = React.useState("");
   const [loading, setLoading] = React.useState(false);
-  const classes = useStyles();
+  // const classes = useStyles();
 
   const history = useHistory();
 
@@ -149,7 +149,7 @@ export default function RestaurantSignup() {
     >
       <br />
       <CssBaseline />
-      <div className={classes.paper}>
+      <div>
         {/* <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar> */}
@@ -160,8 +160,8 @@ export default function RestaurantSignup() {
         >
           Restaurant Business Form
         </Typography>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
+        <form noValidate>
+          <Grid container spacing={4}>
             <Grid item xs={12}>
               <TextField
                 autoComplete="name"

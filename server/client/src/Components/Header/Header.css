@@ -111,6 +111,7 @@
 }
 
 .header-link {
+  text-decoration: none;
   color: var(--prime-shinegrey);
 }
 

@@ -31,3 +31,18 @@ body {
   background-size: cover; */
   /* background: red; */
 }
+
+.boot-button {
+  background: var(--prime-lightred);
+  border: none;
+  color: white;
+}
+.boot-button:hover {
+  background: var(--btn-hover-grad);
+  color: white;
+}
+.boot-modal-header {
+  background: var(--btn-hover-grad);
+  color: white;
+  align-items: center;
+}
