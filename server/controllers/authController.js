@@ -125,6 +125,7 @@ exports.login = async (req, res) => {
         role: loadedAccount.role,
         id: loadedAccount._id,
         restaurant: loadedRestaurant,
+        email: loadedAccount.email,
       });
     } else if (loadedAccount.role === "customer") {
       return res.status(200).json({
@@ -132,6 +133,7 @@ exports.login = async (req, res) => {
         role: loadedAccount.role,
         id: loadedAccount._id,
         customer: loadedCustomer,
+        email: loadedAccount.email,
       });
     }
   }

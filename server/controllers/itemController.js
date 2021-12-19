@@ -192,9 +192,9 @@ exports.addItem = async (req, res) => {
 
   if (error) return res.status(400).send("Enter data  correctly.");
 
-  const { itemName, price, category, description } = req.body;
-  const { path } = req.file;
-  console.log("Path of image", path);
+  const { itemName, price, category, description, imageUrl } = req.body;
+  // const { path } = req.file;
+  // console.log("Path of image", path);
 
   let restaurant = await Restaurant.findOne({
     account: req.loggedInUserId,
@@ -214,7 +214,7 @@ exports.addItem = async (req, res) => {
       price: price,
       category: category,
       description: description,
-      imageUrl: path,
+      imageUrl: imageUrl,
       restaurant: restaurant._id,
     });
     console.log("Item obj", newItem);
