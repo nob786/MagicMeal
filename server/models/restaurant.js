@@ -32,6 +32,7 @@ const restaurantSchema = mongoose.Schema({
   },
   imageUrl: {
     type: String,
+    default: null,
   },
   dineIn: {
     type: Boolean,
