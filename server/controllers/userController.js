@@ -404,9 +404,9 @@ exports.getRestaurantsByAddress = (req, res, next) => {
   // const lon1 = req.params.lng;
   console.log("getRestaurantsByAddress API called");
 
-  let { lat, lng } = req.body;
-  const lat1 = lat;
-  const lon1 = lng;
+  let { lat1, lon1 } = req.body;
+  // const lat1 = lat;
+  // const lon1 = lng;
 
   Restaurant.find()
     .populate("Account", "isVerified")
