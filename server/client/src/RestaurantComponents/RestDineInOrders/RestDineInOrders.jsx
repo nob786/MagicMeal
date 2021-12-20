@@ -121,7 +121,7 @@ const RestDineInOrders = () => {
             <input
               class="form-control mr-sm-2 w-50"
               type="search"
-              placeholder="Search by Order-ID or Phone Number"
+              placeholder="Search by Order-ID or Customer Name or Phone Number"
               aria-label="Search"
               value={acceptedSearchTerm}
               onChange={(event) => {

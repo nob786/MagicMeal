@@ -40,7 +40,8 @@
   font-weight: bold;
   /* border: 3px solid #fe724c; */
   position: absolute;
-  top: 45%;
+  margin-top: 5%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
@@ -73,11 +74,11 @@
   color: white;
   border-radius: 10px;
   height: 50px;
-  width: 200px;
-  max-width: 500px;
+  min-width: 150px;
+  /* max-width: 500px; */
   background-color: var(--prime-lightred);
   border: none;
-  font-size: 28px;
+  font-size: var(--p-big-screen);
   margin-bottom: 20px;
 }
 .user-book-table-button:hover {

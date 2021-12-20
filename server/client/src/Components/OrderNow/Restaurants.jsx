@@ -229,7 +229,7 @@ const Restaurants = () => {
     <div className="Restaurants">
       <div className="restaurant-page-location">
         <h1>GET NEARBY RESTAURANTS</h1>
-        <div className="restaurant-location-container">
+        {/* <div className="restaurant-location-container">
           <FormControl
             color="warning"
             className="restaurant-page-location-bar"
@@ -274,7 +274,46 @@ const Restaurants = () => {
           >
             Find Restaurants
           </button>
+        </div> */}
+        <div class="input-group input-group-lg col-lg-5 col-sm-8 col-xs-3 ">
+          <input
+            style={{ height: "60px" }}
+            type="text"
+            class="form-control"
+            placeholder="Select Gps Location"
+            value={currentAddress}
+          />
+          <div style={{ backgroundColor: "white" }} class="input-group-append">
+            <span style={{ backgroundColor: "white" }} class="input-group-text">
+              {gpsLoading === true ? (
+                <div class="d-flex justify-content-center">
+                  <div
+                    class="spinner-border"
+                    role="status"
+                    style={{ color: "#fe724c" }}
+                  >
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              ) : (
+                <GpsFixedIcon
+                  onClick={handleClickGps}
+                  sx={{
+                    color: "#fe724c",
+                    cursor: "grab",
+                  }}
+                />
+              )}
+            </span>
+          </div>
         </div>
+        <button
+          style={{ marginLeft: "15px" }}
+          onClick={handleFindRestaurants}
+          className="restaurant-page-button"
+        >
+          Find Restaurants
+        </button>
       </div>
       {/*================================================ Search Bar============================================== */}
 

@@ -94,22 +94,27 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
       style={{
         boxShadow:
           "5px 5px 10px 5px rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-        maxWidth: "400px",
+        maxWidth: "350px",
+        minHeight: "200px",
       }}
       class="card "
     >
       <div class="row no-gutters">
         <div class="col-sm-5">
           <img
-            style={{ height: "200px" }}
+            style={{ height: "200px", maxWidth: "400px" }}
             class="card-img"
-            src="../Pictures/R7.jpg"
+            src={menu.imageUrl ? menu.imageUrl : "../Pictures/R7.jpg"}
           />
         </div>
         <div class="col-sm-7">
           <div class="card-body">
             <h5
-              style={{ color: "#fe724c", fontFamily: "cursive" }}
+              style={{
+                color: "#fe724c",
+                fontFamily: "cursive",
+                fontWeight: "900",
+              }}
               class="card-title text-center"
             >
               {menu.itemName}
@@ -124,6 +129,7 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
                   <h5 class="mb-0 ">
                     {" "}
                     <button
+                      style={{ textDecoration: "none" }}
                       className="boot-menu-button"
                       class="boot-menu-button "
                       data-toggle="collapse"
@@ -147,7 +153,9 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
               </div>
             </div>
 
-            <p class="card-text">{menu.price} Rs.</p>
+            <p style={{ textAlign: "center" }} class="card-text">
+              {menu.price} Rs.
+            </p>
             {!menuCheck.length > 0 ? (
               <a
                 onClick={addtoCart}

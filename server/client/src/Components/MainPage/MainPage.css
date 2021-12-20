@@ -106,6 +106,7 @@
   color: white;
   background-color: var(--prime-lightred);
   border: none;
+  margin-left: 15px;
 }
 .main-page-delivery-button:hover {
   background: var(--btn-hover-clr);
@@ -119,6 +120,7 @@
   color: white;
   background-color: var(--prime-lightred);
   border: none;
+  margin-left: 15px;
 }
 .main-page-pickup-button:hover {
   background: var(--btn-hover-clr);

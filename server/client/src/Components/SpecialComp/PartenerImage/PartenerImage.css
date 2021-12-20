@@ -1,7 +1,7 @@
 .partener-image {
   min-height: 500px;
   height: auto;
-  background: var(--prime-lightred);
+  background: var(--btn-hover-grad);
   /* background: url("../../MainPage/img/food2.jpg");
   background-repeat: no-repeat;
   background-size: cover;

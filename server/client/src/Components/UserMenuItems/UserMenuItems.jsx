@@ -198,8 +198,9 @@ const UserMenuItems = () => {
     <div className="Menus">
       <div
         style={{
-          background:
-            "url(https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500)",
+          background: restaurantData.imageUrl
+            ? `url(${restaurantData.imageUrl})`
+            : "url(https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500)",
         }}
         className="menu-restaurant-profile"
       >
@@ -213,11 +214,16 @@ const UserMenuItems = () => {
           <br />
           <h3 className="user-menu-restaurant-address">
             {/* <LocationOnIcon />  */}
-            {restaurantData.address} <br />
+            {restaurantData.address &&
+              restaurantData.address.toUpperCase()}{" "}
+            <br />
             {/* <PhoneInTalkIcon /> */}
             {restaurantData.contact}
             <br />
-            Type: {restaurantData.category} <br />
+            Type:{" "}
+            {restaurantData.category &&
+              restaurantData.category.toUpperCase()}{" "}
+            <br />
           </h3>
           <br />
           <button
@@ -371,26 +377,29 @@ const UserMenuItems = () => {
                     value={date}
                   />
                 </div>
-                <div class="form-group text-center">
+                {/* <div class="form-group text-center">
                   <TimePicker
                     className="timePick"
                     onChange={setTime}
                     value={time}
                   />
-                </div>
-                {/* <div class="form-group">
-                  <label for="book-table-person-number" class="col-form-label ">
+                </div> */}
+                <div class="form-group">
+                  {/* <label for="book-table-person-number" class="col-form-label ">
                     Requested Time:
-                  </label>
+                  </label> */}
                   <input
                     value={time}
-                    onChange={(e) => setTime(e.target.value)}
+                    onChange={(e) => {
+                      setTime(e.target.value);
+                      console.log("TIME SET", e.target.value);
+                    }}
                     type="time"
                     class="form-control form-control-lg "
                     id="book-table-person-number"
                     placeholder="Example: 4"
                   />
-                </div> */}
+                </div>
               </form>
             </div>
             <div class="modal-footer">

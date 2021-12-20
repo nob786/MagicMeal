@@ -33,6 +33,7 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const SingleMenu = ({ menu, key }) => {
+  console.log("menu in add menu", menu);
   const [value, setValue] = React.useState();
   const [open, setOpen] = React.useState(false);
   const [editMenuData, setEditMenuData] = React.useState({
@@ -40,6 +41,7 @@ const SingleMenu = ({ menu, key }) => {
     price: menu.price,
     category: menu.category,
     description: menu.description,
+    imageUrl: menu.imageUrl,
   });
   const prod = [];
   var id;
@@ -104,18 +106,58 @@ const SingleMenu = ({ menu, key }) => {
         setTimeout(() => window.location.replace("/admin/menu-items"), 1000);
       });
   };
+
+  //=============================Handle Image Upload====================================
+  const imageHandler = async (e) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setEditMenuData({
+          ...editMenuData,
+          ["imageUrl"]: reader.result,
+        });
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+    setEditMenuData({ ...editMenuData, ["imageUrl"]: e });
+    console.log("image", editMenuData.imageUrl);
+    // await axios
+    //   .post("/item/image", {
+    //     dishPic,
+    //   })
+    //   .then((response) => {
+    //     window.alert("successful");
+    //     console.log("Response image upload", response);
+    //   })
+    //   .catch((err) => {
+    //     console.log("image upload error", err);
+    //   });
+  };
   return (
     <div
       style={{
         boxShadow:
           "5px 5px 10px 5px rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+        maxWidth: "250px",
       }}
-      class="card w-75"
+      class="card"
     >
-      <img src="../Pictures/R7.jpg" />{" "}
+      <img
+        style={{ maxHeight: "150px" }}
+        src={menu.imageUrl ? menu.imageUrl : "../Pictures/R7.jpg"}
+      />{" "}
       <div class="card-body ">
         <h5
-          style={{ color: "#fe724c", fontFamily: "cursive" }}
+          style={{
+            display: "inline-block",
+            whiteSpace: "nowrap",
+
+            width: "200px",
+            color: "#fe724c",
+            fontFamily: "cursive",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
           class="card-title text-center"
         >
           {menu.itemName}
@@ -163,7 +205,7 @@ const SingleMenu = ({ menu, key }) => {
           className="boot-user-add-to-cart-button"
           class="btn text-center mt-4 boot-user-add-to-cart-button"
           data-toggle="modal"
-          data-target="#rest-menu-update-modal"
+          data-target={"#edit" + menu._id}
           // data-whatever="@getbootstrap"
           // data-whatever="@mdo"
         >
@@ -184,11 +226,11 @@ const SingleMenu = ({ menu, key }) => {
           Delete Menu
         </a>
       </div>
-      {/* =========================Boot Strap Edit Modal ==========================
+      {/* =========================Boot Strap Edit Modal ========================== */}
       <div
-        style={{ zIndex: 2000 }}
+        style={{ zIndex: 2000, textAlign: "start" }}
         class="modal fade"
-        id="rest-menu-update-modal"
+        id={"edit" + menu._id}
         tabindex="-1"
         role="dialog"
         aria-labelledby="exampleModalLabel"
@@ -200,7 +242,7 @@ const SingleMenu = ({ menu, key }) => {
               style={{ backgroundColor: "#fe724c", color: "white" }}
               class="modal-header "
             >
-              <h5 class="modal-title justify-center" id="exampleModalLabel">
+              <h5 class="modal-title" id="exampleModalLabel">
                 Edit Restaurant Menu
               </h5>
               <button
@@ -223,6 +265,9 @@ const SingleMenu = ({ menu, key }) => {
                     type="text"
                     class="form-control"
                     id="recipient-name"
+                    name="itemName"
+                    onChange={handleChange}
+                    value={editMenuData.itemName}
                   />
                 </div>
                 <div class="form-group">
@@ -234,6 +279,9 @@ const SingleMenu = ({ menu, key }) => {
                     type="text"
                     class="form-control"
                     id="recipient-name"
+                    name="price"
+                    onChange={handleChange}
+                    value={editMenuData.price}
                   />
                 </div>
                 <div class="form-group">
@@ -245,6 +293,9 @@ const SingleMenu = ({ menu, key }) => {
                     type="text"
                     class="form-control"
                     id="recipient-name"
+                    name="category"
+                    onChange={handleChange}
+                    value={editMenuData.category}
                   />
                 </div>
                 <div class="form-group">
@@ -256,7 +307,29 @@ const SingleMenu = ({ menu, key }) => {
                     maxLength={200}
                     class="form-control"
                     id="message-text"
+                    name="description"
+                    onChange={handleChange}
+                    value={editMenuData.description}
                   ></textarea>
+                </div>
+                <div class="form-group">
+                  <img
+                    src={editMenuData.imageUrl}
+                    alt="Menu Pic"
+                    style={{
+                      width: "100%",
+                      maxHeight: "400px",
+                      marginTop: "10px",
+                    }}
+                  />
+                  <input
+                    style={{ marginBottom: "10px" }}
+                    onChange={imageHandler}
+                    type="file"
+                    accept="image/*"
+                    class="form-control"
+                    id="customFile"
+                  />
                 </div>
               </form>
             </div>
@@ -266,26 +339,30 @@ const SingleMenu = ({ menu, key }) => {
                 class="btn btn-secondary"
                 data-dismiss="modal"
               >
-                Close
+                Cancel
               </button>
-              <button type="button" class="btn btn-primary">
-                Send message
+              <button
+                onClick={handleSaveMenu}
+                data-dismiss="modal"
+                type="button"
+                class="btn btn-primary boot-button"
+              >
+                Update Data
               </button>
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
       {/* ===================================Testing DIalog */}
-      <Dialog
+      {/* <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        {/* <DialogTitle id="form-dialog-title">Adding Menu Item</DialogTitle> */}
         <DialogContent>
           <Container component="main" maxWidth="l">
             <CssBaseline />
-            <div /*className={classes.paper}*/>
+            <div>
               <Typography
                 component="h1"
                 variant="h5"
@@ -293,7 +370,7 @@ const SingleMenu = ({ menu, key }) => {
               >
                 Edit Menu Item
               </Typography>
-              <form /*className={classes.form}*/ noValidate>
+              <form noValidate>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -335,7 +412,7 @@ const SingleMenu = ({ menu, key }) => {
                     />
                   </Grid>
 
-                  {/*<Grid item xs={12}>
+                  <Grid item xs={12}>
                     <InputLabel id="demo-simple-select-label">
                       Category
                     </InputLabel>
@@ -353,29 +430,27 @@ const SingleMenu = ({ menu, key }) => {
                       <MenuItem value={"Italian"}>Italian</MenuItem>
                     </Select>
                   </Grid>
-      */}
 
-                  {/*<Grid item xs={12} sm={10}>
-                        <TextField
-                    id="outlined-select-currency-native"
-                    select
-                    label="Category"
-                    value={Category}
-                    onChange={handleChange}
-                    SelectProps={{
+                  <Grid item xs={12} sm={10}>
+                    <TextField
+                      id="outlined-select-currency-native"
+                      select
+                      label="Category"
+                      value={Category}
+                      onChange={handleChange}
+                      SelectProps={{
                         native: true,
-                    }}
-                    helperText="Please select your Dish Category"
-                    variant="outlined"
+                      }}
+                      helperText="Please select your Dish Category"
+                      variant="outlined"
                     >
-                        {gender.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-                   
+                      {gender.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
                     </TextField>
-              </Grid>*/}
+                  </Grid>
 
                   <Grid item xs={12}>
                     <TextField
@@ -394,16 +469,16 @@ const SingleMenu = ({ menu, key }) => {
                     />
                   </Grid>
 
-                  {/* <Grid item xs={12}>
+                  <Grid item xs={12}>
                     <FormControlLabel
                       control={
                         <Checkbox value="allowExtraEmails" color="primary" />
                       }
                       label="Show to User By Default"
                     />
-                  </Grid> */}
+                  </Grid>
                 </Grid>
-                {/* <Button variant="contained" component="label">
+                <Button variant="contained" component="label">
                   Upload Dish Picture
                   <input
                     type="file"
@@ -417,7 +492,7 @@ const SingleMenu = ({ menu, key }) => {
                   // src={dishPic}
                   alt=""
                   style={{ width: "100%", height: "250px" }}
-                /> */}
+                />
               </form>
             </div>
           </Container>
@@ -430,7 +505,7 @@ const SingleMenu = ({ menu, key }) => {
             Save
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </div>
     // <div className="restaurant-single-menu">
     //   <div className="restaurant-single-menu-container">

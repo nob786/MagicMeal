@@ -142,7 +142,7 @@ const MainPage = () => {
       <div className="main-page-location">
         <h1>It's the food you love, delivered</h1>
         <div className="main-page-location-container">
-          <FormControl
+          {/* <FormControl
             color="warning"
             className="main-page-location-bar"
             sx={{ m: 1, maxWidth: "600px" }}
@@ -180,7 +180,47 @@ const MainPage = () => {
               // value={`${location.coordinates.lat} ${location.coordinates.long}`}\
               value={currentAddress}
             />
-          </FormControl>
+          </FormControl> */}
+          {/* test */}
+          <div class="input-group input-group-lg col-lg-5 col-sm-8 col-xs-3 ">
+            <input
+              style={{ height: "60px" }}
+              type="text"
+              class="form-control"
+              placeholder="Select Gps Location"
+              value={currentAddress}
+            />
+            <div
+              style={{ backgroundColor: "white" }}
+              class="input-group-append"
+            >
+              <span
+                style={{ backgroundColor: "white" }}
+                class="input-group-text"
+              >
+                {loading === true ? (
+                  <div class="d-flex justify-content-center ">
+                    <div
+                      class="spinner-border"
+                      role="status"
+                      style={{ color: "#fe724c" }}
+                    >
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                ) : (
+                  <GpsFixedIcon
+                    onClick={handleClickGps}
+                    sx={{
+                      color: "#fe724c",
+                      cursor: "grab",
+                    }}
+                  />
+                )}
+              </span>
+            </div>
+          </div>
+          {/* test */}
           <button
             className="main-page-delivery-button"
             onClick={handleTableBookingRestaurants}

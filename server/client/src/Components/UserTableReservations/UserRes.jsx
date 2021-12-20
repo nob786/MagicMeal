@@ -122,6 +122,7 @@ const UserTableReservation = () => {
             </button> */}
           </form>
           {activeReservations.length > 0 ? (
+            activeReservations &&
             activeReservations
               .filter((val) => {
                 if (activeSearchTerm === "") {
@@ -165,15 +166,22 @@ const UserTableReservation = () => {
             </button> */}
           </form>
           {acceptedReservations.length > 0 ? (
+            acceptedReservations &&
             acceptedReservations
               .filter((val) => {
                 if (acceptedSearchTerm === "") {
                   return val;
                 } else if (val._id.includes(acceptedSearchTerm)) {
                   return val;
-                } else if (val.tableNumber.includes(acceptedSearchTerm)) {
+                } else if (
+                  val.tableNumber &&
+                  String(val.tableNumber).includes(acceptedSearchTerm)
+                ) {
                   return val;
-                } else if (val.reservationDate.includes(acceptedSearchTerm)) {
+                } else if (
+                  val.reservationDate &&
+                  val.reservationDate.includes(acceptedSearchTerm)
+                ) {
                   return val;
                 }
               })
@@ -211,13 +219,24 @@ const UserTableReservation = () => {
             </button> */}
           </form>
           {completedReservations.length > 0 ? (
+            completedReservations &&
             completedReservations
               .filter((val) => {
                 if (completedSearchTerm === "") {
                   return val;
-                } else if (val._id.includes(completedSearchTerm)) {
+                } else if (
+                  val._id &&
+                  val._id
+                    .toLowerCase()
+                    .includes(completedSearchTerm.toLowerCase())
+                ) {
                   return val;
-                } else if (val.reservationDate.includes(completedSearchTerm)) {
+                } else if (
+                  val.reservationDate &&
+                  val.reservationDate
+                    .toLowerCase()
+                    .includes(completedSearchTerm.toLowerCase())
+                ) {
                   return val;
                 }
                 // else if (val.reservationDate.includes(activeSearchTerm)) {
