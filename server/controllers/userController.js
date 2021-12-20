@@ -407,15 +407,31 @@ exports.getRestaurantsByAddress = (req, res, next) => {
   let { lat1, lon1 } = req.body;
   // const lat1 = lat;
   // const lon1 = lng;
+  console.log("Got lat1 lon1", req.body);
 
   Restaurant.find()
     .populate("Account", "isVerified")
     .sort({ createdAt: -1 })
     .then((sellers) => {
       const sellersVerified = sellers.filter((restaurant) => {
-        return restaurant.account.isVerified === true;
+        // console.log("Verif", restaurant.account.isVerified === false);
+        Account.find({ _id: restaurant.account }).then((restaurantAccounts) => {
+          if (restaurantAccounts.isVerified === true) {
+            let verifiedAccountsIds = restaurantAccounts._id;
+            if (restaurant.account === verifiedAccounts) {
+              return restaurant;
+            }
+          }
+        });
+        // return restaurant.account.isVerified === true;
       });
 
+      if (!sellersVerified) {
+        console.log("Verified sellers are empty");
+        return res.status(200).json({
+          message: "Verfied seller are empty",
+        });
+      }
       const sellersFinal = sellersVerified.reduce((result, seller) => {
         const lat2 = seller.location.lat;
         const lon2 = seller.location.lng;
