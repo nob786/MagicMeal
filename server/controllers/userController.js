@@ -400,8 +400,12 @@ exports.deleteComment = async (req, res) => {
 };
 
 exports.getRestaurantsByAddress = (req, res, next) => {
-  const lat1 = req.params.lat;
-  const lon1 = req.params.lng;
+  // const lat1 = req.params.lat;
+  // const lon1 = req.params.lng;
+
+  let { lat, lng } = req.body;
+  const lat1 = lat;
+  const lon1 = lng;
 
   Restaurant.find()
     .populate("Account", "isVerified")
