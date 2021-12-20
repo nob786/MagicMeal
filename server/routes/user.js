@@ -4,6 +4,8 @@ const router = app.Router();
 const authMiddleWare = require("../middleware/authMiddleware");
 const userController = require("../controllers/userController");
 
+// Show only those restaurants which are verified
+
 // Get booked tables
 router.get(
   "/get-my-reservations/:customerId",
