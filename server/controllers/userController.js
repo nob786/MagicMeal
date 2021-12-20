@@ -445,79 +445,9 @@ exports.getRestaurantsByAddress = async (req, res, next) => {
     console.log("Restaurants", rest);
     // return rest;
   });
-  // console.log("Sell", finalSellers);
-
-  // finalSellers.map((sell) => {
-  //   console.log("Sellers", sell);
-  // });
-
-  // console.log("Final Serller", finalSellers);
-  // Restaurant.find()
-  //   .populate("Account", "isVerified")
-  //   .sort({ createdAt: -1 })
-  //   .then((sellers) => {
-  //     // const sellersVerified = sellers.map((restaurant) => {
-  //     //   // console.log("Verif", restaurant.account.isVerified === false);
-  //     //   Account.findOne({ _id: restaurant.account }).then(
-  //     //     (restaurantAccounts) => {
-  //     //       // console.log("Accounts", restaurantAccounts.isVerified);
-  //     //       if (restaurantAccounts.isVerified === true) {
-  //     //         let verifiedAccountsIds = restaurantAccounts._id;
-  //     //         // console.log("verified account id", verifiedAccountsIds);
-  //     //         // console.log("Rest id", restaurant.account);
-  //     //         // console.log("Current restaurant", restaurant);
-
-  //     //         if (restaurant.account === verifiedAccountsIds) {
-  //     //           console.log("Inside 2nd if");
-  //     //           console.log("Returned restaurant", restaurant);
-  //     //           return restaurant;>
-  //     //         }
-  //     //       }
-  //     //     }
-  //     //   );
-  //     //   // return restaurant.account.isVerified === true;
-  //     // });
-  //     // console.log("Verified sellers", sellersVerified);
-
-  //     if (!sellersVerified) {
-  //       console.log("Verified sellers are empty");
-  //       return res.status(200).json({
-  //         message: "Verfied seller are empty",
-  //       });
-  //     }
-  //     const sellersFinal = sellersVerified.reduce((result, seller) => {
-  //       const lat2 = seller.location.lat;
-  //       const lon2 = seller.location.lng;
-
-  //       const R = 6371; // kms
-  //       const φ1 = (lat1 * Math.PI) / 180; // φ, λ in radians
-  //       const φ2 = (lat2 * Math.PI) / 180;
-  //       const Δφ = ((lat2 - lat1) * Math.PI) / 180;
-  //       const Δλ = ((lon2 - lon1) * Math.PI) / 180;
-
-  //       const a =
-  //         Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-  //         Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-  //       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-  //       const d = R * c; // in km
-  //       if (d < 10) result.push(seller);
-
-  //       return result;
-  //     }, []);
-
-  //     return sellersFinal;
-  //   })
-  //   .then((results) => {
-  //     res.status(200).json({
-  //       restaurants: results,
-  //       totalItems: results.length,
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     if (!err.statusCode) err.statusCode = 500;
-  //     next(err);
-  //   });
+  return res.json({
+    restaurants: finalSellers,
+  });
 };
 
 //====================================Table Booking======================================
