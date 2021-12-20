@@ -37,8 +37,9 @@ const SingleRestaurant = ({ restaurant }) => {
     >
       <img
         style={{
-          backgroundImage:
-            "url(https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500)",
+          backgroundImage: restaurant.imageUrl
+            ? `url(${restaurant.imageUrl})`
+            : "url(https://images.pexels.com/photos/9535774/pexels-photo-9535774.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500)",
           height: "250px",
           borderRadius: "25px",
         }}
@@ -48,7 +49,7 @@ const SingleRestaurant = ({ restaurant }) => {
         <h5 class="card-title text-center restaurant-name-container">
           {restaurant.restaurantName}
         </h5>
-        <p class="card-text">{restaurant.address}</p>
+        <p class="card-text">{restaurant.address.toUpperCase()}</p>
       </div>
       {/* <ul class="list-group list-group-flush">
         <li class="list-group-item">Cras justo odio</li>

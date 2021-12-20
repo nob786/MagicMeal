@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { useHistory } from "react-router-dom";
 
+//Import Css File
+import "./RestaurantProfile.css";
+
 //=====================Material Ui Imports=========================
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -27,45 +30,57 @@ import InputAdornment from "@mui/material/InputAdornment";
 // Redux Imports
 import { useSelector } from "react-redux";
 
-//Import Css File
-import "./RestaurantProfile.css";
+//=================React  Notification
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 
 const RestaurantProfile = () => {
-  const [profilePic, setProfilePic] = React.useState("");
+  const [imageUrl, setImageUrl] = React.useState("");
   const history = useHistory();
   //Customer Data
   const { restData } = useSelector((state) => state.auth);
   // console.log(restData);
 
   const handleUploadPicture = async () => {
-    let lat = "30.210098";
-    let lng = "71.514337";
     await axios
-      .post(`/item/upload-location/${lat}/${lng}`, {
-        headers: {
-          authorization:
-            localStorage.getItem("token") !== null
-              ? JSON.parse(localStorage.getItem("token"))
-              : null,
-        },
-      })
+      .post(
+        `/item/profile-image`,
+        { imageUrl },
+        {
+          headers: {
+            authorization:
+              localStorage.getItem("token") !== null
+                ? JSON.parse(localStorage.getItem("token"))
+                : null,
+          },
+        }
+      )
       .then((res) => {
-        console.log("Successful");
+        console.log("Restaurant Image Uploaded");
+        toast.success(`Restaurant Image Uploaded`, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
       })
-      .catch(() => {
-        console.log("Un-Successful");
+      .catch((err) => {
+        console.log(err.message);
+        toast.error(`Restaurant Image Error`, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
       });
   };
   const imageHandler = async (e) => {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
-        setProfilePic(reader.result);
+        setImageUrl(reader.result);
       }
     };
     reader.readAsDataURL(e.target.files[0]);
-    setProfilePic(e);
-    console.log("image uploaded", profilePic);
+    setImageUrl(e);
+    console.log("image uploaded", imageUrl);
     // await axios
     //   .post("/item/image", {
     //     dishPic,
@@ -91,7 +106,7 @@ const RestaurantProfile = () => {
                     <div class=" text-center text-white">
                       <div class="">
                         {" "}
-                        {profilePic === "" ? (
+                        {imageUrl === "" ? (
                           <img
                             style={{
                               width: "90%",
@@ -104,7 +119,7 @@ const RestaurantProfile = () => {
                           />
                         ) : (
                           <img
-                            src={profilePic}
+                            src={imageUrl}
                             alt="d"
                             style={{
                               width: "90%",
@@ -142,6 +157,15 @@ const RestaurantProfile = () => {
                         class="form-control"
                         id="customFile"
                       />
+                      {imageUrl ? (
+                        <button
+                          onClick={handleUploadPicture}
+                          type="button"
+                          class="btn-lg btn-block"
+                        >
+                          Upload Profile Pic
+                        </button>
+                      ) : null}
                     </div>
                   </div>
                   <div class="col-sm-8">

@@ -61,6 +61,11 @@
 
 /*========================Media Querries ===================================*/
 @media (max-width: 480px) {
+  .foodie_login_container {
+    border-radius: 0px;
+    box-shadow: none;
+  }
+
   .foodie_login_form {
     color: white;
     /* margin: auto; */

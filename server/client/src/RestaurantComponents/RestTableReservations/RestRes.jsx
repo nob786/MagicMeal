@@ -161,7 +161,7 @@ const RestaurantTableReservation = () => {
             <input
               class="form-control mr-sm-2 w-50"
               type="search"
-              placeholder="Customer Name or Table Number or Date"
+              placeholder="Search by Customer Name or Table Number or Date"
               aria-label="Search"
               value={acceptedSearchTerm}
               onChange={(event) => {
@@ -185,7 +185,10 @@ const RestaurantTableReservation = () => {
                   val.customer.customerName.includes(acceptedSearchTerm)
                 ) {
                   return val;
-                } else if (val.tableNumber.includes(acceptedSearchTerm)) {
+                } else if (
+                  val.tableNumber &&
+                  String(val.tableNumber).includes(acceptedSearchTerm)
+                ) {
                   return val;
                 } else if (val.reservationDate.includes(activeSearchTerm)) {
                   return val;
@@ -213,7 +216,7 @@ const RestaurantTableReservation = () => {
             <input
               class="form-control mr-sm-2 w-50"
               type="search"
-              placeholder="Search by Reservation-ID or Customer Name"
+              placeholder="Search by Reservation-ID or Customer Name or Table Number"
               aria-label="Search"
               value={completedSearchTerm}
               onChange={(event) => {
@@ -230,6 +233,11 @@ const RestaurantTableReservation = () => {
                 if (completedSearchTerm === "") {
                   return val;
                 } else if (val._id.includes(completedSearchTerm)) {
+                  return val;
+                } else if (
+                  val.tableNumber &&
+                  String(val.tableNumber).includes(completedSearchTerm)
+                ) {
                   return val;
                 } else if (
                   val.customer.customerName.includes(completedSearchTerm)

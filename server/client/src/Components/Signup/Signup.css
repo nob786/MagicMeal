@@ -71,6 +71,7 @@
   text-align: center;
   width: 500px;
   height: 700px;
+  margin-bottom: 10%;
 }
 
 .foodie-signup-form-title h1 {
@@ -147,12 +148,23 @@
 }
 
 /*========================Media Querries ===================================*/
+@media (max-width: 480px) {
+  .restaurant_login_container {
+    border-radius: 0px;
+    box-shadow: none;
+    margin-bottom: 5%;
+  }
+  .foodie_signup_form {
+    border-radius: 0px;
+    box-shadow: none;
+    margin-bottom: 5%;
+  }
+}
 @media (max-width: 999px) {
   .foodie_signup_form {
     width: 95%;
     margin: auto;
     margin-top: 5%;
-    height: auto;
   }
   .foodie-signup-fields {
     width: 95%;
@@ -160,8 +172,5 @@
   .title h1 {
     font-size: 16px;
     font-weight: unset;
-  }
-  .form-fields {
-    width: 95%;
   }
 }

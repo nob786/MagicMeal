@@ -15,7 +15,7 @@ const AddNewMenu = () => {
     price: "",
     category: "",
     description: "",
-    itemImage: null,
+    imageUrl: null,
   });
   const [dishPic, setDishPic] = React.useState();
   const formData = new FormData();
@@ -24,9 +24,10 @@ const AddNewMenu = () => {
     const value = event.target.value;
     const name = event.target.name;
 
-    if (name !== "itemImage") setMenuData({ ...menuData, [name]: value });
-    else if (name === "itemImage")
-      setMenuData({ ...menuData, ["itemImage"]: event.target.files[0] });
+    // if (name !== "itemImage") setMenuData({ ...menuData, [name]: value });
+    // else if (name === "itemImage")
+    //   setMenuData({ ...menuData, ["itemImage"]: event.target.files[0] });
+    setMenuData({ ...menuData, [name]: value });
   };
 
   const handleImageUpload = async (e) => {
@@ -67,7 +68,7 @@ const AddNewMenu = () => {
           price: menuData.price,
           category: menuData.category,
           description: menuData.description,
-          //   itemImage: formData,
+          imageUrl: String(menuData.imageUrl),
         },
         {
           headers: {
@@ -79,15 +80,16 @@ const AddNewMenu = () => {
         }
       )
       .then((response) => {
-        console.log("Res", response);
+        // console.log("Res", response);
         toast.info("New Menu Saved", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000,
         });
+        setTimeout(() => window.location.replace("/admin/menu-items"), 1000);
         const restaurantData = response.data.data.restaurantData;
         const itemData = response.data.data.itemData;
         if (!restaurantData || !itemData) {
-          toast.error(`Successfully Saved New Menu`, {
+          toast.error(`Failed to Save Menu `, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
           });
@@ -95,7 +97,8 @@ const AddNewMenu = () => {
           console.log("ResData", restaurantData);
           console.log("item data", itemData);
           window.alert("invalid Data");
-        } else window.alert("Item added! ");
+        }
+        // else window.alert("Item added! ");
         //console.log(response.data);
         //const token = localStorage.getItem("token");
         //const newToken = console.log(JSON.parse(token["_id"]));
@@ -113,23 +116,23 @@ const AddNewMenu = () => {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
-        setDishPic(reader.result);
+        setMenuData({ ...menuData, ["imageUrl"]: reader.result });
       }
     };
     reader.readAsDataURL(e.target.files[0]);
-    setDishPic(e);
-    console.log("image", dishPic);
-    await axios
-      .post("/item/image", {
-        dishPic,
-      })
-      .then((response) => {
-        window.alert("successful");
-        console.log("Response image upload", response);
-      })
-      .catch((err) => {
-        console.log("image upload error", err);
-      });
+    setMenuData({ ...menuData, ["imageUrl"]: e });
+    console.log("image", menuData.imageUrl);
+    // await axios
+    //   .post("/item/image", {
+    //     dishPic,
+    //   })
+    //   .then((response) => {
+    //     window.alert("successful");
+    //     console.log("Response image upload", response);
+    //   })
+    //   .catch((err) => {
+    //     console.log("image upload error", err);
+    //   });
   };
 
   return (
@@ -226,16 +229,17 @@ const AddNewMenu = () => {
                 </Button> */}
 
                 <img
-                  //   src={menuData.itemImage}
+                  src={menuData.imageUrl}
                   alt=""
                   style={{ width: "100%", height: "250px" }}
                 />
                 <input
-                  name="itemImage"
+                  name="imageUrl"
                   type="file"
                   id="myFile"
+                  accept="/image*"
                   name="itemImage"
-                  onChange={handleChange}
+                  onChange={imageHandler}
                   //   value={menuData.itemImage}
                 />
                 {/* <input></input> */}

@@ -17,14 +17,22 @@ import FormControl from "@mui/material/FormControl";
 //====================Redux Imports =============================//
 import { useDispatch, useSelector } from "react-redux";
 
+//=================React  Notification
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
+
 const RestSettings = () => {
+  const { restData } = useSelector((state) => state.auth);
   const [loading, setLoading] = React.useState(false);
   const [location, setLocation] = React.useState({
     loaded: false,
     coordinates: { lat: "", long: "" },
   });
-  const [currentAddress, setCurrentAddress] = React.useState("");
-  const { restData } = useSelector((state) => state.auth);
+  const [currentAddress, setCurrentAddress] = React.useState(
+    restData.location.address ? restData.location.address : ""
+  );
+
   const [val, setVal] = React.useState();
 
   const getChangeValue = (event) => {
@@ -130,10 +138,18 @@ const RestSettings = () => {
         }
       )
       .then((res) => {
-        console.log("Successful");
+        // console.log("Successful");
+        toast.success(`Location Updated Successfully`, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
       })
-      .catch(() => {
-        console.log("Un-Successful");
+      .catch((err) => {
+        // console.log("Un-Successful");
+        toast.error(err.message, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
       });
   };
 
