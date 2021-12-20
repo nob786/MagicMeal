@@ -402,6 +402,7 @@ exports.deleteComment = async (req, res) => {
 exports.getRestaurantsByAddress = (req, res, next) => {
   // const lat1 = req.params.lat;
   // const lon1 = req.params.lng;
+  console.log("getRestaurantsByAddress API called");
 
   let { lat, lng } = req.body;
   const lat1 = lat;

@@ -53,7 +53,7 @@ router.delete(
 );
 
 // Fetching restuarants in a 10 km radius
-router.get(
+router.post(
   "/restaurants-location",
   authMiddleWare.verifyCustomer,
   userController.getRestaurantsByAddress
