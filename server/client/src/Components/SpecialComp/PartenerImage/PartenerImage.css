@@ -1,7 +1,7 @@
 .partener-image {
   min-height: 500px;
   height: auto;
-  background: var(--btn-hover-grad);
+  background: var(--prime-white);
   /* background: url("../../MainPage/img/food2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -30,7 +30,8 @@
 }
 
 .partener-text h1 {
-  color: var(--prime-shinegrey);
+  /* color: var(--prime-shinegrey); */
+  color: var(--prime-lightred);
   padding-bottom: 2%;
 }
 

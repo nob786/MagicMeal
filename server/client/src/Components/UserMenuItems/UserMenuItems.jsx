@@ -12,10 +12,9 @@ import "./UserMenuItems.css";
 import { useDispatch, useSelector } from "react-redux";
 
 //======================================MAterial UI Imports =======================
-import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
+
+import DirectionsIcon from "@mui/icons-material/Directions";
+import TableRestaurantIcon from "@mui/icons-material/TableRestaurant";
 
 //=========================oTHER iMPORTS==========================
 import DatePicker from "react-date-picker";
@@ -115,17 +114,14 @@ const UserMenuItems = () => {
           },
         })
         .then((res) => {
-          if (res) {
-            toast.success(res.message, {
-              position: toast.POSITION.TOP_CENTER,
-              autoClose: 2000,
-            });
-            //window.alert("Order Placed");
-          } else console.log("Response Not Avalable");
+          toast.success(res.message, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
         })
         .catch((err) => {
-          console.log("Error in FE", err);
-          toast.error(err.message, {
+          console.log("Error in FE", err.response.data.message);
+          toast.error(err.response.data.message, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
           });
@@ -214,22 +210,35 @@ const UserMenuItems = () => {
           <br />
           <h3 className="user-menu-restaurant-address">
             {/* <LocationOnIcon />  */}
-            {restaurantData.address &&
-              restaurantData.address.toUpperCase()}{" "}
+            {restaurantData.address && (
+              <a
+                style={{ color: "white", textDecoration: "none" }}
+                target="_blank"
+                href={
+                  "https://maps.google.com/?q=" +
+                  restaurantData.location.lat +
+                  "," +
+                  restaurantData.location.lng
+                }
+              >
+                <DirectionsIcon /> Directions
+              </a>
+            )}
+            <br />
             <br />
             {/* <PhoneInTalkIcon /> */}
             {restaurantData.contact}
             <br />
-            Type:{" "}
-            {restaurantData.category &&
-              restaurantData.category.toUpperCase()}{" "}
+            <br />
+            {restaurantData.category && restaurantData.category.toUpperCase()}
+            {" FOOD "}
             <br />
           </h3>
           <br />
           <button
             onClick={handleBookTableToggle}
             type="button"
-            class="btn btn-primary"
+            class="btn user-book-table-button "
             data-toggle={
               restaurantData.bookTable === true && authCust === true
                 ? "modal"
@@ -239,7 +248,7 @@ const UserMenuItems = () => {
             data-whatever="@mdo"
             className="user-book-table-button"
           >
-            Book Table
+            <TableRestaurantIcon /> Book Table
           </button>
         </div>
       </div>

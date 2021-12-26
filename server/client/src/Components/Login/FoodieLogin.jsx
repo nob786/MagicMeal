@@ -155,10 +155,11 @@ const FoodieLogin = () => {
           }
           //history.push("/menus");
         })
-        .catch((req) => {
+        .catch((err) => {
           setLoading(false);
           // //window.alert(req.message);
-          toast.error(req.message, {
+          console.log("Login Error", err.response.data);
+          toast.error(err.response.data, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
           });
@@ -212,7 +213,7 @@ const FoodieLogin = () => {
         <div className="form-fields">
           <TextField
             name="email"
-            variant="outlined"
+            // variant="outlined"
             className="email"
             id="input-textfield"
             label="Email"
@@ -235,7 +236,7 @@ const FoodieLogin = () => {
           <TextField
             style={{ marginTop: "3%" }}
             name="password"
-            variant="outlined"
+            // variant="outlined"
             className="password"
             id="input-with-icon-textfield"
             label="Password"

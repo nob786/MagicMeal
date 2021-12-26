@@ -12,7 +12,8 @@
 }
 .restaurant-name-container {
   color: var(--prime-lightred);
-  font-size: 28px;
+  font-size: 2rem;
+  font-weight: 600;
 }
 .Single_Restaurant:hover {
   transform: scale(
@@ -27,7 +28,6 @@
 
 .restaurant-title {
   color: var(--prime-lightred);
-  font-family: cursive;
 }
 
 .restaurant_image {
@@ -45,7 +45,7 @@ h1 {
 
 .restaurant-address {
   color: black;
-  font-size: 15px;
+  font-size: 12px;
   text-align: center;
 }
 

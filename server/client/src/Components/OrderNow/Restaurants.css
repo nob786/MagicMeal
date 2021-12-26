@@ -13,10 +13,10 @@
 .restaurant-page-button {
   border-radius: 5px;
   width: auto;
-  height: 55px;
+  height: 60px;
   margin-left: 10px;
   margin-top: 10px;
-  font-size: 100%;
+  font-size: var(--button-big-screen);
   font-weight: bold;
   color: white;
   background-color: var(--prime-lightred);
@@ -25,6 +25,32 @@
 .restaurant-page-button:hover {
   background: var(--btn-hover-clr);
   background: var(--btn-hover-grad);
+}
+.restaurant-filter-input {
+  height: 60px;
+}
+.restaurant-filter-button {
+  font-size: var(--button-big-screen);
+  font-weight: bold;
+  color: white;
+  background-color: var(--prime-lightred);
+  border: none;
+  height: 60px;
+}
+.restaurant-filter-button:hover {
+  font-size: var(--button-big-screen);
+  font-weight: bold;
+  color: white;
+  background-color: var(--prime-lightred);
+  border: none;
+}
+.restaurant-filter-button:focus {
+  box-shadow: none;
+  outline: 0 none;
+}
+
+.restaurant-filter-button-dropdown {
+  background-color: white;
 }
 .restaurant-page-location-bar {
   width: 40%;
@@ -44,6 +70,7 @@
   text-align: start;
   font-size: 50px;
   margin-bottom: 5%;
+  padding-left: 15px;
 }
 
 @media (max-width: 480px) {
@@ -60,5 +87,15 @@
   }
   .restaurant-page-location h1 {
     font-size: 32px;
+  }
+
+  .restaurant-filter-button {
+    /* height: 40px; */
+    width: 200px;
+    font-size: 14px;
+  }
+
+  .restaurant-filter-input {
+    width: 400px;
   }
 }

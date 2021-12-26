@@ -5,7 +5,9 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
+import axios from "axios";
 
+//=================Importing Css File =====================//
 import "./RatingModal.css";
 
 const style = {
@@ -79,6 +81,36 @@ const RatingModal = (order) => {
     console.log("Review Data", data);
     setErrors(validate(data));
     if (Object.keys(validate(data)).length === 0) {
+      axios
+        .post(
+          `/user/post-comment`,
+          {
+            restaurantId: order.order.restaurant.restaurantId,
+            // name: order.restaurant.restaurantName,
+
+            // customer: {
+            //   customerId: order.customer.customerId,
+            //   name: order.customer.customerName,
+            // },
+            rating: data.rating,
+            comment: data.comments,
+            date: new Date(),
+          },
+          {
+            headers: {
+              authorization:
+                localStorage.getItem("token") !== null
+                  ? JSON.parse(localStorage.getItem("token"))
+                  : null,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("Review Response", res);
+        })
+        .catch((err) => {
+          console.log("Review Error", err);
+        });
     } else if (Object.keys(validate(data)).length > 0) {
       setLoading(false);
     }

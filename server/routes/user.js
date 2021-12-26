@@ -42,7 +42,7 @@ router.post(
 
 // Posting comments for a restaurant
 router.post(
-  "/post-comment/:restId",
+  "/post-comment",
   authMiddleWare.verifyCustomer,
   userController.postComment
 );
