@@ -19,6 +19,7 @@
   --h1-big-screen: 38px;
   --h2-big-screen: 30px;
   --p-big-screen: 22px;
+  --button-big-screen: 18px;
 }
 .App {
   font-family: sans-serif;

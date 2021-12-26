@@ -49,7 +49,17 @@ const SingleRestaurant = ({ restaurant }) => {
         <h5 class="card-title text-center restaurant-name-container">
           {restaurant.restaurantName}
         </h5>
-        <p class="card-text">{restaurant.address.toUpperCase()}</p>
+        <p class="card-text restaurant-address">
+          {restaurant.address.toUpperCase()}
+        </p>
+        {/* <br /> */}
+        <p style={{ fontSize: "14px", color: "green" }} class="card-text">
+          {restaurant.tempDistance
+            ? restaurant.tempDistance > 1
+              ? parseFloat(restaurant.tempDistance).toFixed(0) + "km away"
+              : parseInt(parseFloat(restaurant.tempDistance) * 1000) + "m away"
+            : null}
+        </p>
       </div>
       {/* <ul class="list-group list-group-flush">
         <li class="list-group-item">Cras justo odio</li>
@@ -58,7 +68,7 @@ const SingleRestaurant = ({ restaurant }) => {
       </ul> */}
       <div class="card-body text-center">
         Rating: 4.2
-        <Box component="fieldset" mb={3} borderColor="transparent">
+        <Box component="fieldset" mb={0} borderColor="transparent">
           <Rating
             name="half-rating-read"
             defaultValue={4.2}

@@ -11,6 +11,14 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Grid } from "@material-ui/core";
 
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+
 //==========================Redux imports===================================
 import { useDispatch, useSelector } from "react-redux";
 import { pushItemsLength, pushMenuId } from "../../Redux/actions/cartAction";
@@ -21,8 +29,21 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
   const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   //====================================Redux Selectors=========================
   const { clickedMenuId } = useSelector((state) => state.cart);
@@ -65,7 +86,7 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
     //dispatch(pushItemsLength(clickedMenuId.length));
 
     if (authCust === true) {
-      if (cartRestaurantId === "") {
+      if (cartRestaurantId === "" && clickedMenuId === "") {
         dispatch(pushMenuId(fullCartMenu));
         dispatch(pushcartRestaurantId(restId));
         dispatch(pushcartRestaurant(restaurantData));
@@ -83,10 +104,24 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000,
         });
-      } else if (restId !== cartRestaurantId)
-        window.alert("Different Restaurant Item.");
+      } else if (cartRestaurantId !== restId && clickedMenuId.length === 0) {
+        dispatch(pushMenuId(fullCartMenu));
+        dispatch(pushcartRestaurantId(restId));
+        dispatch(pushcartRestaurant(restaurantData));
+        dispatch(pushItemsLength());
+        // window.alert(menu.itemName + " Item Added to Cart");
+        toast.info(`${menu.itemName} Added to Cart`, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
+      } else if (cartRestaurantId !== restId && clickedMenuId.length !== 0)
+        setOpen(true);
     } else {
       history.push("/foodie-login");
+      toast.info(`Please Log In First to use Cart`, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
     }
   };
   return (
@@ -171,7 +206,8 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
                 Add to Cart
               </a>
             ) : (
-              <a
+              <button
+                disabled
                 onClick={alreadyInCart}
                 style={{
                   width: "100%",
@@ -183,11 +219,36 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
                 class="btn text-center mt-4 boot-user-add-to-cart-button"
               >
                 Added to Cart
-              </a>
+              </button>
             )}
           </div>
         </div>
       </div>
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>
+          {"You have Selected Menu from different Restaurant"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            If you want to add this menu then Please empty your previous cart or
+            continue with your previous cart
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <button className="cart-modal-button" onClick={handleClose}>
+            Continue Shopping
+          </button>
+          <button className="cart-modal-button-continue" onClick={handleClose}>
+            Empty Cart
+          </button>
+        </DialogActions>
+      </Dialog>
     </div>
 
     // <div

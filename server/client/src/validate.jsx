@@ -112,8 +112,8 @@ const validate = (data) => {
     errors.password = "Password is Required";
   } else if (data.password.length < 4) {
     errors.password = "Password cannot be less tha 4 characters";
-  } else if (data.password.length > 10) {
-    errors.password = "Password cannot exceed 10 characters";
+  } else if (data.password.length > 11) {
+    errors.password = "Password cannot exceed 11 characters";
   } else if (data.password.includes(" ")) {
     errors.password = "Password cannot contains spaces";
   }

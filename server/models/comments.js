@@ -27,6 +27,14 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  rating: {
+    type: Number,
+    required: true,
+  },
+  date: {
+    type: Date,
+    required: true,
+  },
 });
 
 const Comments = mongoose.model("Comments", commentSchema);

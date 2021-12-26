@@ -15,6 +15,10 @@ import TitleTag from "../SpecialComp/TitleTag";
 import SingleRestaurant from "./SingleRestaurant";
 import "./Restaurants.css";
 import { useHistory } from "react-router";
+//=================React  Notification
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 
 const Restaurants = () => {
   //Main Page Loader
@@ -82,6 +86,7 @@ const Restaurants = () => {
         },
         (error) => {
           console.error(error);
+          setGpsLoading(false);
         }
       );
       setLocation({
@@ -93,21 +98,21 @@ const Restaurants = () => {
       });
     });
     // console.log("jshdjsdh");
-    Geocode.fromLatLng(
-      location.coordinates.lat,
-      location.coordinates.long
-    ).then(
-      (response) => {
-        // const address = response.results[0].formatted_address;
-        // console.log("Current Address", address);
+    // Geocode.fromLatLng(
+    //   location.coordinates.lat,
+    //   location.coordinates.long
+    // ).then(
+    //   (response) => {
+    //     // const address = response.results[0].formatted_address;
+    //     // console.log("Current Address", address);
 
-        setCurrentAddress(response.results[0].formatted_address);
-        // setLoading(false);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    //     setCurrentAddress(response.results[0].formatted_address);
+    //     // setLoading(false);
+    //   },
+    //   (error) => {
+    //     console.error(error);
+    //   }
+    // );
   };
 
   // Use Effect
@@ -142,34 +147,60 @@ const Restaurants = () => {
   }, []);
 
   //Handel Find Restaurants
-  const handleFindRestaurants = () => {
+  const handleFindRestaurants = async () => {
+    setLoading(true);
     if (location.loaded === true) {
       // history.push(
       //   `/restaurants/delivery/${location.coordinates.lat}&${location.coordinates.long}`
       // );
-      const { nearbyData } = axios.post(
-        `/user/restaurants-location`,
-        {
-          lat1: location.coordinates.lat,
-          lon1: location.coordinates.long,
-        },
-        {
-          headers: {
-            authorization:
-              localStorage.getItem("token") !== null
-                ? JSON.parse(localStorage.getItem("token"))
-                : null,
+      axios
+        .post(
+          `/user/restaurants-location`,
+          {
+            lat1: location.coordinates.lat,
+            lon1: location.coordinates.long,
           },
-        }
-      );
-      if (nearbyData) {
-        setNearbyRestaurants(nearbyData);
-        console.log("Nearby Restaurants Fetched", nearbyData);
-      } else {
-      }
-    } else if (location.loaded === false) {
-      console.log("Nearby Restaurants Could jot Fetched");
+          {
+            headers: {
+              authorization:
+                localStorage.getItem("token") !== null
+                  ? JSON.parse(localStorage.getItem("token"))
+                  : null,
+            },
+          }
+        )
+        .then((res) => {
+          setLoading(false);
+          setAllRestaurants(res.data.data);
+          toast.success(`Nearby Restaurants Fetched`, {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          console.log("Naarby Rests", res.data.data);
+        })
+        .catch((err) => {
+          setLoading(false);
+          toast.error(err.message, {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        });
+    } else {
+      toast.info(`Please Select Gps Location`, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: false,
+      });
+      setLoading(false);
     }
+
+    // console.log("Neaby BEfore", nearbyData.data);
+    //   if (nearbyData) {
+    //     setNearbyRestaurants(nearbyData);
+    //     // setAllRestaurants(nearbyData);
+    //     console.log("Nearby Restaurants Fetched", nearbyData.data);
+    //   } else {
+    //   }
+    // } else if (location.loaded === false) {
+    //   console.log("Nearby Restaurants Could jot Fetched");
+    // }
     // window.alert(lat);
   };
 
@@ -209,9 +240,12 @@ const Restaurants = () => {
 
   //=========================================Search Filter Function ===========================
   const handlePickUpFilter = () => {
+    setLoading(true);
     if (allRestaurants2 || allRestaurants2 === "") {
       setAllRestaurants(allRestaurants2.filter((rest) => rest.pickUp === true));
     }
+
+    setLoading(false);
   };
   const handleDineInFilter = () => {
     if (allRestaurants2 || allRestaurants2 === "") {
@@ -328,87 +362,99 @@ const Restaurants = () => {
         </button>
       </div>
       {/*================================================ Search Bar============================================== */}
-
-      <div>
-        <TitleTag title="Restaurants " />
-        <form
-          style={{ justifyContent: "center" }}
-          class="form-inline my-2 my-lg-0 text-center"
-        >
-          <input
-            style={{ height: "80px" }}
-            class="form-control mr-sm-2 w-50"
-            type="search"
-            placeholder="Search by Restaurant Name, City or Category"
-            aria-label="Search"
-            value={searchTerm}
-            onChange={(event) => {
-              setSearchTerm(event.target.value);
-            }}
-          />
-          <div class="dropdown ">
-            <button
-              style={{ height: "80px" }}
-              class="btn btn-secondary dropdown-toggle "
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
+      {allRestaurants.length > 0 ? (
+        <>
+          <div>
+            <TitleTag title="Restaurants " />
+            <form
+              style={{ justifyContent: "center" }}
+              class="form-inline my-2 my-lg-0 text-center"
             >
-              Filter Restaurants
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a onClick={handlePickUpFilter} class="dropdown-item">
-                PICKUP
-              </a>
-              <a onClick={handleDineInFilter} class="dropdown-item">
-                DINE-IN
-              </a>
-              <a onClick={handleBookTableFilter} class="dropdown-item">
-                TABLE RESERVATION
-              </a>
-            </div>
-          </div>
-          {/* <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              <input
+                class="form-control mr-sm-2 w-50 restaurant-filter-input"
+                type="search"
+                placeholder="Search by Restaurant Name, City or Category"
+                aria-label="Search"
+                value={searchTerm}
+                onChange={(event) => {
+                  setSearchTerm(event.target.value);
+                }}
+              />
+              <div class="dropdown ">
+                <button
+                  class="btn  dropdown-toggle restaurant-filter-button "
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Filter Restaurants
+                </button>
+                <div
+                  class="dropdown-menu restaurant-filter-button-dropdown"
+                  aria-labelledby="dropdownMenuButton"
+                >
+                  <button onClick={handlePickUpFilter} class="dropdown-item">
+                    PICKUP
+                  </button>
+                  <a onClick={handleDineInFilter} class="dropdown-item">
+                    DINE-IN
+                  </a>
+                  <a onClick={handleBookTableFilter} class="dropdown-item">
+                    TABLE RESERVATION
+                  </a>
+                </div>
+              </div>
+              {/* <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
               Search
             </button> */}
-        </form>
-      </div>
-      {/* <TitleTag title="Search Test" /> */}
-      <div className="restaurants_grid">
-        {allRestaurants &&
-          allRestaurants
-            .filter((value) => {
-              if (searchTerm === "") {
-                return value;
-              } else if (
-                value.restaurantName
-                  .toLowerCase()
-                  .includes(searchTerm.toLowerCase())
-              ) {
-                return value;
-              } else if (
-                value.address.toLowerCase().includes(searchTerm.toLowerCase())
-              ) {
-                return value;
-              } else if (
-                value.category.toLowerCase().includes(searchTerm.toLowerCase())
-              ) {
-                return value;
-              }
-            })
-            .map((value, key) => (
-              <SingleRestaurant key={key} restaurant={value} />
-            ))}
-      </div>
+            </form>
+          </div>
+          {/* <TitleTag title="Search Test" /> */}
+          <div className="restaurants_grid">
+            {allRestaurants &&
+              allRestaurants
+                .filter((value) => {
+                  if (searchTerm === "") {
+                    return value;
+                  } else if (
+                    value.restaurantName
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase())
+                  ) {
+                    return value;
+                  } else if (
+                    value.address
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase())
+                  ) {
+                    return value;
+                  } else if (
+                    value.category
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase())
+                  ) {
+                    return value;
+                  }
+                })
+                .map((value, key) => (
+                  <SingleRestaurant key={key} restaurant={value} />
+                ))}
+          </div>
+        </>
+      ) : (
+        <div class="alert alert-primary text-center m-5" role="alert">
+          Sorry! We could not Find any Restaurants near you.
+        </div>
+      )}
 
       {/* ========================================================Imlementation of Nearby Restaurants=============================== */}
       {/* <>
         <TitleTag title="Nearby Restaurants" />
         <br />
         <div className="restaurants_grid">
-          {allRestaurants.map((item, key) => (
+          {nearbyRestaurants.map((item, key) => (
             <SingleRestaurant key={key} restaurant={item} />
           ))}
         </div>

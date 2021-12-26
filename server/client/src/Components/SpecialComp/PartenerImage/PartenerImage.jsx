@@ -25,6 +25,12 @@ const PartenerImage = () => {
             </Link>
           </div>
         </div>
+        {/* <img
+          style={{ height: "150px" }}
+          src="../../MainPage/img/vector partner.jpg"
+          // class="rounded float-left"
+          // alt="..."
+        /> */}
       </div>
     </div>
   );

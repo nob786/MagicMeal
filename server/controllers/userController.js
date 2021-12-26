@@ -295,18 +295,20 @@ exports.postOrder = async (req, res) => {
 };
 exports.postComment = async (req, res) => {
   //console.log("Comment api called.");
+  console.log("Comment Body", req.body);
+
   const userId = req.loggedInUserId;
-  // const restaurantId = req.params.restId;
+  // const restaurantId = req.restId;
   // console.log("Rest Id", req.params.restId); //req.params.restId;
-  const { error } = validateComment(req.body);
+  // const { error } = validateComment(req.body);
 
-  if (error)
-    return res.status(400).json({
-      message: "Error. Enter Data correctly ",
-      error: error,
-    });
+  // if (error)
+  //   return res.status(400).json({
+  //     message: "Error. Enter Data correctly ",
+  //     error: error,
+  //   });
 
-  const { comment, rating, restId } = req.body;
+  const { comment, rating, restaurantId, date } = req.body;
 
   if (!userId) {
     return res.status(404).send("User id not found.");
@@ -344,6 +346,8 @@ exports.postComment = async (req, res) => {
       restaurantId: restaurant._id,
     },
     comment: comment,
+    rating: rating,
+    date: date,
   });
 
   console.log("New Comment Created", newComment);
@@ -472,7 +476,7 @@ exports.getRestaurantsByAddress = async (req, res, next) => {
         "Distance We Get",
         getDistance(lat1, lon1, n.location.lat, n.location.lng)
       );
-      if (getDistance(lat1, lon1, n.location.lat, n.location.lng) < 5) {
+      if (getDistance(lat1, lon1, n.location.lat, n.location.lng) <= 15) {
         n.tempDistance = getDistance(
           lat1,
           lon1,
@@ -488,6 +492,11 @@ exports.getRestaurantsByAddress = async (req, res, next) => {
     "===============================>Nearby REstaurants",
     nearbyRestaurants
   );
+
+  return res.status(200).json({
+    message: "These are all the restaurants Nearby.",
+    data: nearbyRestaurants,
+  });
 
   //   // console.log("Accounts", account);
   //   let accountId = account._id;

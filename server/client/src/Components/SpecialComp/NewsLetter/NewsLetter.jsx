@@ -49,8 +49,8 @@ const NewsLetter = () => {
           }
         })
         .catch((err) => {
-          // console.log("error", err._message);
-          toast.error("Validation Error", {
+          console.log("error subscription", err.response.data);
+          toast.error(err.response.data.message, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
           });

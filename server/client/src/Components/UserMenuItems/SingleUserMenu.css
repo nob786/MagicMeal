@@ -194,3 +194,20 @@
     border: black 1px solid;
   }
 }
+
+.cart-modal-button {
+  background-color: var(--prime-lightred);
+  color: white;
+  min-height: 40px;
+  border: none;
+  border-radius: 5px;
+}
+
+.cart-modal-button:hover {
+  background: var(--btn-hover-grad);
+}
+.cart-modal-button-continue {
+  background: none;
+  border: none;
+  font-weight: bold;
+}
