@@ -400,50 +400,101 @@ exports.deleteComment = async (req, res) => {
 };
 
 exports.getRestaurantsByAddress = async (req, res, next) => {
+  // const getDistance = (l1, ln1, l2, ln2) => {
+  //   let R = 6371; // kms
+  //   let φ1 = (l1 * Math.PI) / 180; // φ, λ in radians
+  //   let φ2 = (ln2 * Math.PI) / 180;
+  //   let Δφ = ((ln2 - l1) * Math.PI) / 180;
+  //   let Δλ = ((l2 - ln1) * Math.PI) / 180;
+
+  //   let a =
+  //     Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+  //     Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+  //   let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  //   let d =
+  //     Math.acos(
+  //       Math.sin(l1) * Math.sin(l2) +
+  //         Math.cos(l1) * Math.cos(l2) * Math.cos(ln2 - ln1)
+  //     ) * 6371;
+  //   return d;
+  // };
+  function getDistance(lat1, lon1, lat2, lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2 - lat1); // deg2rad below
+    var dLon = deg2rad(lon2 - lon1);
+    var a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) *
+        Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c; // Distance in km
+    return d;
+  }
+
+  function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+  }
+
+  // console.log(
+  //   "distance get before",
+  //   getDistance(30.192876, 71.518992, 30.184318, 71.511799)
+  // );
+
   console.log("getRestaurantsByAddress API called");
 
   let { lat1, lon1 } = req.body;
-
   console.log("Got lat1 lon1", req.body);
 
   let ac = await Account.find();
-  let array = [];
-  let filteredAccountIds = ac.map((account) => {
-    if (account.isVerified === true && account.role === "restaurant") {
-      // console.log("Account id", account._id);
-      let accId = account._id;
-      // console.log("AA", accId);
-      array.push(accId);
+  console.log("===============>Account pre filtered", ac);
+  const filteredAccounts = ac.filter((n) => {
+    if (n.isVerified === true && n.role === "restaurant") return n;
+  });
+
+  // console.log(
+  //   "-=========================>Is Verified Accounts",
+  //   filteredAccounts
+  // );
+
+  const finalRestaurants = await Restaurant.find();
+
+  // console.log(
+  //   "=============================>Filtered Restaurants",
+  //   finalRestaurants
+  // );
+
+  const nearbyRestaurants = finalRestaurants.filter((n) => {
+    if (n.location.lat !== null && n.location.lng !== null) {
+      console.log(
+        "Distance We Get",
+        getDistance(lat1, lon1, n.location.lat, n.location.lng)
+      );
+      if (getDistance(lat1, lon1, n.location.lat, n.location.lng) < 5) {
+        n.tempDistance = getDistance(
+          lat1,
+          lon1,
+          n.location.lat,
+          n.location.lng
+        );
+        return n;
+      }
     }
   });
-  console.log("Filtered Account ids", array);
-  // const filteredAccountsIds = ac.filter((n) => {
-  //   if (n.isVerified === true && n.role === "restaurant") return n._id;
-  // });
-  // console.log("Filtered Account ids", filteredAccountsIds);
-  // const finalSellers = filteredAccounts.map(async (account) => {
-  // console.log("Accounts", account);
+
+  console.log(
+    "===============================>Nearby REstaurants",
+    nearbyRestaurants
+  );
+
+  //   // console.log("Accounts", account);
   //   let accountId = account._id;
   //   let rest = await Restaurant.find({ account: accountId }).then(
   //     (restaurants) => {
   //       // console.log("Restaurants", restaurants);
   //       const restaurantsFinal = restaurants.reduce((result, rest) => {
-  //         const lat2 = rest.location.lat;
-  //         const lon2 = rest.location.lng;
-
-  //         const R = 6371; // kms
-  //         const φ1 = (lat1 * Math.PI) / 180; // φ, λ in radians
-  //         const φ2 = (lat2 * Math.PI) / 180;
-  //         const Δφ = ((lat2 - lat1) * Math.PI) / 180;
-  //         const Δλ = ((lon2 - lon1) * Math.PI) / 180;
-
-  //         const a =
-  //           Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-  //           Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-  //         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-  //         const d = R * c; // in km
-  //         console.log("Dist", d);
   //         if (d < 10) result.push(rest);
 
   //         return result;

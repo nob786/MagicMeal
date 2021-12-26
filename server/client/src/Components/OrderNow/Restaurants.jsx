@@ -147,16 +147,28 @@ const Restaurants = () => {
       // history.push(
       //   `/restaurants/delivery/${location.coordinates.lat}&${location.coordinates.long}`
       // );
-      const { nearbyData } = axios.get(
-        `/restaurants-location/${location.coordinates.lat}/${location.coordinates.long}`
+      const { nearbyData } = axios.post(
+        `/user/restaurants-location`,
+        {
+          lat1: location.coordinates.lat,
+          lon1: location.coordinates.long,
+        },
+        {
+          headers: {
+            authorization:
+              localStorage.getItem("token") !== null
+                ? JSON.parse(localStorage.getItem("token"))
+                : null,
+          },
+        }
       );
       if (nearbyData) {
         setNearbyRestaurants(nearbyData);
-        console.log("Got It", nearbyData);
+        console.log("Nearby Restaurants Fetched", nearbyData);
       } else {
       }
     } else if (location.loaded === false) {
-      console.log("Not Get It");
+      console.log("Nearby Restaurants Could jot Fetched");
     }
     // window.alert(lat);
   };

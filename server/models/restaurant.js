@@ -61,6 +61,11 @@ const restaurantSchema = mongoose.Schema({
     required: true,
     ref: "Account",
   },
+
+  tempDistance: {
+    type: String,
+    default: null,
+  },
 });
 
 // Restaurant orders virutals
