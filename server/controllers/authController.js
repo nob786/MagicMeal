@@ -92,8 +92,14 @@ exports.login = async (req, res) => {
   if (!loadedAccount) return res.status(404).send("Account not found");
 
   let hashedPassword = await bcrypt.compare(password, loadedAccount.password);
+  console.log("Hashed Pass", hashedPassword);
+  console.log("Loaded", loadedAccount.password);
+  console.log("Passwo", password);
 
-  if (!hashedPassword) return res.status(404).send("Invalid Email or password");
+  if (!hashedPassword) return res.status(400).send("Invalid Email or password");
+
+  // if (password !== loadedAccount.password)
+  //   return res.status(404).send("Invalid Email or password");
 
   const token = jwt.sign({ accountId: loadedAccount._id.toString() }, "myKey");
 
@@ -363,5 +369,57 @@ exports.verifyAccount = (req, res, next) => {
     .catch((err) => {
       if (!err.statusCode) err.statusCode = 500;
       next(err);
+    });
+};
+
+exports.resetPassword = async (req, res) => {
+  console.log("Inside reset password API");
+
+  const { email } = req.body;
+  const { error } = validateEmail(req.body);
+
+  if (error) {
+    console.log("Enter email in correct format", error);
+
+    return res.json({
+      message: "Enter email in correct format",
+    });
+  }
+
+  Account.findOne({ email: email })
+    .then(async (account) => {
+      let randomPassword = crypto.randomBytes(5).toString("hex");
+      console.log("My new password", randomPassword);
+
+      const salt = await bcrypt.genSalt(12);
+      const hashedPassword = await bcrypt.hash(randomPassword, salt);
+      console.log("New Hashed password", hashedPassword);
+      const mailOptions = {
+        to: email,
+        from: "Magic Meal",
+        subject: "Your new password",
+        html: `<p>Your new password is ${randomPassword}. Use it to login to your account</p>`,
+      };
+
+      account.password = hashedPassword;
+      console.log("About to reset password");
+      account.save();
+      console.log("Passowrd reset successful");
+      console.log("New account object", account);
+      sendEmail(mailOptions);
+      return res.status(200).json({
+        message:
+          "If we find an account with your email then you will receive a new password via email.",
+      });
+    })
+    .catch((error) => {
+      if (error) {
+        console.log("Error in catch block");
+        return res.json({ message: "Something went wrong", error: error });
+      } else {
+        return res.json({
+          message: "Internal server error",
+        });
+      }
     });
 };

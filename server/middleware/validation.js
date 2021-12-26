@@ -49,6 +49,15 @@ function validateUser(user) {
   return result;
 }
 
+function validateEmail(email) {
+  const schema = Joi.object({
+    email: Joi.string().email(),
+  });
+
+  const result = schema.validate(email);
+  return result;
+}
+
 function validateRestaurant(restaurant) {
   const schema = Joi.object({
     ownerName: Joi.string().required(),
@@ -70,3 +79,4 @@ exports.validateRestaurant = validateRestaurant;
 exports.validateLogin = validateLogin;
 exports.validateItem = validateItem;
 exports.validateComment = validateComment;
+exports.validateEmail = validateEmail;
