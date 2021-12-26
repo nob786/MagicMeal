@@ -388,9 +388,6 @@ exports.resetPassword = async (req, res) => {
 
   Account.findOne({ email: email })
     .then(async (account) => {
-      let randomPassword = crypto.randomBytes(5).toString("hex");
-      console.log("My new password", randomPassword);
-
       const salt = await bcrypt.genSalt(12);
       const hashedPassword = await bcrypt.hash(randomPassword, salt);
       console.log("New Hashed password", hashedPassword);

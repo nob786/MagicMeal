@@ -296,8 +296,8 @@ exports.postOrder = async (req, res) => {
 exports.postComment = async (req, res) => {
   //console.log("Comment api called.");
   const userId = req.loggedInUserId;
-  const restaurantId = req.params.restId;
-  console.log("Rest Id", req.params.restId); //req.params.restId;
+  // const restaurantId = req.params.restId;
+  // console.log("Rest Id", req.params.restId); //req.params.restId;
   const { error } = validateComment(req.body);
 
   if (error)
@@ -306,7 +306,7 @@ exports.postComment = async (req, res) => {
       error: error,
     });
 
-  const { comment } = req.body;
+  const { comment, rating, restId } = req.body;
 
   if (!userId) {
     return res.status(404).send("User id not found.");
