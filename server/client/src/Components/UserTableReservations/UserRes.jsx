@@ -108,7 +108,7 @@ const UserTableReservation = () => {
             class="form-inline my-2 my-lg-0 text-center"
           >
             <input
-              class="form-control mr-sm-2 w-50 "
+              class="form-control mr-sm-2 w-50 form-control-lg"
               type="search"
               placeholder="Search by Reservation-ID or Date"
               aria-label="Search"
@@ -152,7 +152,7 @@ const UserTableReservation = () => {
             class="form-inline my-2 my-lg-0 text-center"
           >
             <input
-              class="form-control mr-sm-2 w-50"
+              class="form-control mr-sm-2 w-50 form-control-lg"
               type="search"
               placeholder="Search by Reservation-ID or Table Number or Date"
               aria-label="Search"
@@ -205,7 +205,7 @@ const UserTableReservation = () => {
             class="form-inline my-2 my-lg-0 text-center"
           >
             <input
-              class="form-control mr-sm-2 w-50"
+              class="form-control mr-sm-2 w-50 form-control-lg"
               type="search"
               placeholder="Search by Reservation-ID or Table Number or Date"
               aria-label="Search"
