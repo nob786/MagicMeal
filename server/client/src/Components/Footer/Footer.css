@@ -9,6 +9,7 @@
 
   /* background-color: rgb(0, 0, 0); 
   background-color: rgba(254, 114, 76, 0.8); Black w/opacity/see-through */
+  background: var(--btn-hover-grad);
 }
 .Footer-b {
   border-bottom: 1px gray solid;
@@ -19,9 +20,10 @@
 }
 .Footer-b h1 {
   font-family: sans-serif;
-  font-size: 22px;
+  font-size: 24px;
   color: var(--prime-shinegrey);
-  font-weight: 900;
+  font-weight: 600;
+  padding-bottom: 5%;
 }
 
 /* .Footer div {
@@ -60,6 +62,7 @@
 .a:hover {
   text-decoration: underline;
   color: var(--prime-shinegrey);
+  color: var(--prime-white);
 }
 .a:visited {
   text-decoration: underline;
@@ -86,16 +89,18 @@
 }
 
 .fa-instagram {
-  color: var(--prime-shinegrey);
+  color: var(--prime-white);
   padding-left: 10px;
 }
 
 .fa-cc-mastercard {
-  color: #eb001b;
+  /* color: #eb001b; */
+  color: white;
 }
 
 .fa-cc-visa {
-  color: #1a1f71;
+  /* color: #1a1f71; */
+  color: white;
   margin-left: 10px;
 }
 

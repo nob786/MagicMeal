@@ -14,7 +14,7 @@ import axios from "../../axios";
 //================================MAterial Ui===================*/
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 import EmailIcon from "@material-ui/icons/Email";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
@@ -213,7 +213,7 @@ const FoodieLogin = () => {
         <div className="form-fields">
           <TextField
             name="email"
-            // variant="outlined"
+            variant="outlined"
             className="email"
             id="input-textfield"
             label="Email"
@@ -236,7 +236,7 @@ const FoodieLogin = () => {
           <TextField
             style={{ marginTop: "3%" }}
             name="password"
-            // variant="outlined"
+            variant="outlined"
             className="password"
             id="input-with-icon-textfield"
             label="Password"
