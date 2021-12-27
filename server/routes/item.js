@@ -99,4 +99,10 @@ router.post(
   itemController.uploadLocation
 );
 
+// Get restaurant data with mail
+router.get(
+  "/get-data",
+  authMiddleWare.verifyRestaurant,
+  itemController.getRestaurantData
+);
 module.exports = router;

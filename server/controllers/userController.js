@@ -309,6 +309,7 @@ exports.postComment = async (req, res) => {
   //   });
 
   const { comment, rating, restaurantId, date } = req.body;
+  let isSubmitted = false;
 
   if (!userId) {
     return res.status(404).send("User id not found.");
@@ -347,6 +348,7 @@ exports.postComment = async (req, res) => {
     },
     comment: comment,
     rating: rating,
+    isSubmitted: true,
     date: date,
   });
 

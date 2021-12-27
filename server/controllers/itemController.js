@@ -540,3 +540,45 @@ exports.uploadLocation = async (req, res) => {
       }
     });
 };
+
+exports.getRestaurantData = async (req, res) => {
+  console.log("Inside Get restaurant data API");
+  Account.findOne({ _id: req.loggedInUserId })
+    .then(async (account) => {
+      const email = account.email;
+
+      if (!email)
+        return res.status(404).json({
+          message: "Email not found",
+        });
+
+      console.log("This is restaurants email", email);
+
+      let restaurant = await Restaurant.findOne({
+        account: req.loggedInUserId,
+      });
+
+      if (!restaurant)
+        return res.status(404).json({
+          message: "Restaurant not found",
+        });
+
+      restaurant.tempEmail = email;
+      restaurant.save();
+
+      return res
+        .status(200)
+        .json({ message: "Data fetched Successful", restaurant: restaurant });
+    })
+    .catch((error) => {
+      if (error)
+        return res.json({
+          message: "Error in catch",
+          error: error,
+        });
+      else
+        return res.status(500).json({
+          message: "Server Error",
+        });
+    });
+};
