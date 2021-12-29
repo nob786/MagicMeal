@@ -23,6 +23,11 @@ const commentSchema = new mongoose.Schema({
       required: true,
     },
   },
+  orderId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Orders",
+    required: true,
+  },
   comment: {
     type: String,
     required: true,
@@ -31,10 +36,10 @@ const commentSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  isSubmitted: {
-    type: Boolean,
-    default: false,
-  },
+  // isSubmitted: {
+  //   type: Boolean,
+  //   default: false,
+  // },
   date: {
     type: Date,
     required: true,

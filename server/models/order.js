@@ -64,6 +64,7 @@ const orderSchema = mongoose.Schema({
   ],
 
   grandTotal: { type: Number, required: true },
+  isReviewSubmitted: { type: Boolean, default: false },
 
   orderDate: {
     type: Date,

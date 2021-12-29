@@ -308,14 +308,17 @@ exports.postComment = async (req, res) => {
   //     error: error,
   //   });
 
-  const { comment, rating, restaurantId, date } = req.body;
-  let isSubmitted = false;
+  const { comment, rating, restaurantId, date, orderId } = req.body;
+  // let isSubmitted = false;
 
   if (!userId) {
     return res.status(404).send("User id not found.");
   }
   if (!restaurantId) {
     return res.status(404).send("Restaurant id not found");
+  }
+  if (!orderId) {
+    return res.status(404).send("Order id not found");
   }
 
   const customerAccount = await Account.findById(userId);
@@ -337,6 +340,9 @@ exports.postComment = async (req, res) => {
   if (!restaurant)
     return res.status(404).send("Did not find restaurant object.");
 
+  const order = await Orders.findById(orderId);
+  if (!order) return res.status(404).send("Did not find any order");
+
   let newComment = new Comments({
     customer: {
       name: customer.firstName + " " + customer.lastName,
@@ -348,15 +354,23 @@ exports.postComment = async (req, res) => {
     },
     comment: comment,
     rating: rating,
-    isSubmitted: true,
+    orderId: orderId,
+    // isSubmitted: true,
     date: date,
   });
 
   console.log("New Comment Created", newComment);
 
+  if (order.isReviewSubmitted === true)
+    return res.status(400).json({
+      message: "Review is already submitted for this order",
+    });
+
   await newComment
     .save()
     .then((data) => {
+      order.isReviewSubmitted = true;
+      order.save();
       return res.status(200).json({
         message: "Comment successful",
         data: data,
