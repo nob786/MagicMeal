@@ -111,7 +111,7 @@ const UserProfile = () => {
                         <div class="">
                           <p class="m-b-10 f-w-600 user-profile-p">Email</p>
                           <h6 class="text-muted f-w-400 user-profile-h6">
-                            {custData.email}shameermasood@gmail.com
+                            {custData.tempEmail}
                           </h6>
                         </div>
 

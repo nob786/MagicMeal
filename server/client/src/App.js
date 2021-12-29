@@ -1,5 +1,6 @@
 /*============================================Importing React File===================================*/
 import React, { useEffect } from "react";
+import axios from "axios";
 
 /*==============================================Importing CSS Files===================================*/
 import "./App.css"; /*App Css File*/
@@ -46,8 +47,22 @@ import RestDineInOrders from "./RestaurantComponents/RestDineInOrders/RestDineIn
 import UserTableReservation from "./Components/UserTableReservations/UserRes";
 import RestaurantTableReservation from "./RestaurantComponents/RestTableReservations/RestRes";
 
+//=====================================Redux Imports=================================
+import { useDispatch, useSelector } from "react-redux";
+import { addRestaurantData } from "./Redux/actions/authentication";
+
+//=================React  Notification
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
+
 function App() {
+  const dispatch = useDispatch();
   const [screenSize, setScreenSize] = React.useState();
+
+  //Auth
+  const { authRest } = useSelector((state) => state.auth);
+
   /*componentWillMount() {
     this.callAPI();
   }
@@ -66,9 +81,37 @@ function App() {
     console.log("screen size", screenSize);
   }
 
-  useEffect(() => {
-    funcScreenSize();
-  }, []);
+  // useEffect(() => {
+  //   if (authRest === true) {
+  //     axios
+  //       .get("/item/get-data", {
+  //         headers: {
+  //           authorization:
+  //             localStorage.getItem("token") !== null
+  //               ? JSON.parse(localStorage.getItem("token"))
+  //               : null,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         // toast.success("Got user redux app.js", {
+  //         //   position: toast.POSITION.TOP_CENTER,
+  //         //   autoClose: 2000,
+  //         // });
+  //         // restaurantData = res.data;
+  //         // console.log("Response of appjs", res.data.restaurant);
+  //         dispatch(addRestaurantData(res.data.restaurant));
+  //       })
+  //       .catch((err) => {
+  //         // console.log("Error in FE", err.response.data.message);
+  //         // toast.error("user not in redux app .js", {
+  //         //   position: toast.POSITION.TOP_CENTER,
+  //         //   autoClose: 2000,
+  //         // });
+  //       });
+  //   }
+
+  //   // funcScreenSize();
+  // }, []);
 
   return (
     <Router>

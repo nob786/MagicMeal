@@ -19,6 +19,7 @@
   overflow: hidden;
   border-radius: 0px 0px 20px 20px;
   display: inline-block;
+  box-shadow: 0px 10px 0px 0px rgba(0, 0, 0, 0.2);
 }
 
 .img-container img {
@@ -28,6 +29,7 @@
 }
 
 .inner-skew {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
   display: inline-block;
   border-radius: 20px;
   overflow: hidden;

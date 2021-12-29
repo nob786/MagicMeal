@@ -27,8 +27,9 @@ import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 
-// Redux Imports
-import { useSelector } from "react-redux";
+//==========================Redux imports===================================
+import { useDispatch, useSelector } from "react-redux";
+import { updateRestaurantData } from "../../Redux/actions/authentication";
 
 //=================React  Notification
 import { toast } from "react-toastify";
@@ -36,12 +37,16 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const RestaurantProfile = () => {
-  const [imageUrl, setImageUrl] = React.useState("");
-  const history = useHistory();
   //Customer Data
   const { restData } = useSelector((state) => state.auth);
-  // console.log(restData);
+  const [imageUrl, setImageUrl] = React.useState(
+    restData.imageUrl ? restData.imageUrl : ""
+  );
+  const history = useHistory();
+  const dispatch = useDispatch();
 
+  // console.log(restData);
+  React.useEffect(() => {}, []);
   const handleUploadPicture = async () => {
     await axios
       .post(
@@ -57,6 +62,7 @@ const RestaurantProfile = () => {
         }
       )
       .then((res) => {
+        dispatch(updateRestaurantData());
         console.log("Restaurant Image Uploaded");
         toast.success(`Restaurant Image Uploaded`, {
           position: toast.POSITION.TOP_CENTER,
@@ -196,7 +202,7 @@ const RestaurantProfile = () => {
                         <div class="">
                           <p class="m-b-10 f-w-600 user-profile-p">Email</p>
                           <h6 class="text-muted f-w-400 user-profile-h6">
-                            {restData.email}shameermasood@gmail.com
+                            {restData.tempEmail}
                           </h6>
                         </div>
 

@@ -1,0 +1,12 @@
+.rest-profile-upload-location-button {
+  background: var(--prime-lightred);
+  border: none;
+  min-height: 55px;
+  margin-top: 10px;
+  color: white;
+  border-radius: 5px;
+}
+
+.rest-profile-upload-location-button:hover {
+  background: var(--btn-hover-grad);
+}

@@ -1,0 +1,30 @@
+.boot-button {
+  background: var(--prime-lightred);
+  border: none;
+  color: white;
+}
+.boot-button:hover {
+  background: var(--btn-hover-grad);
+  color: white;
+  outline: none;
+}
+
+.boot-button:focus {
+  box-shadow: none;
+}
+/* button:focus {
+  background: var(--prime-lightred);
+  border: none;
+  color: white;
+  outline: none;
+  box-shadow: none;
+} */
+.boot-cancel {
+  background: none;
+  color: var(--prime-shinegrey);
+}
+.boot-cancel:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}

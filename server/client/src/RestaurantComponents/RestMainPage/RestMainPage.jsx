@@ -5,40 +5,55 @@ import TitleTag from "../../Components/SpecialComp/TitleTag";
 const RestMainPage = () => {
   return (
     <div>
+      {/* <button
+        className="btn btn-info"
+        style={{
+          color: "black",
+          marginTop: "1%",
+          marginBottom: "1%",
+          marginLeft: "1%",
+          marginRight: "1%",
+          textAlign: "right",
+        }}
+        onClick={this.openFrame.bind(null, print_content)}
+      >
+        Generate Invoice
+      </button> */}
       <TitleTag title="Dashboard" />
       <Chart
-        width={"100%"}
+        style={{ margin: "auto" }}
+        width={"90%"}
         height={"400px"}
         chartType="LineChart"
         loader={<div>Loading Chart</div>}
         data={[
           ["x", "dogs"],
-          [1, 0],
-          [2, 10],
-          [3, 23],
-          [4, 17],
-          [5, 18],
-          [6, 9],
-          [7, 11],
-          [8, 27],
-          [9, 33],
-          [10, 40],
-          [11, 32],
-          [12, 35],
+          ["2021 - 1 - 11", 0],
+          ["2021 - 1 - 11", 10],
+          ["2021 - 1 - 11", 23],
+          ["2021 - 1 - 11", 17],
+          ["2021 - 1 - 11", 18],
+          ["2021 - 1 - 11", 9],
+          ["2021 - 1 - 11", 11],
+          ["2021 - 1 - 11", 27],
+          ["2021 - 1 - 11", 33],
+          ["2021 - 1 - 11", 40],
+          ["2021 - 1 - 11", 32],
+          ["2021 - 1 - 11", 35],
         ]}
         options={{
           hAxis: {
-            title: "Time",
+            title: "Date",
           },
           vAxis: {
-            title: "Popularity",
+            title: "Sales",
           },
         }}
         rootProps={{ "data-testid": "1" }}
       />
       <div>
         <Chart
-          width={"100%"}
+          width={"90%"}
           height={300}
           chartType="ColumnChart"
           loader={<div>Loading Chart</div>}

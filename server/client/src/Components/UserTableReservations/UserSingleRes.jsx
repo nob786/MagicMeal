@@ -48,6 +48,8 @@ const UserSingleTableReservation = ({ reservations }) => {
         <div>
           ID: {reservations._id.slice(-5)}
           <br />
+          Restaurant: {reservations.restaurant.restaurantName}
+          <br />
           Number of Persons: {reservations.numberOfPersons}
           <br />
           Requested Date: {reservations.reservationDate.slice(0, 10)}

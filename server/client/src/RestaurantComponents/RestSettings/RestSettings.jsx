@@ -5,6 +5,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import TitleTag from "../../Components/SpecialComp/TitleTag";
 import QrGenerator from "../QrCodeGen/QrGen";
+import "./RestSettings.css";
 //==================Material Ui Imports=============================
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -16,6 +17,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 //====================Redux Imports =============================//
 import { useDispatch, useSelector } from "react-redux";
+import { updateRestaurantData } from "../../Redux/actions/authentication";
 
 //=================React  Notification
 import { toast } from "react-toastify";
@@ -23,7 +25,12 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const RestSettings = () => {
+  const dispatch = useDispatch();
   const { restData } = useSelector((state) => state.auth);
+  //Orders Settings
+
+  //
+
   const [loading, setLoading] = React.useState(false);
   const [location, setLocation] = React.useState({
     loaded: false,
@@ -139,6 +146,7 @@ const RestSettings = () => {
       )
       .then((res) => {
         // console.log("Successful");
+        dispatch(updateRestaurantData());
         toast.success(`Location Updated Successfully`, {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000,
@@ -181,76 +189,97 @@ const RestSettings = () => {
         </TabList>
         {/* ====================================================================Profile Settings===================================================== */}
         <TabPanel>
-          <h2>ProFile Settings</h2>
-          <div className="main-page-location">
-            <h1>It's the food you love, delivered</h1>
-            <div className="main-page-location-container">
-              <FormControl
-                color="warning"
-                className="main-page-location-bar"
-                sx={{ m: 1, maxWidth: "600px" }}
-                variant="outlined"
-              >
-                <InputLabel htmlFor="outlined-adornment-password">
-                  Select Location
-                </InputLabel>
-                <OutlinedInput
-                  id="outlined"
-                  endAdornment={
-                    <InputAdornment position="end">
-                      {loading === true ? (
-                        <div class="d-flex justify-content-center">
-                          <div
-                            class="spinner-border"
-                            role="status"
-                            style={{ color: "#fe724c" }}
-                          >
-                            <span class="sr-only">Loading...</span>
-                          </div>
+          <div className="main-page-location-container">
+            <FormControl
+              color="warning"
+              className="main-page-location-bar"
+              sx={{ m: 1, maxWidth: "600px" }}
+              variant="outlined"
+            >
+              <InputLabel htmlFor="outlined-adornment-password">
+                Select Location
+              </InputLabel>
+              <OutlinedInput
+                id="outlined"
+                endAdornment={
+                  <InputAdornment position="end">
+                    {loading === true ? (
+                      <div class="d-flex justify-content-center">
+                        <div
+                          class="spinner-border"
+                          role="status"
+                          style={{ color: "#fe724c" }}
+                        >
+                          <span class="sr-only">Loading...</span>
                         </div>
-                      ) : (
-                        <GpsFixedIcon
-                          onClick={handleClickGps}
-                          sx={{
-                            color: "#fe724c",
-                            cursor: "grab",
-                          }}
-                        />
-                      )}
-                    </InputAdornment>
-                  }
-                  label="Enter Full Address"
-                  // value={`${location.coordinates.lat} ${location.coordinates.long}`}\
-                  value={currentAddress}
-                />
-              </FormControl>
-              <button
-                className="main-page-delivery-button"
-                onClick={handleUploadLocation}
-              >
-                Upload Location
-              </button>
-            </div>
+                      </div>
+                    ) : (
+                      <GpsFixedIcon
+                        onClick={handleClickGps}
+                        sx={{
+                          color: "#fe724c",
+                          cursor: "grab",
+                        }}
+                      />
+                    )}
+                  </InputAdornment>
+                }
+                label="Enter Full Address"
+                // value={`${location.coordinates.lat} ${location.coordinates.long}`}\
+                value={currentAddress}
+              />
+            </FormControl>
+            <button
+              className="rest-profile-upload-location-button"
+              onClick={handleUploadLocation}
+            >
+              Update Location
+            </button>
           </div>
         </TabPanel>
 
         {/* =============================================================================Orders Settings============================================================ */}
         <TabPanel>
-          <div class="form-check form-switch">
+          {/* <div class="form-check form-switch">
             <input
               class="form-check-input"
               type="checkbox"
               id="flexSwitchCheckDefault"
-              onClick={getChangeValue}
+              onClick={(e) => {
+                console.log("chjeckk box", e.target.value);
+              }}
+              onChange={(e) => {
+                console.log("chjeckk box", e.target.value);
+              }}
             />
             <label class="form-check-label" for="flexSwitchCheckDefault">
               Default switch checkbox input
             </label>
+            
+          </div> */}
+          <div>
+            <input defaultChecked type="radio" value="true" name="gender" />{" "}
+            Enable Pickup Orders{"              "}
+            <input type="radio" value="false" name="gender" /> Disable Pickup
+            Orders
+          </div>
+          <br />
+          <div>
+            <input type="radio" value="true" name="gender" /> Enable DineIn
+            Orders{"              "}
+            <input type="radio" value="false" name="gender" /> Disable DineIn
+            Orders
           </div>
         </TabPanel>
 
         <TabPanel>
-          <h2>Any content 2</h2>
+          <div>
+            <input type="radio" value="true" name="gender" /> Enable Table
+            Reservations{"  "}
+            <input type="radio" value="false" name="gender" /> Disable Table
+            Reservations
+          </div>
+          <br />
         </TabPanel>
 
         <TabPanel>

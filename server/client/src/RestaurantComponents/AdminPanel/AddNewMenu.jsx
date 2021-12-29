@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "../../axios";
-import "../../App.css";
+import "./AddNewMenu.css";
 //===============Material Ui Imorts==============
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 //=================React  Notification
@@ -138,8 +138,10 @@ const AddNewMenu = () => {
   return (
     <div>
       <button
+        style={{ marginTop: "5%" }}
         type="button"
-        class="btn boot-button"
+        className="boot-button"
+        class="btn boot-button "
         data-toggle="modal"
         data-target="#add-new-menu-modal"
       >
@@ -248,7 +250,7 @@ const AddNewMenu = () => {
             <div class="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                class="btn boot-cancel"
                 data-dismiss="modal"
               >
                 Close

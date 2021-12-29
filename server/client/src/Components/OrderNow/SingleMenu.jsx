@@ -336,7 +336,7 @@ const SingleMenu = ({ menu, key }) => {
             <div class="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                class="btn boot-cancel"
                 data-dismiss="modal"
               >
                 Cancel
@@ -345,7 +345,8 @@ const SingleMenu = ({ menu, key }) => {
                 onClick={handleSaveMenu}
                 data-dismiss="modal"
                 type="button"
-                class="btn btn-primary boot-button"
+                className="boot-button"
+                class="btn boot-button"
               >
                 Update Data
               </button>

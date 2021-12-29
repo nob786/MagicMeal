@@ -7,6 +7,7 @@ function QrGenerator({ id }) {
   const [size, setSize] = useState(400);
   const [bgColor, setBgColor] = useState("ffffff");
   const [qrCode, setQrCode] = useState("");
+  const [showDownloadBtn, setShowDownloadBtn] = useState(false);
 
   // Changing the URL only when the user
   // changes the input
@@ -20,6 +21,7 @@ function QrGenerator({ id }) {
   // click on the generate button
   function handleClick() {
     setWord(id);
+    setShowDownloadBtn(true);
   }
 
   return (
@@ -62,27 +64,33 @@ function QrGenerator({ id }) {
               setBgColor(e.target.value.substring(1));
             }}
           /> */}
-          <h5>Dimension:</h5>
-          <input
-            type="range"
-            min="200"
-            max="600"
-            value={size}
-            onChange={(e) => {
-              setSize(e.target.value);
-            }}
-          />
+          {showDownloadBtn === true ? (
+            <>
+              <h5>Dimension:</h5>
+              <input
+                type="range"
+                min="200"
+                max="600"
+                value={size}
+                onChange={(e) => {
+                  setSize(e.target.value);
+                }}
+              />
+            </>
+          ) : null}
         </div>
       </div>
       <br />
       <div>
         <img src={qrCode} alt="" />
+      </div>
+      {showDownloadBtn === true ? (
         <a href={qrCode} download="QRCode">
           <button className="qr-gen-button" type="button">
             Download
           </button>
         </a>
-      </div>
+      ) : null}
     </div>
   );
 }
