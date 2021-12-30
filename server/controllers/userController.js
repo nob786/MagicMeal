@@ -595,14 +595,15 @@ exports.deleteComment = async (req, res) => {
     });
 };
 exports.getComments = async (req, res) => {
-  const { restId } = req.body;
+  const { restId } = req.params;
   if (!restId)
     return res.status(404).json({
       message: "There is no restaurant id",
     });
 
   const requestObject = { "restaurant.restaurantId": restId };
-  await Comments.findOne(requestObject)
+  await Comments.find(requestObject)
+    .sort({ date: -1 })
     .then((comments) => {
       if (comments)
         return res.status(200).json({
