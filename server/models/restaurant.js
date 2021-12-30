@@ -71,6 +71,16 @@ const restaurantSchema = mongoose.Schema({
     type: String,
     default: null,
   },
+
+  rating: {
+    type: Number,
+    default: 0,
+  },
+
+  totalRating: {
+    type: Number,
+    default: 0,
+  },
 });
 
 // Restaurant orders virutals

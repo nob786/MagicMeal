@@ -293,6 +293,32 @@ exports.postOrder = async (req, res) => {
         });
     });
 };
+
+function averageRating(restaurantId) {
+  let comments = Comments.find({
+    "restaurant.restaurantId": restaurantId,
+  });
+  let review = 0;
+
+  if (!comments)
+    return res.status(404).json({
+      message: "Could not find any collection of comments.",
+    });
+
+  let counter = comments.length + 1;
+  console.log("This is no of comments", counter);
+
+  let returnedReview = comments.map((comment) => {
+    review = review + comment.rating;
+    return review;
+  });
+
+  console.log("This is your returned review", returnedReview);
+  const myReviewObject = { review: returnedReview, counter: counter };
+  console.log("Returning this object", myReviewObject);
+  return myReviewObject;
+}
+
 exports.postComment = async (req, res) => {
   //console.log("Comment api called.");
   console.log("Comment Body", req.body);
@@ -371,9 +397,11 @@ exports.postComment = async (req, res) => {
     .then((data) => {
       order.isReviewSubmitted = true;
       order.save();
+      let newRating = averageRating(restaurantId);
       return res.status(200).json({
         message: "Comment successful",
         data: data,
+        rating: newRating,
       });
     })
     .catch((error) => {
