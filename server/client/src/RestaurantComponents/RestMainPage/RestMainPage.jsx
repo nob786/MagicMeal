@@ -21,25 +21,25 @@ const RestMainPage = () => {
       </button> */}
       <TitleTag title="Dashboard" />
       <Chart
-        style={{ margin: "auto" }}
-        width={"90%"}
+        style={{ margin: "auto", marginBottom: "10%" }}
+        width={"100%"}
         height={"400px"}
         chartType="LineChart"
         loader={<div>Loading Chart</div>}
         data={[
-          ["x", "dogs"],
-          ["2021 - 1 - 11", 0],
-          ["2021 - 1 - 11", 10],
-          ["2021 - 1 - 11", 23],
-          ["2021 - 1 - 11", 17],
-          ["2021 - 1 - 11", 18],
-          ["2021 - 1 - 11", 9],
-          ["2021 - 1 - 11", 11],
-          ["2021 - 1 - 11", 27],
-          ["2021 - 1 - 11", 33],
-          ["2021 - 1 - 11", 40],
-          ["2021 - 1 - 11", 32],
-          ["2021 - 1 - 11", 35],
+          ["x", "sales"],
+          ["JAN", 0],
+          ["FEB", 0],
+          ["MAR", 0],
+          ["APR", 0],
+          ["MAY", 0],
+          ["JUN", 0],
+          ["JUL", 0],
+          ["AUG", 0],
+          ["SEP", 15000],
+          ["OCT", 32000],
+          ["NOV", 35000],
+          ["DEC", 35000],
         ]}
         options={{
           hAxis: {

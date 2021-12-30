@@ -308,7 +308,7 @@ const MainPage = () => {
                 <p className="main-page-slide-p">
                   Browser Restaurants and Book Table in Advance.
                 </p>
-                <Link to="/restaurant-signup">
+                <Link to="/restaurants">
                   <button className="partner-button main-slide-button">
                     BOOK TABLE
                   </button>

@@ -66,17 +66,33 @@ const SingleRestaurant = ({ restaurant }) => {
         <li class="list-group-item">Dapibus ac facilisis in</li>
         <li class="list-group-item">Vestibulum at eros</li>
       </ul> */}
-      <div class="card-body text-center">
-        Rating: 4.2
-        <Box component="fieldset" mb={0} borderColor="transparent">
-          <Rating
-            name="half-rating-read"
-            defaultValue={4.2}
-            precision={0.1}
-            readOnly
-          />
-        </Box>
-      </div>
+      {restaurant.totalRating > 0 ? (
+        <div class="card-body text-center">
+          Rating:{" "}
+          {(restaurant.rating / restaurant.totalRating).toFixed(1) + " "}(
+          {restaurant.totalRating + " "}Ratings)
+          <Box component="fieldset" mb={0} borderColor="transparent">
+            <Rating
+              name="half-rating-read"
+              defaultValue={restaurant.rating / restaurant.totalRating}
+              precision={0.1}
+              readOnly
+            />
+          </Box>
+        </div>
+      ) : (
+        <div class="card-body text-center">
+          Rating: (not rated)
+          <Box component="fieldset" mb={0} borderColor="transparent">
+            <Rating
+              name="half-rating-read"
+              defaultValue={restaurant.rating / restaurant.totalRating}
+              precision={0.1}
+              readOnly
+            />
+          </Box>
+        </div>
+      )}
     </div>
     //   <div
     //     className="Single-Restaurant"
