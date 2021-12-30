@@ -294,8 +294,8 @@ exports.postOrder = async (req, res) => {
     });
 };
 
-function averageRating(restaurantId) {
-  let comments = Comments.find({
+async function averageRating(restaurantId) {
+  let comments = await Comments.find({
     "restaurant.restaurantId": restaurantId,
   });
   let review = 0;
@@ -305,16 +305,19 @@ function averageRating(restaurantId) {
       message: "Could not find any collection of comments.",
     });
 
-  let counter = comments.length + 1;
+  console.log("COmments", comments);
+  console.log("COmments length", comments.length);
+  let counter = comments.length;
   console.log("This is no of comments", counter);
 
-  let returnedReview = comments.map((comment) => {
+  // let returnedReview =
+  comments.map((comment) => {
     review = review + comment.rating;
-    return review;
+    // return review;
   });
 
-  console.log("This is your returned review", returnedReview);
-  const myReviewObject = { review: returnedReview, counter: counter };
+  console.log("This is your returned review", review);
+  const myReviewObject = { review: review, counter: counter };
   console.log("Returning this object", myReviewObject);
   return myReviewObject;
 }
