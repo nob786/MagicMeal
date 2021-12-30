@@ -47,6 +47,9 @@ router.post(
   userController.postComment
 );
 
+// Fetching all comments w.r.t a restaurant
+router.get("/get-comments", userController.getComments);
+
 // Delete a comment
 router.delete(
   "/delete-comment",

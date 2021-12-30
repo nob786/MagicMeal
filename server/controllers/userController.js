@@ -294,6 +294,128 @@ exports.postOrder = async (req, res) => {
     });
 };
 
+// async function averageRating(restaurantId) {
+//   let comments = await Comments.find({
+//     "restaurant.restaurantId": restaurantId,
+//   });
+//   let review = 0;
+
+//   if (!comments)
+//     return res.status(404).json({
+//       message: "Could not find any collection of comments.",
+//     });
+
+//   console.log("COmments", comments);
+//   console.log("COmments length", comments.length);
+//   let counter = comments.length;
+//   console.log("This is no of comments", counter);
+
+//   // let returnedReview =
+//   comments.map((comment) => {
+//     review = review + comment.rating;
+//     // return review;
+//   });
+
+//   console.log("This is your returned review", review);
+//   const myReviewObject = { review: review, counter: counter };
+//   console.log("Returning this object", myReviewObject);
+//   return myReviewObject;
+// }
+
+// exports.postComment = async (req, res) => {
+//   //console.log("Comment api called.");
+//   console.log("Comment Body", req.body);
+
+//   const userId = req.loggedInUserId;
+//   // const restaurantId = req.restId;
+//   // console.log("Rest Id", req.params.restId); //req.params.restId;
+//   // const { error } = validateComment(req.body);
+
+//   // if (error)
+//   //   return res.status(400).json({
+//   //     message: "Error. Enter Data correctly ",
+//   //     error: error,
+//   //   });
+
+//   const { comment, rating, restaurantId, date, orderId } = req.body;
+//   // let isSubmitted = false;
+
+//   if (!userId) {
+//     return res.status(404).send("User id not found.");
+//   }
+//   if (!restaurantId) {
+//     return res.status(404).send("Restaurant id not found");
+//   }
+//   if (!orderId) {
+//     return res.status(404).send("Order id not found");
+//   }
+
+//   const customerAccount = await Account.findById(userId);
+//   if (!customerAccount)
+//     return res.status(404).send("Customer nor found in database.");
+
+//   const customer = await Customer.findOne({
+//     account: customerAccount._id,
+//   });
+//   if (!customer) return res.status(404).send("Did not find customer object");
+
+//   // const restaurantAccount = await Account.findById(restaurantId);
+//   // if (!restaurantAccount)
+//   //   return res.status(404).send("Restaurant account not found");
+
+//   const restaurant = await Restaurant.findById(restaurantId);
+//   console.log("This is the restaurant", restaurant);
+
+//   if (!restaurant)
+//     return res.status(404).send("Did not find restaurant object.");
+
+//   const order = await Orders.findById(orderId);
+//   if (!order) return res.status(404).send("Did not find any order");
+
+//   let newComment = new Comments({
+//     customer: {
+//       name: customer.firstName + " " + customer.lastName,
+//       customerId: customer._id,
+//     },
+//     restaurant: {
+//       name: restaurant.restaurantName,
+//       restaurantId: restaurant._id,
+//     },
+//     comment: comment,
+//     rating: rating,
+//     orderId: orderId,
+//     // isSubmitted: true,
+//     date: date,
+//   });
+
+//   console.log("New Comment Created", newComment);
+
+//   if (order.isReviewSubmitted === true)
+//     return res.status(400).json({
+//       message: "Review is already submitted for this order",
+//     });
+
+//   await newComment
+//     .save()
+//     .then((data) => {
+//       order.isReviewSubmitted = true;
+//       order.save();
+//       let newRating = averageRating(restaurantId);
+//       return res.status(200).json({
+//         message: "Comment successful",
+//         data: data,
+//         rating: newRating,
+//       });
+//     })
+//     .catch((error) => {
+//       if (error)
+//         res.status(500).json({
+//           message: "Could not save comment to database",
+//           error: error,
+//         });
+//     });
+// };
+
 async function averageRating(restaurantId) {
   let comments = await Comments.find({
     "restaurant.restaurantId": restaurantId,
@@ -305,10 +427,10 @@ async function averageRating(restaurantId) {
       message: "Could not find any collection of comments.",
     });
 
-  console.log("COmments", comments);
-  console.log("COmments length", comments.length);
+  // console.log("COmments", comments);
+  // console.log("COmments length", comments.length);
   let counter = comments.length;
-  console.log("This is no of comments", counter);
+  // console.log("This is no of comments", counter);
 
   // let returnedReview =
   comments.map((comment) => {
@@ -316,10 +438,33 @@ async function averageRating(restaurantId) {
     // return review;
   });
 
-  console.log("This is your returned review", review);
+  // console.log("This is your returned review", review);
   const myReviewObject = { review: review, counter: counter };
-  console.log("Returning this object", myReviewObject);
-  return myReviewObject;
+  console.log("Returning this object of rating", myReviewObject);
+  // return myReviewObject;
+
+  //
+  let update = {
+    rating: review,
+    totalRating: counter,
+  };
+
+  await Restaurant.findOneAndUpdate(restaurantId, update, {
+    useFindAndModify: false,
+  })
+    .then((response) => {
+      console.log("Rating updated", response);
+    })
+    .catch((err) => {
+      if (err) {
+        console.log("Error rating update");
+      } else {
+        console.log("Server Error");
+        return res.status(500).json({
+          message: "Server Error",
+        });
+      }
+    });
 }
 
 exports.postComment = async (req, res) => {
@@ -401,10 +546,11 @@ exports.postComment = async (req, res) => {
       order.isReviewSubmitted = true;
       order.save();
       let newRating = averageRating(restaurantId);
+      console.log("Rating in post comment", newRating);
       return res.status(200).json({
         message: "Comment successful",
         data: data,
-        rating: newRating,
+        // rating: newRating,
       });
     })
     .catch((error) => {
@@ -415,7 +561,6 @@ exports.postComment = async (req, res) => {
         });
     });
 };
-
 exports.deleteComment = async (req, res) => {
   console.log("Comment delete API called!");
   const userId = req.loggedInUserId;
@@ -449,7 +594,34 @@ exports.deleteComment = async (req, res) => {
         });
     });
 };
+exports.getComments = async (req, res) => {
+  const { restId } = req.body;
+  if (!restId)
+    return res.status(404).json({
+      message: "There is no restaurant id",
+    });
 
+  const requestObject = { "restaurant.restaurantId": restId };
+  await Comments.findOne(requestObject)
+    .then((comments) => {
+      if (comments)
+        return res.status(200).json({
+          message: "Got all comments",
+          comments: comments,
+        });
+    })
+    .catch((error) => {
+      if (error) {
+        return res.status(400).json({
+          message: "Error in catch block",
+        });
+      } else {
+        return res.status(500).json({
+          message: "Internal Server Error",
+        });
+      }
+    });
+};
 exports.getRestaurantsByAddress = async (req, res, next) => {
   // const getDistance = (l1, ln1, l2, ln2) => {
   //   let R = 6371; // kms
