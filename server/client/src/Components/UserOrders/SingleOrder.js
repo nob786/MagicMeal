@@ -168,9 +168,13 @@ const SingleOrder = ({ orders }) => {
         <br />
         <br />
         <br />
-        {orders.status === "delivered" || orders.status === "cancelled" ? (
+        {/* {(orders.status === "delivered" &&
+          orders.isReviewSubmitted === false) ||
+        (orders.status === "cancelled" &&
+          orders.isReviewSubmitted === false) ? (
           <RatingModal order={orders} />
-        ) : null}
+        ) : null} */}
+        <RatingModal order={orders} />
       </AccordionDetails>
     </Accordion>
   );

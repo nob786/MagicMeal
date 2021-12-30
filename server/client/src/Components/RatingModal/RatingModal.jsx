@@ -10,6 +10,11 @@ import axios from "axios";
 //=================Importing Css File =====================//
 import "./RatingModal.css";
 
+//=================React  Notification
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -95,6 +100,7 @@ const RatingModal = (order) => {
             rating: data.rating,
             comment: data.comments,
             date: new Date(),
+            orderId: order.order._id,
           },
           {
             headers: {
@@ -106,10 +112,20 @@ const RatingModal = (order) => {
           }
         )
         .then((res) => {
-          console.log("Review Response", res);
+          // console.log("Review Response", res);
+          setTimeout(() => {
+            window.location.replace("/user/orders-history");
+          }, 1000);
+
+          toast.success("Review Submitted Successfully", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         })
         .catch((err) => {
-          console.log("Review Error", err);
+          // console.log("Review Error", err);
+          toast.success("Review Submitted Failed", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         });
     } else if (Object.keys(validate(data)).length > 0) {
       setLoading(false);
@@ -117,15 +133,24 @@ const RatingModal = (order) => {
   };
 
   return (
-    <div>
-      <button
-        type="button"
-        class="btn rating-modal-submit-button"
-        data-toggle="modal"
-        data-target={"#" + "s" + String(order.order._id)}
-      >
-        Share Review
-      </button>
+    <div style={{ textAlign: "center" }}>
+      {(order.order.status === "delivered" &&
+        order.order.isReviewSubmitted === false) ||
+      (order.order.status === "cancelled" &&
+        order.order.isReviewSubmitted === false) ? (
+        <button
+          type="button"
+          class="btn rating-modal-submit-button"
+          data-toggle="modal"
+          data-target={"#" + "s" + String(order.order._id)}
+        >
+          Share Review
+        </button>
+      ) : (
+        <button disabled type="button" class="btn rating-modal-submit-button">
+          Review Submitted
+        </button>
+      )}
 
       <div
         class="modal fade"
@@ -232,6 +257,7 @@ const RatingModal = (order) => {
                 onClick={handleSubmitReview}
                 type="button"
                 class="btn btn-lg btn-block mt-5 rating-modal-submit-button"
+                data-dismiss="modal"
               >
                 Submit Review
               </button>

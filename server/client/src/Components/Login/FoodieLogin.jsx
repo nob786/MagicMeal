@@ -4,9 +4,6 @@ import "./Login.css";
 //Validate
 import validate from "../../validate";
 
-//=================React  Notification
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 //=========================Importing=================
 import { Link, useHistory } from "react-router-dom";
 import axios from "../../axios";
@@ -32,6 +29,9 @@ import { addAuthCust } from "../../Redux/actions/authentication.js";
 import { addAuthRest } from "../../Redux/actions/authentication.js";
 // import TitleTag from "../SpecialComp/TitleTag";
 
+//=================React  Notification
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const Alert = React.forwardRef(function Alert(props, ref) {
