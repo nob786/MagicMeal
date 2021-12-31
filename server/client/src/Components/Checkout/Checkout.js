@@ -8,14 +8,14 @@ import "react-toastify/dist/ReactToastify.css";
 //========================Material Ui Imports
 
 import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Paper from "@material-ui/core/Paper";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
-import Typography from "@material-ui/core/Typography";
+import CssBaseline from "@mui/material/CssBaseline";
+import Paper from "@mui/material/Paper";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
@@ -24,7 +24,8 @@ import "./Checkout.css";
 import Cart from "../Cart/Cart";
 
 //===========================Redux Imports=========================
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearCart } from "../../Redux/actions/cartAction";
 
 function Copyright() {
   return (
@@ -52,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: "20%",
       marginTop: "0px",
       marginRight: "20%",
+      marginBottom: "5%",
     },
   },
   paper: {
@@ -70,16 +72,16 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1, 3),
   },
   buttons: {
-    display: "flex",
-    justifyContent: "flex-end",
+    // display: "flex",
+    // justifyContent: "flex-end",
   },
   button: {
-    marginTop: theme.spacing(1),
-    marginLeft: theme.spacing(1),
+    // marginTop: theme.spacing(1),
+    // marginLeft: theme.spacing(1),
   },
 }));
 
-const steps = ["Cart", "Review and Place your order"];
+const steps = ["Cart", "Checkout"];
 let showNext = true;
 /*const checkItems = (number) => {
   if (number >=1) 
@@ -102,6 +104,11 @@ function getStepContent(step) {
 }
 toast.configure();
 export default function Checkout() {
+  const dispatch = useDispatch();
+  //
+  const [pickButton, setPickButton] = React.useState(false);
+  const [dineButton, setDineButton] = React.useState(false);
+  //
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [orderType, setOrderType] = React.useState("pickup");
@@ -180,7 +187,8 @@ export default function Checkout() {
       })
       .then((res) => {
         if (res) {
-          toast.success(`Order Placed`, {
+          dispatch(clearCart());
+          toast.success(`Dine in Order Placed`, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
           });
@@ -211,7 +219,8 @@ export default function Checkout() {
       })
       .then((res) => {
         if (res) {
-          toast.success(`Order Placed`, {
+          dispatch(clearCart());
+          toast.success(`Pickup Order Placed`, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
           });
@@ -223,6 +232,15 @@ export default function Checkout() {
       .catch((err) => {
         console.log("Error in FE", err);
       });
+  };
+  // test
+  const handleRadioPick = () => {
+    setDineButton(false);
+    setPickButton(true);
+  };
+  const handleRadioDine = () => {
+    setDineButton(true);
+    setPickButton(false);
   };
 
   return (
@@ -261,66 +279,120 @@ export default function Checkout() {
               <React.Fragment>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
-                  {activeStep !== 0 && (
+                  {/* {activeStep !== 0 && (
                     <button
-                      className="update-order-status-button"
-                      class="btn update-order-status-time-button"
+                      className="go-back-button"
+                      class="btn go-back-button"
+                      style={{ color: "black" }}
+                      // className="update-order-status-button"
+                      // class="btn update-order-status-time-button"
                       onClick={handleBack}
-                      className={classes.button}
+                      // className={classes.button}
                     >
-                      Back
+                      {"<<"} Go Back to Cart
                     </button>
-                  )}
+                  )} */}
 
                   {activeStep === steps.length - 1 ? (
                     <div>
+                      {/* ========================================= */}
+                      <div style={{ fontSize: "14px", textAlign: "center" }}>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="inlineRadioOptions"
+                            id="inlineRadio1"
+                            value="option1"
+                            onClick={handleRadioPick}
+                          />
+                          <label class="form-check-label" for="inlineRadio1">
+                            PickUp
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="inlineRadioOptions"
+                            id="inlineRadio2"
+                            value="option2"
+                            onClick={handleRadioDine}
+                          />
+                          <label class="form-check-label" for="inlineRadio2">
+                            Dine In
+                          </label>
+                        </div>
+                      </div>
+                      {/* =================================== */}
                       <form
                         style={{
                           justifyContent: "center",
-                          marginBottom: "30px",
+                          // marginBottom: "30px",
                         }}
                         class="form-inline"
                       >
-                        <input
-                          type="number"
-                          class="form-control"
-                          placeholder="Enter Table Number"
-                          onChange={(event) => {
-                            setTableNumber(event.target.value);
-                          }}
-                          value={tableNumber}
-                        />
-                        {/* </div> */}
-                        <button
-                          onClick={placeDineInOrder}
-                          className="update-order-status-button"
-                          class="btn update-order-status-time-button"
-                        >
-                          Place Dine-In Order
-                        </button>
+                        {" "}
+                        {activeStep !== 0 && (
+                          <button
+                            className="go-back-button"
+                            class="btn go-back-button"
+                            style={{ color: "black" }}
+                            // className="update-order-status-button"
+                            // class="btn update-order-status-time-button"
+                            onClick={handleBack}
+                            // className={classes.button}
+                          >
+                            Go Back
+                          </button>
+                        )}
+                        {pickButton === false && dineButton === true ? (
+                          <>
+                            <input
+                              type="number"
+                              class="form-control"
+                              placeholder="Enter Table Number"
+                              onChange={(event) => {
+                                setTableNumber(event.target.value);
+                              }}
+                              value={tableNumber}
+                            />
+
+                            <button
+                              onClick={placeDineInOrder}
+                              className="update-order-status-button"
+                              class="btn update-order-status-time-button"
+                            >
+                              Place Dine-In Order
+                            </button>
+                          </>
+                        ) : null}
                         {/* <p>OR</p> */}
-                        <button
-                          className="update-order-status-button"
-                          class="btn update-order-status-time-button"
-                          // variant="contained"
-                          // color="primary"
-                          onClick={placeOrder}
-                          className={classes.button}
-                        >
-                          Place Pickup Order
-                        </button>
+                        {pickButton === true && dineButton === false ? (
+                          <button
+                            className="update-order-status-button"
+                            class="btn update-order-status-time-button"
+                            // variant="contained"
+                            // color="primary"
+                            onClick={placeOrder}
+                            // className={classes.button}
+                          >
+                            Place Pickup Order
+                          </button>
+                        ) : null}
                       </form>
                     </div>
                   ) : clickedMenuId.length > 0 ? (
                     <button
                       // variant="contained"
                       // color="primary"
+                      style={{ width: "100%" }}
                       className="update-order-status-button"
                       class="btn update-order-status-time-button"
                       onClick={handleNext}
                       className={classes.button}
                     >
-                      Next
+                      GO TO CHECKOUT
                     </button>
                   ) : (
                     <button

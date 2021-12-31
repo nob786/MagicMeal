@@ -104,7 +104,12 @@ export default function (state = initialState, action) {
       let d;
       return {
         ...state,
-        check: 4,
+        clickedMenuId: [],
+        cartRestaurant: {},
+        cartRestaurantId: "",
+        itemsLength: 0,
+        cartTotal: 0,
+        // PUSH_ITEMS_LENGTH,
       };
     default:
       return state;

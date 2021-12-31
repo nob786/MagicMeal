@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { pushItemsLength, pushMenuId } from "../../Redux/actions/cartAction";
 import { pushcartRestaurantId } from "../../Redux/actions/cartAction";
 import { pushcartRestaurant } from "../../Redux/actions/cartAction";
+import { clearCart } from "../../Redux/actions/cartAction";
 //=================React  Notification
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -36,7 +37,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
+  //====================================Redux Selectors=========================
+  const { clickedMenuId } = useSelector((state) => state.cart);
+  const menuCheck = clickedMenuId.filter((n) => n._id === menu._id);
+  //=================
 
+  //========================================Functions=======================================
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -45,15 +51,20 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
     setOpen(false);
   };
 
-  //====================================Redux Selectors=========================
-  const { clickedMenuId } = useSelector((state) => state.cart);
-  const menuCheck = clickedMenuId.filter((n) => n._id === menu._id);
-  //=================
+  const handleEmptyCart = () => {
+    setOpen(false);
+    dispatch(clearCart());
+    toast.info(`Cart is set to Empty`, {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+    });
+  };
 
   const fullCartMenu = {
     _id: menu._id,
     itemName: menu.itemName,
     description: menu.description,
+    imageUrl: menu.imageUrl,
     price: menu.price,
     quantity: quantity,
     total: menu.price * quantity,
@@ -244,7 +255,10 @@ const SingleUserMenu = ({ menu, restId, restName, cont, quantity }) => {
           <button className="cart-modal-button" onClick={handleClose}>
             Continue Shopping
           </button>
-          <button className="cart-modal-button-continue" onClick={handleClose}>
+          <button
+            className="cart-modal-button-continue"
+            onClick={handleEmptyCart}
+          >
             Empty Cart
           </button>
         </DialogActions>

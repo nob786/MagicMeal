@@ -200,27 +200,31 @@ header {
 }
 
 .cart-add-minus-quantity {
-  display: flex;
-  justify-content: flex-end;
+  /* display: flex; */
+  /* justify-content: flex-end; */
   align-items: center;
+  margin-top: 10px;
 }
 
 .cart-add-minus-quantity button {
-  border: none;
+  /* border: none;
   background-color: transparent;
   outline: none;
-  cursor: pointer;
+  cursor: pointer; */
 }
 
 .cart-add-minus-quantity h4 {
+  color: red;
+  cursor: pointer;
   border: 0.141rem solid var(--primary-color);
   box-sizing: border-box;
   font-style: normal;
   font-size: 16px;
-  text-align: center;
+  /* text-align: center; */
   text-transform: capitalize;
   color: var(--primary-color);
   margin: 0 1rem;
+  margin-left: 0;
   border-radius: 0.5rem;
   outline: none;
   background-color: transparent;
@@ -270,15 +274,16 @@ header {
 
 .cart-total {
   width: 100%;
-  text-align: right;
+  text-align: center;
 }
 
 .cart-total h3 {
+  margin-top: 2%;
   font-size: 16px;
   line-height: 3rem;
   text-transform: capitalize;
   color: #606166;
-  text-align: right;
+  text-align: center;
 }
 
 .cart-total h3 span {
@@ -361,9 +366,9 @@ header {
   }
 
   .cart-add-minus-quantity {
-    justify-content: center;
-    margin-top: 5%;
-    margin-bottom: 15%;
+    /* justify-content: center; */
+    /* margin-top: 5%;
+    margin-bottom: 15%; */
   }
 
   .cart-item-price {
@@ -373,5 +378,68 @@ header {
 
   .cart-remove-item {
     justify-content: center;
+  }
+}
+/* ====================test===================== */
+.cart-menu-delete-cross {
+  position: relative;
+  display: flex;
+  float: right;
+  margin: 5px;
+}
+.cart-menu-image img {
+  height: 120px;
+  width: 150px;
+  float: left;
+}
+.cart-menu-boot-total {
+  position: relative;
+  /* display: flex; */
+  float: right;
+}
+.cart-add-minus-quantity {
+  color: var(--primary-lightred);
+  display: flex;
+  /* float: left; */
+}
+.cart-add-minus-quantity h4 {
+  color: var(--primary-lightred);
+}
+.cart-menu-delete-button {
+  display: none;
+}
+
+@media (max-width: 420px) {
+  .cart-menu-image img {
+    width: 100%;
+    float: none;
+  }
+  .cart-menu-delete-cross {
+    /* display: none; */
+    position: absolute;
+    color: red;
+    font-size: 40px;
+  }
+  .cart-menu-delete-button {
+    display: unset;
+    width: 100%;
+    background: var(--prime-lightred);
+    border: none;
+    border-radius: 5px;
+    color: white;
+  }
+  .cart-menu-boot-total {
+    justify-content: center;
+    position: unset;
+    display: flex;
+    float: unset;
+  }
+  .cart-add-minus-quantity {
+    margin: auto;
+    align-content: center;
+    text-align: center;
+  }
+  .cart-menu-div {
+    text-align: center;
   }
 }

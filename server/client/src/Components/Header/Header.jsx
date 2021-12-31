@@ -10,6 +10,7 @@ import Badge from "@mui/material/Badge";
 //==========================Redux imports===================================
 import { useDispatch, useSelector } from "react-redux";
 import { addAuthCust } from "../../Redux/actions/authentication.js";
+import { clearCart } from "../../Redux/actions/cartAction";
 
 //==============================material ui profile imports===============
 import Avatar from "@mui/material/Avatar";
@@ -98,6 +99,7 @@ function Header() {
     localStorage.removeItem("persist:root");
 
     dispatch(addAuthCust(false));
+    dispatch(clearCart());
     toast.success(`Successfully Loggout`, {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000,

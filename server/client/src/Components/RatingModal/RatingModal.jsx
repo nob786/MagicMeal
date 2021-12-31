@@ -146,11 +146,11 @@ const RatingModal = (order) => {
         >
           Share Review
         </button>
-      ) : (
+      ) : order.order.isReviewSubmitted === true ? (
         <button disabled type="button" class="btn rating-modal-submit-button">
           Review Submitted
         </button>
-      )}
+      ) : null}
 
       <div
         class="modal fade"

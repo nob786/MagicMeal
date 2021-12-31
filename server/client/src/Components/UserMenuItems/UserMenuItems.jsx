@@ -27,6 +27,7 @@ import "react-tabs/style/react-tabs.css";
 //=================React  Notification
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import RestaurantDetails from "../RestaurantDetails/RestaurantDetails";
 toast.configure();
 
 const UserMenuItems = () => {
@@ -208,8 +209,11 @@ const UserMenuItems = () => {
           <br />
           <br />
           <br />
-          <h3 className="user-menu-restaurant-address">
-            {/* <LocationOnIcon />  */}
+          <br />
+          <br />
+          <br />
+          <br />
+          {/* <h3 className="user-menu-restaurant-address">
             {restaurantData.address && (
               <a
                 style={{ color: "white", textDecoration: "none" }}
@@ -226,15 +230,16 @@ const UserMenuItems = () => {
             )}
             <br />
             <br />
-            {/* <PhoneInTalkIcon /> */}
+
             {restaurantData.contact}
             <br />
             <br />
             {restaurantData.category && restaurantData.category.toUpperCase()}
             {" FOOD "}
             <br />
-          </h3>
+          </h3> */}
           <br />
+
           <button
             onClick={handleBookTableToggle}
             type="button"
@@ -252,6 +257,9 @@ const UserMenuItems = () => {
           </button>
         </div>
       </div>
+      {/* TEst */}
+      <RestaurantDetails restaurant={restaurantData} />
+      {/* test */}
 
       <TitleTag title="Menu Items We Have" />
 

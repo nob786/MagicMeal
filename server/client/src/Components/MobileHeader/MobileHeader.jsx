@@ -33,6 +33,7 @@ import { Link, useHistory } from "react-router-dom";
 //==========================Redux imports===================================
 import { useDispatch, useSelector } from "react-redux";
 import { addAuthCust } from "../../Redux/actions/authentication.js";
+import { clearCart } from "../../Redux/actions/cartAction";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -69,6 +70,7 @@ export default function MobileHeader() {
     localStorage.removeItem("persist:root");
 
     dispatch(addAuthCust(false));
+    dispatch(clearCart());
     setTimeout(() => {
       history.push("/");
     }, 2000);

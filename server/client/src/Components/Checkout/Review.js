@@ -1,10 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Grid from "@material-ui/core/Grid";
+import Typography from "@mui/material/Typography";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Grid from "@mui/material/Grid";
 
 //========================Redux Imports=================
 import { useSelector } from "react-redux";
@@ -91,7 +91,7 @@ export default function Review() {
           </Typography>
           <Grid container>
             <Grid item xs={6}>
-              <Typography gutterBottom>Cash on Delivery/Pickup</Typography>
+              <Typography gutterBottom>Cash on Pickup</Typography>
             </Grid>
             {/* {payments.map((payment) => (
               <React.Fragment key={payment.name}>
