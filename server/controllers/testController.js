@@ -1,9 +1,10 @@
-const { Restaurant } = require("../models/restaurant");
 const { Comments } = require("../models/comments");
-const { Customer } = require("../models/customer");
 const { Bookings } = require("../models/booking");
-const { Account } = require("../models/account");
 const { Orders } = require("../models/order");
+const { Customer } = require("../models/customer");
+const { Account } = require("../models/account");
+const { Restaurant } = require("../models/restaurant");
+
 const accountSid = process.env.ACCOUNT_SID;
 const authToken = process.env.AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
@@ -12,10 +13,6 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-
-const { Customer } = require("../models/customer");
-const { Account } = require("../models/account");
-const { Restaurant } = require("../models/restaurant");
 const { validateEmail } = require("../middleware/validation");
 
 const { google } = require("googleapis");
@@ -175,22 +172,53 @@ exports.resetPassword = async (req, res) => {
 
 exports.getRestaurantStats = async (req, res) => {
   console.log("Inside get restaurant stats APi");
-  let finalOrders;
+  let finalOrders = [];
+  let totalRatings = 0;
+  let positiveRatings = [];
+  let negativeRatings = [];
   await Restaurant.findOne({ account: req.loggedInUserId })
-    .then((restaurant) => {
+    .then(async (restaurant) => {
+      // console.log("Inside restaurant find one");
       const { _id } = restaurant._id;
+      // console.log("Restaurant Id", _id);
       if (!_id)
         return res.status(404).json({
           message: "Could not find restaurant id",
         });
 
+      await Comments.find({ "restaurant.restaurantId": _id }).then(
+        (comments) => {
+          console.log("Inside Comments");
+          totalRatings = comments.length;
+          // console.log("Length of comments", totalRatings);
+          comments.map((commentsObject) => {
+            if (commentsObject.rating > 0 && commentsObject.rating < 3) {
+              negativeRatings.push(commentsObject);
+              console.log("Neg");
+            }
+            if (commentsObject.rating >= 3) {
+              positiveRatings.push(commentsObject);
+              console.log("pos");
+            }
+          });
+          // console.log("neg", negativeRatings);
+        }
+      );
+
       await Orders.find({ "restaurant.restaurantId": _id }).then((orders) => {
+        console.log("Inside orders find");
         orders.map((deliveredOrders) => {
+          console.log("Inside order map", deliveredOrders);
           if (deliveredOrders.status === "delivered") {
-            finalOrders = finalOrders.push(deliveredOrders);
+            finalOrders.push(deliveredOrders);
           }
         });
       });
+
+      // console.log("After orders find", finalOrders.length);
+      // console.log("Total Ratings", totalRatings);
+      // console.log("Positive Ratings", positiveRatings.length);
+      // console.log("Negative Ratings", negativeRatings.length);
 
       if (!finalOrders)
         return res.status(400).json({
@@ -198,7 +226,10 @@ exports.getRestaurantStats = async (req, res) => {
         });
       return res.status(200).json({
         message: "Got all orders",
-        orders: finalOrders,
+        noOfDeliverOrders: finalOrders.length,
+        totalRatings: totalRatings,
+        noOfPositiveRatings: positiveRatings.length,
+        noOfNegativeRatings: negativeRatings.length,
       });
     })
     .catch((error) => {
