@@ -1,3 +1,9 @@
+const { Restaurant } = require("../models/restaurant");
+const { Comments } = require("../models/comments");
+const { Customer } = require("../models/customer");
+const { Bookings } = require("../models/booking");
+const { Account } = require("../models/account");
+const { Orders } = require("../models/order");
 const accountSid = process.env.ACCOUNT_SID;
 const authToken = process.env.AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
@@ -162,6 +168,48 @@ exports.resetPassword = async (req, res) => {
       } else {
         return res.json({
           message: "Internal server error",
+        });
+      }
+    });
+};
+
+exports.getRestaurantStats = async (req, res) => {
+  console.log("Inside get restaurant stats APi");
+  let finalOrders;
+  await Restaurant.findOne({ account: req.loggedInUserId })
+    .then((restaurant) => {
+      const { _id } = restaurant._id;
+      if (!_id)
+        return res.status(404).json({
+          message: "Could not find restaurant id",
+        });
+
+      await Orders.find({ "restaurant.restaurantId": _id }).then((orders) => {
+        orders.map((deliveredOrders) => {
+          if (deliveredOrders.status === "delivered") {
+            finalOrders = finalOrders.push(deliveredOrders);
+          }
+        });
+      });
+
+      if (!finalOrders)
+        return res.status(400).json({
+          message: "Empty Orders",
+        });
+      return res.status(200).json({
+        message: "Got all orders",
+        orders: finalOrders,
+      });
+    })
+    .catch((error) => {
+      if (error) {
+        return res.status(400).json({
+          message: "Error in catch block",
+          error: error,
+        });
+      } else {
+        return res.status(500).json({
+          message: "Internal Server error",
         });
       }
     });
