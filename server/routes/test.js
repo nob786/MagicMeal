@@ -11,8 +11,14 @@ router.post("/phone-verification", testController.verifyNumber);
 router.post("/reset-password", testController.resetPassword);
 
 router.get(
-  "/getStats",
+  "/getCommentStats",
   authMiddleWare.verifyRestaurant,
-  testController.getRestaurantStats
+  testController.getRestaurantCommentStats
+);
+
+router.get(
+  "/getCustomerStats",
+  authMiddleWare.verifyRestaurant,
+  testController.getRestaurantCustomerStats
 );
 module.exports = router;

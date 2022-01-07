@@ -170,7 +170,7 @@ exports.resetPassword = async (req, res) => {
     });
 };
 
-exports.getRestaurantStats = async (req, res) => {
+exports.getRestaurantCommentStats = async (req, res) => {
   console.log("Inside get restaurant stats APi");
   let finalOrders = [];
   let totalRatings = 0;
@@ -241,6 +241,47 @@ exports.getRestaurantStats = async (req, res) => {
       } else {
         return res.status(500).json({
           message: "Internal Server error",
+        });
+      }
+    });
+};
+
+exports.getRestaurantCustomerStats = async (req, res) => {
+  await Restaurant.findOne({ account: req.loggedInUserId })
+    .then(async (restaurant) => {
+      let customerIds = [];
+      if (!restaurant)
+        return res.status(404).json({
+          message: "Restaurant not found",
+        });
+
+      await Orders.find({ "restaurant.restaurantId": restaurant._id }).then(
+        (orders) => {
+          if (!orders) {
+            return res.status(404).json({
+              message: "Orders not found",
+            });
+          }
+          orders.map((allOrders) => [
+            customerIds.push(allOrders.customer.customerId),
+          ]);
+        }
+      );
+
+      return res.status(200).json({
+        message: "Total number of unique customers",
+        noOfUniqueCustomers: customerIds.length,
+      });
+    })
+    .catch((error) => {
+      if (error) {
+        res.status(400).json({
+          message: "Error in catch",
+          error: error,
+        });
+      } else {
+        res.statu(500).json({
+          message: "Internal Server Error",
         });
       }
     });

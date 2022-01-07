@@ -105,4 +105,18 @@ router.get(
   authMiddleWare.verifyRestaurant,
   itemController.getRestaurantData
 );
+
+// Get Comments Stats
+router.get(
+  "/getCommentStats",
+  authMiddleWare.verifyRestaurant,
+  itemController.getRestaurantCommentStats
+);
+
+// Get Customer Stats
+router.get(
+  "/getCustomerStats",
+  authMiddleWare.verifyRestaurant,
+  itemController.getRestaurantCustomerStats
+);
 module.exports = router;
