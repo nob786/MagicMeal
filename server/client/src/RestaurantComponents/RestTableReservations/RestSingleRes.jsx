@@ -11,7 +11,8 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const RestSingleTableReservation = ({ reservations }) => {
-  const [tableNumber, setTableNumber] = React.useState();
+  const [tableNumber, setTableNumber] = React.useState("");
+  const [errors, setErrors] = React.useState("");
   //   let date = reservations.reservationDate;
   const { restData } = useSelector((state) => state.auth);
 
@@ -53,37 +54,53 @@ const RestSingleTableReservation = ({ reservations }) => {
         });
   };
   //================================================Approve with Table Number===========================================
-  const approveWithTableNumber = async () => {
-    await axios
-      .put(
-        `/item//update-reservation-status`,
-        {
-          reservationStatus: "reserved",
-          reservationId: reservations._id,
-          customerId: reservations.customer.customerId,
-          tableNumber: tableNumber,
-        },
-        {
-          headers: {
-            authorization:
-              localStorage.getItem("token") !== null
-                ? JSON.parse(localStorage.getItem("token"))
-                : null,
+  //Validation
+  const approveValidate = (time) => {
+    const errors = {};
+
+    if (time === "" || time <= 0) {
+      errors.time = "Please Enter Table Number Correctly";
+    }
+    return errors;
+  };
+  const approveWithTableNumber = async (event) => {
+    event.preventDefault();
+    setErrors(approveValidate(tableNumber));
+    // console.log("Errors", errors);
+    if (Object.keys(approveValidate(tableNumber)).length === 0) {
+      await axios
+        .put(
+          `/item//update-reservation-status`,
+          {
+            reservationStatus: "reserved",
+            reservationId: reservations._id,
+            customerId: reservations.customer.customerId,
+            tableNumber: tableNumber,
           },
-        }
-      )
-      .then((response) => {
-        // console.log("Update Reservation Status", response);
-        //window.alert("Order Successfully Approved");
-        toast.success(`Table Reserved`, {
-          position: toast.POSITION.TOP_CENTER,
-          autoclose: 2000,
+          {
+            headers: {
+              authorization:
+                localStorage.getItem("token") !== null
+                  ? JSON.parse(localStorage.getItem("token"))
+                  : null,
+            },
+          }
+        )
+        .then((response) => {
+          // console.log("Update Reservation Status", response);
+          //window.alert("Order Successfully Approved");
+          toast.success(`Table Reserved`, {
+            position: toast.POSITION.TOP_CENTER,
+            autoclose: 2000,
+          });
+          setTimeout(
+            () => window.location.replace("/admin/table-reservations"),
+            1000
+          );
         });
-        setTimeout(
-          () => window.location.replace("/admin/table-reservations"),
-          1000
-        );
-      });
+    } else if (Object.keys(approveValidate(tableNumber)).length > 0) {
+      // setLoading(false);
+    }
   };
   //================================================Cancel Table Reservations===========================================
   const cancelTableReservation = async () => {
@@ -156,7 +173,7 @@ const RestSingleTableReservation = ({ reservations }) => {
             style={{ justifyContent: "center", marginBottom: "30px" }}
             class="form-inline"
           >
-            <label class="sr-only">Enter Estimated Ready Time in Minutes</label>
+            <label class="sr-only">Enter Table Number</label>
             <input
               type="number"
               class="form-control"
@@ -168,6 +185,21 @@ const RestSingleTableReservation = ({ reservations }) => {
               }}
               value={tableNumber}
             />
+            {errors.time ? (
+              <div
+                style={{
+                  color: "red",
+                  margin: "5px",
+                  fontSize: "12px",
+                  marginLeft: "3%",
+                }}
+              >
+                {" "}
+                {errors.time}
+              </div>
+            ) : (
+              ""
+            )}
             {/* </div> */}
             <button
               onClick={approveWithTableNumber}

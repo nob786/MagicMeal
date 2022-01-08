@@ -33,12 +33,13 @@ toast.configure();
 const UserMenuItems = () => {
   var currentDate = new Date();
   // const [currentDate, setCurrentDate] = useState(new Date());
-  const [persons, setPersons] = React.useState();
+  const [persons, setPersons] = React.useState("");
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState("10:00");
   const [loading, setLoading] = React.useState(false);
   const [restaurantData, setRestaurantData] = React.useState([]);
   const [items, setItems] = React.useState([]);
+  const [errors, setErrors] = React.useState("");
   // const [restaurantId, setRestaurantId] = React.useState();
   // const [restaurantName, setRestaurantName] = React.useState();
   // const [contact, setContact] = React.useState();
@@ -55,6 +56,16 @@ const UserMenuItems = () => {
   });
   let arr2 = arr.filter((item, i, arr) => arr.indexOf(item) === i);
   //================================================
+  const validateReservation = (persons) => {
+    const errors = {};
+
+    if (persons === "") {
+      errors.persons = "Persons are required";
+    } else if (persons <= 0) {
+      errors.persons = "Not a Valid Number";
+    }
+    return errors;
+  };
 
   const handleBookTableToggle = () => {
     console.log("arr", arr);
@@ -105,28 +116,34 @@ const UserMenuItems = () => {
       };
 
       console.log("Table Reservation Data", reservationData);
-      axios
-        .post(`/user/book-table`, reservationData, {
-          headers: {
-            authorization:
-              localStorage.getItem("token") !== null
-                ? JSON.parse(localStorage.getItem("token"))
-                : null,
-          },
-        })
-        .then((res) => {
-          toast.success(res.message, {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 2000,
+      setErrors(validateReservation(persons));
+      // console.log("Errors", errors);y
+      if (Object.keys(validateReservation(persons)).length === 0) {
+        axios
+          .post(`/user/book-table`, reservationData, {
+            headers: {
+              authorization:
+                localStorage.getItem("token") !== null
+                  ? JSON.parse(localStorage.getItem("token"))
+                  : null,
+            },
+          })
+          .then((res) => {
+            toast.success(res.message, {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 2000,
+            });
+          })
+          .catch((err) => {
+            console.log("Error in FE", err.response.data.message);
+            toast.error(err.response.data.message, {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 2000,
+            });
           });
-        })
-        .catch((err) => {
-          console.log("Error in FE", err.response.data.message);
-          toast.error(err.response.data.message, {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 2000,
-          });
-        });
+      } else if (Object.keys(validateReservation(persons)).length > 0) {
+        // setLoading(false);
+      }
       //================end api
       // toast.success(`Table Reservation Request Sent`, {
       //   position: toast.POSITION.TOP_CENTER,
@@ -382,6 +399,21 @@ const UserMenuItems = () => {
                     id="book-table-person-number"
                     placeholder="Example: 4"
                   />
+                  {errors.persons ? (
+                    <div
+                      style={{
+                        color: "red",
+                        margin: "5px",
+                        fontSize: "12px",
+                        marginLeft: "3%",
+                      }}
+                    >
+                      {" "}
+                      {errors.persons}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div class="form-group text-center">
                   {/* <label for="message-text" class="col-form-label">
@@ -431,7 +463,7 @@ const UserMenuItems = () => {
                 onClick={handleBookTableRequest}
                 type="button"
                 class="btn book-table-send-button"
-                data-dismiss="modal"
+                // data-dismiss="modal"
               >
                 Send Request
               </button>

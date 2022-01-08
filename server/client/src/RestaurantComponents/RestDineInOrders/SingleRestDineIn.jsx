@@ -33,6 +33,7 @@ const steps = ["Delivered"];
 const SingleRestDineIn = ({ orders }) => {
   const [estReadyTime, setEstReadyTime] = React.useState("");
   const { restData } = useSelector((state) => state.auth);
+  const [errors, setErrors] = React.useState("");
   const history = useHistory();
 
   //Approve order fuction
@@ -100,34 +101,54 @@ const SingleRestDineIn = ({ orders }) => {
       });
   };
   //=======================================Approve with Time==================================
-  const approveWithTime = async () => {
-    const restId = restData._id;
-    await axios
-      .put(
-        `/item/update-pending-orders/${restId}`,
-        {
-          orderId: orders._id,
-          status: "accepted",
-          estimatedReadyTime: estReadyTime,
-        },
-        {
-          headers: {
-            authorization:
-              localStorage.getItem("token") !== null
-                ? JSON.parse(localStorage.getItem("token"))
-                : null,
+  //Validation
+  const approveValidate = (time) => {
+    const errors = {};
+
+    if (time === "" || time < 0) {
+      errors.time = "Please Enter Table Number Correctly";
+    }
+    return errors;
+  };
+
+  const approveWithTime = async (event) => {
+    event.preventDefault();
+    setErrors(approveValidate(estReadyTime));
+    // console.log("Errors", errors);
+    if (Object.keys(approveValidate(estReadyTime)).length === 0) {
+      const restId = restData._id;
+      await axios
+        .put(
+          `/item/update-pending-orders/${restId}`,
+          {
+            orderId: orders._id,
+            status: "accepted",
+            estimatedReadyTime: estReadyTime,
           },
-        }
-      )
-      .then((response) => {
-        console.log("Approve with time", response);
-        window.alert("Order Successfully Approved");
-        toast.success(`Order Approved`, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
+          {
+            headers: {
+              authorization:
+                localStorage.getItem("token") !== null
+                  ? JSON.parse(localStorage.getItem("token"))
+                  : null,
+            },
+          }
+        )
+        .then((response) => {
+          console.log("Approve with time", response);
+          window.alert("Order Successfully Approved");
+          toast.success(`Order Approved`, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
+          setTimeout(
+            () => window.location.replace("/admin/dinein-orders"),
+            1000
+          );
         });
-        setTimeout(() => window.location.replace("/admin/dinein-orders"), 1000);
-      });
+    } else if (Object.keys(approveValidate(estReadyTime)).length > 0) {
+      // setLoading(false);
+    }
   };
 
   //=======================================================================================================
@@ -207,6 +228,21 @@ const SingleRestDineIn = ({ orders }) => {
                   console.log("ready time", event.target.value);
                 }}
               />
+              {errors.time ? (
+                <div
+                  style={{
+                    color: "red",
+                    margin: "5px",
+                    fontSize: "12px",
+                    marginLeft: "3%",
+                  }}
+                >
+                  {" "}
+                  {errors.time}
+                </div>
+              ) : (
+                ""
+              )}
 
               <button
                 onClick={approveWithTime}

@@ -19,6 +19,7 @@ const AddNewMenu = () => {
   });
   const [dishPic, setDishPic] = React.useState();
   const formData = new FormData();
+  const [errors, setErrors] = React.useState("");
 
   const handleChange = (event) => {
     const value = event.target.value;
@@ -49,67 +50,93 @@ const AddNewMenu = () => {
     //   });
   };
   ///========================================New Menu Form Submition===========================
+  const validateMenu = (menuData) => {
+    const errors = {};
+    if (menuData.itemName === "" || menuData.itemName === null) {
+      errors.itemName = "Menu Name is required";
+    }
+    if (menuData.price === "" || menuData.price === null) {
+      errors.price = "Menu Price is required";
+    } else if (menuData.price < 0) {
+      errors.price = "Menu Price cannot be negative";
+    }
+    if (menuData.category === "" || menuData.category === null) {
+      errors.category = "Menu Category is required";
+    }
+    if (menuData.description === "" || menuData.description === null) {
+      errors.description = "Menu Description is required";
+    }
+    if (menuData.imageUrl === "" || menuData.imageUrl === null) {
+      errors.imageUrl = "Menu Image is required";
+    }
+    return errors;
+  };
   const onSave = async (event) => {
     event.preventDefault();
+    setErrors(validateMenu(menuData));
+    // console.log("Errors", errors);s
+    if (Object.keys(validateMenu(menuData)).length === 0) {
+      // formData.append("itemImage", menuData.itemImage);
+      console.log("Mene Data", menuData);
+      // console.log("form  Data", formData);
+      // console.log("image", menuData.itemImage);
 
-    // formData.append("itemImage", menuData.itemImage);
-    console.log("Mene Data", menuData);
-    // console.log("form  Data", formData);
-    // console.log("image", menuData.itemImage);
+      //console.log("State changed ", data);
 
-    //console.log("State changed ", data);
-
-    //========================AXIOS CALL TO POST DATA===============================
-    await axios
-      .post(
-        "/item/add-item",
-        {
-          itemName: menuData.itemName,
-          price: menuData.price,
-          category: menuData.category,
-          description: menuData.description,
-          imageUrl: String(menuData.imageUrl),
-        },
-        {
-          headers: {
-            authorization:
-              localStorage.getItem("token") !== null
-                ? JSON.parse(localStorage.getItem("token"))
-                : null,
+      //========================AXIOS CALL TO POST DATA===============================
+      await axios
+        .post(
+          "/item/add-item",
+          {
+            itemName: menuData.itemName,
+            price: menuData.price,
+            category: menuData.category,
+            description: menuData.description,
+            imageUrl: String(menuData.imageUrl),
           },
-        }
-      )
-      .then((response) => {
-        // console.log("Res", response);
-        toast.info("New Menu Saved", {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-        });
-        setTimeout(() => window.location.replace("/admin/menu-items"), 1000);
-        const restaurantData = response.data.data.restaurantData;
-        const itemData = response.data.data.itemData;
-        if (!restaurantData || !itemData) {
-          toast.error(`Failed to Save Menu `, {
+          {
+            headers: {
+              authorization:
+                localStorage.getItem("token") !== null
+                  ? JSON.parse(localStorage.getItem("token"))
+                  : null,
+            },
+          }
+        )
+        .then((response) => {
+          // console.log("Res", response);
+          toast.info("New Menu Saved", {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
           });
-          console.log("Could not get data");
-          console.log("ResData", restaurantData);
-          console.log("item data", itemData);
-          window.alert("invalid Data");
-        }
-        // else window.alert("Item added! ");
-        //console.log(response.data);
-        //const token = localStorage.getItem("token");
-        //const newToken = console.log(JSON.parse(token["_id"]));
-        //console.log(newToken);
-      })
-      .catch((err) => {
-        toast.error(err.message, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
+          setTimeout(() => window.location.replace("/admin/menu-items"), 1000);
+          const restaurantData = response.data.data.restaurantData;
+          const itemData = response.data.data.itemData;
+          if (!restaurantData || !itemData) {
+            toast.error(`Failed to Save Menu `, {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 2000,
+            });
+            console.log("Could not get data");
+            console.log("ResData", restaurantData);
+            console.log("item data", itemData);
+            window.alert("invalid Data");
+          }
+          // else window.alert("Item added! ");
+          //console.log(response.data);
+          //const token = localStorage.getItem("token");
+          //const newToken = console.log(JSON.parse(token["_id"]));
+          //console.log(newToken);
+        })
+        .catch((err) => {
+          toast.error(err.message, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
         });
-      });
+    } else if (Object.keys(validateMenu(menuData)).length > 0) {
+      // setLoading(false);
+    }
   };
 
   const imageHandler = async (e) => {
@@ -184,6 +211,21 @@ const AddNewMenu = () => {
                     onChange={handleChange}
                     value={menuData.itemName}
                   />
+                  {errors.itemName ? (
+                    <div
+                      style={{
+                        color: "red",
+                        margin: "5px",
+                        fontSize: "12px",
+                        marginLeft: "3%",
+                      }}
+                    >
+                      {" "}
+                      {errors.itemName}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div class="form-group">
                   <label>Menu Price: </label>
@@ -195,6 +237,21 @@ const AddNewMenu = () => {
                     onChange={handleChange}
                     value={menuData.price}
                   />
+                  {errors.price ? (
+                    <div
+                      style={{
+                        color: "red",
+                        margin: "5px",
+                        fontSize: "12px",
+                        marginLeft: "3%",
+                      }}
+                    >
+                      {" "}
+                      {errors.price}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div class="form-group">
                   <label>Menu Category: </label>
@@ -206,6 +263,21 @@ const AddNewMenu = () => {
                     onChange={handleChange}
                     value={menuData.category}
                   />
+                  {errors.category ? (
+                    <div
+                      style={{
+                        color: "red",
+                        margin: "5px",
+                        fontSize: "12px",
+                        marginLeft: "3%",
+                      }}
+                    >
+                      {" "}
+                      {errors.category}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div class="form-group">
                   <label>Menu Description: </label>
@@ -218,6 +290,21 @@ const AddNewMenu = () => {
                     onChange={handleChange}
                     value={menuData.description}
                   />
+                  {errors.description ? (
+                    <div
+                      style={{
+                        color: "red",
+                        margin: "5px",
+                        fontSize: "12px",
+                        marginLeft: "3%",
+                      }}
+                    >
+                      {" "}
+                      {errors.description}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
 
                 {/* <Button variant="contained" component="label">
@@ -244,6 +331,21 @@ const AddNewMenu = () => {
                   onChange={imageHandler}
                   //   value={menuData.itemImage}
                 />
+                {errors.imageUrl ? (
+                  <div
+                    style={{
+                      color: "red",
+                      margin: "5px",
+                      fontSize: "12px",
+                      marginLeft: "3%",
+                    }}
+                  >
+                    {" "}
+                    {errors.imageUrl}
+                  </div>
+                ) : (
+                  ""
+                )}
                 {/* <input></input> */}
               </form>
             </div>
@@ -257,7 +359,7 @@ const AddNewMenu = () => {
               </button>
               <button
                 onClick={onSave}
-                data-dismiss="modal"
+                // data-dismiss="modal"
                 className="boot-button"
                 class="btn boot-button"
               >

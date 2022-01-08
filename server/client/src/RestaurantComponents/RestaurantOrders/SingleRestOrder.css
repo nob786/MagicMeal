@@ -19,3 +19,7 @@
   border: none;
   color: white;
 }
+.update-order-status-button:checked {
+  outline: none;
+  box-shadow: none;
+}

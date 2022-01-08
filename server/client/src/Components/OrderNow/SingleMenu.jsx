@@ -36,6 +36,8 @@ const SingleMenu = ({ menu, key }) => {
   console.log("menu in add menu", menu);
   const [value, setValue] = React.useState();
   const [open, setOpen] = React.useState(false);
+  const [errors, setErrors] = React.useState("");
+  const [closeMenu, setCloseMenu] = React.useState(false);
   const [editMenuData, setEditMenuData] = React.useState({
     itemName: menu.itemName,
     price: menu.price,
@@ -45,6 +47,28 @@ const SingleMenu = ({ menu, key }) => {
   });
   const prod = [];
   var id;
+
+  const validateMenu = (menuData) => {
+    const errors = {};
+    if (menuData.itemName === "" || menuData.itemName === null) {
+      errors.itemName = "Menu Name is required";
+    }
+    if (menuData.price === "" || menuData.price === null) {
+      errors.price = "Menu Price is required";
+    } else if (menuData.price < 0) {
+      errors.price = "Menu Price cannot be negative";
+    }
+    if (menuData.category === "" || menuData.category === null) {
+      errors.category = "Menu Category is required";
+    }
+    if (menuData.description === "" || menuData.description === null) {
+      errors.description = "Menu Description is required";
+    }
+    if (menuData.imageUrl === "" || menuData.imageUrl === null) {
+      errors.imageUrl = "Menu Image is required";
+    }
+    return errors;
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -87,24 +111,30 @@ const SingleMenu = ({ menu, key }) => {
   };
 
   const handleSaveMenu = () => {
-    const itemId = menu._id;
-    console.log("Item id", itemId);
-    axios
-      .put(`/item/update-item/${itemId}`, editMenuData, {
-        headers: {
-          authorization:
-            localStorage.getItem("token") !== null
-              ? JSON.parse(localStorage.getItem("token"))
-              : null,
-        },
-      })
-      .then((res) => {
-        setOpen(false);
-        toast.success(`Menu Updated Successfully`, {
-          position: toast.POSITION.TOP_CENTER,
+    setErrors(validateMenu(editMenuData));
+    // console.log("Errors", errors);s
+    if (Object.keys(validateMenu(editMenuData)).length === 0) {
+      const itemId = menu._id;
+      console.log("Item id", itemId);
+      axios
+        .put(`/item/update-item/${itemId}`, editMenuData, {
+          headers: {
+            authorization:
+              localStorage.getItem("token") !== null
+                ? JSON.parse(localStorage.getItem("token"))
+                : null,
+          },
+        })
+        .then((res) => {
+          setOpen(false);
+          toast.success(`Menu Updated Successfully`, {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          window.location.replace("/admin/menu-items");
         });
-        setTimeout(() => window.location.replace("/admin/menu-items"), 1000);
-      });
+    } else if (Object.keys(validateMenu(editMenuData)).length > 0) {
+      // setLoading(false);
+    }
   };
 
   //=============================Handle Image Upload====================================
@@ -269,20 +299,53 @@ const SingleMenu = ({ menu, key }) => {
                     onChange={handleChange}
                     value={editMenuData.itemName}
                   />
+
+                  {errors.itemName ? (
+                    <div
+                      style={{
+                        color: "red",
+                        margin: "5px",
+                        fontSize: "12px",
+                        marginLeft: "3%",
+                      }}
+                    >
+                      {" "}
+                      {errors.itemName}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
+
                 <div class="form-group">
                   <label for="recipient-name" class="col-form-label">
                     Price:
                   </label>
                   <input
                     defaultValue={menu.price}
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="recipient-name"
                     name="price"
                     onChange={handleChange}
                     value={editMenuData.price}
                   />
+
+                  {errors.price ? (
+                    <div
+                      style={{
+                        color: "red",
+                        margin: "5px",
+                        fontSize: "12px",
+                        marginLeft: "3%",
+                      }}
+                    >
+                      {" "}
+                      {errors.price}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div class="form-group">
                   <label for="recipient-name" class="col-form-label">
@@ -297,6 +360,22 @@ const SingleMenu = ({ menu, key }) => {
                     onChange={handleChange}
                     value={editMenuData.category}
                   />
+
+                  {errors.category ? (
+                    <div
+                      style={{
+                        color: "red",
+                        margin: "5px",
+                        fontSize: "12px",
+                        marginLeft: "3%",
+                      }}
+                    >
+                      {" "}
+                      {errors.category}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div class="form-group">
                   <label for="message-text" class="col-form-label">
@@ -311,6 +390,22 @@ const SingleMenu = ({ menu, key }) => {
                     onChange={handleChange}
                     value={editMenuData.description}
                   ></textarea>
+
+                  {errors.description ? (
+                    <div
+                      style={{
+                        color: "red",
+                        margin: "5px",
+                        fontSize: "12px",
+                        marginLeft: "3%",
+                      }}
+                    >
+                      {" "}
+                      {errors.description}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div class="form-group">
                   <img
@@ -330,6 +425,22 @@ const SingleMenu = ({ menu, key }) => {
                     class="form-control"
                     id="customFile"
                   />
+
+                  {errors.imageUrl ? (
+                    <div
+                      style={{
+                        color: "red",
+                        margin: "5px",
+                        fontSize: "12px",
+                        marginLeft: "3%",
+                      }}
+                    >
+                      {" "}
+                      {errors.restaurantLocation}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </form>
             </div>
@@ -343,7 +454,7 @@ const SingleMenu = ({ menu, key }) => {
               </button>
               <button
                 onClick={handleSaveMenu}
-                data-dismiss="modal"
+                // data-dismiss="modal"
                 type="button"
                 className="boot-button"
                 class="btn boot-button"
