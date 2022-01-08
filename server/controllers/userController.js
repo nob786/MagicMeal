@@ -153,7 +153,7 @@ exports.getRestaurantMenus = async (req, res) => {
 
 exports.getUpdatedOrder = async (req, res) => {
   const customerId = req.params.customerId;
-  console.log("restaurant id", customerId);
+  console.log("customer id", customerId);
   if (!customerId)
     return res.status(404).send("No restaurant ID found in params");
 

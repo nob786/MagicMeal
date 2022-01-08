@@ -2,6 +2,7 @@ const { Restaurant } = require("../models/restaurant");
 const { Account } = require("../models/account");
 const { Items } = require("../models/item");
 const { Orders } = require("../models/order");
+const { Comments } = require("../models/comments");
 const { Bookings } = require("../models/booking");
 const { Customer } = require("../models/customer");
 const { validateItem } = require("../middleware/validation");
@@ -119,7 +120,7 @@ exports.uploadRestaurantImage = async (req, res) => {
 };
 
 //_______________________________________________________________________________________\\
-
+// API for updating reservation status
 exports.updateReservationTableStatus = async (req, res) => {
   console.log("Inside restaurant update reservation status api");
   const { tableNumber, reservationStatus, reservationId, customerId } =
@@ -181,6 +182,8 @@ exports.updateReservationTableStatus = async (req, res) => {
     });
   }
 };
+
+// API for fetching reserved tables
 exports.getReservedTables = async (req, res) => {
   console.log("Inside restaurant get reservation api");
   const restaurantId = req.params.restaurantId;
@@ -222,6 +225,7 @@ exports.getReservedTables = async (req, res) => {
     });
 };
 
+// API for adding menu items
 exports.addItem = async (req, res) => {
   const { error } = validateItem(req.body);
 
@@ -288,6 +292,7 @@ exports.addItem = async (req, res) => {
   }
 };
 
+// API for deleteing menu items
 exports.deleteItem = async (req, res) => {
   const itemId = req.params.itemId;
   console.log(req.params);
@@ -316,6 +321,7 @@ exports.deleteItem = async (req, res) => {
   }
 };
 
+// API for updating menu items
 exports.updateItem = async (req, res) => {
   const itemId = req.params.itemId;
 
@@ -354,6 +360,7 @@ exports.updateItem = async (req, res) => {
   }
 };
 
+// API for fetching menu items
 exports.getItems = async (req, res) => {
   if (!req.loggedInUserId) return res.status(400).send("User id no found");
 
@@ -383,6 +390,7 @@ exports.getItems = async (req, res) => {
   }
 };
 
+// API for fetching single menu items
 exports.getItem = async (req, res) => {
   const itemId = req.params.itemId;
   console.log("Item id", itemId);
@@ -439,7 +447,6 @@ exports.getPendingOrders = async (req, res) => {
 };
 
 // API for updating pending order status
-
 exports.updatePendingOrders = async (req, res) => {
   //const restId = req.params.restId;
   const { orderId, status, estimatedReadyTime } = req.body;
@@ -541,6 +548,7 @@ exports.uploadLocation = async (req, res) => {
     });
 };
 
+// API for fetching restaurant data
 exports.getRestaurantData = async (req, res) => {
   console.log("Inside Get restaurant data API");
   Account.findOne({ _id: req.loggedInUserId })
@@ -580,5 +588,124 @@ exports.getRestaurantData = async (req, res) => {
         return res.status(500).json({
           message: "Server Error",
         });
+    });
+};
+
+// API for fetching comments stats
+exports.getRestaurantCommentStats = async (req, res) => {
+  console.log("Inside get restaurant comment stats APi");
+  let finalOrders = [];
+  let totalRatings = 0;
+  let positiveRatings = [];
+  let negativeRatings = [];
+  await Restaurant.findOne({ account: req.loggedInUserId })
+    .then(async (restaurant) => {
+      // console.log("Inside restaurant find one");
+      const { _id } = restaurant._id;
+      // console.log("Restaurant Id", _id);
+      if (!_id)
+        return res.status(404).json({
+          message: "Could not find restaurant id",
+        });
+
+      await Comments.find({ "restaurant.restaurantId": _id }).then(
+        (comments) => {
+          console.log("Inside Comments");
+          totalRatings = comments.length;
+          // console.log("Length of comments", totalRatings);
+          comments.map((commentsObject) => {
+            if (commentsObject.rating > 0 && commentsObject.rating < 3) {
+              negativeRatings.push(commentsObject);
+              // console.log("Neg");
+            }
+            if (commentsObject.rating >= 3) {
+              positiveRatings.push(commentsObject);
+              // console.log("pos");
+            }
+          });
+          // console.log("neg", negativeRatings);
+        }
+      );
+
+      await Orders.find({ "restaurant.restaurantId": _id }).then((orders) => {
+        console.log("Inside orders find");
+        orders.map((deliveredOrders) => {
+          // console.log("Inside order map", deliveredOrders);
+          if (deliveredOrders.status === "delivered") {
+            finalOrders.push(deliveredOrders);
+          }
+        });
+      });
+
+      // console.log("After orders find", finalOrders.length);
+      // console.log("Total Ratings", totalRatings);
+      // console.log("Positive Ratings", positiveRatings.length);
+      // console.log("Negative Ratings", negativeRatings.length);
+
+      if (!finalOrders)
+        return res.status(400).json({
+          message: "Empty Orders",
+        });
+      return res.status(200).json({
+        message: "Got all orders",
+        noOfDeliverOrders: finalOrders.length,
+        totalRatings: totalRatings,
+        noOfPositiveRatings: positiveRatings.length,
+        noOfNegativeRatings: negativeRatings.length,
+      });
+    })
+    .catch((error) => {
+      if (error) {
+        return res.status(400).json({
+          message: "Error in catch block",
+          error: error,
+        });
+      } else {
+        return res.status(500).json({
+          message: "Internal Server error",
+        });
+      }
+    });
+};
+
+// API for fetching customer stats
+exports.getRestaurantCustomerStats = async (req, res) => {
+  await Restaurant.findOne({ account: req.loggedInUserId })
+    .then(async (restaurant) => {
+      let customerIds = [];
+      if (!restaurant)
+        return res.status(404).json({
+          message: "Restaurant not found",
+        });
+
+      await Orders.find({ "restaurant.restaurantId": restaurant._id }).then(
+        (orders) => {
+          if (!orders) {
+            return res.status(404).json({
+              message: "Orders not found",
+            });
+          }
+          orders.map((allOrders) => [
+            customerIds.push(allOrders.customer.customerId),
+          ]);
+        }
+      );
+
+      return res.status(200).json({
+        message: "Total number of unique customers",
+        noOfUniqueCustomers: customerIds.length,
+      });
+    })
+    .catch((error) => {
+      if (error) {
+        res.status(400).json({
+          message: "Error in catch",
+          error: error,
+        });
+      } else {
+        res.statu(500).json({
+          message: "Internal Server Error",
+        });
+      }
     });
 };
