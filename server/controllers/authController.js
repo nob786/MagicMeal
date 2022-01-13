@@ -78,6 +78,7 @@ const sendEmail = async (mailOptions) => {
   });
 };
 
+// API for login
 exports.login = async (req, res) => {
   const { error } = validateLogin(req.body);
 
@@ -145,6 +146,7 @@ exports.login = async (req, res) => {
   }
 };
 
+// APi for restaurant sign up
 exports.signupRestaurant = async (req, res) => {
   const { error } = validateRestaurant(req.body);
 
@@ -239,6 +241,7 @@ exports.signupRestaurant = async (req, res) => {
   }
 };
 
+// API for customer sign up
 exports.signupCustomer = async (req, res) => {
   const { error } = validateUser(req.body);
 
@@ -345,6 +348,7 @@ exports.signupCustomer = async (req, res) => {
   }
 };
 
+// API for verification of account
 exports.verifyAccount = (req, res, next) => {
   const token = req.params.verificationToken;
   console.log("This is the verification token", token);
@@ -372,6 +376,7 @@ exports.verifyAccount = (req, res, next) => {
     });
 };
 
+// API for reseting password
 exports.resetPassword = async (req, res) => {
   console.log("Inside reset password API");
 

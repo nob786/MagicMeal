@@ -52,6 +52,7 @@ const sendEmail = async (mailOptions) => {
   await emailTransporter.sendMail(mailOptions);
 };
 
+// API for fetching reservation table
 exports.getReservedTables = async (req, res) => {
   console.log("Inside get reserved table api");
   const customerId = req.params.customerId;
@@ -93,6 +94,7 @@ exports.getReservedTables = async (req, res) => {
     });
 };
 
+// API for fetching restauranta
 exports.getRestaurants = async (req, res) => {
   try {
     const restaurants = await Restaurant.find();
@@ -112,6 +114,7 @@ exports.getRestaurants = async (req, res) => {
   }
 };
 
+// API for fetching restaurant menu items
 exports.getRestaurantMenus = async (req, res) => {
   const restaurantId = req.params.restId;
   console.log(req.params.restId);
@@ -151,6 +154,7 @@ exports.getRestaurantMenus = async (req, res) => {
   }
 };
 
+// API fetching updated orders
 exports.getUpdatedOrder = async (req, res) => {
   const customerId = req.params.customerId;
   console.log("customer id", customerId);
@@ -181,6 +185,7 @@ exports.getUpdatedOrder = async (req, res) => {
     });
 };
 
+// API for posting order
 exports.postOrder = async (req, res) => {
   console.log("Order Data", req.body);
   const {
@@ -467,6 +472,7 @@ async function averageRating(restaurantId) {
     });
 }
 
+// API for posting comments
 exports.postComment = async (req, res) => {
   //console.log("Comment api called.");
   console.log("Comment Body", req.body);
@@ -561,6 +567,8 @@ exports.postComment = async (req, res) => {
         });
     });
 };
+
+// API for deleting comments
 exports.deleteComment = async (req, res) => {
   console.log("Comment delete API called!");
   const userId = req.loggedInUserId;
@@ -594,6 +602,8 @@ exports.deleteComment = async (req, res) => {
         });
     });
 };
+
+// API for fetching comments
 exports.getComments = async (req, res) => {
   const { restId } = req.params;
   if (!restId)
@@ -623,26 +633,9 @@ exports.getComments = async (req, res) => {
       }
     });
 };
+
+// API for fetching restaurants by address
 exports.getRestaurantsByAddress = async (req, res, next) => {
-  // const getDistance = (l1, ln1, l2, ln2) => {
-  //   let R = 6371; // kms
-  //   let φ1 = (l1 * Math.PI) / 180; // φ, λ in radians
-  //   let φ2 = (ln2 * Math.PI) / 180;
-  //   let Δφ = ((ln2 - l1) * Math.PI) / 180;
-  //   let Δλ = ((l2 - ln1) * Math.PI) / 180;
-
-  //   let a =
-  //     Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-  //     Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-  //   let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-  //   let d =
-  //     Math.acos(
-  //       Math.sin(l1) * Math.sin(l2) +
-  //         Math.cos(l1) * Math.cos(l2) * Math.cos(ln2 - ln1)
-  //     ) * 6371;
-  //   return d;
-  // };
   function getDistance(lat1, lon1, lat2, lon2) {
     var R = 6371; // Radius of the earth in km
     var dLat = deg2rad(lat2 - lat1); // deg2rad below
@@ -717,30 +710,9 @@ exports.getRestaurantsByAddress = async (req, res, next) => {
     message: "These are all the restaurants Nearby.",
     data: nearbyRestaurants,
   });
-
-  //   // console.log("Accounts", account);
-  //   let accountId = account._id;
-  //   let rest = await Restaurant.find({ account: accountId }).then(
-  //     (restaurants) => {
-  //       // console.log("Restaurants", restaurants);
-  //       const restaurantsFinal = restaurants.reduce((result, rest) => {
-  //         if (d < 10) result.push(rest);
-
-  //         return result;
-  //       }, []);
-
-  //       return restaurantsFinal;
-  //     }
-  //   );
-  //   console.log("Restaurants", rest);
-  //   // return rest;
-  // });
-  // return res.json({
-  //   restaurants: finalSellers,
-  // });
 };
 
-//====================================Table Booking======================================
+// API for reserving table
 exports.bookTable = async (req, res) => {
   const {
     numberOfPersons,
