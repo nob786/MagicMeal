@@ -669,14 +669,40 @@ exports.getRestaurantCommentStats = async (req, res) => {
 };
 
 // API for fetching customer stats
-exports.getRestaurantCustomerStats = async (req, res) => {
+exports.getRestaurantStats = async (req, res) => {
   await Restaurant.findOne({ account: req.loggedInUserId })
     .then(async (restaurant) => {
       let customerIds = [];
+      let finalOrders = [];
+      let totalRatings = 0;
+      let positiveRatings = [];
+      let negativeRatings = [];
+      const { _id } = restaurant._id;
+      // console.log("Restaurant Id", _id);
+
       if (!restaurant)
         return res.status(404).json({
           message: "Restaurant not found",
         });
+
+      await Comments.find({ "restaurant.restaurantId": _id }).then(
+        (comments) => {
+          console.log("Inside Comments");
+          totalRatings = comments.length;
+          // console.log("Length of comments", totalRatings);
+          comments.map((commentsObject) => {
+            if (commentsObject.rating > 0 && commentsObject.rating < 3) {
+              negativeRatings.push(commentsObject);
+              // console.log("Neg");
+            }
+            if (commentsObject.rating >= 3) {
+              positiveRatings.push(commentsObject);
+              // console.log("pos");
+            }
+          });
+          // console.log("neg", negativeRatings);
+        }
+      );
 
       await Orders.find({ "restaurant.restaurantId": restaurant._id }).then(
         (orders) => {
@@ -685,15 +711,22 @@ exports.getRestaurantCustomerStats = async (req, res) => {
               message: "Orders not found",
             });
           }
-          orders.map((allOrders) => [
-            customerIds.push(allOrders.customer.customerId),
-          ]);
+          orders.map((allOrders) => {
+            customerIds.push(allOrders.customer.customerId);
+            if (allOrders.status === "delivered") {
+              finalOrders.push(allOrders);
+            }
+          });
         }
       );
 
       return res.status(200).json({
-        message: "Total number of unique customers",
+        message: "Got your stats",
         noOfUniqueCustomers: customerIds.length,
+        noOfDeliverOrders: finalOrders.length,
+        totalRatings: totalRatings,
+        noOfPositiveRatings: positiveRatings.length,
+        noOfNegativeRatings: negativeRatings.length,
       });
     })
     .catch((error) => {

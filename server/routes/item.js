@@ -113,10 +113,10 @@ router.get(
   itemController.getRestaurantCommentStats
 );
 
-// Get Customer Stats
+// Get Stats
 router.get(
-  "/getCustomerStats",
+  "/getStats",
   authMiddleWare.verifyRestaurant,
-  itemController.getRestaurantCustomerStats
+  itemController.getRestaurantStats
 );
 module.exports = router;
