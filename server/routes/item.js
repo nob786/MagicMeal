@@ -119,4 +119,11 @@ router.get(
   authMiddleWare.verifyRestaurant,
   itemController.getRestaurantStats
 );
+
+// Post Status
+router.put(
+  "/updateStatus",
+  authMiddleWare.verifyRestaurant,
+  itemController.updateStatus
+);
 module.exports = router;

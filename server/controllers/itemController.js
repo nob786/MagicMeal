@@ -7,6 +7,7 @@ const { Bookings } = require("../models/booking");
 const { Customer } = require("../models/customer");
 const { validateItem } = require("../middleware/validation");
 const { google } = require("googleapis");
+const { bool } = require("joi");
 const OAuth2 = google.auth.OAuth2;
 
 //_______________________ Email Configurations ______________________________________\\
@@ -741,4 +742,73 @@ exports.getRestaurantStats = async (req, res) => {
         });
       }
     });
+};
+
+exports.updateStatus = async (req, res) => {
+  let { name, booleanValue } = req.body;
+
+  if (!name || !booleanValue)
+    return res.status(200).json({
+      message: "Data is empty",
+    });
+
+  console.log("Name value", name);
+  console.log("Boolean Value", booleanValue);
+
+  try {
+    let restaurant = await Restaurant.findOne({ account: req.loggedInUserId });
+    if (!restaurant) {
+      return res.status(404).json({
+        message: "Restaurant not found",
+      });
+    }
+
+    if (name === "activestatus") {
+      restaurant.ActiveStatus = booleanValue;
+      await restaurant.save();
+      return res.status(200).json({
+        message: "Restaurant Active Status changed to" + " " + booleanValue,
+        data: booleanValue,
+      });
+    }
+
+    if (name === "dinein") {
+      restaurant.dineIn = booleanValue;
+      await restaurant.save();
+      return res.status(200).json({
+        message: "Restaurant Dine-In Service changed to" + " " + booleanValue,
+        data: booleanValue,
+      });
+    }
+
+    if (name === "pickup") {
+      restaurant.pickUp = booleanValue;
+      await restaurant.save();
+      return res.status(200).json({
+        message: "Restaurant Pick-Up Service changed to" + " " + booleanValue,
+        data: booleanValue,
+      });
+    }
+
+    if (name === "booktable") {
+      restaurant.bookTable = booleanValue;
+      await restaurant.save();
+      return res.status(200).json({
+        message:
+          "Restaurant Book Table Service changed to" + " " + booleanValue,
+        data: booleanValue,
+      });
+    }
+  } catch (error) {
+    if (error) {
+      return res.status(400).json({
+        message: "Unknown Error",
+        error: error,
+      });
+    } else {
+      return res.status(500).json({
+        message: "Server Error",
+      });
+    }
+  }
 };
