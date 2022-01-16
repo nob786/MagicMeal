@@ -5,7 +5,8 @@ import DirectionsIcon from "@mui/icons-material/Directions";
 import TitleTag from "../SpecialComp/TitleTag";
 import { Divider } from "@material-ui/core";
 import { Box } from "@mui/system";
-import { Rating } from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
+import { Link, Rating } from "@mui/material";
 import axios from "axios";
 const RestaurantDetails = (restaurant) => {
   const [commentsData, setCommentsData] = React.useState(null);
@@ -26,14 +27,14 @@ const RestaurantDetails = (restaurant) => {
   }, []);
   return (
     <div style={{ textAlign: "center" }}>
-      <button
+      <Link
         type="button"
-        class="btn boot-button"
+        // class="btn boot-button"
         data-toggle="modal"
         data-target="#exampleModalCenter"
       >
-        Details
-      </button>
+        <InfoIcon />
+      </Link>
 
       <div
         class="modal fade"
@@ -64,7 +65,8 @@ const RestaurantDetails = (restaurant) => {
               <form>
                 <div class="form-group">
                   <div style={{ textAlign: "center" }}>
-                    {restaurant.restaurant.address && (
+                    {restaurant.restaurant.location &&
+                    restaurant.restaurant.location.lat != null ? (
                       <a
                         style={{ color: "black", textDecoration: "none" }}
                         target="_blank"
@@ -77,7 +79,7 @@ const RestaurantDetails = (restaurant) => {
                       >
                         <DirectionsIcon /> Directions
                       </a>
-                    )}
+                    ) : null}
                   </div>
                   <br />
                   <span>

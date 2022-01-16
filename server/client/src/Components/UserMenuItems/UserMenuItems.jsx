@@ -129,10 +129,11 @@ const UserMenuItems = () => {
             },
           })
           .then((res) => {
-            toast.success(res.message, {
+            toast.success(res.data.message, {
               position: toast.POSITION.TOP_CENTER,
               autoClose: 2000,
             });
+            // window.location.replace("/user/menu-items");
           })
           .catch((err) => {
             console.log("Error in FE", err.response.data.message);
@@ -199,14 +200,17 @@ const UserMenuItems = () => {
   console.log("This ID", items);
 
   return loading === false ? (
-    <div class="d-flex justify-content-center">
-      <div
-        class="spinner-border m-5"
-        role="status"
-        style={{ color: "#fe724c" }}
-      >
-        <span class="sr-only">Loading...</span>
+    <div>
+      <div class="d-flex justify-content-center">
+        <div
+          class="spinner-grow m-5"
+          role="status"
+          style={{ color: "#fe724c" }}
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
+      {/* <span>Loading...</span> */}
     </div>
   ) : restaurantData.ActiveStatus === true ? (
     <div className="Menus">

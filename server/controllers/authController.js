@@ -90,7 +90,8 @@ exports.login = async (req, res) => {
     email: email,
   });
 
-  if (!loadedAccount) return res.status(404).send("Account not found");
+  if (!loadedAccount)
+    return res.status(404).json({ message: "Account not found" });
 
   let hashedPassword = await bcrypt.compare(password, loadedAccount.password);
   console.log("Hashed Pass", hashedPassword);

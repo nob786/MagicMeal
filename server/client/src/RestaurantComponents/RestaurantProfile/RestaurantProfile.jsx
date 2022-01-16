@@ -42,11 +42,14 @@ const RestaurantProfile = () => {
   const [imageUrl, setImageUrl] = React.useState(
     restData.imageUrl ? restData.imageUrl : ""
   );
+  const [imageVal, setImageVal] = React.useState("");
   const history = useHistory();
   const dispatch = useDispatch();
 
   // console.log(restData);
-  React.useEffect(() => {}, []);
+  React.useEffect(() => {
+    dispatch(updateRestaurantData());
+  }, []);
   const handleUploadPicture = async () => {
     await axios
       .post(
@@ -63,7 +66,9 @@ const RestaurantProfile = () => {
       )
       .then((res) => {
         dispatch(updateRestaurantData());
-        console.log("Restaurant Image Uploaded");
+        window.location.replace("/admin/profile");
+        // window.location.replace("/admin/profile");
+        // console.log("Restaurant Image Uploaded");
         toast.success(`Restaurant Image Uploaded`, {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000,
@@ -78,6 +83,7 @@ const RestaurantProfile = () => {
       });
   };
   const imageHandler = async (e) => {
+    setImageVal("1");
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
@@ -86,6 +92,7 @@ const RestaurantProfile = () => {
     };
     reader.readAsDataURL(e.target.files[0]);
     setImageUrl(e);
+
     console.log("image uploaded", imageUrl);
     // await axios
     //   .post("/item/image", {
@@ -163,7 +170,7 @@ const RestaurantProfile = () => {
                         class="form-control"
                         id="customFile"
                       />
-                      {imageUrl ? (
+                      {imageVal !== null && imageVal !== "" ? (
                         <button
                           onClick={handleUploadPicture}
                           type="button"

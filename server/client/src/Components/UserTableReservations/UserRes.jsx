@@ -199,7 +199,7 @@ const UserTableReservation = () => {
         {/* ===========================================================Completed Reservations=============================================== */}
         <TabPanel>
           {" "}
-          <TitleTag title="Completed /Reservations" />
+          <TitleTag title="Completed / Cancelled Reservations" />
           <form
             style={{ justifyContent: "center" }}
             class="form-inline my-2 my-lg-0 text-center"

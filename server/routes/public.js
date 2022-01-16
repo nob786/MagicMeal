@@ -8,6 +8,4 @@ router.post(
   publicController.subscribeForNewsletter
 );
 
-router.post("/id", publicController.uniqueId);
-
 module.exports = router;

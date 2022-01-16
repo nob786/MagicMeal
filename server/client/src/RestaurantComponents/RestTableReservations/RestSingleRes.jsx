@@ -42,15 +42,12 @@ const RestSingleTableReservation = ({ reservations }) => {
         )
         .then((response) => {
           console.log("Table Reservation Completed", response);
-          //window.alert("Order Successfully Approved");
-          toast.success(`Order Approved`, {
+          //window.alert("Reservation Status Updated");
+          toast.success(`Reservation Status Updated`, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
           });
-          setTimeout(
-            () => window.location.replace("/admin/table-reservations"),
-            1000
-          );
+          window.location.replace("/admin/table-reservations");
         });
   };
   //================================================Approve with Table Number===========================================

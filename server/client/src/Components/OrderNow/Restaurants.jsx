@@ -21,6 +21,7 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const Restaurants = () => {
+  const [text, setText] = React.useState("");
   //Main Page Loader
   const [loading, setLoading] = useState(true);
   //Gps Icon Loader
@@ -240,16 +241,18 @@ const Restaurants = () => {
 
   //=========================================Search Filter Function ===========================
   const handlePickUpFilter = () => {
-    setLoading(true);
+    // setLoading(true);
     if (allRestaurants2 || allRestaurants2 === "") {
       setAllRestaurants(allRestaurants2.filter((rest) => rest.pickUp === true));
+      setText("Filtered Pickup");
     }
 
-    setLoading(false);
+    // setLoading(false);
   };
   const handleDineInFilter = () => {
     if (allRestaurants2 || allRestaurants2 === "") {
       setAllRestaurants(allRestaurants2.filter((rest) => rest.dineIn === true));
+      setText("Filtered Dine In");
     }
   };
   const handleBookTableFilter = () => {
@@ -257,6 +260,7 @@ const Restaurants = () => {
       setAllRestaurants(
         allRestaurants2.filter((rest) => rest.bookTable === true)
       );
+      setText("Filtered Table Booking");
     }
   };
 
@@ -365,7 +369,7 @@ const Restaurants = () => {
       {allRestaurants.length > 0 ? (
         <>
           <div>
-            <TitleTag title="Restaurants " />
+            <TitleTag title={text + " " + "Restaurants"} />
             <form
               style={{ justifyContent: "center" }}
               class="form-inline my-2 my-lg-0 text-center"
@@ -395,9 +399,9 @@ const Restaurants = () => {
                   class="dropdown-menu restaurant-filter-button-dropdown"
                   aria-labelledby="dropdownMenuButton"
                 >
-                  <button onClick={handlePickUpFilter} class="dropdown-item">
+                  <a onClick={handlePickUpFilter} class="dropdown-item">
                     PICKUP
-                  </button>
+                  </a>
                   <a onClick={handleDineInFilter} class="dropdown-item">
                     DINE-IN
                   </a>

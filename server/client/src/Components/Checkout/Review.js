@@ -91,7 +91,7 @@ export default function Review() {
           </Typography>
           <Grid container>
             <Grid item xs={6}>
-              <Typography gutterBottom>Cash on Pickup</Typography>
+              <Typography gutterBottom>Cash</Typography>
             </Grid>
             {/* {payments.map((payment) => (
               <React.Fragment key={payment.name}>

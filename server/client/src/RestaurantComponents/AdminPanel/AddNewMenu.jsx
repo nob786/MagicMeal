@@ -164,7 +164,7 @@ const AddNewMenu = () => {
 
   return (
     <div>
-      <button
+      {/* <button
         style={{ marginTop: "5%" }}
         type="button"
         className="boot-button"
@@ -173,10 +173,31 @@ const AddNewMenu = () => {
         data-target="#add-new-menu-modal"
       >
         Add new Menu
-      </button>
+      </button> */}
+      <div class="container text-center">
+        <div class="row">
+          <div style={{ margin: "auto" }} class="col-md-3">
+            <div
+              style={{ backgroundColor: "#fe724c" }}
+              class="card-counter primary"
+            >
+              <button
+                style={{ marginTop: "5%" }}
+                type="button"
+                className="boot-button"
+                class="btn boot-button "
+                data-toggle="modal"
+                data-target="#add-new-menu-modal"
+              >
+                Add new Menu
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div
-        style={{ textAlign: "start" }}
+        style={{ textAlign: "start", zIndex: "1500" }}
         class="modal fade"
         id="add-new-menu-modal"
         tabindex="-1"

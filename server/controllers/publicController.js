@@ -106,7 +106,7 @@ exports.subscribeForNewsletter = async (req, res) => {
         // });
 
         return res.status(200).json({
-          messgae: "Email send successfully",
+          message: "Email send successfully",
           // email: mailOptions,
         });
       })
@@ -132,9 +132,3 @@ exports.subscribeForNewsletter = async (req, res) => {
     });
   }
 };
-
-// exports.uniqueId = async (req, res) => {
-//   const id = orderid.generate();
-//   console.log(typeof id);
-//   return res.send("Done");
-// };

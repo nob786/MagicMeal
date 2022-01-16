@@ -22,7 +22,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
 //==========================Redux imports===================================
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCustomerData } from "../../Redux/actions/authentication";
 import { addRestaurantData } from "../../Redux/actions/authentication";
 import { addAuthCust } from "../../Redux/actions/authentication.js";
@@ -39,6 +39,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const FoodieLogin = () => {
+  const [loginText, setLoginText] = React.useState("");
+  const [displayLoginText, setDisplayLoginText] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [formData, setFormData] = React.useState({
     email: "",
@@ -77,7 +79,10 @@ const FoodieLogin = () => {
     });
   };
 
+  const { authCust } = useSelector((state) => state.auth);
+  const { authRest } = useSelector((state) => state.auth);
   const handleSubmit = async (event) => {
+    setDisplayLoginText(false);
     setLoading(true);
     event.preventDefault();
     setErrors(validate(formData));
@@ -110,47 +115,58 @@ const FoodieLogin = () => {
             //window.alert("User Logged in");
             localStorage.setItem("token", JSON.stringify(token));
             if (role === "restaurant") {
-              /*localStorage.setItem(
+              if (authRest === true) {
+                setDisplayLoginText(true);
+                setLoginText("Please Logout Previous Restaurant to Log In");
+              } else {
+                /*localStorage.setItem(
               "magic-meal-restaurant-token",
               JSON.stringify(token)
             );*/
-              setRole("Restaurant");
-              //window.alert("Restaurant Logged In");
-              dispatch(addAuthRest(true));
-              dispatch(addRestaurantData(restaurant));
-              //history.push("/admin/menu-items");
+                setRole("Restaurant");
+                //window.alert("Restaurant Logged In");
+                dispatch(addAuthRest(true));
+                dispatch(addRestaurantData(restaurant));
+                //history.push("/admin/menu-items");
 
-              //setLoginName(restaurant.ownerName);
-              //setTimeout(() => {  history.push("/admin/dashboard"); }, 3000);
-              //setLoginSuccess(true);
-              setTimeout(() => {
-                window.location.replace("/admin/menu-items");
-              }, 1500);
+                //setLoginName(restaurant.ownerName);
+                //setTimeout(() => {  history.push("/admin/dashboard"); }, 3000);
+                //setLoginSuccess(true);
+                setTimeout(() => {
+                  window.location.replace("/admin/menu-items");
+                }, 1500);
 
-              toast.success(`Welcome! ${restaurant.restaurantName}`, {
-                position: toast.POSITION.TOP_CENTER,
-              });
-              //history.push("/admin/dashboard");
+                toast.success(`Welcome! ${restaurant.restaurantName}`, {
+                  position: toast.POSITION.TOP_CENTER,
+                });
+
+                //history.push("/admin/dashboard");
+              }
             } else if (role === "customer") {
-              /*localStorage.setItem(
+              if (authCust === true) {
+                setDisplayLoginText(true);
+                setLoginText("Please Logout Previous Customer to Log In ");
+              } else {
+                /*localStorage.setItem(
               "magic-meal-customer-token",
               JSON.stringify(token)
             );*/
-              setRole("Customer");
-              //window.alert("Customer Logged In");
-              dispatch(addAuthCust(true));
-              dispatch(addCustomerData(customer));
-              //window.alert(token.data);
+                setRole("Customer");
+                //window.alert("Customer Logged In");
+                dispatch(addAuthCust(true));
+                dispatch(addCustomerData(customer));
+                //window.alert(token.data);
 
-              //setLoginName(customer.firstName);
-              //setTimeout(() => {  history.push("/"); }, 2000);
-              //setLoginSuccess(true);
+                //setLoginName(customer.firstName);
+                //setTimeout(() => {  history.push("/"); }, 2000);
+                //setLoginSuccess(true);
 
-              history.push("/");
-              toast.success(
-                `Welcome ${customer.firstName} ${customer.lastName}`,
-                { position: toast.POSITION.TOP_CENTER, autoClose: 2000 }
-              );
+                history.push("/");
+                toast.success(
+                  `Welcome ${customer.firstName} ${customer.lastName}`,
+                  { position: toast.POSITION.TOP_CENTER, autoClose: 2000 }
+                );
+              }
             }
           }
           //history.push("/menus");
@@ -159,7 +175,7 @@ const FoodieLogin = () => {
           setLoading(false);
           // //window.alert(req.message);
           console.log("Login Error", err.response.data);
-          toast.error(err.response.data, {
+          toast.error(err.response.data.message, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
           });
@@ -209,6 +225,13 @@ const FoodieLogin = () => {
           <h1>Login Form</h1>
         </div>
         {/* <TitleTag title="login form" /> */}
+
+        {displayLoginText === true ? (
+          <div class="alert alert-warning m-5" role="alert">
+            <h4 class="alert-heading">Un-Successfull Login!</h4>
+            <p>{loginText}</p>
+          </div>
+        ) : null}
 
         <div className="form-fields">
           <TextField
@@ -325,19 +348,19 @@ const FoodieLogin = () => {
             font_size="20px"
             />*/}
 
-          <button className="login-submit-button" onClick={handleSubmit}>
-            {loading === true ? (
-              <div
-                class="spinner-border"
-                role="status"
-                style={{ color: "white" }}
-              >
-                <span class="sr-only">Loading...</span>
-              </div>
-            ) : (
-              "Submit"
-            )}
-          </button>
+          {loading === true ? (
+            <div
+              class="spinner-grow"
+              role="status"
+              style={{ color: "#f3724c" }}
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
+          ) : (
+            <button className="login-submit-button" onClick={handleSubmit}>
+              Submit
+            </button>
+          )}
           <Snackbar
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
             open={openLoginSuccess}

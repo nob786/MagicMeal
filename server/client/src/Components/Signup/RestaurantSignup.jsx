@@ -362,11 +362,11 @@ export default function RestaurantSignup() {
                 <option selected disabled value="">
                   Please Select One
                 </option>
-                <option value="chinese">Chinese</option>
-                <option value="thai">Thai</option>
-                <option value="desi">Desi</option>
-                <option value="italian">Italian</option>
-                <option value="arabic">Arabic</option>
+                <option value="chinese">Chinese Food</option>
+                <option value="thai">Thai Food</option>
+                <option value="desi">Desi Food</option>
+                <option value="italian">Italian Food</option>
+                <option value="arabic">Arabic Food</option>
                 <option value="fast">Fast Food</option>
                 <option value="sea">Sea Food</option>
                 <option value="mix">Mix Food</option>

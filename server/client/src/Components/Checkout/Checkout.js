@@ -103,7 +103,10 @@ function getStepContent(step) {
   }
 }
 toast.configure();
+
 export default function Checkout() {
+  const [errors, setErrors] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
   //
   const [pickButton, setPickButton] = React.useState(false);
@@ -144,7 +147,7 @@ export default function Checkout() {
     items: clickedMenuId,
     grandTotal: cartTotal,
     orderDate: new Date(),
-    orderType: orderType,
+    orderType: "pickup",
     // orderType: "dinein",
     // tableNumber: tableNumber,
   };
@@ -171,35 +174,58 @@ export default function Checkout() {
   };
 
   //===========================================Dine-In Orders=====================================================
+  const approveValidate = (tableNumber) => {
+    const errors = {};
+
+    if (tableNumber === "" || tableNumber <= 0) {
+      errors.tableNumber = "Please Enter Table Number Correctly";
+    }
+    return errors;
+  };
+
   const placeDineInOrder = async (event) => {
     // let newDate = new Date();
     // OrderData.orderDate = newDate;
     //Order Post //
+
     event.preventDefault();
-    await axios
-      .post(`/user/post-order/${restId}`, DineInOrderData, {
-        headers: {
-          authorization:
-            localStorage.getItem("token") !== null
-              ? JSON.parse(localStorage.getItem("token"))
-              : null,
-        },
-      })
-      .then((res) => {
-        if (res) {
-          dispatch(clearCart());
-          toast.success(`Dine in Order Placed`, {
+    setErrors(approveValidate(tableNumber));
+
+    if (Object.keys(approveValidate(tableNumber)).length === 0) {
+      setLoading(true);
+      await axios
+        .post(`/user/post-order/${restId}`, DineInOrderData, {
+          headers: {
+            authorization:
+              localStorage.getItem("token") !== null
+                ? JSON.parse(localStorage.getItem("token"))
+                : null,
+          },
+        })
+        .then((res) => {
+          if (res) {
+            setLoading(false);
+            dispatch(clearCart());
+            toast.success(`Dine in Order Placed`, {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 2000,
+            });
+            //window.alert("Order Placed");
+            setActiveStep(activeStep + 1);
+            console.log("Response of Order Placed", res);
+          } else console.log("Response Not Avalable");
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log("Error in Order Place", err.response.data.message);
+          toast.error(err.response.data.message, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
           });
-          //window.alert("Order Placed");
-          setActiveStep(activeStep + 1);
-          console.log("Response of Order Placed", res);
-        } else console.log("Response Not Avalable");
-      })
-      .catch((err) => {
-        console.log("Error in FE", err);
-      });
+        });
+    } else if (Object.keys(approveValidate(tableNumber)).length > 0) {
+      // setLoading(false);
+    }
   };
 
   //==========================================Pickup Order=========================================================
@@ -207,6 +233,7 @@ export default function Checkout() {
     // let newDate = new Date();
     // OrderData.orderDate = newDate;
     //Order Post //
+    setLoading(true);
     event.preventDefault();
     await axios
       .post(`/user/post-order/${restId}`, OrderData, {
@@ -219,6 +246,7 @@ export default function Checkout() {
       })
       .then((res) => {
         if (res) {
+          setLoading(false);
           dispatch(clearCart());
           toast.success(`Pickup Order Placed`, {
             position: toast.POSITION.TOP_CENTER,
@@ -230,7 +258,12 @@ export default function Checkout() {
         } else console.log("Response Not Avalable");
       })
       .catch((err) => {
-        console.log("Error in FE", err);
+        setLoading(false);
+        console.log("Error in Order Place", err.response.data.message);
+        toast.error(err.response.data.message, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
       });
   };
   // test
@@ -243,7 +276,14 @@ export default function Checkout() {
     setPickButton(false);
   };
 
-  return (
+  return loading === true ? (
+    <div class="d-flex justify-content-center">
+      <span class="spinner-grow m-5" role="status" style={{ color: "#fe724c" }}>
+        <span class="sr-only">Loading...</span>
+      </span>
+      <span class="sr-only text-center">Loading...</span>
+    </div>
+  ) : (
     <React.Fragment>
       <CssBaseline />
       {/*<AppBar position="absolute" color="default" className={classes.appBar}>
@@ -279,6 +319,8 @@ export default function Checkout() {
               <React.Fragment>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
+                  <br />
+
                   {/* {activeStep !== 0 && (
                     <button
                       className="go-back-button"
@@ -349,6 +391,7 @@ export default function Checkout() {
                         {pickButton === false && dineButton === true ? (
                           <>
                             <input
+                              style={{ marginTop: "5px" }}
                               type="number"
                               class="form-control"
                               placeholder="Enter Table Number"
@@ -357,8 +400,25 @@ export default function Checkout() {
                               }}
                               value={tableNumber}
                             />
-
+                            <div style={{ display: "default" }}>
+                              {errors.tableNumber ? (
+                                <div
+                                  style={{
+                                    color: "red",
+                                    margin: "5px",
+                                    fontSize: "12px",
+                                    marginLeft: "3%",
+                                  }}
+                                >
+                                  {" "}
+                                  {errors.tableNumber}
+                                </div>
+                              ) : (
+                                ""
+                              )}
+                            </div>
                             <button
+                              style={{ marginTop: "5px" }}
                               onClick={placeDineInOrder}
                               className="update-order-status-button"
                               class="btn update-order-status-time-button"
@@ -367,6 +427,7 @@ export default function Checkout() {
                             </button>
                           </>
                         ) : null}
+                        <br />
                         {/* <p>OR</p> */}
                         {pickButton === true && dineButton === false ? (
                           <button

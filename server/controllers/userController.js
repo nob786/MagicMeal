@@ -250,6 +250,29 @@ exports.postOrder = async (req, res) => {
       data: restaurant,
     });
 
+  if (restaurant.ActiveStatus === false) {
+    return res.status(400).json({
+      message: "Restauarant is Currently Offline",
+      // data: restaurant,
+    });
+  }
+  if (orderType === "dinein") {
+    if (restaurant.dineIn === false) {
+      return res.status(400).json({
+        message: "Restauarant has Disabled Dine In Services",
+        data: restaurant,
+      });
+    }
+  }
+  if (orderType === "pickup") {
+    if (restaurant.pickUp === false) {
+      return res.status(400).json({
+        message: "Restauarant has Disabled PickUp Services",
+        data: restaurant,
+      });
+    }
+  }
+
   let newOrder = new Orders({
     customer: {
       name: customerData.name,
@@ -736,6 +759,28 @@ exports.bookTable = async (req, res) => {
   // }
 
   // console.log("Customer Account",customerAccount);
+  const restaurantFound = await Restaurant.findById(
+    restaurant.restaurantId
+    // account: restaurantAccount._id,
+  );
+  //console.log(restaurant);
+  if (!restaurantFound)
+    return res.status(404).json({
+      message: "Could not find the restaurant",
+      data: restaurantFound,
+    });
+  if (restaurantFound.ActiveStatus === false) {
+    return res.status(400).json({
+      message: "Restauarant is Currently Offline",
+      // data: restaurant,
+    });
+  }
+  if (restaurantFound.bookTable === false) {
+    return res.status(400).json({
+      message: "Restauarant has Disabled Table Bookings",
+      // data: restaurant,
+    });
+  }
 
   if (customerData.activeTableBookings < customerData.maxOrders) {
     // console.log("Max Bookings Limit Reached");
@@ -804,8 +849,8 @@ exports.bookTable = async (req, res) => {
     }
   } else if (customerData.activeTableBookings === customerData.maxOrders) {
     console.log("Max Booking Limit Reached", customerData);
-    // return res.status(200).json({
-    //   message: "Max booking reached",
-    // });
+    return res.status(400).json({
+      message: "Max booking reached",
+    });
   }
 };
