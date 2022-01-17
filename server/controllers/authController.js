@@ -98,7 +98,8 @@ exports.login = async (req, res) => {
   console.log("Loaded", loadedAccount.password);
   console.log("Passwo", password);
 
-  if (!hashedPassword) return res.status(400).send("Invalid Email or password");
+  if (!hashedPassword)
+    res.status(404).json({ message: "Invalid Email Or Password" });
 
   // if (password !== loadedAccount.password)
   //   return res.status(404).send("Invalid Email or password");
