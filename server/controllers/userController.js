@@ -200,6 +200,9 @@ exports.postOrder = async (req, res) => {
   const restaurantId = req.params.restId;
   const userId = req.loggedInUserId;
 
+  console.log("User Id", userId);
+  console.log("Rest Id", restaurantId);
+
   const itemsArray = items.map((i) => {
     return {
       itemId: i._id,
@@ -294,6 +297,8 @@ exports.postOrder = async (req, res) => {
     estimatedReadyTime: null,
   });
 
+  console.log("This is your order", newOrder);
+
   await newOrder
     .save()
     .then((data) => {
@@ -314,11 +319,16 @@ exports.postOrder = async (req, res) => {
       });
     })
     .catch((error) => {
-      if (error)
-        return res.status(500).json({
+      if (error) {
+        return res.status(400).json({
           messsage: "Could not send back response",
           error: error,
         });
+      } else {
+        return res.status(500).json({
+          message: "Server Error",
+        });
+      }
     });
 };
 

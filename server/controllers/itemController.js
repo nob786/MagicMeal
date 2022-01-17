@@ -678,6 +678,21 @@ exports.getRestaurantStats = async (req, res) => {
       let totalRatings = 0;
       let positiveRatings = [];
       let negativeRatings = [];
+      let noOfMenus;
+      let allComments;
+      let sales = new Array();
+      monthlySaleOfJan = 0;
+      monthlySaleOfFeb = 0;
+      monthlySaleOfMar = 0;
+      monthlySaleOfApr = 0;
+      monthlySaleOfMay = 0;
+      monthlySaleOfJun = 0;
+      monthlySaleOfJul = 0;
+      monthlySaleOfAug = 0;
+      monthlySaleOfSep = 0;
+      monthlySaleOfOct = 0;
+      monthlySaleOfNov = 0;
+      monthlySaleOfDec = 0;
       const { _id } = restaurant._id;
       // console.log("Restaurant Id", _id);
 
@@ -702,24 +717,118 @@ exports.getRestaurantStats = async (req, res) => {
             }
           });
           // console.log("neg", negativeRatings);
+          allComments = comments;
         }
       );
 
-      await Orders.find({ "restaurant.restaurantId": restaurant._id }).then(
-        (orders) => {
+      // await Orders.aggregate([{$match : {
+      //   restaurant: restaurant._id
+
+      // }}])
+      await Orders.find({
+        "restaurant.restaurantId": restaurant._id,
+      })
+        .then((orders) => {
           if (!orders) {
             return res.status(404).json({
               message: "Orders not found",
             });
           }
+          // console.log("Or", orders);
+
           orders.map((allOrders) => {
+            // let month = parseInt(allOrders.orderDate.substring(5, 6));
+            let date = allOrders.orderDate.toString();
+            let month = date.substring(4, 7);
+            // console.log("d", month);
+            // console.log("nDa", newDate);
+
             customerIds.push(allOrders.customer.customerId);
             if (allOrders.status === "delivered") {
               finalOrders.push(allOrders);
             }
+            // console.log("s");
+
+            if (month === "Jan") {
+              // monthlySaleOfJan = 0;
+              monthlySaleOfJan = monthlySaleOfJan + allOrders.grandTotal;
+              console.log("mon", monthlySaleOfJan);
+              // console.log("jans", monthlySaleOfJan);
+              sales[0] = monthlySaleOfJan;
+            }
+            if (month === "Feb") {
+              // monthlySaleOfFeb = 0;
+              monthlySaleOfFeb = monthlySaleOfFeb + allOrders.grandTotal;
+              sales[1] = monthlySaleOfFeb;
+            }
+            if (month === "Mar") {
+              // monthlySaleOfMar = 0;
+              monthlySaleOfMar = monthlySaleOfMar + allOrders.grandTotal;
+              sales[2] = monthlySaleOfMar;
+            }
+            if (month === "Apr") {
+              // monthlySaleOfApr = 0;
+              monthlySaleOfApr = monthlySaleOfApr + allOrders.grandTotal;
+              sales[3] = monthlySaleOfApr;
+            }
+            if (month === "May") {
+              // monthlySaleOfMay = 0;
+              monthlySaleOfMay = monthlySaleOfMay + allOrders.grandTotal;
+              sales[4] = monthlySaleOfMay;
+            }
+            if (month === "Jun") {
+              // monthlySaleOfJune = 0;
+              monthlySaleOfJune = monthlySaleOfJune + allOrders.grandTotal;
+              sales[5] = monthlySaleOfJun;
+            }
+            if (month === "Jul") {
+              // monthlySaleOfJuly = 0;
+              monthlySaleOfJuly = monthlySaleOfJuly + allOrders.grandTotal;
+              sales[6] = monthlySaleOfJul;
+            }
+            if (month === "Aug") {
+              // monthlySaleOfAug = 0;
+              monthlySaleOfAug = monthlySaleOfAug + allOrders.grandTotal;
+              sales[7] = monthlySaleOfAug;
+            }
+            if (month === "Sep") {
+              // monthlySaleOfSep = 0;
+              monthlySaleOfSep = monthlySaleOfSep + allOrders.grandTotal;
+              sales[8] = monthlySaleOfSep;
+            }
+            if (month === "Oct") {
+              // monthlySaleOfOct = 0;
+              monthlySaleOfOct = monthlySaleOfOct + allOrders.grandTotal;
+              sales[9] = monthlySaleOfOct;
+            }
+            if (month === "Nov") {
+              // monthlySaleOfNov = 0;
+              monthlySaleOfNov = monthlySaleOfNov + allOrders.grandTotal;
+              sales[10] = monthlySaleOfNov;
+            }
+            if (month === "Dec") {
+              // monthlySaleOfDec = 0;
+              monthlySaleOfDec = monthlySaleOfDec + allOrders.grandTotal;
+              sales[11] = monthlySaleOfDec;
+            }
+          });
+        })
+        .catch((error) => {
+          if (error) {
+            return res.status(400).json({
+              message: "Error in Orders",
+            });
+          }
+        });
+
+      await Items.find({ restaurant: restaurant._id }).then((items) => {
+        if (!items) {
+          return res.status(404).json({
+            message: "Items not found",
           });
         }
-      );
+        noOfMenus = items.length;
+      });
 
       return res.status(200).json({
         message: "Got your stats",
@@ -728,6 +837,9 @@ exports.getRestaurantStats = async (req, res) => {
         totalRatings: totalRatings,
         noOfPositiveRatings: positiveRatings.length,
         noOfNegativeRatings: negativeRatings.length,
+        noOfMenus: noOfMenus,
+        commentData: allComments,
+        salesData: sales,
       });
     })
     .catch((error) => {
