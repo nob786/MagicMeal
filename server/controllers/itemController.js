@@ -812,6 +812,7 @@ exports.getRestaurantStats = async (req, res) => {
               sales[11] = monthlySaleOfDec;
             }
           });
+          console.log("Sales", sales);
         })
         .catch((error) => {
           if (error) {
