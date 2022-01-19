@@ -36,10 +36,6 @@ const commentSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  // isSubmitted: {
-  //   type: Boolean,
-  //   default: false,
-  // },
   date: {
     type: Date,
     required: true,
